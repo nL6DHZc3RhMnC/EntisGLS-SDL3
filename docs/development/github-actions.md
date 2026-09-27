@@ -24,19 +24,30 @@ Android packaging verifies the APK signature, ZIP alignment and ELF 16 KB alignm
 iOS packaging checks the IPA checksum, archive contents and ARM64 device Mach-O,
 and rejects code signatures or provisioning data. The IPA must be signed locally
 before installation; no Apple credentials are used by CI. See [iOS builds](ios-build.md).
-The same workflow also builds an iPhone Simulator app and checks the game library
-and actual GLES presentation without commercial resources. The rendering check
-creates a shared motion context and changes renderbuffer bindings, then verifies
-the displayed green/red pattern in a Simulator screenshot. Readiness markers and
-explicit termination are used because SDL UIKit does not exit when SDL_main
-returns. Logs, screenshots and the smoke report are in the iOS diagnostics
-artifact. Device gameplay still needs separate testing.
+Device gameplay still needs separate testing.
 
 Build jobs have read-only repository access. Only the final release job receives
 `contents: write`; no personal access token is needed by the workflow. Releases
 are uploaded as drafts, then published after every asset upload succeeds.
 Existing releases are never overwritten. If a version-tag run leaves a draft
 after an upload failure, review/remove that draft before rerunning it.
+
+## Manual iOS Simulator diagnostics
+
+The separate **iOS Simulator diagnostics** workflow is defined in
+[`.github/workflows/ios-simulator.yml`](../../.github/workflows/ios-simulator.yml).
+It has only a `workflow_dispatch` trigger: use **Actions → iOS Simulator
+diagnostics → Run workflow** when a Simulator check is needed. Pushes and tags do
+not start it. It does not publish a release and is not a dependency of **Build
+and release**.
+
+The manual workflow builds an ARM64 Simulator app and checks the game library
+and GLES presentation without commercial resources. The rendering check creates
+a shared motion context and changes renderbuffer bindings, then verifies the
+displayed green/red pattern in a Simulator screenshot. Readiness markers and
+explicit termination are used because SDL UIKit does not exit when SDL_main
+returns. Build logs, screenshots and the smoke report remain in Actions artifacts.
+These diagnostics do not establish physical-device gameplay compatibility.
 
 ## Caches shared across workflow runs
 
@@ -105,7 +116,7 @@ if compilation fails. CI refuses to generate a replacement temporary key.
 
 ```sh
 python3 tools/ci/ci_prepare_dependencies.py
-python3 -m unittest discover -s tools -p 'test_*.py' -v
+python3 -m unittest discover -s tests/unit/python -p 'test_*.py' -v
 python3 tools/build/build_sdl_desktop.py --arch native
 python3 tools/ci/ci_native_checks.py --build-dir build/macos-sdl3-<arch>
 ```

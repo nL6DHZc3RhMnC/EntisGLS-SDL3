@@ -74,12 +74,15 @@ Tests and fixture builders remain explicit targets and are not bundled as game
 resources. Optional diagnostics may require user-provided game data; automated
 CI launcher checks use authored, asset-free fixtures.
 
-The `Build and release` workflow is the build verification entry point for this
-refactor. It builds Android ARM64, macOS Intel/Apple Silicon and an unsigned iOS
-ARM64 IPA, runs the applicable checks (including iOS simulator library and GLES
-presentation checks), and only publishes when required jobs
-pass. Platform build success does not establish compatibility with every game
-or replace device graphics/audio testing.
+The `Build and release` workflow builds Android ARM64, macOS Intel/Apple Silicon
+and an unsigned iOS ARM64 device IPA on pushes, version tags or manual dispatch.
+It runs the required build/package checks and publishes after its jobs pass.
+Simulator builds, library startup and GLES screenshot checks belong to the
+separate `iOS Simulator diagnostics` workflow in
+`.github/workflows/ios-simulator.yml`, triggered only by manual `workflow_dispatch`.
+Its logs and screenshots stay in Actions artifacts; it neither publishes releases
+nor blocks the release workflow. Platform build success does not establish
+compatibility with every game or replace device graphics/audio testing.
 
 Tool scripts can be invoked directly from any working directory. Their shared
 bootstrap locates the repository and resolves internal Python imports. Prefer

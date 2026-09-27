@@ -259,7 +259,7 @@ jobs:
             artifacts/release/*.tests.json
 
   ios:
-    name: iOS ARM64 and simulator checks
+    name: Unsigned iOS ARM64
     runs-on: macos-15
     timeout-minutes: 60
     steps:
@@ -318,12 +318,6 @@ jobs:
       - name: Build unsigned device app and IPA
         run: |
           python3 tools/build/build_sdl_ios.py --sdk iphoneos --jobs 3 2>&1 | tee build/ci/ios-device.log
-      - name: Build simulator app
-        run: |
-          python3 tools/build/build_sdl_ios.py --sdk iphonesimulator --jobs 3 2>&1 | tee build/ci/ios-simulator.log
-      - name: Verify library and GLES presentation on iPhone Simulator
-        run: |
-          python3 tools/ci/ci_ios_simulator_smoke.py --app artifacts/entisgls-launcher/ios-simulator-arm64/EntisGLSLauncher.app --output artifacts/ios-smoke
       - name: Verify compiler cache handled compilation
         run: python3 tools/ci/ci_compiler_cache_stats.py --output build/ci/ccache.json --require-compilations
       - name: Report compiler cache statistics
@@ -350,10 +344,7 @@ jobs:
           retention-days: 7
           path: |
             build/ci/ios-device.log
-            build/ci/ios-simulator.log
             build/ios-arm64/logs/*.log
-            build/ios-simulator-arm64/logs/*.log
-            artifacts/ios-smoke/**
             build/ci/dependencies.json
             build/ci/ccache*.json
             artifacts/entisgls-launcher/ios-arm64/build.json

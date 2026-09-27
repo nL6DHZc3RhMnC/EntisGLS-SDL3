@@ -64,7 +64,7 @@ SDL 负责窗口、输入、音频、路径与同步；渲染继续使用 SDK �
 ## 构建
 
 GitHub Actions 的 `Build and release` 统一构建 Android ARM64、macOS Intel、Apple Silicon 和 iOS ARM64 未签名 IPA。
-推送 `main` 后全部构建和检查通过，会自动发布开发版 GitHub Release；
+推送 `main` 后该工作流的构建和检查通过，会自动发布开发版 GitHub Release；
 推送 `v*` 标签会发布对应版本。下载文件包含 APK、两种架构的 Mac ZIP、未签名 IPA、校验值和测试报告。
 首次运行需配置持久的 Android 签名 Secrets；配置与触发规则见
 [GitHub Actions 说明](docs/development/github-actions.md)。构建不需要提供游戏资源。
@@ -72,7 +72,9 @@ GitHub Actions 的 `Build and release` 统一构建 Android ARM64、macOS Intel�
 Actions 跨运行保留编译缓存和依赖下载缓存。编译缓存按平台、架构、Clang/Xcode/SDK 区分，
 每次仍执行依赖校验、测试与打包；命中统计随 Actions 诊断报告提供。
 
-iOS 为实验支持，设备包与其他平台一起构建和发布；当前工作流验证编译、未签名包结构，以及模拟器游戏库启动和 GLES 显示。
+iOS 为实验支持，设备包与其他平台一起自动构建和发布；发布工作流验证设备编译及未签名包结构。
+模拟器构建、游戏库启动和 GLES 截图检查移至独立的 [iOS Simulator diagnostics](.github/workflows/ios-simulator.yml)，
+仅通过 `workflow_dispatch` 手动触发，日志与截图保存在 Actions artifacts，不发布 Release，也不阻塞设备包发布。
 安装到真机前需要在本地使用自己的 Apple 账号签名。
 构建、文件导入和签名限制见 [iOS 说明](docs/development/ios-build.md)。
 

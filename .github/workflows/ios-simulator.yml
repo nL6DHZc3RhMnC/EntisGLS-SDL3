@@ -1,0 +1,117 @@
+name: iOS Simulator diagnostics
+
+# Simulator builds and runtime checks are intentionally opt-in.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-simulator-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  CCACHE_DIR: ${{ github.workspace }}/build/compiler-cache
+  CCACHE_BASEDIR: ${{ github.workspace }}
+  CCACHE_COMPILERCHECK: content
+  CCACHE_MAXSIZE: 1G
+  ENTISGLS_COMPILER_CACHE: ccache
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  simulator:
+    name: iOS Simulator ARM64
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Restore Homebrew downloads
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ~/Library/Caches/Homebrew/downloads
+          key: brew-downloads-v1-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
+          restore-keys: |
+            brew-downloads-v1-${{ runner.os }}-${{ runner.arch }}-
+      - name: Prepare host tools
+        run: |
+          brew install bison ccache
+          echo "TJS_BISON=$(brew --prefix bison)/bin/bison" >> "$GITHUB_ENV"
+          xcodebuild -version
+          xcrun --sdk iphonesimulator --show-sdk-version
+      - name: Identify compiler cache toolchain
+        id: compiler
+        run: |
+          python3 - <<'PYTOOLCHAIN'
+          import hashlib, json, os, subprocess
+          commands = [['ccache', '--version'], ['xcodebuild', '-version'], ['xcrun', '--sdk', 'iphonesimulator', 'clang', '--version'], ['xcrun', '--sdk', 'iphonesimulator', '--show-sdk-version']]
+          identity = {'image': os.environ.get('ImageVersion', ''),
+                      'toolchain': [subprocess.check_output(command, text=True).strip() for command in commands]}
+          digest = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('identity=' + digest + '\n')
+          print(json.dumps(identity, indent=2))
+          PYTOOLCHAIN
+      - name: Restore compiler cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ccache-v1-ios-simulator-arm64-${{ steps.compiler.outputs.identity }}-${{ github.sha }}-${{ github.run_attempt }}
+          restore-keys: |
+            ccache-v1-ios-simulator-arm64-${{ steps.compiler.outputs.identity }}-
+      - name: Reset compiler cache statistics
+        run: ccache --zero-stats
+      - name: Restore verified dependency downloads
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: build/downloads
+          key: downloads-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('tools/sdk/setup_sdl3.py', 'tools/sdk/setup_sdl_fonts.py', 'tools/ci/ci_prepare_dependencies.py', 'vendor/official-entis-dependencies.json') }}
+          restore-keys: |
+            downloads-v1-${{ runner.os }}-${{ runner.arch }}-
+      - name: Verify dependencies and build tools
+        run: |
+          python3 tools/ci/ci_prepare_dependencies.py
+          python3 -m unittest discover -s tests/unit/python -p 'test_*.py' -v
+      - name: Build simulator app
+        run: |
+          python3 tools/build/build_sdl_ios.py --sdk iphonesimulator --jobs 3 2>&1 | tee build/ci/ios-simulator.log
+      - name: Verify library and GLES presentation on iPhone Simulator
+        run: |
+          python3 tools/ci/ci_ios_simulator_smoke.py --app artifacts/entisgls-launcher/ios-simulator-arm64/EntisGLSLauncher.app --output artifacts/ios-smoke
+      - name: Verify compiler cache handled compilation
+        run: python3 tools/ci/ci_compiler_cache_stats.py --output build/ci/ccache.json --require-compilations
+      - name: Report compiler cache statistics
+        if: always() && steps.compiler.outcome == 'success'
+        run: python3 tools/ci/ci_compiler_cache_stats.py --output build/ci/ccache.json
+      - name: Upload simulator app
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: ios-simulator-arm64
+          if-no-files-found: ignore
+          compression-level: 0
+          retention-days: 7
+          path: |
+            artifacts/entisgls-launcher/ios-simulator-arm64/EntisGLSLauncher-simulator.zip
+            artifacts/entisgls-launcher/ios-simulator-arm64/build.json
+      - name: Upload simulator diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: diagnostics-ios-simulator-arm64
+          if-no-files-found: ignore
+          retention-days: 7
+          path: |
+            build/ci/ios-simulator.log
+            build/ios-simulator-arm64/logs/*.log
+            artifacts/ios-smoke/**
+            build/ci/dependencies.json
+            build/ci/ccache*.json

@@ -10,7 +10,8 @@ Commercial game files are never bundled by the build.
 
 **Build and release** builds the ARM64 device IPA on a macOS runner with Xcode,
 alongside Android and both macOS architectures. It runs on pushes to `main`,
-`v*` tags, and manual dispatch. There is no separate iOS workflow.
+`v*` tags, and manual dispatch. The unsigned device IPA remains part of this
+automatic build and release flow.
 
 After all builds pass, the shared release job validates the device IPA's Mach-O
 platform, absence of code signatures/provisioning, and hashes. It publishes the
@@ -18,9 +19,14 @@ unsigned IPA and build report with the Android/macOS packages and shared
 SHA-256 checksums in the same `dev-*` prerelease or version-tag release.
 No Apple account or signing secrets are configured in CI.
 
-iOS CI validation covers the device build and package, plus Simulator library
-startup and GLES presentation checked against a captured image. A successful
-release does not certify gameplay on a physical device.
+The release workflow's iOS checks cover the device build and package. Simulator
+builds and checks run separately in **iOS Simulator diagnostics**, defined in
+[`.github/workflows/ios-simulator.yml`](../../.github/workflows/ios-simulator.yml).
+That workflow has only `workflow_dispatch`: start it manually from its Actions
+page when needed. It retains the game-library startup and GLES screenshot
+checks, with logs, screenshots and the smoke report uploaded as Actions artifacts.
+It does not publish releases or block the device IPA release. A successful
+release does not imply Simulator checks ran or certify physical-device gameplay.
 
 ## Build an unsigned device IPA
 
@@ -75,7 +81,7 @@ directory with `EntisGLSLauncher-simulator.zip`. It receives a local ad-hoc
 signature required by ARM64 execution; this does not use a development identity.
 A Simulator build cannot be installed on an iPhone.
 
-The diagnostic helper used by CI creates a compatible disposable Simulator,
+The diagnostic helper used by the manual workflow creates a compatible disposable Simulator,
 captures the game library, and checks a displayed GLES color pattern:
 
 ```sh
