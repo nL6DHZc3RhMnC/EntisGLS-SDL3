@@ -4,8 +4,8 @@
 Default input: build/android-sdl3/{libmain.so,sdl3/libSDL3.so}.
 This command does not configure or compile native code. For an end-to-end build,
 run tools/build_sdl_android.py instead.
-The package ID and development key match the previous APK, so installation as an
-update retains its app-owned resources and saves. The old APK is never replaced.
+The package ID is retained for upgrades. Release builds use an external persistent
+keystore; local development defaults to the existing project-local key.
 Use --check-shell to compile Java/DEX/manifest without claiming a runnable APK.
 """
 
@@ -22,9 +22,10 @@ import xml.etree.ElementTree as ET
 import zipfile
 
 from entis_sdk import COTOPHA, LEGACY, validate as validate_sdk
+from android_toolchain import (add_toolchain_arguments, resolve_java, resolve_sdk_tools,
+                               resolve_signing, sdk_root, validate_ndk)
 
 ROOT = Path(__file__).resolve().parents[1]
-TOOLS = ROOT / ".android-tools"
 BUILD = ROOT / "build/apk-sdl3"
 SHELL = ROOT / "android/sdl"
 SDL = ROOT / "vendor/sdl3"
@@ -86,7 +87,9 @@ def main():
     parser.add_argument("--output", type=Path, default=ROOT / "artifacts/entisgls-launcher-arm64-dev.apk")
     parser.add_argument("--check-shell", action="store_true", help="Compile only Java, DEX and the manifest; do not publish a game APK")
     parser.add_argument("--without-bundled-fonts", action="store_true", help="Omit optional launcher fonts; games must provide their own fonts")
+    add_toolchain_arguments(parser)
     args = parser.parse_args()
+    signing = None if args.check_shell else resolve_signing()
     preserved = (ROOT / "artifacts/studysteady-arm64-dev.apk", ROOT / "artifacts/studysteady-sdl3-arm64-dev.apk")
     if args.output.resolve() in {path.resolve() for path in preserved}:
         raise RuntimeError("Refusing to overwrite a previous StudySteady APK; choose a launcher artifact path")
@@ -104,9 +107,8 @@ def main():
     provenance = json.loads(provenance_path.read_text())
     if provenance["version"] != "3.4.16" or provenance["commit"] != "fa2c02bb6e21974a89ea9824bc53c9932abe5f9c":
         raise RuntimeError("Review the SDL Java/native version pin before changing the dependency")
-    jdk = only_path("*/Contents/Home", TOOLS / "jdk", "project-local JDK")
-    sdk = only_path("*/aapt2", TOOLS / "build-tools", "Android build tools").parent
-    platform = only_path("*/android.jar", TOOLS / "platform", "Android platform SDK")
+    jdk = resolve_java(args.java_home)
+    sdk, platform = resolve_sdk_tools(sdk_root(args.sdk_root))
     environment = dict(os.environ, JAVA_HOME=str(jdk))
     environment["PATH"] = str(jdk / "bin") + os.pathsep + environment.get("PATH", "")
 
@@ -138,7 +140,7 @@ def main():
                 ndk_value = str(toolchain.parents[2])
         if not ndk_value:
             raise RuntimeError("Native build does not identify its Android NDK")
-        ndk = Path(ndk_value)
+        ndk = validate_ndk(ndk_value)
         prebuilt = only_path("*", ndk / "toolchains/llvm/prebuilt", "NDK host toolchain")
         readelf = prebuilt / "bin/llvm-readelf"
         main_library = args.native_build / "libmain.so"
@@ -163,6 +165,8 @@ def main():
             raise RuntimeError(f"Native dependencies are missing from the APK: {sorted(missing)}")
         if "libSDL3.so" not in native_info[0]["needed"]:
             raise RuntimeError("libmain.so must use the same shared SDL3 instance loaded by Java")
+        if any(item["min_load_alignment"] < 16384 for item in native_info):
+            raise RuntimeError("All packaged native libraries must support 16 KB page alignment")
 
     BUILD.mkdir(parents=True, exist_ok=True)
     for name in ("classes", "dex", "assets"):
@@ -238,13 +242,20 @@ def main():
         print("SDL Android Java, DEX, assets and manifest compiled. Shell check only; no game APK published.")
         return
     run([sdk / "zipalign", "-P", "16", "-f", "4", unsigned, BUILD / "aligned.apk"])
-    key = TOOLS / "development.keystore"
+    key = signing.keystore
+    if signing.create_local_key:
+        environment[signing.store_password_env] = "android"
     if not key.exists():
-        run([jdk / "bin/keytool", "-genkeypair", "-keystore", key, "-storepass", "android",
-             "-keypass", "android", "-alias", "androiddebugkey", "-dname", "CN=EntisGLS Launcher Local Development",
+        if not signing.create_local_key:
+            raise RuntimeError("The configured external signing keystore is no longer available")
+        key.parent.mkdir(parents=True, exist_ok=True)
+        run([jdk / "bin/keytool", "-genkeypair", "-keystore", key, "-storepass:env", signing.store_password_env,
+             "-keypass:env", signing.key_password_env, "-alias", signing.alias, "-dname", "CN=EntisGLS Launcher Local Development",
              "-keyalg", "RSA", "-keysize", "2048", "-validity", "3650"])
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    run([sdk / "apksigner", "sign", "--ks", key, "--ks-pass", "pass:android", "--out", args.output, BUILD / "aligned.apk"])
+    run([sdk / "apksigner", "sign", "--ks", key, "--ks-key-alias", signing.alias,
+         "--ks-pass", "env:" + signing.store_password_env,
+         "--key-pass", "env:" + signing.key_password_env, "--out", args.output, BUILD / "aligned.apk"])
     run([sdk / "apksigner", "verify", "--verbose", args.output])
     run([sdk / "zipalign", "-c", "-P", "16", "4", args.output])
     report.update({"apk": str(args.output.resolve()), "apk_sha256": digest(args.output), "apk_bytes": args.output.stat().st_size,

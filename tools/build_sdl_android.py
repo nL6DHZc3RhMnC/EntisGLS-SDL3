@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Configure, compile and package the SDL3 ARM64 Android development build.
 
-Uses the project-local NDK r27c and build-host.json CMake override. The launcher
-does not need a game directory for compilation. Previous APKs are preserved.
+Uses NDK r27c, SDK 35 and JDK 17 from explicit options, environment variables or
+project-local tools. The launcher does not need game files for compilation.
 """
 
 import argparse
@@ -15,10 +15,10 @@ import subprocess
 import sys
 
 from entis_sdk import validate as validate_sdk
+from android_toolchain import add_toolchain_arguments, resolve_ndk, resolve_signing, sdk_root
 
 ROOT = Path(__file__).resolve().parents[1]
 HOST_CONFIG = ROOT / ".android-tools/build-host.json"
-NDK = ROOT / ".android-tools/ndk/android-ndk-r27c"
 GENERATOR = "Unix Makefiles"
 
 
@@ -30,16 +30,14 @@ def main():
     parser.add_argument("--without-bundled-fonts", action="store_true", help="Package without optional launcher fonts; games must provide their own fonts")
     parser.add_argument("--no-package", action="store_true", help="Configure/compile native libraries without replacing the SDL APK")
     parser.add_argument("--dry-run", action="store_true", help="Validate local tools and print commands without building or packaging")
+    add_toolchain_arguments(parser, native=True)
     args = parser.parse_args()
     if not 1 <= args.jobs <= 8:
         parser.error("--jobs must be between 1 and 8")
     validate_sdk()
-    if not (NDK / "source.properties").is_file():
-        raise SystemExit("Install the project-local Android tools first: python3 tools/setup_android.py")
-    properties = dict(line.split("=", 1) for line in (NDK / "source.properties").read_text().splitlines() if "=" in line)
-    properties = {key.strip(): value.strip() for key, value in properties.items()}
-    if properties.get("Pkg.Revision") != "27.2.12479018":
-        raise SystemExit(f"Expected NDK r27c (27.2.12479018), found {properties.get('Pkg.Revision')}")
+    ndk = resolve_ndk(args.ndk, sdk_root(args.sdk_root))
+    if not args.no_package:
+        resolve_signing()  # Fail before compilation when CI signing secrets are absent.
     if not (ROOT / "vendor/sdl3/CMakeLists.txt").is_file():
         raise SystemExit("Prepare the pinned SDL source first: python3 tools/setup_sdl3.py")
     host = json.loads(HOST_CONFIG.read_text()) if HOST_CONFIG.is_file() else {}
@@ -60,13 +58,16 @@ def main():
         fresh = ["--fresh"]
     configure = [cmake, *fresh, "-S", ROOT, "-B", directory, "-G", GENERATOR,
         "-DCMAKE_MAKE_PROGRAM=" + make,
-        "-DCMAKE_TOOLCHAIN_FILE=" + str(NDK / "build/cmake/android.toolchain.cmake"),
+        "-DCMAKE_TOOLCHAIN_FILE=" + str(ndk / "build/cmake/android.toolchain.cmake"),
         "-DANDROID_ABI=arm64-v8a", "-DANDROID_PLATFORM=android-29", "-DANDROID_STL=c++_shared",
         "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON", "-DCMAKE_BUILD_TYPE=Release",
         "-DENTISGLS_LAUNCHER=ON", "-DSTUDYSTEADY_SDL3_SHARED=ON",
         "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON", "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,max-page-size=16384"]
     compile_command = [cmake, "--build", directory, "--target", "studysteady_sdl", "--parallel", str(args.jobs)]
     package = [sys.executable, ROOT / "tools/build_sdl_apk.py", "--native-build", directory, "--output", args.output.resolve()]
+    for option, value in (("--sdk-root", args.sdk_root), ("--java-home", args.java_home)):
+        if value:
+            package.extend([option, value.resolve()])
     if args.without_bundled_fonts:
         package.append("--without-bundled-fonts")
     stages = [("configure", configure), ("native-build", compile_command)]

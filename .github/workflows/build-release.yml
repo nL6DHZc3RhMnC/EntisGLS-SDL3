@@ -1,0 +1,172 @@
+name: Build and release
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-release-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  android:
+    name: Android ARM64
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Restore persistent Android signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+        run: |
+          python3 - <<'PY'
+          import base64, os
+          from pathlib import Path
+          for name in ('KEYSTORE_BASE64', 'KEY_ALIAS', 'STORE_PASSWORD'):
+              if not os.environ.get(name):
+                  raise SystemExit(f'Missing Android signing secret: {name}; see docs/github-actions.md')
+          key = Path(os.environ['RUNNER_TEMP']) / 'entisgls-signing.keystore'
+          with key.open('xb') as output:
+              key.chmod(0o600)
+              output.write(base64.b64decode(os.environ['KEYSTORE_BASE64'], validate=True))
+          PY
+      - name: Install host tools and pinned Android packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bison cmake make
+          sdkmanager 'platform-tools' 'platforms;android-35' 'build-tools;35.0.0' 'ndk;27.2.12479018'
+          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.2.12479018" >> "$GITHUB_ENV"
+      - name: Verify committed dependencies
+        run: python3 tools/ci_prepare_dependencies.py
+      - name: Test build tools
+        run: python3 -m unittest discover -s tools -p 'test_*.py' -v
+      - name: Build, sign and verify APK
+        env:
+          ENTISGLS_ANDROID_KEYSTORE: ${{ runner.temp }}/entisgls-signing.keystore
+          ENTISGLS_ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ENTISGLS_ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+          ENTISGLS_ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          python3 tools/build_sdl_android.py --jobs 4 --output artifacts/EntisGLSLauncher-android-arm64.apk
+      - name: Remove temporary signing key
+        if: always()
+        run: rm -f "$RUNNER_TEMP/entisgls-signing.keystore"
+      - name: Upload Android release files
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-android-arm64
+          if-no-files-found: error
+          compression-level: 0
+          path: |
+            artifacts/EntisGLSLauncher-android-arm64.apk
+            artifacts/EntisGLSLauncher-android-arm64.build.json
+      - name: Upload Android diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: diagnostics-android
+          if-no-files-found: ignore
+          retention-days: 7
+          path: |
+            build/android-sdl3/logs/*.log
+            build/ci/dependencies.json
+
+  macos:
+    name: macOS ${{ matrix.arch }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15-intel
+            arch: x86_64
+            jobs: 3
+          - runner: macos-15
+            arch: arm64
+            jobs: 2
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Install host Bison
+        run: |
+          brew install bison
+          echo "$(brew --prefix bison)/bin" >> "$GITHUB_PATH"
+          echo "TJS_BISON=$(brew --prefix bison)/bin/bison" >> "$GITHUB_ENV"
+      - name: Verify committed dependencies
+        run: python3 tools/ci_prepare_dependencies.py
+      - name: Test build tools
+        run: python3 -m unittest discover -s tools -p 'test_*.py' -v
+      - name: Build and verify app archive
+        run: python3 tools/build_sdl_desktop.py --arch '${{ matrix.arch }}' --jobs '${{ matrix.jobs }}'
+      - name: Run native tests and launcher smoke test
+        run: |
+          python3 tools/ci_native_checks.py --build-dir 'build/macos-sdl3-${{ matrix.arch }}' --jobs '${{ matrix.jobs }}' --report 'artifacts/release/EntisGLSLauncher-macos-${{ matrix.arch }}.tests.json'
+      - name: Collect release files
+        run: |
+          cp 'artifacts/entisgls-launcher/macos-${{ matrix.arch }}/EntisGLSLauncher.zip' 'artifacts/release/EntisGLSLauncher-macos-${{ matrix.arch }}.zip'
+          cp 'artifacts/entisgls-launcher/macos-${{ matrix.arch }}/build.json' 'artifacts/release/EntisGLSLauncher-macos-${{ matrix.arch }}.build.json'
+      - name: Upload macOS release files
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-macos-${{ matrix.arch }}
+          if-no-files-found: error
+          compression-level: 0
+          path: artifacts/release/*
+      - name: Upload macOS diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: diagnostics-macos-${{ matrix.arch }}
+          if-no-files-found: ignore
+          retention-days: 7
+          path: |
+            build/ci/dependencies.json
+            artifacts/release/*.tests.json
+
+  release:
+    name: Publish GitHub Release
+    needs: [android, macos]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+          sparse-checkout: tools/ci_release.py
+          sparse-checkout-cone-mode: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: release-*
+          merge-multiple: true
+          path: release-files
+      - name: Verify assets and publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 tools/ci_release.py --artifacts release-files

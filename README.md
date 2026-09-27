@@ -48,6 +48,12 @@ SDL 负责窗口、输入、音频、路径与同步；渲染继续使用 SDK �
 
 ## 构建
 
+GitHub Actions 自动构建 Android ARM64、macOS Intel 和 Apple Silicon。
+推送 `main` 后全部构建和检查通过，会自动发布开发版 GitHub Release；
+推送 `v*` 标签会发布对应版本。下载文件包含 APK、两种架构的 Mac ZIP、校验值和测试报告。
+首次运行需配置持久的 Android 签名 Secrets；配置与触发规则见
+[GitHub Actions 说明](docs/github-actions.md)。构建不需要提供游戏资源。
+
 ```sh
 python3 tools/setup_android.py
 python3 tools/setup_sdl3.py
