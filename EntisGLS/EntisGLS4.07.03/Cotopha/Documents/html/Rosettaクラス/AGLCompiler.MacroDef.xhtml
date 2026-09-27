@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>AGLCompiler.MacroDef</title>
+</head>
+<body>
+<div class="chapter">AGLCompiler.MacroDef</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+マクロ定義
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="AGLCompiler.MacroDef.xhtml">AGLCompiler.MacroDef</a>
+</div></div><br/>
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_addMacroLine">addMacroLine</a><br/>
+	<a href="#virtual_evalMacroText">evalMacroText</a><br/>
+	<a href="#virtual_getMacroLines">getMacroLines</a><br/>
+	<a href="#virtual_parseArgumentList">parseArgumentList</a><br/>
+	<a href="#virtual_parsePrototype">parsePrototype</a><br/>
+</div><br/>
+
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_addMacroLine"/>
+<div class="headline">addMacroLine</div>
+<div class="usage">public void addMacroLine( String sLine )</div>
+<div class="normal">
+マクロ定義本体を追加する
+</div>
+<br/>
+
+<a name="virtual_evalMacroText"/>
+<div class="headline">evalMacroText</div>
+<div class="usage">public const String evalMacroText( String sResult, StringParser sparsLine, HashMap mapArgValues, HashMap mapMacroVar )</div>
+<div class="normal">
+マクロ文字列を展開する
+</div>
+<br/>
+
+<a name="virtual_getMacroLines"/>
+<div class="headline">getMacroLines</div>
+<div class="usage">public const String[] getMacroLines(&#32; )</div>
+<div class="normal">
+マクロ定義本体を取得する
+</div>
+<br/>
+
+<a name="virtual_parseArgumentList"/>
+<div class="headline">parseArgumentList</div>
+<div class="usage">public const String parseArgumentList( HashMap mapArgValues, StringParser sparsArg )</div>
+<div class="normal">
+マクロ引数を解釈する
+</div>
+<br/>
+
+<a name="virtual_parsePrototype"/>
+<div class="headline">parsePrototype</div>
+<div class="usage">public String parsePrototype( StringParser sparsArg )</div>
+<div class="normal">
+引数解釈
+</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

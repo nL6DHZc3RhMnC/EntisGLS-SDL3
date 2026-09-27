@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>SpriteKeyListener</title>
+</head>
+<body>
+<div class="chapter">SpriteKeyListener</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　SpriteKeyListener は Sprite へのキー入力インターフェースです。<br/>
+　EntisGLS4 の SGLSpriteKeyListener と同等です。<br/>
+　また、SpriteKeyListener.StartComposition クラスは SGLInputStartComposition 構造体に、SpriteKeyListener.CompositionString クラスは SGLInputCompositionString 構造体に相当します。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="SpriteKeyListener.xhtml">SpriteKeyListener</a>
+</div></div><br/>
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="SpriteKeyListener.CompositionString.xhtml">SpriteKeyListener.CompositionString</a><br/>
+	<a href="SpriteKeyListener.StartComposition.xhtml">SpriteKeyListener.StartComposition</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_onChar">onChar</a><br/>
+	<a href="#virtual_onCommand">onCommand</a><br/>
+	<a href="#virtual_onCompositionString">onCompositionString</a><br/>
+	<a href="#virtual_onEndComposition">onEndComposition</a><br/>
+	<a href="#virtual_onKeyDown">onKeyDown</a><br/>
+	<a href="#virtual_onKeyUp">onKeyUp</a><br/>
+	<a href="#virtual_onStartComposition">onStartComposition</a><br/>
+</div><br/>
+
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_onChar"/>
+<div class="headline">onChar</div>
+<div class="usage">public boolean onChar( Sprite sprite, char codeChar )</div>
+<br/>
+
+<a name="virtual_onCommand"/>
+<div class="headline">onCommand</div>
+<div class="usage">public boolean onCommand( Sprite sprite, String strCmd, long nParam, long nCode, int nPriority, boolean fOverwritable )</div>
+<br/>
+
+<a name="virtual_onCompositionString"/>
+<div class="headline">onCompositionString</div>
+<div class="usage">public boolean onCompositionString( Sprite sprite, SpriteKeyListener.CompositionString icsComp )</div>
+<br/>
+
+<a name="virtual_onEndComposition"/>
+<div class="headline">onEndComposition</div>
+<div class="usage">public boolean onEndComposition( Sprite sprite )</div>
+<br/>
+
+<a name="virtual_onKeyDown"/>
+<div class="headline">onKeyDown</div>
+<div class="usage">public boolean onKeyDown( Sprite sprite, long nVirtKey, long nFlags )</div>
+<br/>
+
+<a name="virtual_onKeyUp"/>
+<div class="headline">onKeyUp</div>
+<div class="usage">public boolean onKeyUp( Sprite sprite, long nVirtKey, long nFlags )</div>
+<br/>
+
+<a name="virtual_onStartComposition"/>
+<div class="headline">onStartComposition</div>
+<div class="usage">public boolean onStartComposition( Sprite sprite, SpriteKeyListener.StartComposition iscForm )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

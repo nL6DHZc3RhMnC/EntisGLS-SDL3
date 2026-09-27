@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<agl_usage_definition>
+	<import file="std_graphics_cmd.xml"/>
+	<macro file="std_graphics_cmd_ex.txt"/>
+	<command lead="@begin_trans" cmd="screen_clone" arg_type="var_named">
+		<arg_list>
+			<arg name="time" default="500"/>
+			<arg name="filter" default="transparency"/>
+		</arg_list>
+		<proto_list>
+			<prototype cmd="screen_clone">
+				<arg name="screen" value="0"/>
+				<arg name="src_screen" value="0"/>
+				<arg name="priority" value="1"/>
+			</prototype>
+			<prototype cmd="screen_swap">
+				<arg name="screen" value="0"/>
+				<arg name="src_screen" value="1"/>
+			</prototype>
+			<prototype cmd="screen_select">
+				<arg name="screen" value="1" />
+			</prototype>
+			<prototype cmd="layer_add_filter" vararg="1">
+				<arg name="layer" value="."/>
+				<arg name="filter"/>
+				<arg name="time" value=""/>
+			</prototype>
+			<prototype cmd="layer_pre_move">
+				<arg name="layer" value="."/>
+			</prototype>
+			<prototype cmd="layer_add_move">
+				<arg name="layer" value="."/>
+				<arg name="time"/>
+				<arg name="fp" value="256"/>
+				<arg name="fp2" value="256"/>
+			</prototype>
+			<prototype cmd="screen_select">
+				<arg name="screen" value="0" />
+			</prototype>
+		</proto_list>
+	</command>
+	<command lead="@end_trans" cmd="layer_add_filter" arg_type="array">
+		<arg_list>
+		</arg_list>
+		<proto_list>
+			<prototype cmd="screen_select">
+				<arg name="screen" value="1" />
+			</prototype>
+			<prototype cmd="layer_start_move">
+				<arg name="layer" value="."/>
+			</prototype>
+			<prototype cmd="layer_wait_move">
+				<arg name="layer" value="."/>
+			</prototype>
+			<prototype cmd="screen_select">
+				<arg name="screen" value="0" />
+			</prototype>
+			<prototype cmd="screen_delete">
+				<arg name="screen" value="1" />
+			</prototype>
+		</proto_list>
+	</command>
+	<command lead="@movie" cmd="layer_create" arg_type="var_named">
+		<arg_list>
+			<arg name="file"/>
+			<arg name="x" default="0"/>
+			<arg name="y" default="0"/>
+			<arg name="sx" default="1"/>
+			<arg name="sy" default="1"/>
+		</arg_list>
+		<proto_list>
+			<prototype cmd="screen_init">
+				<arg name="screen" value="2" />
+				<arg name="priority" value="99" />
+				<arg name="style" value="movie_screen" />
+				<arg name="layer_type" value="layer_set" />
+			</prototype>
+			<prototype cmd="screen_select">
+				<arg name="screen" value="2"/>
+			</prototype>
+			<prototype cmd="layer_create" vararg="1">
+				<arg name="layer" value="."/>
+				<arg name="id" value="movie"/>
+				<arg name="class" value="movie"/>
+				<arg name="style" value="movie_layer"/>
+				<arg name="x"/>
+				<arg name="y"/>
+				<arg name="sx"/>
+				<arg name="sy"/>
+				<arg name="file"/>
+			</prototype>
+			<prototype cmd="layer_operate">
+				<arg name="layer" value="movie"/>
+				<arg name="operate" value="movie_play"/>
+			</prototype>
+			<prototype cmd="layer_operate">
+				<arg name="layer" value="movie"/>
+				<arg name="operate" value="movie_wait"/>
+			</prototype>
+			<prototype cmd="screen_select">
+				<arg name="screen" value="0" />
+			</prototype>
+			<prototype cmd="screen_delete">
+				<arg name="screen" value="2" />
+			</prototype>
+		</proto_list>
+	</command>
+</agl_usage_definition>

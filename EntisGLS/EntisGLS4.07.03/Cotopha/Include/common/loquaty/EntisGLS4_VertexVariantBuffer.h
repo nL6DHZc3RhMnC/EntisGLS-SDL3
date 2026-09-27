@@ -1,0 +1,12 @@
+﻿
+
+DECL_LOQUATY_FUNC(EntisGLS4_VertexVariantBuffer_setBoneMatrix);
+DECL_LOQUATY_FUNC(EntisGLS4_VertexVariantBuffer_getBoneMatrix);
+DECL_LOQUATY_FUNC(EntisGLS4_VertexVariantBuffer_setMorphingApplication);
+DECL_LOQUATY_FUNC(EntisGLS4_VertexVariantBuffer_getMorphingApplication);
+DECL_LOQUATY_FUNC(EntisGLS4_VertexVariantBuffer_enableToRenderMesh);
+DECL_LOQUATY_FUNC(EntisGLS4_VertexVariantBuffer_isEnabledToRenderMesh);
+DECL_LOQUATY_FUNC(EntisGLS4_VertexVariantBuffer_setMaterialToRenderMesh);
+DECL_LOQUATY_FUNC(EntisGLS4_VertexVariantBuffer_getMaterialToRenderMesh);
+
+

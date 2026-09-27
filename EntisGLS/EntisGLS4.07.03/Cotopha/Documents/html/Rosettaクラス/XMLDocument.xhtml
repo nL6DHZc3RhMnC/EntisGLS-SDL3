@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>XMLDocument</title>
+</head>
+<body>
+<div class="chapter">XMLDocument</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　XML ドキュメントを読み込み、保存、データの取得、変更、追加機能を提供します。
+<br/>
+（import xml_document.rs）
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="XMLDocument.xhtml">XMLDocument</a>
+</div></div><br/>
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="XMLDocument.DocumentType.xhtml">XMLDocument.DocumentType</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_m_strSpecCharDecChar">m_strSpecCharDecChar</a><br/>
+	<a href="#static_m_strSpecCharEncText">m_strSpecCharEncText</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Functions</div>
+<div class="indent2">
+	<a href="#static_decodeXMLText">decodeXMLText</a><br/>
+	<a href="#static_encodeXMLText">encodeXMLText</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_XMLDocument">XMLDocument</a><br/>
+	<a href="#virtual_addElement">addElement</a><br/>
+	<a href="#virtual_addTextElement">addTextElement</a><br/>
+	<a href="#virtual_copyAllContentsFrom">copyAllContentsFrom</a><br/>
+	<a href="#virtual_createContentsElement">createContentsElement</a><br/>
+	<a href="#virtual_createElementAs">createElementAs</a><br/>
+	<a href="#virtual_createElementTagAs">createElementTagAs</a><br/>
+	<a href="#virtual_findElement">findElement</a><br/>
+	<a href="#virtual_findElementTag">findElementTag</a><br/>
+	<a href="#virtual_formatDocument">formatDocument</a><br/>
+	<a href="#virtual_formatDocumentToString">formatDocumentToString</a><br/>
+	<a href="#virtual_formatXMLElements">formatXMLElements</a><br/>
+	<a href="#virtual_getAttrComplexIntegerAs">getAttrComplexIntegerAs</a><br/>
+	<a href="#virtual_getAttrHexIntegerAs">getAttrHexIntegerAs</a><br/>
+	<a href="#virtual_getAttrIntegerAs">getAttrIntegerAs</a><br/>
+	<a href="#virtual_getAttrRealAs">getAttrRealAs</a><br/>
+	<a href="#virtual_getAttrStringAs">getAttrStringAs</a><br/>
+	<a href="#virtual_getAttrSymbolizedIntegerAs">getAttrSymbolizedIntegerAs</a><br/>
+	<a href="#virtual_getAttributeAs">getAttributeAs</a><br/>
+	<a href="#virtual_getAttributeCount">getAttributeCount</a><br/>
+	<a href="#virtual_getAttributeNameAt">getAttributeNameAt</a><br/>
+	<a href="#virtual_getAttributeValueAt">getAttributeValueAt</a><br/>
+	<a href="#virtual_getAttributes">getAttributes</a><br/>
+	<a href="#virtual_getContentsAsHexInteger">getContentsAsHexInteger</a><br/>
+	<a href="#virtual_getContentsAsInteger">getContentsAsInteger</a><br/>
+	<a href="#virtual_getContentsAsReal">getContentsAsReal</a><br/>
+	<a href="#virtual_getContentsAsString">getContentsAsString</a><br/>
+	<a href="#virtual_getContentsElement">getContentsElement</a><br/>
+	<a href="#virtual_getContentsValue">getContentsValue</a><br/>
+	<a href="#virtual_getElementAs">getElementAs</a><br/>
+	<a href="#virtual_getElementAt">getElementAt</a><br/>
+	<a href="#virtual_getElementTagAs">getElementTagAs</a><br/>
+	<a href="#virtual_getElementsArray">getElementsArray</a><br/>
+	<a href="#virtual_getElementsCount">getElementsCount</a><br/>
+	<a href="#virtual_getTag">getTag</a><br/>
+	<a href="#virtual_getText">getText</a><br/>
+	<a href="#virtual_getTextElement">getTextElement</a><br/>
+	<a href="#virtual_getType">getType</a><br/>
+	<a href="#virtual_insertElementAt">insertElementAt</a><br/>
+	<a href="#virtual_isEmpty">isEmpty</a><br/>
+	<a href="#virtual_loadDocument">loadDocument</a><br/>
+	<a href="#virtual_parseDocTypeSection">parseDocTypeSection</a><br/>
+	<a href="#virtual_parseDocument">parseDocument</a><br/>
+	<a href="#virtual_parseTagAttributeValue">parseTagAttributeValue</a><br/>
+	<a href="#virtual_parseTagAttributes">parseTagAttributes</a><br/>
+	<a href="#virtual_parseXMLElements">parseXMLElements</a><br/>
+	<a href="#virtual_readDocument">readDocument</a><br/>
+	<a href="#virtual_removeAllAttributes">removeAllAttributes</a><br/>
+	<a href="#virtual_removeAllContents">removeAllContents</a><br/>
+	<a href="#virtual_removeAllElements">removeAllElements</a><br/>
+	<a href="#virtual_saveDocument">saveDocument</a><br/>
+	<a href="#virtual_setAttrComplexIntegerAs">setAttrComplexIntegerAs</a><br/>
+	<a href="#virtual_setAttrHexIntegerAs">setAttrHexIntegerAs</a><br/>
+	<a href="#virtual_setAttrIntegerAs">setAttrIntegerAs</a><br/>
+	<a href="#virtual_setAttrRealAs">setAttrRealAs</a><br/>
+	<a href="#virtual_setAttrSymbolizedIntegerAs">setAttrSymbolizedIntegerAs</a><br/>
+	<a href="#virtual_setAttributeAs">setAttributeAs</a><br/>
+	<a href="#virtual_setTag">setTag</a><br/>
+	<a href="#virtual_setText">setText</a><br/>
+	<a href="#virtual_writeDocument">writeDocument</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_m_strSpecCharDecChar"/>
+<div class="headline">m_strSpecCharDecChar</div>
+<div class="usage">public static const String m_strSpecCharDecChar = &quot;&lt;&gt;\&quot;&amp;&nbsp;&quot;</div>
+<br/>
+
+<a name="static_m_strSpecCharEncText"/>
+<div class="headline">m_strSpecCharEncText</div>
+<div class="usage">public static const String[] m_strSpecCharEncText = new String[]</div>
+<br/>
+
+<div class="chapter">Static Functions</div>
+
+<a name="static_decodeXMLText"/>
+<div class="headline">decodeXMLText</div>
+<div class="usage">public static String decodeXMLText( String strText, HashMap mapDTD )</div>
+<div class="normal">
+文字列コンテンツのデコード
+</div>
+<br/>
+
+<a name="static_encodeXMLText"/>
+<div class="headline">encodeXMLText</div>
+<div class="usage">public static String encodeXMLText( String strSrc, int nIndent = -1 )</div>
+<div class="normal">
+文字列コンテンツのエンコーディング
+</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_XMLDocument"/>
+<div class="headline">XMLDocument</div>
+<div class="usage">public void XMLDocument(&#32; )</div>
+<div class="normal">
+構築関数
+</div>
+<br/>
+
+<div class="headline">XMLDocument</div>
+<div class="usage">public void XMLDocument( XMLDocument xmlSrc )</div>
+<br/>
+
+<a name="virtual_addElement"/>
+<div class="headline">addElement</div>
+<div class="usage">public void addElement( XMLDocument xmlDoc )</div>
+<div class="normal">
+サブコンテンツ追加
+</div>
+<br/>
+
+<a name="virtual_addTextElement"/>
+<div class="headline">addTextElement</div>
+<div class="usage">public void addTextElement( String sText, int type = 2 )</div>
+<br/>
+
+<a name="virtual_copyAllContentsFrom"/>
+<div class="headline">copyAllContentsFrom</div>
+<div class="usage">public void copyAllContentsFrom( XMLDocument xmlSrc )</div>
+<div class="normal">
+複製
+</div>
+<br/>
+
+<a name="virtual_createContentsElement"/>
+<div class="headline">createContentsElement</div>
+<div class="usage">public XMLDocument createContentsElement( String strPath )</div>
+<br/>
+
+<a name="virtual_createElementAs"/>
+<div class="headline">createElementAs</div>
+<div class="usage">public XMLDocument createElementAs( int typeDoc, String strTag = &quot;&quot;, int iFirst = 0 )</div>
+<div class="normal">
+サブタグ生成
+</div>
+<br/>
+
+<a name="virtual_createElementTagAs"/>
+<div class="headline">createElementTagAs</div>
+<div class="usage">public XMLDocument createElementTagAs( String strTag, int iFirst = 0 )</div>
+<br/>
+
+<a name="virtual_findElement"/>
+<div class="headline">findElement</div>
+<div class="usage">public const int findElement( int typeDoc, String strTag = &quot;&quot;, int iFirst = 0 )</div>
+<div class="normal">
+要素検索
+</div>
+<br/>
+
+<a name="virtual_findElementTag"/>
+<div class="headline">findElementTag</div>
+<div class="usage">public const int findElementTag( String strTag, int iFirst = 0 )</div>
+<br/>
+
+<a name="virtual_formatDocument"/>
+<div class="headline">formatDocument</div>
+<div class="usage">public const boolean formatDocument( OutputStream file, int nIndent = -1, int encoding = 1 )</div>
+<div class="normal">
+XMLデータ書き出し（1つのタグ／文字列）
+</div>
+<br/>
+
+<a name="virtual_formatDocumentToString"/>
+<div class="headline">formatDocumentToString</div>
+<div class="usage">public const String formatDocumentToString( int nIndent = 0 )</div>
+<br/>
+
+<a name="virtual_formatXMLElements"/>
+<div class="headline">formatXMLElements</div>
+<div class="usage">public const boolean formatXMLElements( OutputStream file, int nIndent, int encoding )</div>
+<div class="normal">
+XMLデータ書き出し（要素配列）
+</div>
+<br/>
+
+<a name="virtual_getAttrComplexIntegerAs"/>
+<div class="headline">getAttrComplexIntegerAs</div>
+<div class="usage">public const long getAttrComplexIntegerAs( String strAttrName, HashMap mapPairs, long nDefValue = 0, String strSeparators = &quot;,|&quot; )</div>
+<br/>
+
+<a name="virtual_getAttrHexIntegerAs"/>
+<div class="headline">getAttrHexIntegerAs</div>
+<div class="usage">public const long getAttrHexIntegerAs( String strAttrName, long nDefValue = 0 )</div>
+<br/>
+
+<a name="virtual_getAttrIntegerAs"/>
+<div class="headline">getAttrIntegerAs</div>
+<div class="usage">public const long getAttrIntegerAs( String strAttrName, long nDefValue = 0 )</div>
+<br/>
+
+<a name="virtual_getAttrRealAs"/>
+<div class="headline">getAttrRealAs</div>
+<div class="usage">public const double getAttrRealAs( String strAttrName, double nDefValue = 0. )</div>
+<br/>
+
+<a name="virtual_getAttrStringAs"/>
+<div class="headline">getAttrStringAs</div>
+<div class="usage">public const String getAttrStringAs( String strAttrName, String strDefValue = &quot;&quot; )</div>
+<br/>
+
+<a name="virtual_getAttrSymbolizedIntegerAs"/>
+<div class="headline">getAttrSymbolizedIntegerAs</div>
+<div class="usage">public const long getAttrSymbolizedIntegerAs( String strAttrName, HashMap mapPairs, long nDefValue = 0 )</div>
+<br/>
+
+<a name="virtual_getAttributeAs"/>
+<div class="headline">getAttributeAs</div>
+<div class="usage">public const String getAttributeAs( String strAttrName )</div>
+<div class="normal">
+属性値取得
+</div>
+<br/>
+
+<a name="virtual_getAttributeCount"/>
+<div class="headline">getAttributeCount</div>
+<div class="usage">public const int getAttributeCount(&#32; )</div>
+<div class="normal">
+属性総数取得
+</div>
+<br/>
+
+<a name="virtual_getAttributeNameAt"/>
+<div class="headline">getAttributeNameAt</div>
+<div class="usage">public const String getAttributeNameAt( int index )</div>
+<div class="normal">
+属性名取得
+</div>
+<br/>
+
+<a name="virtual_getAttributeValueAt"/>
+<div class="headline">getAttributeValueAt</div>
+<div class="usage">public const String getAttributeValueAt( int index )</div>
+<div class="normal">
+属性値取得
+</div>
+<br/>
+
+<a name="virtual_getAttributes"/>
+<div class="headline">getAttributes</div>
+<div class="usage">public const HashMap getAttributes(&#32; )</div>
+<div class="normal">
+属性配列取得
+</div>
+<br/>
+
+<a name="virtual_getContentsAsHexInteger"/>
+<div class="headline">getContentsAsHexInteger</div>
+<div class="usage">public const long getContentsAsHexInteger( String strPath, long nDefValue = 0 )</div>
+<br/>
+
+<a name="virtual_getContentsAsInteger"/>
+<div class="headline">getContentsAsInteger</div>
+<div class="usage">public const long getContentsAsInteger( String strPath, long nDefValue = 0 )</div>
+<br/>
+
+<a name="virtual_getContentsAsReal"/>
+<div class="headline">getContentsAsReal</div>
+<div class="usage">public const double getContentsAsReal( String strPath, double nDefValue = 0. )</div>
+<br/>
+
+<a name="virtual_getContentsAsString"/>
+<div class="headline">getContentsAsString</div>
+<div class="usage">public const String getContentsAsString( String strPath, String strDefValue = &quot;&quot; )</div>
+<br/>
+
+<a name="virtual_getContentsElement"/>
+<div class="headline">getContentsElement</div>
+<div class="usage">public const XMLDocument getContentsElement( String strPath )</div>
+<div class="normal">
+コンテンツ値（属性 or 要素）取得
+</div>
+<br/>
+
+<a name="virtual_getContentsValue"/>
+<div class="headline">getContentsValue</div>
+<div class="usage">public const String getContentsValue( String strPath )</div>
+<br/>
+
+<a name="virtual_getElementAs"/>
+<div class="headline">getElementAs</div>
+<div class="usage">public const XMLDocument getElementAs( int typeDoc, String strTag = &quot;&quot;, int iFirst = 0 )</div>
+<div class="normal">
+サブタグ取得
+</div>
+<br/>
+
+<a name="virtual_getElementAt"/>
+<div class="headline">getElementAt</div>
+<div class="usage">public const XMLDocument getElementAt( int index )</div>
+<div class="normal">
+サブコンテンツ取得
+</div>
+<br/>
+
+<a name="virtual_getElementTagAs"/>
+<div class="headline">getElementTagAs</div>
+<div class="usage">public const XMLDocument getElementTagAs( String strTag = &quot;&quot;, int iFirst = 0 )</div>
+<br/>
+
+<a name="virtual_getElementsArray"/>
+<div class="headline">getElementsArray</div>
+<div class="usage">public XMLDocument[] getElementsArray(&#32; )</div>
+<div class="normal">
+サブコンテンツ配列取得
+</div>
+<br/>
+
+<a name="virtual_getElementsCount"/>
+<div class="headline">getElementsCount</div>
+<div class="usage">public const int getElementsCount(&#32; )</div>
+<div class="normal">
+サブコンテンツ数取得
+</div>
+<br/>
+
+<a name="virtual_getTag"/>
+<div class="headline">getTag</div>
+<div class="usage">public const String getTag(&#32; )</div>
+<div class="normal">
+タグ取得
+</div>
+<br/>
+
+<a name="virtual_getText"/>
+<div class="headline">getText</div>
+<div class="usage">public const String getText(&#32; )</div>
+<div class="normal">
+テキスト取得
+</div>
+<br/>
+
+<a name="virtual_getTextElement"/>
+<div class="headline">getTextElement</div>
+<div class="usage">public const String getTextElement(&#32; )</div>
+<br/>
+
+<a name="virtual_getType"/>
+<div class="headline">getType</div>
+<div class="usage">public const int getType(&#32; )</div>
+<div class="normal">
+データ種類取得
+</div>
+<br/>
+
+<a name="virtual_insertElementAt"/>
+<div class="headline">insertElementAt</div>
+<div class="usage">public void insertElementAt( int iElementBefore, XMLDocument xmlDoc )</div>
+<br/>
+
+<a name="virtual_isEmpty"/>
+<div class="headline">isEmpty</div>
+<div class="usage">public const boolean isEmpty(&#32; )</div>
+<div class="normal">
+空のデータか？
+</div>
+<br/>
+
+<a name="virtual_loadDocument"/>
+<div class="headline">loadDocument</div>
+<div class="usage">public boolean loadDocument( String path, ParserErrorInterface perr )</div>
+<div class="normal">
+XML データ読み込み
+</div>
+<br/>
+
+<a name="virtual_parseDocTypeSection"/>
+<div class="headline">parseDocTypeSection</div>
+<div class="usage">public int parseDocTypeSection( StringParser sparsDoc, HashMap mapDTD, ParserErrorInterface perr )</div>
+<div class="normal">
+&lt;! ... &gt; を解釈（主に読み飛ばす）
+</div>
+<br/>
+
+<a name="virtual_parseDocument"/>
+<div class="headline">parseDocument</div>
+<div class="usage">public int parseDocument( StringParser sparsDoc, HashMap mapDTD, ParserErrorInterface perr )</div>
+<div class="normal">
+XML データ解釈
+</div>
+<br/>
+
+<a name="virtual_parseTagAttributeValue"/>
+<div class="headline">parseTagAttributeValue</div>
+<div class="usage">public String parseTagAttributeValue( StringParser sparsDoc, HashMap mapDTD, ParserErrorInterface perr )</div>
+<div class="normal">
+属性値を解釈
+</div>
+<br/>
+
+<a name="virtual_parseTagAttributes"/>
+<div class="headline">parseTagAttributes</div>
+<div class="usage">public int parseTagAttributes( StringParser sparsDoc, HashMap mapDTD, ParserErrorInterface perr )</div>
+<div class="normal">
+タグ属性を解釈（&gt; 又は /&gt; まで sparsDoc の指標を移動）
+</div>
+<br/>
+
+<a name="virtual_parseXMLElements"/>
+<div class="headline">parseXMLElements</div>
+<div class="usage">public int parseXMLElements( StringParser sparsDoc, HashMap mapDTD, ParserErrorInterface perr )</div>
+<div class="normal">
+XML データ解釈（配列要素の解釈）
+</div>
+<br/>
+
+<a name="virtual_readDocument"/>
+<div class="headline">readDocument</div>
+<div class="usage">public boolean readDocument( InputStream file, ParserErrorInterface perr )</div>
+<br/>
+
+<a name="virtual_removeAllAttributes"/>
+<div class="headline">removeAllAttributes</div>
+<div class="usage">public void removeAllAttributes(&#32; )</div>
+<br/>
+
+<a name="virtual_removeAllContents"/>
+<div class="headline">removeAllContents</div>
+<div class="usage">public void removeAllContents(&#32; )</div>
+<div class="normal">
+すべての内容を消去
+</div>
+<br/>
+
+<a name="virtual_removeAllElements"/>
+<div class="headline">removeAllElements</div>
+<div class="usage">public void removeAllElements(&#32; )</div>
+<br/>
+
+<a name="virtual_saveDocument"/>
+<div class="headline">saveDocument</div>
+<div class="usage">public const boolean saveDocument( String strFilePath, int nIndent = 0, int encoding = 1 )</div>
+<div class="normal">
+XMLデータ書き出し
+</div>
+<br/>
+
+<a name="virtual_setAttrComplexIntegerAs"/>
+<div class="headline">setAttrComplexIntegerAs</div>
+<div class="usage">public boolean setAttrComplexIntegerAs( String strAttrName, HashMap mapPairs, long nValue, String strSeparators = &quot; &quot; )</div>
+<br/>
+
+<a name="virtual_setAttrHexIntegerAs"/>
+<div class="headline">setAttrHexIntegerAs</div>
+<div class="usage">public void setAttrHexIntegerAs( String strAttrName, long nValue )</div>
+<br/>
+
+<a name="virtual_setAttrIntegerAs"/>
+<div class="headline">setAttrIntegerAs</div>
+<div class="usage">public void setAttrIntegerAs( String strAttrName, long nValue )</div>
+<br/>
+
+<a name="virtual_setAttrRealAs"/>
+<div class="headline">setAttrRealAs</div>
+<div class="usage">public void setAttrRealAs( String strAttrName, double nValue )</div>
+<br/>
+
+<a name="virtual_setAttrSymbolizedIntegerAs"/>
+<div class="headline">setAttrSymbolizedIntegerAs</div>
+<div class="usage">public void setAttrSymbolizedIntegerAs( String strAttrName, HashMap mapPairs, long nValue )</div>
+<br/>
+
+<a name="virtual_setAttributeAs"/>
+<div class="headline">setAttributeAs</div>
+<div class="usage">public void setAttributeAs( String strAttrName, String strValue )</div>
+<div class="normal">
+属性値設定
+</div>
+<br/>
+
+<a name="virtual_setTag"/>
+<div class="headline">setTag</div>
+<div class="usage">public void setTag( String strTag )</div>
+<div class="normal">
+タグ設定
+</div>
+<br/>
+
+<a name="virtual_setText"/>
+<div class="headline">setText</div>
+<div class="usage">public void setText( String strText, int type = 2 )</div>
+<div class="normal">
+テキスト設定
+</div>
+<br/>
+
+<a name="virtual_writeDocument"/>
+<div class="headline">writeDocument</div>
+<div class="usage">public const boolean writeDocument( OutputStream file, int nIndent = 0, int encoding = 1 )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

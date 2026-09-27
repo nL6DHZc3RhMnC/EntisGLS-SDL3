@@ -1,0 +1,1503 @@
+{
+  "files": {
+    "vendor/kirikiroid2/tjs2/CMakeLists.txt": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/CMakeLists.txt",
+      "sha256": "a36ee887e11e8f3e0b8d0adf3ab31aa784eacd7e7c6fc743b08910609d7bbef3"
+    },
+    "vendor/kirikiroid2/tjs2/bison/tjs.y": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/bison/tjs.y",
+      "sha256": "e1641f6021a61e978ce3b0fb27a551f0f8bad5c9eb025c6dec02f22ebe27b952"
+    },
+    "vendor/kirikiroid2/tjs2/bison/tjsdate.y": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/bison/tjsdate.y",
+      "sha256": "8f91238ecbd12bbb800eb68a97a498333f109d4df94ce984903eb6e37e7bc6b0"
+    },
+    "vendor/kirikiroid2/tjs2/bison/tjspp.y": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/bison/tjspp.y",
+      "sha256": "97eb67b0b9e0c026b569f87bbe99cfdb1e638090f6e937daeba8f6d39d42fcee"
+    },
+    "vendor/kirikiroid2/tjs2/script/create_world_map.py": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/script/create_world_map.py",
+      "sha256": "5ca1a50f38e39219f75110c73e4907568a6e5f301d04bd33f6b1992d6f22aff7"
+    },
+    "vendor/kirikiroid2/tjs2/script/dp_word_table.txt": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/script/dp_word_table.txt",
+      "sha256": "c8ba7f21e4616db4fe375e92ebfda65e1af7f3d815740d39d84493c93971e007"
+    },
+    "vendor/kirikiroid2/tjs2/tjs.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjs.cpp",
+      "sha256": "4a1ab298a48997dcda6a38cdd31672942da7e133018db0cd4bf8eb6d5f0a45ba"
+    },
+    "vendor/kirikiroid2/tjs2/tjs.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjs.h",
+      "sha256": "d5c68d7798b312ddc90603c19366b7fa3afb8bde739b02981ccc906d82d65883"
+    },
+    "vendor/kirikiroid2/tjs2/tjsArray.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsArray.cpp",
+      "sha256": "513e3d94e4089ac6e45dbfe32ca9d0d35b1d8077c79f2d1d0b69b1f40a321023"
+    },
+    "vendor/kirikiroid2/tjs2/tjsArray.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsArray.h",
+      "sha256": "5673e7e3d696f2064c8826431d0ee3b02d9f1bd111e3a52bbfe61ef2f94957bb"
+    },
+    "vendor/kirikiroid2/tjs2/tjsBinarySerializer.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsBinarySerializer.cpp",
+      "sha256": "5e52b991e4347d9c8459d5affa4c4f3904a88b12d01fa93f60465b940c43cc9f"
+    },
+    "vendor/kirikiroid2/tjs2/tjsBinarySerializer.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsBinarySerializer.h",
+      "sha256": "893b9d7faf73f60ea0c07e89f89bd698e40f1ceaa13b4c30328c80bde199095f"
+    },
+    "vendor/kirikiroid2/tjs2/tjsByteCodeLoader.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsByteCodeLoader.cpp",
+      "sha256": "dbf342e2530dda967af6e45225ca30c4bcfb3127ed513504d6f9d627f3711fe3"
+    },
+    "vendor/kirikiroid2/tjs2/tjsByteCodeLoader.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsByteCodeLoader.h",
+      "sha256": "504db12082f69fea456a5117ecccd379e2e0b7faa26f6e981c3337df5a24cec8"
+    },
+    "vendor/kirikiroid2/tjs2/tjsCommHead.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsCommHead.h",
+      "sha256": "c1a8ec249078cc7a3331857f39948a62fe25ab559731f9532fb9d5c9e9c50495"
+    },
+    "vendor/kirikiroid2/tjs2/tjsCompileControl.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsCompileControl.cpp",
+      "sha256": "cece3cc09c50a5d3d5d127413ecb72c055069af301e2c54b5352eebc3ab6d529"
+    },
+    "vendor/kirikiroid2/tjs2/tjsCompileControl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsCompileControl.h",
+      "sha256": "ecb4ab7f542c63e97cf35dd619196266765ae60f2dc7397c624bed8f061454d3"
+    },
+    "vendor/kirikiroid2/tjs2/tjsConfig.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsConfig.cpp",
+      "sha256": "efcce5f25532e0c21546742d607f728cd4c82c482b45174ea732675661163b31"
+    },
+    "vendor/kirikiroid2/tjs2/tjsConfig.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsConfig.h",
+      "sha256": "3a889f0067a2ea132e66d5727a6378b362cc3b01eeee8e98d6c52a1b57faf7d8"
+    },
+    "vendor/kirikiroid2/tjs2/tjsConstArrayData.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsConstArrayData.cpp",
+      "sha256": "2129a889a69565a3000fb800b06971235f714835af8f5dc552291e4b9ec1836d"
+    },
+    "vendor/kirikiroid2/tjs2/tjsConstArrayData.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsConstArrayData.h",
+      "sha256": "c55f0af606b8f3c12213545f2434494dd41d7035c5799ecbb5ba57f26a05bbe3"
+    },
+    "vendor/kirikiroid2/tjs2/tjsDate.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsDate.cpp",
+      "sha256": "c9cf318a0998dbf148b51c3687422391f8e784f4230260125cc493d0f6431b70"
+    },
+    "vendor/kirikiroid2/tjs2/tjsDate.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsDate.h",
+      "sha256": "4c4cf796a34b747d0ed45ae32dcf702c29344458b0baf3577dee0c0f46cb8bde"
+    },
+    "vendor/kirikiroid2/tjs2/tjsDateParser.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsDateParser.cpp",
+      "sha256": "636dd5114e68f48714cc6ffec7dfc7968b200c2d39646bc7756f89323244a6ad"
+    },
+    "vendor/kirikiroid2/tjs2/tjsDateParser.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsDateParser.h",
+      "sha256": "c3c336e4dc87e75666406f9dab247d5d21d301907d19c3d46555575490a74aa5"
+    },
+    "vendor/kirikiroid2/tjs2/tjsDebug.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsDebug.cpp",
+      "sha256": "98d087cf21a62dfc9554cbfa05ba7f133dd6ccff19eea9fe321b2eab957b26a7"
+    },
+    "vendor/kirikiroid2/tjs2/tjsDebug.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsDebug.h",
+      "sha256": "c092f904853ee2e15b6ef439863063f41f59e8c5944418b1c55cc48d52f32038"
+    },
+    "vendor/kirikiroid2/tjs2/tjsDictionary.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsDictionary.cpp",
+      "sha256": "695c4b95446dcb8d404b1f7b2e8abd13acbe5ae6228d0b1a31d37d023a19e4e0"
+    },
+    "vendor/kirikiroid2/tjs2/tjsDictionary.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsDictionary.h",
+      "sha256": "1d19eb07374dbdaae0ee681896b6dfa6a3ea90f8a84696caecb18d495fec5954"
+    },
+    "vendor/kirikiroid2/tjs2/tjsDisassemble.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsDisassemble.cpp",
+      "sha256": "86834bc6867b32c10a7b48eacd6303bd7548a8584dafc20a51d0af1715efd117"
+    },
+    "vendor/kirikiroid2/tjs2/tjsError.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsError.cpp",
+      "sha256": "e3b5a691cd8b4b53558d2cb8286545a6ec284eb5b71cd1450db5812bc01d0c84"
+    },
+    "vendor/kirikiroid2/tjs2/tjsError.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsError.h",
+      "sha256": "3fe9d5e36dd6d3edc2974985d1dd07f550ad03561208dc6df2b88c0db15e3c65"
+    },
+    "vendor/kirikiroid2/tjs2/tjsErrorDefs.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsErrorDefs.h",
+      "sha256": "4ab448360f4d58ec928a7143bdc47c91701ddec578fce05c6555d6a1f0d4a83d"
+    },
+    "vendor/kirikiroid2/tjs2/tjsException.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsException.cpp",
+      "sha256": "98b4363f22832f4e8df066ed91e79bd4825cc6b9e31f11caec0fc503e483eac0"
+    },
+    "vendor/kirikiroid2/tjs2/tjsException.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsException.h",
+      "sha256": "e9e58c13b89c24adba1cf4e049fcedccc8500cf3b3926f340a9883042c0e1e99"
+    },
+    "vendor/kirikiroid2/tjs2/tjsGlobalStringMap.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsGlobalStringMap.cpp",
+      "sha256": "45c244607c8a583aff45c35b139ee57c3a983c044aff2eb1da87202adfa5888c"
+    },
+    "vendor/kirikiroid2/tjs2/tjsGlobalStringMap.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsGlobalStringMap.h",
+      "sha256": "f1dc043748864ade4123671302dc2a443110fb8f7da883b9eaf72beee73bf490"
+    },
+    "vendor/kirikiroid2/tjs2/tjsHashSearch.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsHashSearch.h",
+      "sha256": "40a5427e7754112ebf996ceecd0054c0171d52ee41b27b20d20a3c83bbe7f577"
+    },
+    "vendor/kirikiroid2/tjs2/tjsInterCodeExec.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsInterCodeExec.cpp",
+      "sha256": "b4149df5235dd4d33975e2a1c6136f53bcc24095681d009ad24b953500099d1d"
+    },
+    "vendor/kirikiroid2/tjs2/tjsInterCodeExec.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsInterCodeExec.h",
+      "sha256": "7df5258889b255238f6a21f0a46de320dcb3149dcc622283e44eb0d8dd2d5e7b"
+    },
+    "vendor/kirikiroid2/tjs2/tjsInterCodeGen.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsInterCodeGen.cpp",
+      "sha256": "d1dd193c9d4ba0849005eb35b2fc8d1c3af2414e10ce1d58316ee2be2eae7057"
+    },
+    "vendor/kirikiroid2/tjs2/tjsInterCodeGen.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsInterCodeGen.h",
+      "sha256": "043da3949cb6fce4428d2fc116a51c8b09ea294bbe40b7f4cb64c8f6dbf143a0"
+    },
+    "vendor/kirikiroid2/tjs2/tjsInterface.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsInterface.cpp",
+      "sha256": "13bf8ed89e98dddc6a46528f876e9d8287eadf2bb7574a763a860b08c765fc7e"
+    },
+    "vendor/kirikiroid2/tjs2/tjsInterface.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsInterface.h",
+      "sha256": "df24af43e9490a8f9da977c8dc95e010fd1e678acca2c950b2066dbbef5c8957"
+    },
+    "vendor/kirikiroid2/tjs2/tjsLex.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsLex.cpp",
+      "sha256": "fad3810f29428e6614495aa67932b4e4e49757602496ee1e615bc46c598e6d04"
+    },
+    "vendor/kirikiroid2/tjs2/tjsLex.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsLex.h",
+      "sha256": "4ca6cfe945381e60f7e4bfba7284f3ea0dbafb24359d265b0081aa71bfa6b1e7"
+    },
+    "vendor/kirikiroid2/tjs2/tjsMT19937ar-cok.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsMT19937ar-cok.cpp",
+      "sha256": "f13963e588350fce9ae6f7dcad2db89a500201d1f0eb4344ad2f0b434d91f451"
+    },
+    "vendor/kirikiroid2/tjs2/tjsMT19937ar-cok.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsMT19937ar-cok.h",
+      "sha256": "8fbc1fe34d4445154f718acdaec81d688eb12b95ed5ddf885bb9f7ac150e024c"
+    },
+    "vendor/kirikiroid2/tjs2/tjsMath.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsMath.cpp",
+      "sha256": "07c1c624509b951af0833441d75592828e91293e71bdc5f6d6f818f82ccf618a"
+    },
+    "vendor/kirikiroid2/tjs2/tjsMath.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsMath.h",
+      "sha256": "7eefae081a47ddeb5c336e38ff577f95fff56142cc5767c8ccf2dc5758511790"
+    },
+    "vendor/kirikiroid2/tjs2/tjsMessage.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsMessage.cpp",
+      "sha256": "58d2bc9b0888790da9fba0eb821077288e1a6c7cac8b6b1e3ce0f4cd85c31493"
+    },
+    "vendor/kirikiroid2/tjs2/tjsMessage.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsMessage.h",
+      "sha256": "c2ae49c53894cfb252fa88dbcceb2f02daee8d6b420beabd9f6723418b9ea760"
+    },
+    "vendor/kirikiroid2/tjs2/tjsNamespace.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsNamespace.cpp",
+      "sha256": "dfad247a596d69b5ee4cec5ccfc3fb46e14ed8660b65c9115a94694eb956cc26"
+    },
+    "vendor/kirikiroid2/tjs2/tjsNamespace.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsNamespace.h",
+      "sha256": "68786a16316a03db7e263f292c51a46bc39c5fa01c812bf243f9498d9608a7c3"
+    },
+    "vendor/kirikiroid2/tjs2/tjsNative.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsNative.cpp",
+      "sha256": "10c71fd50533a77337a87ffdbf946dab8af38c94eb851436561d367a5d35e25e"
+    },
+    "vendor/kirikiroid2/tjs2/tjsNative.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsNative.h",
+      "sha256": "d0c2f5ac7a033b7629c9614f13861fb0688d8565df4a36c77cbf1812a7432d3b"
+    },
+    "vendor/kirikiroid2/tjs2/tjsObject.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsObject.cpp",
+      "sha256": "f956bf0c92a9c55174c4f6a33d42e20c076726bb0bde67e4423ec5b9e2f8f401"
+    },
+    "vendor/kirikiroid2/tjs2/tjsObject.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsObject.h",
+      "sha256": "702d650ae5e02ad5871c5925b52fde190beac4fe21c72034a26994935f385daa"
+    },
+    "vendor/kirikiroid2/tjs2/tjsObjectExtendable.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsObjectExtendable.cpp",
+      "sha256": "b593ba247bed8efd1d70f1c78dfa3e885d0954a3b672ea363eed9cf5f691da27"
+    },
+    "vendor/kirikiroid2/tjs2/tjsObjectExtendable.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsObjectExtendable.h",
+      "sha256": "6968b3faf8d451b40ed78172ef93a9c02e7abb91c8e4fd78f138c147cae07b20"
+    },
+    "vendor/kirikiroid2/tjs2/tjsOctPack.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsOctPack.cpp",
+      "sha256": "1b763f8356243d92a1d10c63c5d5846a076e42b7af9fb66a4ff10ea92779d27e"
+    },
+    "vendor/kirikiroid2/tjs2/tjsOctPack.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsOctPack.h",
+      "sha256": "326438ae850103a955ca52b082a89e4bbfe214ee6f2918349a0ffcdcbcd61c97"
+    },
+    "vendor/kirikiroid2/tjs2/tjsRandomGenerator.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsRandomGenerator.cpp",
+      "sha256": "11aaeda02ed593c6bf0d352d8f405e5026b1d5334d45384f32c98d19da931459"
+    },
+    "vendor/kirikiroid2/tjs2/tjsRandomGenerator.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsRandomGenerator.h",
+      "sha256": "7c3099b3548ca745357905ec76acf9da71ecae604987897a520041f45e6a0b7e"
+    },
+    "vendor/kirikiroid2/tjs2/tjsRegExp.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsRegExp.cpp",
+      "sha256": "efa82e7a7e7df71aaf3a50c865c5a4a7105d491c41b639dd10c5f794bd4ba013"
+    },
+    "vendor/kirikiroid2/tjs2/tjsRegExp.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsRegExp.h",
+      "sha256": "68070e2a0025e5c87f8ce989cc5391bbf933515ea431fc7364d1b40f6b51efbd"
+    },
+    "vendor/kirikiroid2/tjs2/tjsScriptBlock.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsScriptBlock.cpp",
+      "sha256": "0be4c814262f21d64d021997ca246aeb9d68f2ac606c699dd72678ae7f164dbe"
+    },
+    "vendor/kirikiroid2/tjs2/tjsScriptBlock.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsScriptBlock.h",
+      "sha256": "6ecfa3bdd8b75402db4b3847426309e8b9b5310c37f72e877ed557c0a45f8a11"
+    },
+    "vendor/kirikiroid2/tjs2/tjsScriptCache.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsScriptCache.cpp",
+      "sha256": "919239e8a338fbcfff44cc4432d94607b8c8833c4093985a2142533600b8748f"
+    },
+    "vendor/kirikiroid2/tjs2/tjsScriptCache.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsScriptCache.h",
+      "sha256": "f56c786a571c8ec29360bb041d468bcc944edba517cba31f8eff619b70ec51ea"
+    },
+    "vendor/kirikiroid2/tjs2/tjsString.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsString.cpp",
+      "sha256": "86293d83ca851946660befb95a879b5c7af9a377ae08e0994dca0f6351462538"
+    },
+    "vendor/kirikiroid2/tjs2/tjsString.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsString.h",
+      "sha256": "5b367d6c3a23b93347a9c9a2f40c1701082c0d511f3f0baae1d852caac19446a"
+    },
+    "vendor/kirikiroid2/tjs2/tjsTypes.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsTypes.h",
+      "sha256": "6986606e78bbebd22e427ee8be916b7e7a53f5f73bee51f1460cdf81d5eba972"
+    },
+    "vendor/kirikiroid2/tjs2/tjsUtils.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsUtils.cpp",
+      "sha256": "286f542c8af795738fb06b18f4065b59710b1fc16a4c0ffa17ba253e948f9cd7"
+    },
+    "vendor/kirikiroid2/tjs2/tjsUtils.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsUtils.h",
+      "sha256": "c5964e13920cb69fab5507001f8f4548f7278fd671f8ef64c63f62c0518b006d"
+    },
+    "vendor/kirikiroid2/tjs2/tjsVariant.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsVariant.cpp",
+      "sha256": "7b7c60cdd8a824569d8a54e6f1056ed6150d41d754b73095fa5b72136ca40964"
+    },
+    "vendor/kirikiroid2/tjs2/tjsVariant.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsVariant.h",
+      "sha256": "f6b453a19a084c192bc7eaa1ab43ba73bba899b893f1cd45a9ab7641af821be0"
+    },
+    "vendor/kirikiroid2/tjs2/tjsVariantString.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsVariantString.cpp",
+      "sha256": "c0fc004292c97d55f2888a3c24fd4beab78cc27e3c13585e14a4de6040ad704b"
+    },
+    "vendor/kirikiroid2/tjs2/tjsVariantString.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/tjs2/tjsVariantString.h",
+      "sha256": "eabe02d21e923fbdabdedcb4876bcf69d9b6d62a4cb191f1b32c3afd4dd1ef77"
+    },
+    "vendor/kirikiroid2/ncbind/ncbind.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/plugin/ncbind.cpp",
+      "sha256": "8c4fdb5e6b55b331131a0fbcd84d7394ef1f144299d0a77c14da03f811539eb2"
+    },
+    "vendor/kirikiroid2/ncbind/ncbind.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/plugin/ncbind.hpp",
+      "sha256": "8cf2ae119ef9a245311ee7020e4f05d72c2e53975b306b2286c1098286ed8811"
+    },
+    "vendor/kirikiroid2/ncbind/ncb_invoke.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/plugin/ncb_invoke.hpp",
+      "sha256": "9a00fcb56a73b04fcb890c34385f31530018b86a6970c95d3e4400ddd2617ae8"
+    },
+    "vendor/kirikiroid2/tjs_support/LogoTrace.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/common/LogoTrace.h",
+      "sha256": "9bfc17bd60e811b12038a613bef4d0bd5451213738a187c394c19f4860a6f7cb"
+    },
+    "vendor/kirikiroid2/tjs2/LICENSE": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/LICENSE",
+      "sha256": "31887f008d3666961adb51572add59709c12eb56d39066fed62b5267d380042d"
+    },
+    "vendor/kirikiroid2/ncbind/LICENSE": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/LICENSE",
+      "sha256": "31887f008d3666961adb51572add59709c12eb56d39066fed62b5267d380042d"
+    },
+    "vendor/motion-deps/include/fmt/args.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/fmt/args.h",
+      "sha256": "cd2a4230a2b95db60f00673743769fe7372f0f708713520cab787173b5055187"
+    },
+    "vendor/motion-deps/include/fmt/base.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/fmt/base.h",
+      "sha256": "13c8d953fb2d98dc955289dd166999bd22dbabfeba7f486b3693c2c6d9d627db"
+    },
+    "vendor/motion-deps/include/fmt/chrono.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/fmt/chrono.h",
+      "sha256": "aa4f1189f00ca287a9e5585cc3b6b57dfa8f1a000efafa881432f46eafbddaed"
+    },
+    "vendor/motion-deps/include/fmt/color.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/fmt/color.h",
+      "sha256": "fbc34d42af762cd4e45ef2c93d050802d956d406c5c9e4c92ea9b0749fd02d8a"
+    },
+    "vendor/motion-deps/include/fmt/compile.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/fmt/compile.h",
+      "sha256": "10d648fbfbce99481eece2aaa4f9ec8ce8ab25fef0841442296b7149c386487a"
+    },
+    "vendor/motion-deps/include/fmt/core.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/fmt/core.h",
+      "sha256": "b2b6692145b11c7c2774db106078c97575a47d18e80c7783c68566475325ebb4"
+    },
+    "vendor/motion-deps/include/fmt/format-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/fmt/format-inl.h",
+      "sha256": "7ac4d4907568ac99c28461881595053d2e4045ee81c89d0bddb779c718ee736c"
+    },
+    "vendor/motion-deps/include/fmt/format.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/fmt/format.h",
+      "sha256": "e6cc531dd4b0de9579a28f1b462cad4cf1dfaf299b8a0388ff0dd3e3b83b22e4"
+    },
+    "vendor/motion-deps/include/fmt/os.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/fmt/os.h",
+      "sha256": "031ecf02e65aaf1be16de4af179e1b3d11540f88a0989667d5f4138fe93e5938"
+    },
+    "vendor/motion-deps/include/fmt/ostream.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/fmt/ostream.h",
+      "sha256": "c49f07be57b7fb2abc89e34284574740c24c2de6d6df0b08aff1a0b8f537c090"
+    },
+    "vendor/motion-deps/include/fmt/printf.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/fmt/printf.h",
+      "sha256": "7a6ffac354daa137db9a4ed14dd817b7f7b5b6e5ecf46daf27431f41e7b2e5ef"
+    },
+    "vendor/motion-deps/include/fmt/ranges.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/fmt/ranges.h",
+      "sha256": "0960928778290c8125be3bcf92542ef68b31545b6b79a3c1930cd09eb5b34473"
+    },
+    "vendor/motion-deps/include/fmt/std.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/fmt/std.h",
+      "sha256": "a20cdb81353109416ea43a33096006d3232159e895e90b6411b691d29f6347c0"
+    },
+    "vendor/motion-deps/include/fmt/xchar.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/fmt/xchar.h",
+      "sha256": "d4aad2213ca59d6dac301570dbde00e0f0daa088bf8669070b0283de93f7b251"
+    },
+    "vendor/motion-deps/licenses/fmt.txt": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/share/fmt/copyright",
+      "sha256": "07580f2a3b35709ce703d523f447b242f6dfec7582a8c0df102c7fa2849375f8"
+    },
+    "vendor/motion-deps/include/spdlog/async.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/async.h",
+      "sha256": "3ddaaba57d2f757d6cb09568fe1823949e45426d73f6baeb4ca8d8a2fe78121b"
+    },
+    "vendor/motion-deps/include/spdlog/async_logger-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/async_logger-inl.h",
+      "sha256": "72bd9d919a549911f3aa3620472ce55e70935ac5e5aeba21a0bc40887825cf5f"
+    },
+    "vendor/motion-deps/include/spdlog/async_logger.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/async_logger.h",
+      "sha256": "6bb8528c33020e62b380ec1e3054491daecc6e13972d3f9b34b64ccbfd40cb53"
+    },
+    "vendor/motion-deps/include/spdlog/cfg/argv.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/cfg/argv.h",
+      "sha256": "6f9aa40647fda08e2ad776598a7b5de1d1596ec9a73512c90c69504f6e347a2d"
+    },
+    "vendor/motion-deps/include/spdlog/cfg/env.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/cfg/env.h",
+      "sha256": "d2afd153fe8a1b2826feb60ec62ea42811d1ca085471fda238d002fedf5bb1bc"
+    },
+    "vendor/motion-deps/include/spdlog/cfg/helpers-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/cfg/helpers-inl.h",
+      "sha256": "46b9768f4521a81e6423825bc131d4056ff1845e63502a4a866e0daac555899e"
+    },
+    "vendor/motion-deps/include/spdlog/cfg/helpers.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/cfg/helpers.h",
+      "sha256": "359b4175a464ae487c2e48c55be9abfcfe9f10599b99410d5d55df6ade7d588e"
+    },
+    "vendor/motion-deps/include/spdlog/common-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/common-inl.h",
+      "sha256": "c8c7db736c3fb61ccd84b1f5d5f9c748a1e3dbfe77a986bb820fcfe20da32751"
+    },
+    "vendor/motion-deps/include/spdlog/common.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/common.h",
+      "sha256": "62bdfbe7c9d66836590f89fb116baaf87513c20e028e0f62dbaa714791d29e26"
+    },
+    "vendor/motion-deps/include/spdlog/details/backtracer-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/backtracer-inl.h",
+      "sha256": "30891d3c75154cf278ac30dbce584bfa28dae17c0f93418c363483c7e9dc9431"
+    },
+    "vendor/motion-deps/include/spdlog/details/backtracer.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/backtracer.h",
+      "sha256": "e0d6f5f72d5936f0fddf681b590e87ee880a2ea40ed44551b8fdf59e0868a1e5"
+    },
+    "vendor/motion-deps/include/spdlog/details/circular_q.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/circular_q.h",
+      "sha256": "0bc4025c81425023f4d58711d6aa6231a55ee606bb1fc88f4fb3e655e807e265"
+    },
+    "vendor/motion-deps/include/spdlog/details/console_globals.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/console_globals.h",
+      "sha256": "3dced73dc2bc5eacc678eec34af6458f910740c8949fd1bc8449808d1345467a"
+    },
+    "vendor/motion-deps/include/spdlog/details/file_helper-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/file_helper-inl.h",
+      "sha256": "80d9f430891e0c28207679e7040516d4519692ad5417175381c7fe22784ad0c5"
+    },
+    "vendor/motion-deps/include/spdlog/details/file_helper.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/file_helper.h",
+      "sha256": "b09a9a6543cc5703d0cdb054e15373a1d6619138f5e076a453f5830a1e2258ed"
+    },
+    "vendor/motion-deps/include/spdlog/details/fmt_helper.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/fmt_helper.h",
+      "sha256": "d66b3ec0617a439ca7a4fd661046d5be54beed89c6fae2849d4d46c3f28ef8a9"
+    },
+    "vendor/motion-deps/include/spdlog/details/log_msg-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/log_msg-inl.h",
+      "sha256": "83e6c837a4f3094671d6745a835c718c5c0b922288be371a19429093ab856272"
+    },
+    "vendor/motion-deps/include/spdlog/details/log_msg.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/log_msg.h",
+      "sha256": "13a78b8cc0a8b71fd6a49633792f98453aeb8844d525d10bc55b22089a120281"
+    },
+    "vendor/motion-deps/include/spdlog/details/log_msg_buffer-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/log_msg_buffer-inl.h",
+      "sha256": "c4ca45a0401b17de9f57ea65462b44ea159d152d83bdd086ff675ef9e035456f"
+    },
+    "vendor/motion-deps/include/spdlog/details/log_msg_buffer.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/log_msg_buffer.h",
+      "sha256": "0d4b89aa2d47490f3d89d04fbba49cab751e696657f2857899f432a5919b9d26"
+    },
+    "vendor/motion-deps/include/spdlog/details/mpmc_blocking_q.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/mpmc_blocking_q.h",
+      "sha256": "f7949498a5d68c17a86abbccafd996ac98844e0d2a5287c0023c1e0b20a22ba4"
+    },
+    "vendor/motion-deps/include/spdlog/details/null_mutex.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/null_mutex.h",
+      "sha256": "1377fde4b54417dca1b3d162d0f18c35f9418e1db91a333949952f1c877127b1"
+    },
+    "vendor/motion-deps/include/spdlog/details/os-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/os-inl.h",
+      "sha256": "1b9afac4f0fd1996448b8831af058bb812f33c4969894f87c9f31b8a9b0ff27f"
+    },
+    "vendor/motion-deps/include/spdlog/details/os.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/os.h",
+      "sha256": "e563c3726d234e89d6944c55f84e521205a8460f795820778c2a9b9be17f755c"
+    },
+    "vendor/motion-deps/include/spdlog/details/periodic_worker-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/periodic_worker-inl.h",
+      "sha256": "298c84f55ac417e43974d044f5055364b4aa59fec9d2c8d24a001b73f79ae113"
+    },
+    "vendor/motion-deps/include/spdlog/details/periodic_worker.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/periodic_worker.h",
+      "sha256": "5e514551070364a20f35b076b83820a7e577b3b23f66aa254d8bd9ea0b8c7b17"
+    },
+    "vendor/motion-deps/include/spdlog/details/registry-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/registry-inl.h",
+      "sha256": "006ff6ed2150e3c1e575bbc935016d4d623fd730bdf347a94d9d144aac29c867"
+    },
+    "vendor/motion-deps/include/spdlog/details/registry.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/registry.h",
+      "sha256": "dd323eb0c7bf08c15899db8db4210255051462246351e1c1214e5b126f66c95b"
+    },
+    "vendor/motion-deps/include/spdlog/details/synchronous_factory.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/synchronous_factory.h",
+      "sha256": "3fcfcc28aa4edc2998e9e00d218362600605b89e0c58ebf2c7267950412e1cdc"
+    },
+    "vendor/motion-deps/include/spdlog/details/tcp_client-windows.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/tcp_client-windows.h",
+      "sha256": "c434fe70e201e1a8666b516f10c6fc9fbc0c194916623bf12eeb313f6bee16c8"
+    },
+    "vendor/motion-deps/include/spdlog/details/tcp_client.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/tcp_client.h",
+      "sha256": "931f7aa6acc1a3a9c5929380e7fcd3ec9d170e99da4a179844eb87d1f83b501c"
+    },
+    "vendor/motion-deps/include/spdlog/details/thread_pool-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/thread_pool-inl.h",
+      "sha256": "0f8a05bd78dde92fec86da73957dc3d42bb29218b564b103eb599ed9f1a342d5"
+    },
+    "vendor/motion-deps/include/spdlog/details/thread_pool.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/thread_pool.h",
+      "sha256": "5e64567eb7a3b3b6624fce2aa05c7e7fb885c778618f5bc982d4d3683a53055f"
+    },
+    "vendor/motion-deps/include/spdlog/details/udp_client-windows.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/udp_client-windows.h",
+      "sha256": "4b3589ef5cd882bd322c9ecb10587ec7c1dc8ba497a12c874e12472a8ccfcf1f"
+    },
+    "vendor/motion-deps/include/spdlog/details/udp_client.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/udp_client.h",
+      "sha256": "c418b615351912eea40e041fd3e88b89a4520adf12ebf43fb1af105a4d7bbd79"
+    },
+    "vendor/motion-deps/include/spdlog/details/windows_include.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/details/windows_include.h",
+      "sha256": "aaedb3b90bd662563d82887fedaf338167c951254f45f9ebfef27adade2bd186"
+    },
+    "vendor/motion-deps/include/spdlog/fmt/bin_to_hex.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/fmt/bin_to_hex.h",
+      "sha256": "0017988d8c8bfec7658bb9d9d03c540db6e9a5a07d06bc9981f7d50622aad682"
+    },
+    "vendor/motion-deps/include/spdlog/fmt/chrono.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/fmt/chrono.h",
+      "sha256": "c423556694f9fba3cf43c2043dafe7b0a2c261341cbc2a78c456a44d6b5d4f38"
+    },
+    "vendor/motion-deps/include/spdlog/fmt/compile.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/fmt/compile.h",
+      "sha256": "70a226919802f35566bc75535153007434ecef55b064840059149ca0d29c4d0f"
+    },
+    "vendor/motion-deps/include/spdlog/fmt/fmt.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/fmt/fmt.h",
+      "sha256": "5c287cb28728ae2ee9429484a9dd0273a870f96a610c171182d27dd9471e8f97"
+    },
+    "vendor/motion-deps/include/spdlog/fmt/ostr.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/fmt/ostr.h",
+      "sha256": "64bcc67495d2d66a6feec40d1c14aebd86d99b8b064c32f034abe1b674aab5a4"
+    },
+    "vendor/motion-deps/include/spdlog/fmt/ranges.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/fmt/ranges.h",
+      "sha256": "a1a416fc4f5e6096df0bf89390f79f6251c97a4b034a195dedb4d28c496fbba6"
+    },
+    "vendor/motion-deps/include/spdlog/fmt/std.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/fmt/std.h",
+      "sha256": "801a8f4d3246b3488f51972213d72052b54ec7e4e67e9dd100060feec7e8c28b"
+    },
+    "vendor/motion-deps/include/spdlog/fmt/xchar.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/fmt/xchar.h",
+      "sha256": "f29873210b20733d85c59cd43e18563f9b48aec6bd453b4d53c2dd5ee558438d"
+    },
+    "vendor/motion-deps/include/spdlog/formatter.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/formatter.h",
+      "sha256": "213631628274dc6c26fcc9a3bed36a3a9a83edea5e6b9f027baea58ca9c5eff3"
+    },
+    "vendor/motion-deps/include/spdlog/fwd.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/fwd.h",
+      "sha256": "246d2754fb77dcdcb7ed4be2328944659fd154599ee09df865db5cdb33cbe349"
+    },
+    "vendor/motion-deps/include/spdlog/logger-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/logger-inl.h",
+      "sha256": "2b6d6c11dce4bd4cceb4e724c6ffe6a508f3ae9cff8b44438ae92438c3c35470"
+    },
+    "vendor/motion-deps/include/spdlog/logger.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/logger.h",
+      "sha256": "b298ef3f9daea67f946781a6b73eec267b889191d06392b38bc602298f86e8a0"
+    },
+    "vendor/motion-deps/include/spdlog/mdc.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/mdc.h",
+      "sha256": "86776b3367bd72e26a630e58d820b6f065e3b337668822139fcc173646ad43c0"
+    },
+    "vendor/motion-deps/include/spdlog/pattern_formatter-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/pattern_formatter-inl.h",
+      "sha256": "1752698ce34d6d8dfc6b57d8c6181e3eb285d967ec495d341f7c8a09fa8dc2b6"
+    },
+    "vendor/motion-deps/include/spdlog/pattern_formatter.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/pattern_formatter.h",
+      "sha256": "33c08b3918f7182df15d6f1bab3f9f93fc271c178c2cb2baba69a30e0ad6ea23"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/android_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/android_sink.h",
+      "sha256": "73031cdd8669c9f687fd9122bcb1da5dd741e9008b01f873ee392b27c9db565d"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/ansicolor_sink-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/ansicolor_sink-inl.h",
+      "sha256": "a39143102c10fa8ca2c6dfdc9ee881df8306c805045d702b806041569e5b94b1"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/ansicolor_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/ansicolor_sink.h",
+      "sha256": "2062424fed0f02d2b74b3f1ccb54eb807f7212cc5acc0b2b3d2a7fa19f718a47"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/base_sink-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/base_sink-inl.h",
+      "sha256": "b42fc2851ad76919aecea27cabb9487b6c6acd1522fe94751a138da55862d4f3"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/base_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/base_sink.h",
+      "sha256": "a46ed7cb900eb1c257f81122e3d4567e43b8b2f9ae72973b8f41b110763940c9"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/basic_file_sink-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/basic_file_sink-inl.h",
+      "sha256": "6b95b4bbff5b849372b95b1934e276f643b6db70244716d6f26c4d1aa3968ca7"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/basic_file_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/basic_file_sink.h",
+      "sha256": "39e2e1832c76afd5a23a9e3788bb010438489b560f6267246804df54c4455029"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/callback_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/callback_sink.h",
+      "sha256": "568eed97d5c29f942d811afe8614ceae6c110b74ffa4535123a5bd9db31f263f"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/daily_file_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/daily_file_sink.h",
+      "sha256": "ee32cbdd80b9fe51abe04ae290d199c46cec2ecbf35e7a2e796daf712b8520d2"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/dist_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/dist_sink.h",
+      "sha256": "fa6b8b53368b3cc9490046f1a207c3852835f0a00f6f677005c9e52799e86247"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/dup_filter_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/dup_filter_sink.h",
+      "sha256": "aded06d32de86861be0b07a7c1561cd1a9f1df80cdbc0eb15c4f9735c26cc309"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/hourly_file_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/hourly_file_sink.h",
+      "sha256": "aa31439c3c3072e9b77acc2800005b586f6b6cdc2d790e0783050b8627a79411"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/kafka_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/kafka_sink.h",
+      "sha256": "9bb10a5ea347f2400baadf0d794d5045169fae77388132bc0cf3dcf30ec00c08"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/mongo_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/mongo_sink.h",
+      "sha256": "df9a5c34bef34a9a55f4bec51f98c3f0527fdc61bc8ee247a9b4f4149e8ff0f0"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/msvc_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/msvc_sink.h",
+      "sha256": "3ccbad63ba8adc199fb06f4a8a424e48c8ca06f1cdf4c402d9c849dd354eb89a"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/null_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/null_sink.h",
+      "sha256": "75d92f19d80ba59e15c8607e4c98a86a14e238e5ca9b5afd6150dcf9e86d10d6"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/ostream_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/ostream_sink.h",
+      "sha256": "8a444e2537b82d6fe4a87c1162d4eb53f94ceb01acbc8d646828f2b24f869085"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/qt_sinks.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/qt_sinks.h",
+      "sha256": "04193b21cff77cd78d484dd1f79c1720abda08b10bf87af8737a05956d486143"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/ringbuffer_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/ringbuffer_sink.h",
+      "sha256": "47446677a2d1239dea0248fbecf77be8c74b7f1b0c7d0b3d11d8aafde9eac412"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/rotating_file_sink-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/rotating_file_sink-inl.h",
+      "sha256": "517ec64698c119e837c7cc2a4bbb41ef862d5f7b7fac51e481eb507659e0d606"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/rotating_file_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/rotating_file_sink.h",
+      "sha256": "064a1e50e6d718989698d43f543fb174c03b3fbe8be3dc6b6868c45f92167189"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/sink-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/sink-inl.h",
+      "sha256": "e3efbe6fc7b15fccc046b740b061f0ab5867f8bd7d6cf30ed2180a3cdb04aefb"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/sink.h",
+      "sha256": "7fa4a5c69c42f9eee9d6cd5cc4d525be4beb77299cc88b09b4a01f155f3cc215"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/stdout_color_sinks-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/stdout_color_sinks-inl.h",
+      "sha256": "187e6472676773eb592cc4dfa9441c3aea64333be395dfc6f2741549e1da9141"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/stdout_color_sinks.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/stdout_color_sinks.h",
+      "sha256": "ba7831fa21239e6b52cda2b8d18c457ff1ee5e2afd730988e0b95b874939e21c"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/stdout_sinks-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/stdout_sinks-inl.h",
+      "sha256": "a043a07efc89c1381e4fd6d77ae38ae7cd11d0d96445dbc6fd310e31f05f7709"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/stdout_sinks.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/stdout_sinks.h",
+      "sha256": "eae56abfb446f3d17025e20a56861cf27cfe49139069f265715679b603ca709e"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/syslog_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/syslog_sink.h",
+      "sha256": "92dddbd22c8e62597eaef1d886093df50dbab19763a4d758b394227c68d55596"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/systemd_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/systemd_sink.h",
+      "sha256": "3c9afc1eae8f317d341c05af01c9ccba687219ff36c536dfdf37fdaeade650f8"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/tcp_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/tcp_sink.h",
+      "sha256": "5ee85948885be7001f50356c8c4415b83007e3ea24c124fd772a2d7e9125e40b"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/udp_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/udp_sink.h",
+      "sha256": "cb5628c8daad4588e5bd3ba5ea0e6cb595cd1a5211deda1ec507f343c7b431f6"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/win_eventlog_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/win_eventlog_sink.h",
+      "sha256": "4783a96f7b89b19d48c14eea3f82f3ffd659e8faf34a4446659cd0c2d822e39c"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/wincolor_sink-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/wincolor_sink-inl.h",
+      "sha256": "8d9dac4bb1a163d6eb0913ff48ab7f59db54fbb60b7668a0a997530dded57139"
+    },
+    "vendor/motion-deps/include/spdlog/sinks/wincolor_sink.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/sinks/wincolor_sink.h",
+      "sha256": "cbbdabbc9f7613b6c092ef1d3f279f65f0faa7a896f0a4ebb00350f477b7a72e"
+    },
+    "vendor/motion-deps/include/spdlog/spdlog-inl.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/spdlog-inl.h",
+      "sha256": "036ab0ed3ec1226973bc9cf52801ec269fc95f63dcf8a074093dbf582a74ae94"
+    },
+    "vendor/motion-deps/include/spdlog/spdlog.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/spdlog.h",
+      "sha256": "ced45d7625328739a33563d372bc897f7ec0b040a315e3bba8403aac97edf90d"
+    },
+    "vendor/motion-deps/include/spdlog/stopwatch.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/stopwatch.h",
+      "sha256": "60f3aaed933185261ae603cc589cd39ebf93ef78321548871d469fb566903c44"
+    },
+    "vendor/motion-deps/include/spdlog/tweakme.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/tweakme.h",
+      "sha256": "268ea5a9bb93fb0d09a47ce1e467b6d97fff7fa4979b8c43ce7df7a338a505e0"
+    },
+    "vendor/motion-deps/include/spdlog/version.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/spdlog/version.h",
+      "sha256": "91bcafad8231d69cecbd05e9d2a8f0d3cc39a4ad463703fcf001b686a2fc52ac"
+    },
+    "vendor/motion-deps/licenses/spdlog.txt": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/share/spdlog/copyright",
+      "sha256": "4ccecab18d1ff0b61174fe3d6c430541625d3ddb865b0d5887db296f883c76e7"
+    },
+    "vendor/motion-deps/oniguruma/src/Makefile.am": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/Makefile.am",
+      "sha256": "c4c74bf437a3c4545336fa5d902e14a333cc47cc7e2c4a6e698051a53a1ad912"
+    },
+    "vendor/motion-deps/oniguruma/src/Makefile.windows": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/Makefile.windows",
+      "sha256": "4ff62142bb30fd679f22d033284e4d3dda95bf2c6b0d9f7206de0920dd79a4fe"
+    },
+    "vendor/motion-deps/oniguruma/src/ascii.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/ascii.c",
+      "sha256": "f734cc6e17a9c423d15db4509beba03c13d67dc6baf93f43184068a65082ace8"
+    },
+    "vendor/motion-deps/oniguruma/src/big5.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/big5.c",
+      "sha256": "a1c9632424195311fa77ac84256d6a6520f5467a00df1deeb3346f0d2644149f"
+    },
+    "vendor/motion-deps/oniguruma/src/config.h.cmake.in": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/config.h.cmake.in",
+      "sha256": "4142a637803d2e9c66cb8e00aca2e39791407df1009edd51f237ee31ce05b070"
+    },
+    "vendor/motion-deps/oniguruma/src/config.h.win32": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/config.h.win32",
+      "sha256": "358cb1fd0ba9d80506824cef74866fd501a635d6799ec174909975bc2e660587"
+    },
+    "vendor/motion-deps/oniguruma/src/config.h.win64": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/config.h.win64",
+      "sha256": "6d07d537fabea96c6373c8015502c8da339745ed5838075a4515f1b2874ad7fa"
+    },
+    "vendor/motion-deps/oniguruma/src/config.h.windows.in": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/config.h.windows.in",
+      "sha256": "58655c8ad6c73ef982ced103519198100f55d1b279ff349a296aa01c323f1f36"
+    },
+    "vendor/motion-deps/oniguruma/src/cp1251.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/cp1251.c",
+      "sha256": "93fed3c57fddfcdb8fa9bac6f17369b5b83eea2116d1ac4fcd378168602f6d47"
+    },
+    "vendor/motion-deps/oniguruma/src/euc_jp.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/euc_jp.c",
+      "sha256": "239b94398eda31e64a7085c96f184340be3f85c764ab08cffdc5e82d4f20f097"
+    },
+    "vendor/motion-deps/oniguruma/src/euc_jp_prop.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/euc_jp_prop.c",
+      "sha256": "264e7be695f6abff9fa9e01864fdaf4de3d2524249d4dfad3688b312b28362fb"
+    },
+    "vendor/motion-deps/oniguruma/src/euc_jp_prop.gperf": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/euc_jp_prop.gperf",
+      "sha256": "6d34750f4162571a127dc9491e0d6a9583c5cf2d9b5829d8debcf0105046765f"
+    },
+    "vendor/motion-deps/oniguruma/src/euc_kr.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/euc_kr.c",
+      "sha256": "e00e279fd2eb8ca712aa497ebd597d59a58263eafc758ac9d2fd7b864b46cb22"
+    },
+    "vendor/motion-deps/oniguruma/src/euc_tw.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/euc_tw.c",
+      "sha256": "ea95ea5bc4b399164d8700830371efde8b458e1fee0bb67d86bf0dff20f939de"
+    },
+    "vendor/motion-deps/oniguruma/src/gb18030.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/gb18030.c",
+      "sha256": "4cc1b23f96320b3b2400e5d16832d952dbdb24bd761b52c75bd2ff0d7c260175"
+    },
+    "vendor/motion-deps/oniguruma/src/gperf_fold_key_conv.py": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/gperf_fold_key_conv.py",
+      "sha256": "f69815fc29eb60ea56e67c869ede7eceb977a863f2bfb892b90a29e411dc1ec6"
+    },
+    "vendor/motion-deps/oniguruma/src/gperf_unfold_key_conv.py": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/gperf_unfold_key_conv.py",
+      "sha256": "d3cfb3a528837b31e34a5639b4a0712c7d6c0f171f7f78188a094e1ea9fc32a8"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_1.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_1.c",
+      "sha256": "5502a794476910c0c1aed97829baa7481e3d5f6fcb9bbe68952c16788187b84c"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_10.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_10.c",
+      "sha256": "f0a1cb8e2ec648d7d33fb47b8834c6f9d4c958f89a8c0f2a4a686873d1c6d3f9"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_11.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_11.c",
+      "sha256": "51193c21da366f7f88ed8e500accf2a938c6e15d9c3b9d912970066967f29ad8"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_13.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_13.c",
+      "sha256": "4e6ae959854e31ef609e2eccd99bd2f20583d70552790032138532fefadfcccf"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_14.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_14.c",
+      "sha256": "2fe72a025c89b3d5ed5fece798a3c00c5e7c008e7265b541fad6e15ec81cbfac"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_15.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_15.c",
+      "sha256": "9b3e2d2516bdf266ed40461c040db495762a04810687528bbbdb85e4435665a5"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_16.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_16.c",
+      "sha256": "a2aa13344c1e2da01dd4295d9bb9aaff642857ab5d6fc9724ce501540a96fe2f"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_2.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_2.c",
+      "sha256": "394d0b706b1be6de42918f9461828035c1a3ab9233dc436272ed8fb5034a38cc"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_3.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_3.c",
+      "sha256": "28bcf8b89d67e826ca45410d9e160645af277aad059118fd66ec9385ea254482"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_4.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_4.c",
+      "sha256": "98cf5fc6f68a3af2d077a9eb5e61f68d622833e1312a71dd5be3d573d588155e"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_5.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_5.c",
+      "sha256": "41df6d443d1516dca6c18e42af8bfef1689f307315fa46b85110f234e1decca6"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_6.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_6.c",
+      "sha256": "b904d04267b21a4775cf97bb5746c09f2bf8987df562f95be5785351db7427d9"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_7.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_7.c",
+      "sha256": "6d952dcd5fdc3fb69f5b58e44fbcf6d66589af7607dba65bb1c5b9b7cf6450d3"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_8.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_8.c",
+      "sha256": "a127aff89565bdfdc75094ad8dbe436bc071ea6fc29282b1a20a188b0a8a730d"
+    },
+    "vendor/motion-deps/oniguruma/src/iso8859_9.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/iso8859_9.c",
+      "sha256": "92072e3802041eb1ba138e79b458084391705f1cba27272d365c74656a6f1b1a"
+    },
+    "vendor/motion-deps/oniguruma/src/koi8.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/koi8.c",
+      "sha256": "5b4b5daedb41f26102923e22f8869fb8552a9930f19ccaece9c8a4a8239c3070"
+    },
+    "vendor/motion-deps/oniguruma/src/koi8_r.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/koi8_r.c",
+      "sha256": "dfaf7d0bd8b680e8fe4e85ab71deaf27a63b781dd4abcb484931a8a362926a19"
+    },
+    "vendor/motion-deps/oniguruma/src/make_property.sh": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/make_property.sh",
+      "sha256": "b9f6744254ea77790870e7594d2fb0ed817f521789d6a52d0bd445437877a563"
+    },
+    "vendor/motion-deps/oniguruma/src/make_unicode_egcb.sh": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/make_unicode_egcb.sh",
+      "sha256": "d52aacd900712aeb70b7afcec6cd5fb70e574dabbe6fa81b67eb41868f8b6853"
+    },
+    "vendor/motion-deps/oniguruma/src/make_unicode_egcb_data.py": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/make_unicode_egcb_data.py",
+      "sha256": "cbf1753148dfd388c2f78392624430a7ef0a0be44bc1205f9a7fb5970474bc23"
+    },
+    "vendor/motion-deps/oniguruma/src/make_unicode_fold.sh": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/make_unicode_fold.sh",
+      "sha256": "125dcb7806dfbd4495d1325369c3d6de62232c5d335eb96e21de86502acb37e9"
+    },
+    "vendor/motion-deps/oniguruma/src/make_unicode_fold_data.py": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/make_unicode_fold_data.py",
+      "sha256": "da9d198544d89439c3b4decb1d2a9952ea01dc02cfe1fbea4f4d20aa573a7d7c"
+    },
+    "vendor/motion-deps/oniguruma/src/make_unicode_property.sh": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/make_unicode_property.sh",
+      "sha256": "69b78dbaaec2131357ad5867b631f51fbac1be30bc048c15ec43e38845064969"
+    },
+    "vendor/motion-deps/oniguruma/src/make_unicode_property_data.py": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/make_unicode_property_data.py",
+      "sha256": "c0a47fbde13a29eec3437237d53f9e1b9a16459a39b181b69641a02b26388d4a"
+    },
+    "vendor/motion-deps/oniguruma/src/make_unicode_wb.sh": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/make_unicode_wb.sh",
+      "sha256": "2a1a3ee9a602e6f2a59a066a491fc11460bba33a416b7bd6d6a0469366741bcb"
+    },
+    "vendor/motion-deps/oniguruma/src/make_unicode_wb_data.py": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/make_unicode_wb_data.py",
+      "sha256": "2c9e27903ccbc04329b83905b85964aa09d3042d953b40fd150be716a0413914"
+    },
+    "vendor/motion-deps/oniguruma/src/mktable.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/mktable.c",
+      "sha256": "b7bbbdfd212f3efeec26b70d8fae535a3ebc77c64a9964047729022716297820"
+    },
+    "vendor/motion-deps/oniguruma/src/onig_init.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/onig_init.c",
+      "sha256": "89f37f5b5f5961493bec99aacf1d828f1dd7d70830eed2aaff86247f4d4a4ce3"
+    },
+    "vendor/motion-deps/oniguruma/src/oniggnu.h": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/oniggnu.h",
+      "sha256": "fdb9bfc28287f7573a5ccad2ba45c7759aa2cbc11c57b05b86908809e1ac5f9a"
+    },
+    "vendor/motion-deps/oniguruma/src/onigposix.h": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/onigposix.h",
+      "sha256": "a4002b01d62f5c91d851190b9225737ad059a85cfa2a04ca6d1d4ff67f4a08de"
+    },
+    "vendor/motion-deps/oniguruma/src/oniguruma.h": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/oniguruma.h",
+      "sha256": "bceb20b139315fbe2fb02e58f3b499107d5d4c2dc9953c677c332ccb1cb305ef"
+    },
+    "vendor/motion-deps/oniguruma/src/regcomp.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/regcomp.c",
+      "sha256": "1fadf481288d38f7d19b7577adbcc1bc6da7afd72b28249ce1d0611a39765b81"
+    },
+    "vendor/motion-deps/oniguruma/src/regenc.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/regenc.c",
+      "sha256": "cc33829f2a4279c96ca96d97c6d29d9f6ac65dc7ea0c5494f3b34bc43566585e"
+    },
+    "vendor/motion-deps/oniguruma/src/regenc.h": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/regenc.h",
+      "sha256": "da808283c9d13aa641a3507d86098273afeb723da9ab2eadae176a388dec4564"
+    },
+    "vendor/motion-deps/oniguruma/src/regerror.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/regerror.c",
+      "sha256": "eced9d8be1c24c88dbb490668eadac75903e4bdce5f89fda6815f5c4f1ddccc0"
+    },
+    "vendor/motion-deps/oniguruma/src/regexec.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/regexec.c",
+      "sha256": "3507fda6078d9771d4c3a4cb326ea94a631731e6ca0b84b922e82d3863d774a4"
+    },
+    "vendor/motion-deps/oniguruma/src/regext.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/regext.c",
+      "sha256": "53683bb1c4d1b787856cce013cc01fa54b917997e96d4471b1c74915bf0b7c00"
+    },
+    "vendor/motion-deps/oniguruma/src/reggnu.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/reggnu.c",
+      "sha256": "18bad41679c188eaa4a0f436fab2bec726076f1e8a6225536fc08fe69d91dd5d"
+    },
+    "vendor/motion-deps/oniguruma/src/regint.h": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/regint.h",
+      "sha256": "676be021dafaf99eaab375b283fb42dc59a31a33d68a6d42dbb15d08defbfd3b"
+    },
+    "vendor/motion-deps/oniguruma/src/regparse.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/regparse.c",
+      "sha256": "f4b5ef44a888c7150a304d27aef2ffe85d4f8fb2cee220240644be4c62a905d3"
+    },
+    "vendor/motion-deps/oniguruma/src/regparse.h": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/regparse.h",
+      "sha256": "a34f5de2e0d8f65923ac4aa93bfabdc93d952d01b8c9f1c489d3cc25e9c040a3"
+    },
+    "vendor/motion-deps/oniguruma/src/regposerr.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/regposerr.c",
+      "sha256": "acd75268d3b4b38a606893c9be01a351e58b0e73cdbec9a151c3318b33ee7a8f"
+    },
+    "vendor/motion-deps/oniguruma/src/regposix.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/regposix.c",
+      "sha256": "dcd79452de0aa87363d3f0aac5096934418dc811c44c9de7275e16988ae73479"
+    },
+    "vendor/motion-deps/oniguruma/src/regsyntax.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/regsyntax.c",
+      "sha256": "11e750804c89ff3a4524c70c4bec8caa77da04c12c161385a6d701460456277c"
+    },
+    "vendor/motion-deps/oniguruma/src/regtrav.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/regtrav.c",
+      "sha256": "bb70c4886681a3c17d312f3e23a17f75a613bb8dfc90bfcbb562a71809159a0d"
+    },
+    "vendor/motion-deps/oniguruma/src/regversion.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/regversion.c",
+      "sha256": "f2a0cc84446e64d202bd9627f4c9924c4d338f0c2ed9fc642a9caefe2757301d"
+    },
+    "vendor/motion-deps/oniguruma/src/sjis.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/sjis.c",
+      "sha256": "bfe3420942bcdcd31142763310acc9d0acb2ab8020bd6f1395e57e86900b578e"
+    },
+    "vendor/motion-deps/oniguruma/src/sjis_prop.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/sjis_prop.c",
+      "sha256": "a4435b5693578749d15c237f5a66c5aff5dbe1bb295b0670f233007a8ec3c768"
+    },
+    "vendor/motion-deps/oniguruma/src/sjis_prop.gperf": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/sjis_prop.gperf",
+      "sha256": "6d34750f4162571a127dc9491e0d6a9583c5cf2d9b5829d8debcf0105046765f"
+    },
+    "vendor/motion-deps/oniguruma/src/st.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/st.c",
+      "sha256": "c3e73faab1ef6dc0a8524dde9b71c9a7eedc78edd70232c794ca936b0d83ca27"
+    },
+    "vendor/motion-deps/oniguruma/src/st.h": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/st.h",
+      "sha256": "5a44a44d08dfa64a571cff168878378c3b4bc630e303c12ba99ac99d353595ef"
+    },
+    "vendor/motion-deps/oniguruma/src/unicode.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/unicode.c",
+      "sha256": "381aacfe8feaf7d307c0a729bbb2a903e706866cb3c99a5422f003ff7fa97dff"
+    },
+    "vendor/motion-deps/oniguruma/src/unicode_egcb_data.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/unicode_egcb_data.c",
+      "sha256": "21663445ace4f64775506f3fc53332a96e1b2b9f509b63eeb5462913daeb6d73"
+    },
+    "vendor/motion-deps/oniguruma/src/unicode_fold1_key.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/unicode_fold1_key.c",
+      "sha256": "1a965892c78598ed0d7c7adad0021dc774d6278c727692b8b2300804de70f043"
+    },
+    "vendor/motion-deps/oniguruma/src/unicode_fold2_key.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/unicode_fold2_key.c",
+      "sha256": "70b6f9185984408b308bb9d441333c5be95d36853fa60294ec0d08c274d5088c"
+    },
+    "vendor/motion-deps/oniguruma/src/unicode_fold3_key.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/unicode_fold3_key.c",
+      "sha256": "1e026d61dbd1e1300feecfeb5788f62cd2e388cf9a0c3b666e389bc3cf449369"
+    },
+    "vendor/motion-deps/oniguruma/src/unicode_fold_data.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/unicode_fold_data.c",
+      "sha256": "690b14e8f84ff1345ec38657ab41a0c630dea37b99fb39519d9789ddf2558a55"
+    },
+    "vendor/motion-deps/oniguruma/src/unicode_property_data.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/unicode_property_data.c",
+      "sha256": "6f69e9852bf746acfc3847c9789225d4ba1f085f1852ca00fcab7fa912982f52"
+    },
+    "vendor/motion-deps/oniguruma/src/unicode_property_data_posix.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/unicode_property_data_posix.c",
+      "sha256": "27bf4f37819b67b43d2a223a0a251978335d1c44a0ec02b4f907fba32b002058"
+    },
+    "vendor/motion-deps/oniguruma/src/unicode_unfold_key.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/unicode_unfold_key.c",
+      "sha256": "521fc37c8626e811c3c8042b848c4289f775dbae58b8422dfc5ad1447e2e98a9"
+    },
+    "vendor/motion-deps/oniguruma/src/unicode_wb_data.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/unicode_wb_data.c",
+      "sha256": "9530ddf3208658a05bf33d36249bc6b9d8e500f54cfa2c8552762d42314244ba"
+    },
+    "vendor/motion-deps/oniguruma/src/utf16_be.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/utf16_be.c",
+      "sha256": "2f5690e7ebdd6cddebe53e9a5479fd5c4b4b1bd1f40321e20a83f6114e2632ac"
+    },
+    "vendor/motion-deps/oniguruma/src/utf16_le.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/utf16_le.c",
+      "sha256": "7420d3f24620f50489e6b335885f2ca59f004a8862e8e87db506d269d773155c"
+    },
+    "vendor/motion-deps/oniguruma/src/utf32_be.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/utf32_be.c",
+      "sha256": "3e07ba968d71b5695b429f6d9dbee179db26a24c2e1f44fc938f6147b09af94d"
+    },
+    "vendor/motion-deps/oniguruma/src/utf32_le.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/utf32_le.c",
+      "sha256": "e0aa493bd75bc8580cb9f9daf1c6eda7f248fbc29d64ffcc414350f0e8f76f0b"
+    },
+    "vendor/motion-deps/oniguruma/src/utf8.c": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/src/utf8.c",
+      "sha256": "8927e4b2e64fd188592a95ecf56f2d6c7bb0bcb5721b6d2fd446c20c10a7ddf4"
+    },
+    "vendor/motion-deps/oniguruma/CMakeLists.txt": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/CMakeLists.txt",
+      "sha256": "0c93b7206ee974326d3f3c8f2907b5969007aeb799794d98b941cdb63b96ea51"
+    },
+    "vendor/motion-deps/oniguruma/COPYING": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/COPYING",
+      "sha256": "70ba5469ea0bab6e18a32d7009068f996503168d27be57747e08da34337ff26f"
+    },
+    "vendor/motion-deps/oniguruma/cmake/Config.cmake.in": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/cmake/Config.cmake.in",
+      "sha256": "e154a6716c7bfb80534ad6e59c8c89a2d53ed4c2c84e703e0477454cb5c8ad5c"
+    },
+    "vendor/motion-deps/oniguruma/oniguruma.pc.cmake.in": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/oniguruma.pc.cmake.in",
+      "sha256": "1e78e3ea7fdf66413762e65166daf5d39d5d3dcd7fa4f3da0cb9ce95d953c4bd"
+    },
+    "vendor/motion-deps/oniguruma/onig-config.cmake.in": {
+      "source": "/Users/fenghengzhi/Developer/toolchains/krkr2/vcpkg/buildtrees/oniguruma/src/v6.9.10-eca92fc9ff.clean/onig-config.cmake.in",
+      "sha256": "6d564190f32b0b5cbda308a34635a28603d1b4bc6f16cd65193b05da1397e5d6"
+    },
+    "vendor/motion-deps/licenses/boost-locale.txt": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/share/boost-locale/copyright",
+      "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+    },
+    "vendor/motion-deps/include/boost/locale.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale.hpp",
+      "sha256": "fa4e72063a024f06ff79efe387d65c250b2af053acfa8970fc70d82b0f5f60f1"
+    },
+    "vendor/motion-deps/include/boost/locale/boundary.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/boundary.hpp",
+      "sha256": "0a6d5b16174f5b0a9b2cb8e8d7dc484904445dae5ce5907eb10782f92b08b21b"
+    },
+    "vendor/motion-deps/include/boost/locale/boundary/boundary_point.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/boundary/boundary_point.hpp",
+      "sha256": "1d6a29967e2f3cb40dec5e8a4b13399e501e59842ea6aa000339d667c23f55f1"
+    },
+    "vendor/motion-deps/include/boost/locale/boundary/types.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/boundary/types.hpp",
+      "sha256": "d04b45e86579c52cdb5398c53f3783a4302257d550b0351f1d456bb4c5099166"
+    },
+    "vendor/motion-deps/include/boost/locale/config.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/config.hpp",
+      "sha256": "f5c34c486d59a2524519fde69df2843fbabb5a691090f9893c9fb6a8d98116f1"
+    },
+    "vendor/motion-deps/include/boost/config.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config.hpp",
+      "sha256": "373206390d20aa5bb9e2628eb08543399d73b853af7bfc5f1d2bd9a00bc07593"
+    },
+    "vendor/motion-deps/include/boost/config/user.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config/user.hpp",
+      "sha256": "d0007d222cce073189f7e4a0e39a74acb0763f737fa013a17737d9dcf0f5f314"
+    },
+    "vendor/motion-deps/include/boost/config/detail/select_compiler_config.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config/detail/select_compiler_config.hpp",
+      "sha256": "73059f6ceb2952375b9cfb71ee609bd29c595d9f82014a01676fcc47c3a692d3"
+    },
+    "vendor/motion-deps/include/boost/config/compiler/clang.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config/compiler/clang.hpp",
+      "sha256": "ec01f6ff90a8d73d2c46dcd722ff3cafc9ad1192a25eb404858dcab3f1b4f474"
+    },
+    "vendor/motion-deps/include/boost/config/compiler/clang_version.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config/compiler/clang_version.hpp",
+      "sha256": "eaf8b6349c686ff27afb29c28dc1fc891fb7613fc8304939b276900c4e5b8ccd"
+    },
+    "vendor/motion-deps/include/boost/config/detail/select_stdlib_config.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config/detail/select_stdlib_config.hpp",
+      "sha256": "d26cb12104c9942b2031500c291ee13754dbb43b1d944fb30a7b98b119b83456"
+    },
+    "vendor/motion-deps/include/boost/config/stdlib/libcpp.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config/stdlib/libcpp.hpp",
+      "sha256": "83ed349fa8dae6f0ce809f63d44253261593e8677405200b11bb3b7a6751d4e3"
+    },
+    "vendor/motion-deps/include/boost/config/detail/select_platform_config.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config/detail/select_platform_config.hpp",
+      "sha256": "b24a891ef5cf8b032f1073c3e7d7416bba54657e58fec6f89e66c8ff9439665e"
+    },
+    "vendor/motion-deps/include/boost/config/platform/linux.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config/platform/linux.hpp",
+      "sha256": "f508f04c0fe1e1dab43a5c5cb287bb5514b58f63ea3d4705d3aafea528be2341"
+    },
+    "vendor/motion-deps/include/boost/config/detail/posix_features.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config/detail/posix_features.hpp",
+      "sha256": "bba105d0af558c09307941fe64ce5ce9d775990b96684708adf4a9a92070fc0a"
+    },
+    "vendor/motion-deps/include/boost/config/detail/suffix.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config/detail/suffix.hpp",
+      "sha256": "f46a617b5bd44d2076c978ad7151b31f9921517d881f57ee927b26ae4c2383ec"
+    },
+    "vendor/motion-deps/include/boost/config/helper_macros.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config/helper_macros.hpp",
+      "sha256": "ecf739b9b06545ebb0d691e8207cf7b70a5d42d7cb378d5d5502c0c96eefafc2"
+    },
+    "vendor/motion-deps/include/boost/config/detail/cxx_composite.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config/detail/cxx_composite.hpp",
+      "sha256": "e1d48a1e474d7b3585f33b188aebc6d9a650155bc299122129896a7a1774841d"
+    },
+    "vendor/motion-deps/include/boost/config/workaround.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config/workaround.hpp",
+      "sha256": "58a94045ef72552481b69a8b614a6c92e0d21ee19798677560ec4d59e10b0f99"
+    },
+    "vendor/motion-deps/include/boost/locale/boundary/facets.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/boundary/facets.hpp",
+      "sha256": "a8271ad737b0d00a06a75d9b1d875639e8d3503f296ff5bbbedf3f9bf2782c03"
+    },
+    "vendor/motion-deps/include/boost/locale/detail/facet_id.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/detail/facet_id.hpp",
+      "sha256": "85a28199f795be0c41faf29fd384bc0f4ac23753b60877ec718dd475c4bb41e0"
+    },
+    "vendor/motion-deps/include/boost/locale/detail/is_supported_char.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/detail/is_supported_char.hpp",
+      "sha256": "090ae7a499a6e9a0ce9ceb3055bef1a0ca90448f67a00e4ddcf18a81370509b4"
+    },
+    "vendor/motion-deps/include/boost/locale/boundary/index.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/boundary/index.hpp",
+      "sha256": "bcadb0d31134bfe547ba08b999a004342f266d457e4e5443b2410d32a473bdac"
+    },
+    "vendor/motion-deps/include/boost/locale/boundary/segment.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/boundary/segment.hpp",
+      "sha256": "96b324600e3af8aa72e56f01f02b87f5c5d7dd6ae6a607a209260d70ec31b018"
+    },
+    "vendor/motion-deps/include/boost/locale/util/string.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/util/string.hpp",
+      "sha256": "81fe30d0acd577e126e86ef1ca1d431fd7a0a6c7f247dcb55fefff5d117698d0"
+    },
+    "vendor/motion-deps/include/boost/iterator/iterator_facade.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/iterator/iterator_facade.hpp",
+      "sha256": "fae9b964e329de7e910f797c477cf0f359b2a85aa78f107b7257deed21ec483f"
+    },
+    "vendor/motion-deps/include/boost/mp11/utility.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mp11/utility.hpp",
+      "sha256": "952369f292878cf999237a9973832144df7abc833c168c047d0c45a66e247bd3"
+    },
+    "vendor/motion-deps/include/boost/mp11/integral.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mp11/integral.hpp",
+      "sha256": "02032a46a2888c0104e279994becfca1e0264c6fbccc4f00daa85a107951a184"
+    },
+    "vendor/motion-deps/include/boost/mp11/version.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mp11/version.hpp",
+      "sha256": "3661f2fea7da35da1529e1fb0fb4a4c774e8cafe55f04de8d5fd65b147b43be4"
+    },
+    "vendor/motion-deps/include/boost/mp11/detail/mp_value.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mp11/detail/mp_value.hpp",
+      "sha256": "c4920907bf95b31fc7c7db7e09f9351bb4fa4cb48e7246d0f6e6115d8d141deb"
+    },
+    "vendor/motion-deps/include/boost/mp11/detail/config.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mp11/detail/config.hpp",
+      "sha256": "670b615f3aa2d61eb4f3174f7d325f238de20a87f2226395053d8544aaffd4cf"
+    },
+    "vendor/motion-deps/include/boost/mp11/detail/mp_list.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mp11/detail/mp_list.hpp",
+      "sha256": "c2413dc3ed97d171a276c3de93e6406792162d5a99f3fc1b0616f47376833978"
+    },
+    "vendor/motion-deps/include/boost/mp11/detail/mp_fold.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mp11/detail/mp_fold.hpp",
+      "sha256": "d987988f0303e54cb7536e2e59ddb441dd152f67d909cddc90bd925725493a7b"
+    },
+    "vendor/motion-deps/include/boost/mp11/detail/mp_defer.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mp11/detail/mp_defer.hpp",
+      "sha256": "cc33d4e004c7bd3feee19b1de100489ace31b636c5adbabdd61b348dac8bf533"
+    },
+    "vendor/motion-deps/include/boost/mp11/detail/mp_rename.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mp11/detail/mp_rename.hpp",
+      "sha256": "b1a6ae78b132eba56b8a40a73e910eb930eaa3447f1a6a069ef948350ffbb15d"
+    },
+    "vendor/motion-deps/include/boost/mp11/detail/mp_front.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mp11/detail/mp_front.hpp",
+      "sha256": "049bcfc7bd007736005b61322ac68c099c558d5322d8b146bdd94103927e78c4"
+    },
+    "vendor/motion-deps/include/boost/iterator/interoperable.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/iterator/interoperable.hpp",
+      "sha256": "8b822644996f27060a34b4e39a7b7c53e70da7eda093e2d0e4dece6c356bb78e"
+    },
+    "vendor/motion-deps/include/boost/iterator/detail/type_traits/disjunction.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/iterator/detail/type_traits/disjunction.hpp",
+      "sha256": "011d6ee4af7e4105636f7812921de3d0b545656c47024f5d077130db664330d7"
+    },
+    "vendor/motion-deps/include/boost/iterator/iterator_traits.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/iterator/iterator_traits.hpp",
+      "sha256": "630c702b8a15230cd435cafaaa754636d72ca7dc450e5501ad60513cd738a176"
+    },
+    "vendor/motion-deps/include/boost/iterator/iterator_categories.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/iterator/iterator_categories.hpp",
+      "sha256": "34f93fbd0ecd0dc2dbe7ea5495f1d53324e792377416362fe306eb707173ada9"
+    },
+    "vendor/motion-deps/include/boost/mpl/arg_fwd.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mpl/arg_fwd.hpp",
+      "sha256": "5d4c5805d025a2e07b6bc03ebb520accdd31cfe41768cfca9829cbe1f4125d28"
+    },
+    "vendor/motion-deps/include/boost/mpl/aux_/adl_barrier.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mpl/aux_/adl_barrier.hpp",
+      "sha256": "28814ccd677294dfb0fd2d9a89153206e40dead79a96319fdf9bf951d402bf9c"
+    },
+    "vendor/motion-deps/include/boost/mpl/aux_/config/adl.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mpl/aux_/config/adl.hpp",
+      "sha256": "9866f0a5843296ea77434334ef91c0dcd3fc15fafe5b34f3256b0dfdadbf77c8"
+    },
+    "vendor/motion-deps/include/boost/mpl/aux_/config/msvc.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mpl/aux_/config/msvc.hpp",
+      "sha256": "62eef1e28b4ce6ca35d07ece37b8bb455289f6ac4c774ef193a4e5741b0d06e5"
+    },
+    "vendor/motion-deps/include/boost/mpl/aux_/config/intel.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mpl/aux_/config/intel.hpp",
+      "sha256": "5ce4ace676be390de349b31f000af18d49c953e12ffc91c882ee632f1bb4cc2a"
+    },
+    "vendor/motion-deps/include/boost/mpl/aux_/config/gcc.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mpl/aux_/config/gcc.hpp",
+      "sha256": "78f78e3e42144452a092c06969eed8723b081a9faf0c1860013d774c63f83179"
+    },
+    "vendor/motion-deps/include/boost/mpl/aux_/config/workaround.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mpl/aux_/config/workaround.hpp",
+      "sha256": "57b4a97e529b168efdeb908260c55002e2569c58c98ea23eff68448dca92a4fc"
+    },
+    "vendor/motion-deps/include/boost/detail/workaround.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/detail/workaround.hpp",
+      "sha256": "5d88074d61d7d93196d72b84fa62ede29be62a3f68386b78bda63eea7b32f2ba"
+    },
+    "vendor/motion-deps/include/boost/mpl/aux_/nttp_decl.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mpl/aux_/nttp_decl.hpp",
+      "sha256": "809fb409f57a2a5f679758b8ceb5f31ab1c15789217c36c427a7e944cbf133e5"
+    },
+    "vendor/motion-deps/include/boost/mpl/aux_/config/nttp.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/mpl/aux_/config/nttp.hpp",
+      "sha256": "9073ecf730c3a0993cee681ad5a2cef4669cb13e0afd640de26861d38852715f"
+    },
+    "vendor/motion-deps/include/boost/iterator/detail/facade_iterator_category.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/iterator/detail/facade_iterator_category.hpp",
+      "sha256": "a5b1017d680a254cd5521dd5a4bcbc02965e84d169b1343ecb21ab039b834ad8"
+    },
+    "vendor/motion-deps/include/boost/iterator/detail/type_traits/conjunction.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/iterator/detail/type_traits/conjunction.hpp",
+      "sha256": "37396af4b1e8c606a32048d7ffe154d2c2753e18cd05d2fa5188e43bb0b7bda9"
+    },
+    "vendor/motion-deps/include/boost/iterator/detail/config_def.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/iterator/detail/config_def.hpp",
+      "sha256": "f65aa1ee2c1f43f14bdeb5708cdb23646114e2fa63ed0e6cca5661c088703a99"
+    },
+    "vendor/motion-deps/include/boost/iterator/detail/config_undef.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/iterator/detail/config_undef.hpp",
+      "sha256": "6b39c3aa083863a781a2d2ff6296e9869eb80dbf014dfe983ab28805876ca431"
+    },
+    "vendor/motion-deps/include/boost/iterator/detail/type_traits/negation.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/iterator/detail/type_traits/negation.hpp",
+      "sha256": "eb0048e700bedda92c97470c32d0db6d6783cc30bb1d7da8be03d715fe1c0f74"
+    },
+    "vendor/motion-deps/include/boost/locale/collator.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/collator.hpp",
+      "sha256": "8ee5a4672fed1d978ed51a1d07c9f4f3089a178b1f0b1277a636e37f50179523"
+    },
+    "vendor/motion-deps/include/boost/locale/conversion.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/conversion.hpp",
+      "sha256": "556fe4ecd5a3475e69efb41f1d4e5b6d65e5e8595d95350fa0a810a103b9d985"
+    },
+    "vendor/motion-deps/include/boost/locale/date_time.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/date_time.hpp",
+      "sha256": "b3cc95d9fc02a997da9455675a858ffcd6f0c0d8071f072dac8b4d89719040a3"
+    },
+    "vendor/motion-deps/include/boost/locale/date_time_facet.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/date_time_facet.hpp",
+      "sha256": "9a06e6a5d2bbfc303a395af1108f492f56c47f7efc4c57e9a4406d309cd7d14a"
+    },
+    "vendor/motion-deps/include/boost/locale/formatting.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/formatting.hpp",
+      "sha256": "3ad92c90c1fc51ee46e4f4bdeff16cbeada487798776dade1b3be43ac4670141"
+    },
+    "vendor/motion-deps/include/boost/locale/detail/any_string.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/detail/any_string.hpp",
+      "sha256": "18bc8ff0fb1e5eb6848566ee15f3d1d8c760ce8f748e74b37ed400c659c5ef95"
+    },
+    "vendor/motion-deps/include/boost/assert.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/assert.hpp",
+      "sha256": "be6777c7fba67ff7c83a06c86412b4b5bd06ed23f458f745f8812b26ed2b7d6d"
+    },
+    "vendor/motion-deps/include/boost/core/detail/string_view.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/core/detail/string_view.hpp",
+      "sha256": "3ef5344a01f8f58a63d9dac8c841fcf2076bcf886a2ea2f0500aebf9a395d041"
+    },
+    "vendor/motion-deps/include/boost/core/enable_if.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/core/enable_if.hpp",
+      "sha256": "b4aefa20fb7a5d673ee4023e693ca74738dd84ffd5a4c248ddc06c1df812229e"
+    },
+    "vendor/motion-deps/include/boost/core/detail/is_same.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/core/detail/is_same.hpp",
+      "sha256": "2e3395e79145533ac53ee8a2ba5e5690d59316589a862de5324d4c5c88168a27"
+    },
+    "vendor/motion-deps/include/boost/assert/source_location.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/assert/source_location.hpp",
+      "sha256": "ad76405105ee3b1c8d557f3eaeb51d429beac4dc336950a10cde2c06d53f3c01"
+    },
+    "vendor/motion-deps/include/boost/cstdint.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/cstdint.hpp",
+      "sha256": "dbbf2bba3a0b6316d7f1850ff656eb4567bb2aa10197435a525cb8ff70b6d8f5"
+    },
+    "vendor/motion-deps/include/boost/throw_exception.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/throw_exception.hpp",
+      "sha256": "fbf66a8b406e803d30dde7c616c15e0f1407bf0325f1d4f9665a8788aeedd745"
+    },
+    "vendor/motion-deps/include/boost/exception/exception.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/exception/exception.hpp",
+      "sha256": "062f57bcd7f1bdd92014beec36c59fdad44b00717ef9b108a1adb48069afee95"
+    },
+    "vendor/motion-deps/include/boost/locale/time_zone.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/time_zone.hpp",
+      "sha256": "2427bffc57968a822a8e89ce5119639da741f345e3680d4d2a5a82beab021e85"
+    },
+    "vendor/motion-deps/include/boost/locale/hold_ptr.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/hold_ptr.hpp",
+      "sha256": "14d44d0ef1f6c73f574b2951f20b9f7fd1dee10d4e49f59bebad45516848468d"
+    },
+    "vendor/motion-deps/include/boost/core/exchange.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/core/exchange.hpp",
+      "sha256": "010dbad20301588498082a5d26121cf7f53c51f948f92fa9097e17319d520b28"
+    },
+    "vendor/motion-deps/include/boost/locale/encoding.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/encoding.hpp",
+      "sha256": "bf05195f979488a8fa77af4d9af09160f6319b9d672b444cda31dc98e55cc883"
+    },
+    "vendor/motion-deps/include/boost/locale/detail/encoding.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/detail/encoding.hpp",
+      "sha256": "b84e1059ca806a7534d0afc8c062103fe69bbeb4dd9b6eec3913a54f51fad5bd"
+    },
+    "vendor/motion-deps/include/boost/locale/encoding_errors.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/encoding_errors.hpp",
+      "sha256": "b1734f0e940aaa833849efd32d9d8a3f0fef51e1528ebc4b319bcda066e48974"
+    },
+    "vendor/motion-deps/include/boost/locale/encoding_utf.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/encoding_utf.hpp",
+      "sha256": "78fd5e0654e3d97c70d5cecc5e44077f209805059dc099f54235d307b04df07c"
+    },
+    "vendor/motion-deps/include/boost/locale/detail/allocator_traits.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/detail/allocator_traits.hpp",
+      "sha256": "ca18b2113b06c26bcd731c81745f7e658ab305b143f0caa033f2b3e0abf8bd69"
+    },
+    "vendor/motion-deps/include/boost/locale/utf.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/utf.hpp",
+      "sha256": "94ec2f719aaaf2d0dd0312b0f903206eb21593d34263e071f8d7fea2df746425"
+    },
+    "vendor/motion-deps/include/boost/locale/info.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/info.hpp",
+      "sha256": "4751040fc6e0596962486736283758a4be708fd609f07cbda42346e7b2ff56f6"
+    },
+    "vendor/motion-deps/include/boost/locale/format.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/format.hpp",
+      "sha256": "35e6f7272bebc0cf27fda9f9aa38734702c94fe4aa3c637ee0838625fb4c6dfc"
+    },
+    "vendor/motion-deps/include/boost/locale/message.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/message.hpp",
+      "sha256": "bc7b65c84a33df7a803713727a5aa40db8e9ffabeeca2e1dc46fc14abbf69277"
+    },
+    "vendor/motion-deps/include/boost/locale/generator.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/generator.hpp",
+      "sha256": "3ed14223d6ae2454e9bbeab4840ac0f3df795f204487c2aa6536d541d254df44"
+    },
+    "vendor/motion-deps/include/boost/locale/gnu_gettext.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/gnu_gettext.hpp",
+      "sha256": "50ec8f22ca373c0425b2dc850e5bac9aca78b2601b738c3e1ed1b351da186b63"
+    },
+    "vendor/motion-deps/include/boost/locale/localization_backend.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/localization_backend.hpp",
+      "sha256": "b96d1930c074c2ea292b69af9c2ebf5e2a28a139e893c3dbb4484ec7c4d0552b"
+    },
+    "vendor/motion-deps/include/boost/locale/util.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/util.hpp",
+      "sha256": "8bb61bb9c7a7b8574ab435fb3fd87798dac42c16ea4e48c50d0dcf6c1bc7b3d2"
+    },
+    "vendor/motion-deps/include/boost/locale/util/locale_data.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/locale/util/locale_data.hpp",
+      "sha256": "8c30336d5fd3be2b395668a21704bd9bc1f6b2c5021bb8a5c1c120bb71b3ddc1"
+    },
+    "vendor/motion-deps/include/boost/config/platform/macos.hpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/out/macos/debug/vcpkg_installed/x64-osx/include/boost/config/platform/macos.hpp",
+      "sha256": "d5f923845074c86a3abfb0b5fee1e5795646e92274f722291f6e2a1e6e4d7b0d"
+    },
+    "vendor/kirikiroid2/tjs_support/en_us.xml": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/ui/cocos-studio/locale/en_us.xml",
+      "sha256": "de37134106672ccec7b96d967d082041e06f20d51dde94ec5f8a1d5b38a09809"
+    },
+    "vendor/kirikiroid2/ncbind/ncb_foreach.inc": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/plugin/ncb_foreach.inc",
+      "sha256": "3d546fde40f04c91189911447af78ef3f35f91f21213a9116bed5b4cb45ff378"
+    },
+    "vendor/kirikiroid2/tjs_support/ComplexRect.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/visual/ComplexRect.h",
+      "sha256": "a0ae77c43ff4587b651b7b598f641f0ed220018f186726924363f01e0476e003"
+    },
+    "vendor/kirikiroid2/tjs_support/RenderManager.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/visual/RenderManager.h",
+      "sha256": "807e660daf0e460a4dbf8bcae74f4b5b4afd02c0bf5d7d088298a25303250b05"
+    },
+    "vendor/kirikiroid2/tjs_support/ComplexRect.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/visual/ComplexRect.cpp",
+      "sha256": "58d413a402c9fe7ae5a773de3c1fed7f4637c5b919a5ef9b4159d06ca2a02964"
+    },
+    "vendor/kirikiroid2/tjs_support/cpu_types.h": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/environ/cpu_types.h",
+      "sha256": "18cc6b9ff62ddebad6648e4ac3206706d90a75d08c4d7a51848ae885a086e2d1"
+    },
+    "vendor/kirikiroid2/tjs_support/RenderManager_ogl_reference.cpp": {
+      "source": "/Users/fenghengzhi/Developer/kirikiroid2-web/cpp/core/visual/ogl/RenderManager_ogl.cpp",
+      "sha256": "9a19c01a6d49bec3b2f339272d418aafd94ecb1269239a5827bbd7235679473a"
+    }
+  },
+  "source_repository": "/Users/fenghengzhi/Developer/kirikiroid2-web",
+  "source_commit": "13dda190f8370d02b6cf59286a088529b355658c",
+  "note": "Selected working-tree sources are unchanged. All platform adaptations are generated outside vendor. Boost files are the union of actual host and Android compiler dependencies."
+}

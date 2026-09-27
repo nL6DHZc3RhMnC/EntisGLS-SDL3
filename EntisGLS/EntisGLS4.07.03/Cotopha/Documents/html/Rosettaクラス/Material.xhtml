@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>Material</title>
+</head>
+<body>
+<div class="chapter">Material</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　Material は3Dグラフィックス処理で扱うマテリアルを表現します。<br/>
+　EntisGLS4 の S3DMaterial コンテナです。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="Material.xhtml">Material</a>
+</div></div></div><br/>
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_shadingAllLocalTextureMask">shadingAllLocalTextureMask</a><br/>
+	<a href="#static_shadingAlphaTexture">shadingAlphaTexture</a><br/>
+	<a href="#static_shadingAppExtension1">shadingAppExtension1</a><br/>
+	<a href="#static_shadingAppExtension2">shadingAppExtension2</a><br/>
+	<a href="#static_shadingAppExtension3">shadingAppExtension3</a><br/>
+	<a href="#static_shadingAppExtension4">shadingAppExtension4</a><br/>
+	<a href="#static_shadingDrawOffsetBorder">shadingDrawOffsetBorder</a><br/>
+	<a href="#static_shadingEmisiveTarget">shadingEmisiveTarget</a><br/>
+	<a href="#static_shadingEnvironmentMapping">shadingEnvironmentMapping</a><br/>
+	<a href="#static_shadingExBackDiffusion">shadingExBackDiffusion</a><br/>
+	<a href="#static_shadingExBackLight">shadingExBackLight</a><br/>
+	<a href="#static_shadingExBorderParam">shadingExBorderParam</a><br/>
+	<a href="#static_shadingExRimLight">shadingExRimLight</a><br/>
+	<a href="#static_shadingExSpecularColor">shadingExSpecularColor</a><br/>
+	<a href="#static_shadingExVarietyShade">shadingExVarietyShade</a><br/>
+	<a href="#static_shadingGEnvironmentMapping">shadingGEnvironmentMapping</a><br/>
+	<a href="#static_shadingGlobalReflectObject">shadingGlobalReflectObject</a><br/>
+	<a href="#static_shadingHeightTexture">shadingHeightTexture</a><br/>
+	<a href="#static_shadingHintMask">shadingHintMask</a><br/>
+	<a href="#static_shadingHintNoZSort">shadingHintNoZSort</a><br/>
+	<a href="#static_shadingHintPriority0">shadingHintPriority0</a><br/>
+	<a href="#static_shadingHintPriority1">shadingHintPriority1</a><br/>
+	<a href="#static_shadingHintPriority2">shadingHintPriority2</a><br/>
+	<a href="#static_shadingHintPriority3">shadingHintPriority3</a><br/>
+	<a href="#static_shadingHintShifter">shadingHintShifter</a><br/>
+	<a href="#static_shadingLuminousTexture">shadingLuminousTexture</a><br/>
+	<a href="#static_shadingMakeBlendAdd">shadingMakeBlendAdd</a><br/>
+	<a href="#static_shadingMeshSurfaceOffset">shadingMeshSurfaceOffset</a><br/>
+	<a href="#static_shadingMethodGouraud">shadingMethodGouraud</a><br/>
+	<a href="#static_shadingMethodNothing">shadingMethodNothing</a><br/>
+	<a href="#static_shadingMethodPhong">shadingMethodPhong</a><br/>
+	<a href="#static_shadingMethodToon">shadingMethodToon</a><br/>
+	<a href="#static_shadingNoDrawOffsetBorder">shadingNoDrawOffsetBorder</a><br/>
+	<a href="#static_shadingNoDropShadow">shadingNoDropShadow</a><br/>
+	<a href="#static_shadingNoFogEffect">shadingNoFogEffect</a><br/>
+	<a href="#static_shadingNoReflectObject">shadingNoReflectObject</a><br/>
+	<a href="#static_shadingNoShadowObject">shadingNoShadowObject</a><br/>
+	<a href="#static_shadingNoZBuffer">shadingNoZBuffer</a><br/>
+	<a href="#static_shadingNormalTexture">shadingNormalTexture</a><br/>
+	<a href="#static_shadingNormalizedUVScale">shadingNormalizedUVScale</a><br/>
+	<a href="#static_shadingRefractEnvMapping">shadingRefractEnvMapping</a><br/>
+	<a href="#static_shadingSingleSidePlane">shadingSingleSidePlane</a><br/>
+	<a href="#static_shadingSpecularMapping">shadingSpecularMapping</a><br/>
+	<a href="#static_shadingTextureMapping">shadingTextureMapping</a><br/>
+	<a href="#static_shadingTextureSmoothing">shadingTextureSmoothing</a><br/>
+	<a href="#static_shadingTextureTiling">shadingTextureTiling</a><br/>
+	<a href="#static_shadingTextureTriming">shadingTextureTriming</a><br/>
+	<a href="#static_shadingVertexAlpha">shadingVertexAlpha</a><br/>
+	<a href="#static_shadingZBufferNoWrite">shadingZBufferNoWrite</a><br/>
+	<a href="#static_textureAlpha">textureAlpha</a><br/>
+	<a href="#static_textureDiffusion">textureDiffusion</a><br/>
+	<a href="#static_textureEnvironment">textureEnvironment</a><br/>
+	<a href="#static_textureHeight">textureHeight</a><br/>
+	<a href="#static_textureLuminous">textureLuminous</a><br/>
+	<a href="#static_textureMain">textureMain</a><br/>
+	<a href="#static_textureMaxCount">textureMaxCount</a><br/>
+	<a href="#static_textureNormal">textureNormal</a><br/>
+	<a href="#static_textureSpecular">textureSpecular</a><br/>
+	<a href="#static_textureSub">textureSub</a><br/>
+	<a href="#static_textureTypeMask">textureTypeMask</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_Material">Material</a><br/>
+	<a href="#virtual_enableBackSurfaceAttribute">enableBackSurfaceAttribute</a><br/>
+	<a href="#virtual_findBackTextureTypeOf">findBackTextureTypeOf</a><br/>
+	<a href="#virtual_findTextureTypeOf">findTextureTypeOf</a><br/>
+	<a href="#virtual_getBackSurfaceAttribute">getBackSurfaceAttribute</a><br/>
+	<a href="#virtual_getBackTexture">getBackTexture</a><br/>
+	<a href="#virtual_getBackTextureApplication">getBackTextureApplication</a><br/>
+	<a href="#virtual_getBackTextureFlags">getBackTextureFlags</a><br/>
+	<a href="#virtual_getBackTextureParameter">getBackTextureParameter</a><br/>
+	<a href="#virtual_getBackTextureType">getBackTextureType</a><br/>
+	<a href="#virtual_getSurfaceAttribute">getSurfaceAttribute</a><br/>
+	<a href="#virtual_getTexture">getTexture</a><br/>
+	<a href="#virtual_getTextureApplication">getTextureApplication</a><br/>
+	<a href="#virtual_getTextureFlags">getTextureFlags</a><br/>
+	<a href="#virtual_getTextureParameter">getTextureParameter</a><br/>
+	<a href="#virtual_getTextureType">getTextureType</a><br/>
+	<a href="#virtual_isEnabledBackSurfaceAttribute">isEnabledBackSurfaceAttribute</a><br/>
+	<a href="#virtual_setBackSurfaceAttribute">setBackSurfaceAttribute</a><br/>
+	<a href="#virtual_setBackTexture">setBackTexture</a><br/>
+	<a href="#virtual_setSurfaceAttribute">setSurfaceAttribute</a><br/>
+	<a href="#virtual_setTexture">setTexture</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_shadingAllLocalTextureMask"/>
+<div class="headline">shadingAllLocalTextureMask</div>
+<div class="usage">public static const Integer shadingAllLocalTextureMask = 18143028228096 /* 0x108040C0B000 */</div>
+<br/>
+
+<a name="static_shadingAlphaTexture"/>
+<div class="headline">shadingAlphaTexture</div>
+<div class="usage">public static const Integer shadingAlphaTexture = 8388608 /* 0x00800000 */</div>
+<br/>
+
+<a name="static_shadingAppExtension1"/>
+<div class="headline">shadingAppExtension1</div>
+<div class="usage">public static const Integer shadingAppExtension1 = 281474976710656 /* 0x1000000000000 */</div>
+<br/>
+
+<a name="static_shadingAppExtension2"/>
+<div class="headline">shadingAppExtension2</div>
+<div class="usage">public static const Integer shadingAppExtension2 = 562949953421312 /* 0x2000000000000 */</div>
+<br/>
+
+<a name="static_shadingAppExtension3"/>
+<div class="headline">shadingAppExtension3</div>
+<div class="usage">public static const Integer shadingAppExtension3 = 1125899906842624 /* 0x4000000000000 */</div>
+<br/>
+
+<a name="static_shadingAppExtension4"/>
+<div class="headline">shadingAppExtension4</div>
+<div class="usage">public static const Integer shadingAppExtension4 = 2251799813685248 /* 0x8000000000000 */</div>
+<br/>
+
+<a name="static_shadingDrawOffsetBorder"/>
+<div class="headline">shadingDrawOffsetBorder</div>
+<div class="usage">public static const Integer shadingDrawOffsetBorder = 524288 /* 0x00080000 */</div>
+<br/>
+
+<a name="static_shadingEmisiveTarget"/>
+<div class="headline">shadingEmisiveTarget</div>
+<div class="usage">public static const Integer shadingEmisiveTarget = 68719476736 /* 0x1000000000 */</div>
+<br/>
+
+<a name="static_shadingEnvironmentMapping"/>
+<div class="headline">shadingEnvironmentMapping</div>
+<div class="usage">public static const Integer shadingEnvironmentMapping = 8192 /* 0x2000 */</div>
+<br/>
+
+<a name="static_shadingExBackDiffusion"/>
+<div class="headline">shadingExBackDiffusion</div>
+<div class="usage">public static const Integer shadingExBackDiffusion = 2</div>
+<br/>
+
+<a name="static_shadingExBackLight"/>
+<div class="headline">shadingExBackLight</div>
+<div class="usage">public static const Integer shadingExBackLight = 16</div>
+<br/>
+
+<a name="static_shadingExBorderParam"/>
+<div class="headline">shadingExBorderParam</div>
+<div class="usage">public static const Integer shadingExBorderParam = 8</div>
+<br/>
+
+<a name="static_shadingExRimLight"/>
+<div class="headline">shadingExRimLight</div>
+<div class="usage">public static const Integer shadingExRimLight = 32 /* 0x0020 */</div>
+<br/>
+
+<a name="static_shadingExSpecularColor"/>
+<div class="headline">shadingExSpecularColor</div>
+<div class="usage">public static const Integer shadingExSpecularColor = 4</div>
+<br/>
+
+<a name="static_shadingExVarietyShade"/>
+<div class="headline">shadingExVarietyShade</div>
+<div class="usage">public static const Integer shadingExVarietyShade = 1</div>
+<br/>
+
+<a name="static_shadingGEnvironmentMapping"/>
+<div class="headline">shadingGEnvironmentMapping</div>
+<div class="usage">public static const Integer shadingGEnvironmentMapping = 16384 /* 0x4000 */</div>
+<br/>
+
+<a name="static_shadingGlobalReflectObject"/>
+<div class="headline">shadingGlobalReflectObject</div>
+<div class="usage">public static const Integer shadingGlobalReflectObject = 134217728 /* 0x08000000 */</div>
+<br/>
+
+<a name="static_shadingHeightTexture"/>
+<div class="headline">shadingHeightTexture</div>
+<div class="usage">public static const Integer shadingHeightTexture = 1073741824 /* 0x40000000 */</div>
+<br/>
+
+<a name="static_shadingHintMask"/>
+<div class="headline">shadingHintMask</div>
+<div class="usage">public static const Integer shadingHintMask = 3145728 /* 0x00300000 */</div>
+<br/>
+
+<a name="static_shadingHintNoZSort"/>
+<div class="headline">shadingHintNoZSort</div>
+<div class="usage">public static const Integer shadingHintNoZSort = 8589934592 /* 0x200000000 */</div>
+<br/>
+
+<a name="static_shadingHintPriority0"/>
+<div class="headline">shadingHintPriority0</div>
+<div class="usage">public static const Integer shadingHintPriority0 = 0</div>
+<br/>
+
+<a name="static_shadingHintPriority1"/>
+<div class="headline">shadingHintPriority1</div>
+<div class="usage">public static const Integer shadingHintPriority1 = 1048576 /* 0x00100000 */</div>
+<br/>
+
+<a name="static_shadingHintPriority2"/>
+<div class="headline">shadingHintPriority2</div>
+<div class="usage">public static const Integer shadingHintPriority2 = 2097152 /* 0x00200000 */</div>
+<br/>
+
+<a name="static_shadingHintPriority3"/>
+<div class="headline">shadingHintPriority3</div>
+<div class="usage">public static const Integer shadingHintPriority3 = 3145728 /* 0x00300000 */</div>
+<br/>
+
+<a name="static_shadingHintShifter"/>
+<div class="headline">shadingHintShifter</div>
+<div class="usage">public static const Integer shadingHintShifter = 20 /* 0x0014 */</div>
+<br/>
+
+<a name="static_shadingLuminousTexture"/>
+<div class="headline">shadingLuminousTexture</div>
+<div class="usage">public static const Integer shadingLuminousTexture = 4194304 /* 0x00400000 */</div>
+<br/>
+
+<a name="static_shadingMakeBlendAdd"/>
+<div class="headline">shadingMakeBlendAdd</div>
+<div class="usage">public static const Integer shadingMakeBlendAdd = 34359738368 /* 0x800000000 */</div>
+<br/>
+
+<a name="static_shadingMeshSurfaceOffset"/>
+<div class="headline">shadingMeshSurfaceOffset</div>
+<div class="usage">public static const Integer shadingMeshSurfaceOffset = 17179869184 /* 0x400000000 */</div>
+<br/>
+
+<a name="static_shadingMethodGouraud"/>
+<div class="headline">shadingMethodGouraud</div>
+<div class="usage">public static const Integer shadingMethodGouraud = 2</div>
+<br/>
+
+<a name="static_shadingMethodNothing"/>
+<div class="headline">shadingMethodNothing</div>
+<div class="usage">public static const Integer shadingMethodNothing = 0</div>
+<br/>
+
+<a name="static_shadingMethodPhong"/>
+<div class="headline">shadingMethodPhong</div>
+<div class="usage">public static const Integer shadingMethodPhong = 4</div>
+<br/>
+
+<a name="static_shadingMethodToon"/>
+<div class="headline">shadingMethodToon</div>
+<div class="usage">public static const Integer shadingMethodToon = 8</div>
+<br/>
+
+<a name="static_shadingNoDrawOffsetBorder"/>
+<div class="headline">shadingNoDrawOffsetBorder</div>
+<div class="usage">public static const Integer shadingNoDrawOffsetBorder = 137438953472 /* 0x2000000000 */</div>
+<br/>
+
+<a name="static_shadingNoDropShadow"/>
+<div class="headline">shadingNoDropShadow</div>
+<div class="usage">public static const Integer shadingNoDropShadow = 33554432 /* 0x02000000 */</div>
+<br/>
+
+<a name="static_shadingNoFogEffect"/>
+<div class="headline">shadingNoFogEffect</div>
+<div class="usage">public static const Integer shadingNoFogEffect = 268435456 /* 0x10000000 */</div>
+<br/>
+
+<a name="static_shadingNoReflectObject"/>
+<div class="headline">shadingNoReflectObject</div>
+<div class="usage">public static const Integer shadingNoReflectObject = 67108864 /* 0x04000000 */</div>
+<br/>
+
+<a name="static_shadingNoShadowObject"/>
+<div class="headline">shadingNoShadowObject</div>
+<div class="usage">public static const Integer shadingNoShadowObject = 16777216 /* 0x01000000 */</div>
+<br/>
+
+<a name="static_shadingNoZBuffer"/>
+<div class="headline">shadingNoZBuffer</div>
+<div class="usage">public static const Integer shadingNoZBuffer = 131072 /* 0x00020000 */</div>
+<br/>
+
+<a name="static_shadingNormalTexture"/>
+<div class="headline">shadingNormalTexture</div>
+<div class="usage">public static const Integer shadingNormalTexture = 32768 /* 0x8000 */</div>
+<br/>
+
+<a name="static_shadingNormalizedUVScale"/>
+<div class="headline">shadingNormalizedUVScale</div>
+<div class="usage">public static const Integer shadingNormalizedUVScale = 1099511627776 /* 0x10000000000 */</div>
+<br/>
+
+<a name="static_shadingRefractEnvMapping"/>
+<div class="headline">shadingRefractEnvMapping</div>
+<div class="usage">public static const Integer shadingRefractEnvMapping = 274877906944 /* 0x4000000000 */</div>
+<br/>
+
+<a name="static_shadingSingleSidePlane"/>
+<div class="headline">shadingSingleSidePlane</div>
+<div class="usage">public static const Integer shadingSingleSidePlane = 65536 /* 0x00010000 */</div>
+<br/>
+
+<a name="static_shadingSpecularMapping"/>
+<div class="headline">shadingSpecularMapping</div>
+<div class="usage">public static const Integer shadingSpecularMapping = 549755813888 /* 0x8000000000 */</div>
+<br/>
+
+<a name="static_shadingTextureMapping"/>
+<div class="headline">shadingTextureMapping</div>
+<div class="usage">public static const Integer shadingTextureMapping = 4096 /* 0x1000 */</div>
+<br/>
+
+<a name="static_shadingTextureSmoothing"/>
+<div class="headline">shadingTextureSmoothing</div>
+<div class="usage">public static const Integer shadingTextureSmoothing = 1024 /* 0x0400 */</div>
+<br/>
+
+<a name="static_shadingTextureTiling"/>
+<div class="headline">shadingTextureTiling</div>
+<div class="usage">public static const Integer shadingTextureTiling = 256 /* 0x0100 */</div>
+<br/>
+
+<a name="static_shadingTextureTriming"/>
+<div class="headline">shadingTextureTriming</div>
+<div class="usage">public static const Integer shadingTextureTriming = 512 /* 0x0200 */</div>
+<br/>
+
+<a name="static_shadingVertexAlpha"/>
+<div class="headline">shadingVertexAlpha</div>
+<div class="usage">public static const Integer shadingVertexAlpha = 536870912 /* 0x20000000 */</div>
+<br/>
+
+<a name="static_shadingZBufferNoWrite"/>
+<div class="headline">shadingZBufferNoWrite</div>
+<div class="usage">public static const Integer shadingZBufferNoWrite = 262144 /* 0x00040000 */</div>
+<br/>
+
+<a name="static_textureAlpha"/>
+<div class="headline">textureAlpha</div>
+<div class="usage">public static const Integer textureAlpha = 5</div>
+<br/>
+
+<a name="static_textureDiffusion"/>
+<div class="headline">textureDiffusion</div>
+<div class="usage">public static const Integer textureDiffusion = 0</div>
+<br/>
+
+<a name="static_textureEnvironment"/>
+<div class="headline">textureEnvironment</div>
+<div class="usage">public static const Integer textureEnvironment = 4</div>
+<br/>
+
+<a name="static_textureHeight"/>
+<div class="headline">textureHeight</div>
+<div class="usage">public static const Integer textureHeight = 6</div>
+<br/>
+
+<a name="static_textureLuminous"/>
+<div class="headline">textureLuminous</div>
+<div class="usage">public static const Integer textureLuminous = 3</div>
+<br/>
+
+<a name="static_textureMain"/>
+<div class="headline">textureMain</div>
+<div class="usage">public static const Integer textureMain = 0</div>
+<br/>
+
+<a name="static_textureMaxCount"/>
+<div class="headline">textureMaxCount</div>
+<div class="usage">public static const Integer textureMaxCount = 5</div>
+<br/>
+
+<a name="static_textureNormal"/>
+<div class="headline">textureNormal</div>
+<div class="usage">public static const Integer textureNormal = 2</div>
+<br/>
+
+<a name="static_textureSpecular"/>
+<div class="headline">textureSpecular</div>
+<div class="usage">public static const Integer textureSpecular = 7</div>
+<br/>
+
+<a name="static_textureSub"/>
+<div class="headline">textureSub</div>
+<div class="usage">public static const Integer textureSub = 1</div>
+<br/>
+
+<a name="static_textureTypeMask"/>
+<div class="headline">textureTypeMask</div>
+<div class="usage">public static const Integer textureTypeMask = 255 /* 0x00FF */</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_Material"/>
+<div class="headline">Material</div>
+<div class="usage">public void Material(&#32; )</div>
+<br/>
+
+<a name="virtual_enableBackSurfaceAttribute"/>
+<div class="headline">enableBackSurfaceAttribute</div>
+<div class="usage">public void enableBackSurfaceAttribute( boolean flagBack )</div>
+<br/>
+
+<a name="virtual_findBackTextureTypeOf"/>
+<div class="headline">findBackTextureTypeOf</div>
+<div class="usage">public const int findBackTextureTypeOf( int type )</div>
+<br/>
+
+<a name="virtual_findTextureTypeOf"/>
+<div class="headline">findTextureTypeOf</div>
+<div class="usage">public const int findTextureTypeOf( int type )</div>
+<br/>
+
+<a name="virtual_getBackSurfaceAttribute"/>
+<div class="headline">getBackSurfaceAttribute</div>
+<div class="usage">public const void getBackSurfaceAttribute( SurfaceAttribute attr )</div>
+<br/>
+
+<a name="virtual_getBackTexture"/>
+<div class="headline">getBackTexture</div>
+<div class="usage">public const Image getBackTexture( int iTexture = 0 )</div>
+<br/>
+
+<a name="virtual_getBackTextureApplication"/>
+<div class="headline">getBackTextureApplication</div>
+<div class="usage">public const float getBackTextureApplication( int iTexture = 0 )</div>
+<br/>
+
+<a name="virtual_getBackTextureFlags"/>
+<div class="headline">getBackTextureFlags</div>
+<div class="usage">public const int getBackTextureFlags( int iTexture = 0 )</div>
+<br/>
+
+<a name="virtual_getBackTextureParameter"/>
+<div class="headline">getBackTextureParameter</div>
+<div class="usage">public const float getBackTextureParameter( int iTexture = 0 )</div>
+<br/>
+
+<a name="virtual_getBackTextureType"/>
+<div class="headline">getBackTextureType</div>
+<div class="usage">public const int getBackTextureType( int iTexture = 0 )</div>
+<br/>
+
+<a name="virtual_getSurfaceAttribute"/>
+<div class="headline">getSurfaceAttribute</div>
+<div class="usage">public const void getSurfaceAttribute( SurfaceAttribute attr )</div>
+<br/>
+
+<a name="virtual_getTexture"/>
+<div class="headline">getTexture</div>
+<div class="usage">public const Image getTexture( int iTexture = 0 )</div>
+<br/>
+
+<a name="virtual_getTextureApplication"/>
+<div class="headline">getTextureApplication</div>
+<div class="usage">public const float getTextureApplication( int iTexture = 0 )</div>
+<br/>
+
+<a name="virtual_getTextureFlags"/>
+<div class="headline">getTextureFlags</div>
+<div class="usage">public const int getTextureFlags( int iTexture = 0 )</div>
+<br/>
+
+<a name="virtual_getTextureParameter"/>
+<div class="headline">getTextureParameter</div>
+<div class="usage">public const float getTextureParameter( int iTexture = 0 )</div>
+<br/>
+
+<a name="virtual_getTextureType"/>
+<div class="headline">getTextureType</div>
+<div class="usage">public const int getTextureType( int iTexture = 0 )</div>
+<br/>
+
+<a name="virtual_isEnabledBackSurfaceAttribute"/>
+<div class="headline">isEnabledBackSurfaceAttribute</div>
+<div class="usage">public const boolean isEnabledBackSurfaceAttribute(&#32; )</div>
+<br/>
+
+<a name="virtual_setBackSurfaceAttribute"/>
+<div class="headline">setBackSurfaceAttribute</div>
+<div class="usage">public void setBackSurfaceAttribute( SurfaceAttribute attr )</div>
+<br/>
+
+<a name="virtual_setBackTexture"/>
+<div class="headline">setBackTexture</div>
+<div class="usage">public void setBackTexture( Image image, int iTexture = 0, int nFlags = 0, float nApply = 1., float nParam1 = 0. )</div>
+<br/>
+
+<a name="virtual_setSurfaceAttribute"/>
+<div class="headline">setSurfaceAttribute</div>
+<div class="usage">public void setSurfaceAttribute( SurfaceAttribute attr )</div>
+<br/>
+
+<a name="virtual_setTexture"/>
+<div class="headline">setTexture</div>
+<div class="usage">public void setTexture( Image image, int iTexture = 0, int nFlags = 0, float nApply = 1., float nParam1 = 0. )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

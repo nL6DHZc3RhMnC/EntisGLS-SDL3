@@ -1,0 +1,92 @@
+
+class	AGLVariables
+{
+	public Map	f = {} ;
+	public Map	s = {} ;
+
+	public AGLVariables()
+	{
+		this.f = {} ;
+		this.s = {} ;
+	}
+
+	public void clearAllFlags()
+	{
+		this.f = {} ;
+	}
+
+	public void initSFlag( String name, int value )
+	{
+		if ( !this.s.has(name) )
+		{
+			this.s[name] = Integer(value) ;
+		}
+	}
+
+	public int getSFlag( String name ) const
+	{
+		if ( this.s.has(name)
+			&& (this.s[name] instanceof Integer) )
+		{
+			return	(Integer) this.s[name] ;
+		}
+		return	0 ;
+	}
+
+	public int setSFlag( String name, int value )
+	{
+		this.s[name] = Integer(value) ;
+		return	value ;
+	}
+
+	public int addSFlag( String name, int value = 1 )
+	{
+		if ( !this.s.has(name) )
+		{
+			this.s[name] = Integer(value) ;
+		}
+		else if (this.s[name] instanceof Integer )
+		{
+			this.s[name] = Integer( (int)((Integer) this.s[name]) + value ) ;
+		}
+		return	0 ;
+	}
+
+	public int getDeedFlag( String name ) const
+	{
+		if ( this.s.has(".deed")
+			&& (this.s[".deed"] instanceof Map) )
+		{
+			Map	mapDeed = (Map) this.s[".deed"] ;
+			if ( mapDeed.has(name)
+				&& (mapDeed[name] instanceof Integer) )
+			{
+				return	(Integer) mapDeed[name] ;
+			}
+		}
+		return	0 ;
+	}
+
+	public int addDeedFlag( String name, int value = 1 )
+	{
+		if ( !this.s.has(".deed")
+			|| !(this.s[".deed"] instanceof Map) )
+		{
+			this.s[".deed"] = new hMap<Integer>() ;
+		}
+		Map	mapDeed = (Map) this.s[".deed"] ;
+		if ( !mapDeed.has(name)
+			|| !(mapDeed[name] instanceof Integer) )
+		{
+			mapDeed[name] = Integer(0) ;
+		}
+		mapDeed[name] = Integer( (int)((Integer) mapDeed[name]) + value ) ;
+		return	(Integer) mapDeed[name]  ;
+	}
+
+}
+
+
+AGLVariables	g_aglVars = new AGLVariables() ;
+
+

@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>Sprite</title>
+</head>
+<body>
+<div class="chapter">Sprite</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　Sprite は画面表示インターフェースの基底クラスです。<br/>
+　EntisGLS4 の SGLSprite と同等です。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="Sprite.xhtml">Sprite</a>
+</div></div></div><br/>
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="Sprite.Parameter.xhtml">Sprite.Parameter</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_commandAbove">commandAbove</a><br/>
+	<a href="#static_commandBelow">commandBelow</a><br/>
+	<a href="#static_commandHigh">commandHigh</a><br/>
+	<a href="#static_commandLow">commandLow</a><br/>
+	<a href="#static_commandNormal">commandNormal</a><br/>
+	<a href="#static_flagZScale">flagZScale</a><br/>
+	<a href="#static_regBottom">regBottom</a><br/>
+	<a href="#static_regCenter">regCenter</a><br/>
+	<a href="#static_regLeft">regLeft</a><br/>
+	<a href="#static_regRight">regRight</a><br/>
+	<a href="#static_regTop">regTop</a><br/>
+	<a href="#static_regVCenter">regVCenter</a><br/>
+	<a href="#static_scrollDefault">scrollDefault</a><br/>
+	<a href="#static_scrollHorz">scrollHorz</a><br/>
+	<a href="#static_scrollVert">scrollVert</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_Sprite">Sprite</a><br/>
+	<a href="#virtual_addAction">addAction</a><br/>
+	<a href="#virtual_addChild">addChild</a><br/>
+	<a href="#virtual_addTimer">addTimer</a><br/>
+	<a href="#virtual_attachAnimation">attachAnimation</a><br/>
+	<a href="#virtual_attachKeyListener">attachKeyListener</a><br/>
+	<a href="#virtual_attachMouseListener">attachMouseListener</a><br/>
+	<a href="#virtual_beginAnimation">beginAnimation</a><br/>
+	<a href="#virtual_changePriority">changePriority</a><br/>
+	<a href="#virtual_changeSpritePriority">changeSpritePriority</a><br/>
+	<a href="#virtual_checkButton">checkButton</a><br/>
+	<a href="#virtual_checkSpriteButton">checkSpriteButton</a><br/>
+	<a href="#virtual_createBuffer">createBuffer</a><br/>
+	<a href="#virtual_defrostFrameUpdate">defrostFrameUpdate</a><br/>
+	<a href="#virtual_detachAllChildren">detachAllChildren</a><br/>
+	<a href="#virtual_detachChild">detachChild</a><br/>
+	<a href="#virtual_detachKeyListener">detachKeyListener</a><br/>
+	<a href="#virtual_detachMouseListener">detachMouseListener</a><br/>
+	<a href="#virtual_flushAction">flushAction</a><br/>
+	<a href="#virtual_freezeFrameUpdate">freezeFrameUpdate</a><br/>
+	<a href="#virtual_getCenterPosition">getCenterPosition</a><br/>
+	<a href="#virtual_getChildAt">getChildAt</a><br/>
+	<a href="#virtual_getChildCount">getChildCount</a><br/>
+	<a href="#virtual_getClickableRect">getClickableRect</a><br/>
+	<a href="#virtual_getFilter2Parameter">getFilter2Parameter</a><br/>
+	<a href="#virtual_getFilterParameter">getFilterParameter</a><br/>
+	<a href="#virtual_getHitSpriteAt">getHitSpriteAt</a><br/>
+	<a href="#virtual_getID">getID</a><br/>
+	<a href="#virtual_getImageSize">getImageSize</a><br/>
+	<a href="#virtual_getItemAs">getItemAs</a><br/>
+	<a href="#virtual_getParameter">getParameter</a><br/>
+	<a href="#virtual_getParent">getParent</a><br/>
+	<a href="#virtual_getPosition">getPosition</a><br/>
+	<a href="#virtual_getPriority">getPriority</a><br/>
+	<a href="#virtual_getRectangle">getRectangle</a><br/>
+	<a href="#virtual_getRotation">getRotation</a><br/>
+	<a href="#virtual_getScrollPageSize">getScrollPageSize</a><br/>
+	<a href="#virtual_getScrollPos">getScrollPos</a><br/>
+	<a href="#virtual_getScrollRange">getScrollRange</a><br/>
+	<a href="#virtual_getSpritePriority">getSpritePriority</a><br/>
+	<a href="#virtual_getSpriteRectangle">getSpriteRectangle</a><br/>
+	<a href="#virtual_getSpriteScrollPageSize">getSpriteScrollPageSize</a><br/>
+	<a href="#virtual_getSpriteScrollPos">getSpriteScrollPos</a><br/>
+	<a href="#virtual_getSpriteScrollRange">getSpriteScrollRange</a><br/>
+	<a href="#virtual_getSpriteText">getSpriteText</a><br/>
+	<a href="#virtual_getSpriteTransparency">getSpriteTransparency</a><br/>
+	<a href="#virtual_getText">getText</a><br/>
+	<a href="#virtual_getTransparency">getTransparency</a><br/>
+	<a href="#virtual_getUIFlag">getUIFlag</a><br/>
+	<a href="#virtual_getZoom">getZoom</a><br/>
+	<a href="#virtual_hasKeyFocus">hasKeyFocus</a><br/>
+	<a href="#virtual_invokeCommands">invokeCommands</a><br/>
+	<a href="#virtual_isAction">isAction</a><br/>
+	<a href="#virtual_isBuffered">isBuffered</a><br/>
+	<a href="#virtual_isButtonChecked">isButtonChecked</a><br/>
+	<a href="#virtual_isEnabled">isEnabled</a><br/>
+	<a href="#virtual_isHitSprite">isHitSprite</a><br/>
+	<a href="#virtual_isSpriteButtonChecked">isSpriteButtonChecked</a><br/>
+	<a href="#virtual_isSpriteEnabled">isSpriteEnabled</a><br/>
+	<a href="#virtual_isSpriteVisible">isSpriteVisible</a><br/>
+	<a href="#virtual_isVisible">isVisible</a><br/>
+	<a href="#virtual_killKeyFocus">killKeyFocus</a><br/>
+	<a href="#virtual_loadImage">loadImage</a><br/>
+	<a href="#virtual_modifyUIFlag">modifyUIFlag</a><br/>
+	<a href="#virtual_pauseAllAction">pauseAllAction</a><br/>
+	<a href="#virtual_postUpdate">postUpdate</a><br/>
+	<a href="#virtual_regulateCenter">regulateCenter</a><br/>
+	<a href="#virtual_releaseBuffer">releaseBuffer</a><br/>
+	<a href="#virtual_releaseMouseCapture">releaseMouseCapture</a><br/>
+	<a href="#virtual_removeTimer">removeTimer</a><br/>
+	<a href="#virtual_restartAllAction">restartAllAction</a><br/>
+	<a href="#virtual_setActionLinearTo">setActionLinearTo</a><br/>
+	<a href="#virtual_setCenterPosition">setCenterPosition</a><br/>
+	<a href="#virtual_setClickableRect">setClickableRect</a><br/>
+	<a href="#virtual_setEnable">setEnable</a><br/>
+	<a href="#virtual_setFillBackColor">setFillBackColor</a><br/>
+	<a href="#virtual_setFilter2Parameter">setFilter2Parameter</a><br/>
+	<a href="#virtual_setFilterParameter">setFilterParameter</a><br/>
+	<a href="#virtual_setID">setID</a><br/>
+	<a href="#virtual_setKeyFocus">setKeyFocus</a><br/>
+	<a href="#virtual_setLoopAnimation">setLoopAnimation</a><br/>
+	<a href="#virtual_setMouseCapture">setMouseCapture</a><br/>
+	<a href="#virtual_setParameter">setParameter</a><br/>
+	<a href="#virtual_setPosition">setPosition</a><br/>
+	<a href="#virtual_setRotation">setRotation</a><br/>
+	<a href="#virtual_setScrollPageSize">setScrollPageSize</a><br/>
+	<a href="#virtual_setScrollPos">setScrollPos</a><br/>
+	<a href="#virtual_setScrollRange">setScrollRange</a><br/>
+	<a href="#virtual_setSpriteEnable">setSpriteEnable</a><br/>
+	<a href="#virtual_setSpriteImage">setSpriteImage</a><br/>
+	<a href="#virtual_setSpriteScrollPageSize">setSpriteScrollPageSize</a><br/>
+	<a href="#virtual_setSpriteScrollPos">setSpriteScrollPos</a><br/>
+	<a href="#virtual_setSpriteScrollRange">setSpriteScrollRange</a><br/>
+	<a href="#virtual_setSpriteText">setSpriteText</a><br/>
+	<a href="#virtual_setSpriteTextFont">setSpriteTextFont</a><br/>
+	<a href="#virtual_setSpriteTransparency">setSpriteTransparency</a><br/>
+	<a href="#virtual_setSpriteVisible">setSpriteVisible</a><br/>
+	<a href="#virtual_setText">setText</a><br/>
+	<a href="#virtual_setTextFont">setTextFont</a><br/>
+	<a href="#virtual_setTransparency">setTransparency</a><br/>
+	<a href="#virtual_setVisible">setVisible</a><br/>
+	<a href="#virtual_setZoom">setZoom</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_commandAbove"/>
+<div class="headline">commandAbove</div>
+<div class="usage">public static const Integer commandAbove = 1</div>
+<br/>
+
+<a name="static_commandBelow"/>
+<div class="headline">commandBelow</div>
+<div class="usage">public static const Integer commandBelow = -1</div>
+<br/>
+
+<a name="static_commandHigh"/>
+<div class="headline">commandHigh</div>
+<div class="usage">public static const Integer commandHigh = 5</div>
+<br/>
+
+<a name="static_commandLow"/>
+<div class="headline">commandLow</div>
+<div class="usage">public static const Integer commandLow = -5</div>
+<br/>
+
+<a name="static_commandNormal"/>
+<div class="headline">commandNormal</div>
+<div class="usage">public static const Integer commandNormal = 0</div>
+<br/>
+
+<a name="static_flagZScale"/>
+<div class="headline">flagZScale</div>
+<div class="usage">public static const Integer flagZScale = 1</div>
+<br/>
+
+<a name="static_regBottom"/>
+<div class="headline">regBottom</div>
+<div class="usage">public static const Integer regBottom = 32 /* 0x0020 */</div>
+<br/>
+
+<a name="static_regCenter"/>
+<div class="headline">regCenter</div>
+<div class="usage">public static const Integer regCenter = 0</div>
+<br/>
+
+<a name="static_regLeft"/>
+<div class="headline">regLeft</div>
+<div class="usage">public static const Integer regLeft = 1</div>
+<br/>
+
+<a name="static_regRight"/>
+<div class="headline">regRight</div>
+<div class="usage">public static const Integer regRight = 2</div>
+<br/>
+
+<a name="static_regTop"/>
+<div class="headline">regTop</div>
+<div class="usage">public static const Integer regTop = 16</div>
+<br/>
+
+<a name="static_regVCenter"/>
+<div class="headline">regVCenter</div>
+<div class="usage">public static const Integer regVCenter = 0</div>
+<br/>
+
+<a name="static_scrollDefault"/>
+<div class="headline">scrollDefault</div>
+<div class="usage">public static const Integer scrollDefault = 0</div>
+<br/>
+
+<a name="static_scrollHorz"/>
+<div class="headline">scrollHorz</div>
+<div class="usage">public static const Integer scrollHorz = 1</div>
+<br/>
+
+<a name="static_scrollVert"/>
+<div class="headline">scrollVert</div>
+<div class="usage">public static const Integer scrollVert = 2</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_Sprite"/>
+<div class="headline">Sprite</div>
+<div class="usage">public void Sprite(&#32; )</div>
+<br/>
+
+<a name="virtual_addAction"/>
+<div class="headline">addAction</div>
+<div class="usage">public void addAction( SpriteAction act )</div>
+<br/>
+
+<a name="virtual_addChild"/>
+<div class="headline">addChild</div>
+<div class="usage">public void addChild( Sprite sprite )</div>
+<br/>
+
+<a name="virtual_addTimer"/>
+<div class="headline">addTimer</div>
+<div class="usage">public void addTimer( SpriteTimer timer )</div>
+<br/>
+
+<a name="virtual_attachAnimation"/>
+<div class="headline">attachAnimation</div>
+<div class="usage">public void attachAnimation( Image image )</div>
+<br/>
+
+<a name="virtual_attachKeyListener"/>
+<div class="headline">attachKeyListener</div>
+<div class="usage">public void attachKeyListener( SpriteKeyListener listener )</div>
+<br/>
+
+<a name="virtual_attachMouseListener"/>
+<div class="headline">attachMouseListener</div>
+<div class="usage">public void attachMouseListener( SpriteMouseListener listener )</div>
+<br/>
+
+<a name="virtual_beginAnimation"/>
+<div class="headline">beginAnimation</div>
+<div class="usage">public void beginAnimation( int loop = -1, int iLoopStart = 0, int iLoopEnd = 0, int iAnimeStart = 0, int msecDuration = 0 )</div>
+<br/>
+
+<a name="virtual_changePriority"/>
+<div class="headline">changePriority</div>
+<div class="usage">public void changePriority( int nPriority )</div>
+<br/>
+
+<a name="virtual_changeSpritePriority"/>
+<div class="headline">changeSpritePriority</div>
+<div class="usage">public void changeSpritePriority( String id, int priority )</div>
+<br/>
+
+<a name="virtual_checkButton"/>
+<div class="headline">checkButton</div>
+<div class="usage">public void checkButton( boolean check )</div>
+<br/>
+
+<a name="virtual_checkSpriteButton"/>
+<div class="headline">checkSpriteButton</div>
+<div class="usage">public void checkSpriteButton( String id, boolean check )</div>
+<br/>
+
+<a name="virtual_createBuffer"/>
+<div class="headline">createBuffer</div>
+<div class="usage">public boolean createBuffer( int width, int height, int format = 0, int depth = 32 /* 0x0020 */, long nFlags = 0, boolean flagZBuffer = false, boolean flagStereo3D = false )</div>
+<br/>
+
+<a name="virtual_defrostFrameUpdate"/>
+<div class="headline">defrostFrameUpdate</div>
+<div class="usage">public void defrostFrameUpdate(&#32; )</div>
+<br/>
+
+<a name="virtual_detachAllChildren"/>
+<div class="headline">detachAllChildren</div>
+<div class="usage">public void detachAllChildren(&#32; )</div>
+<br/>
+
+<a name="virtual_detachChild"/>
+<div class="headline">detachChild</div>
+<div class="usage">public void detachChild( Sprite sprite )</div>
+<br/>
+
+<a name="virtual_detachKeyListener"/>
+<div class="headline">detachKeyListener</div>
+<div class="usage">public void detachKeyListener( SpriteKeyListener listener )</div>
+<br/>
+
+<a name="virtual_detachMouseListener"/>
+<div class="headline">detachMouseListener</div>
+<div class="usage">public void detachMouseListener( SpriteMouseListener listener )</div>
+<br/>
+
+<a name="virtual_flushAction"/>
+<div class="headline">flushAction</div>
+<div class="usage">public void flushAction(&#32; )</div>
+<br/>
+
+<a name="virtual_freezeFrameUpdate"/>
+<div class="headline">freezeFrameUpdate</div>
+<div class="usage">public void freezeFrameUpdate(&#32; )</div>
+<br/>
+
+<a name="virtual_getCenterPosition"/>
+<div class="headline">getCenterPosition</div>
+<div class="usage">public const Vector2D getCenterPosition(&#32; )</div>
+<br/>
+
+<a name="virtual_getChildAt"/>
+<div class="headline">getChildAt</div>
+<div class="usage">public const Sprite getChildAt( int i )</div>
+<br/>
+
+<a name="virtual_getChildCount"/>
+<div class="headline">getChildCount</div>
+<div class="usage">public const int getChildCount(&#32; )</div>
+<br/>
+
+<a name="virtual_getClickableRect"/>
+<div class="headline">getClickableRect</div>
+<div class="usage">public const Rect getClickableRect(&#32; )</div>
+<br/>
+
+<a name="virtual_getFilter2Parameter"/>
+<div class="headline">getFilter2Parameter</div>
+<div class="usage">public const int getFilter2Parameter(&#32; )</div>
+<br/>
+
+<a name="virtual_getFilterParameter"/>
+<div class="headline">getFilterParameter</div>
+<div class="usage">public const int getFilterParameter(&#32; )</div>
+<br/>
+
+<a name="virtual_getHitSpriteAt"/>
+<div class="headline">getHitSpriteAt</div>
+<div class="usage">public const Sprite getHitSpriteAt( double x, double y )</div>
+<br/>
+
+<a name="virtual_getID"/>
+<div class="headline">getID</div>
+<div class="usage">public const String getID(&#32; )</div>
+<br/>
+
+<a name="virtual_getImageSize"/>
+<div class="headline">getImageSize</div>
+<div class="usage">public const Size getImageSize(&#32; )</div>
+<br/>
+
+<a name="virtual_getItemAs"/>
+<div class="headline">getItemAs</div>
+<div class="usage">public const Sprite getItemAs( String id )</div>
+<br/>
+
+<a name="virtual_getParameter"/>
+<div class="headline">getParameter</div>
+<div class="usage">public const Sprite.Parameter getParameter(&#32; )</div>
+<br/>
+
+<a name="virtual_getParent"/>
+<div class="headline">getParent</div>
+<div class="usage">public const Sprite getParent(&#32; )</div>
+<br/>
+
+<a name="virtual_getPosition"/>
+<div class="headline">getPosition</div>
+<div class="usage">public const Vector2D getPosition(&#32; )</div>
+<br/>
+
+<a name="virtual_getPriority"/>
+<div class="headline">getPriority</div>
+<div class="usage">public const int getPriority(&#32; )</div>
+<br/>
+
+<a name="virtual_getRectangle"/>
+<div class="headline">getRectangle</div>
+<div class="usage">public const Rect getRectangle(&#32; )</div>
+<br/>
+
+<a name="virtual_getRotation"/>
+<div class="headline">getRotation</div>
+<div class="usage">public const double getRotation(&#32; )</div>
+<br/>
+
+<a name="virtual_getScrollPageSize"/>
+<div class="headline">getScrollPageSize</div>
+<div class="usage">public const int getScrollPageSize( int scrlDir = 0 )</div>
+<br/>
+
+<a name="virtual_getScrollPos"/>
+<div class="headline">getScrollPos</div>
+<div class="usage">public const int getScrollPos( int scrlDir = 0 )</div>
+<br/>
+
+<a name="virtual_getScrollRange"/>
+<div class="headline">getScrollRange</div>
+<div class="usage">public const int getScrollRange( int scrlDir = 0 )</div>
+<br/>
+
+<a name="virtual_getSpritePriority"/>
+<div class="headline">getSpritePriority</div>
+<div class="usage">public const int getSpritePriority( String id )</div>
+<br/>
+
+<a name="virtual_getSpriteRectangle"/>
+<div class="headline">getSpriteRectangle</div>
+<div class="usage">public const Rect getSpriteRectangle( String id )</div>
+<br/>
+
+<a name="virtual_getSpriteScrollPageSize"/>
+<div class="headline">getSpriteScrollPageSize</div>
+<div class="usage">public const int getSpriteScrollPageSize( String id, int scrlDir = 0 )</div>
+<br/>
+
+<a name="virtual_getSpriteScrollPos"/>
+<div class="headline">getSpriteScrollPos</div>
+<div class="usage">public const int getSpriteScrollPos( String id, int scrlDir = 0 )</div>
+<br/>
+
+<a name="virtual_getSpriteScrollRange"/>
+<div class="headline">getSpriteScrollRange</div>
+<div class="usage">public const int getSpriteScrollRange( String id, int scrlDir = 0 )</div>
+<br/>
+
+<a name="virtual_getSpriteText"/>
+<div class="headline">getSpriteText</div>
+<div class="usage">public const String getSpriteText( String id )</div>
+<br/>
+
+<a name="virtual_getSpriteTransparency"/>
+<div class="headline">getSpriteTransparency</div>
+<div class="usage">public const int getSpriteTransparency( String id )</div>
+<br/>
+
+<a name="virtual_getText"/>
+<div class="headline">getText</div>
+<div class="usage">public const String getText(&#32; )</div>
+<br/>
+
+<a name="virtual_getTransparency"/>
+<div class="headline">getTransparency</div>
+<div class="usage">public const int getTransparency(&#32; )</div>
+<br/>
+
+<a name="virtual_getUIFlag"/>
+<div class="headline">getUIFlag</div>
+<div class="usage">public const long getUIFlag(&#32; )</div>
+<br/>
+
+<a name="virtual_getZoom"/>
+<div class="headline">getZoom</div>
+<div class="usage">public const Vector2D getZoom(&#32; )</div>
+<br/>
+
+<a name="virtual_hasKeyFocus"/>
+<div class="headline">hasKeyFocus</div>
+<div class="usage">public const boolean hasKeyFocus(&#32; )</div>
+<br/>
+
+<a name="virtual_invokeCommands"/>
+<div class="headline">invokeCommands</div>
+<div class="usage">public void invokeCommands( String xmlCommands )</div>
+<br/>
+
+<a name="virtual_isAction"/>
+<div class="headline">isAction</div>
+<div class="usage">public const boolean isAction(&#32; )</div>
+<br/>
+
+<a name="virtual_isBuffered"/>
+<div class="headline">isBuffered</div>
+<div class="usage">public const boolean isBuffered(&#32; )</div>
+<br/>
+
+<a name="virtual_isButtonChecked"/>
+<div class="headline">isButtonChecked</div>
+<div class="usage">public const boolean isButtonChecked(&#32; )</div>
+<br/>
+
+<a name="virtual_isEnabled"/>
+<div class="headline">isEnabled</div>
+<div class="usage">public const boolean isEnabled(&#32; )</div>
+<br/>
+
+<a name="virtual_isHitSprite"/>
+<div class="headline">isHitSprite</div>
+<div class="usage">public const boolean isHitSprite( double x, double y )</div>
+<br/>
+
+<a name="virtual_isSpriteButtonChecked"/>
+<div class="headline">isSpriteButtonChecked</div>
+<div class="usage">public const boolean isSpriteButtonChecked( String id )</div>
+<br/>
+
+<a name="virtual_isSpriteEnabled"/>
+<div class="headline">isSpriteEnabled</div>
+<div class="usage">public const boolean isSpriteEnabled( String id )</div>
+<br/>
+
+<a name="virtual_isSpriteVisible"/>
+<div class="headline">isSpriteVisible</div>
+<div class="usage">public const boolean isSpriteVisible( String id )</div>
+<br/>
+
+<a name="virtual_isVisible"/>
+<div class="headline">isVisible</div>
+<div class="usage">public const boolean isVisible(&#32; )</div>
+<br/>
+
+<a name="virtual_killKeyFocus"/>
+<div class="headline">killKeyFocus</div>
+<div class="usage">public void killKeyFocus(&#32; )</div>
+<br/>
+
+<a name="virtual_loadImage"/>
+<div class="headline">loadImage</div>
+<div class="usage">public boolean loadImage( String file )</div>
+<br/>
+
+<a name="virtual_modifyUIFlag"/>
+<div class="headline">modifyUIFlag</div>
+<div class="usage">public long modifyUIFlag( long nAddFlags, long nRemoveFlags = 0 )</div>
+<br/>
+
+<a name="virtual_pauseAllAction"/>
+<div class="headline">pauseAllAction</div>
+<div class="usage">public void pauseAllAction(&#32; )</div>
+<br/>
+
+<a name="virtual_postUpdate"/>
+<div class="headline">postUpdate</div>
+<div class="usage">public void postUpdate(&#32; )</div>
+<br/>
+
+<a name="virtual_regulateCenter"/>
+<div class="headline">regulateCenter</div>
+<div class="usage">public boolean regulateCenter( int nFlags = 0, double xOffset = 0., double yOffset = 0. )</div>
+<br/>
+
+<a name="virtual_releaseBuffer"/>
+<div class="headline">releaseBuffer</div>
+<div class="usage">public void releaseBuffer(&#32; )</div>
+<br/>
+
+<a name="virtual_releaseMouseCapture"/>
+<div class="headline">releaseMouseCapture</div>
+<div class="usage">public void releaseMouseCapture(&#32; )</div>
+<br/>
+
+<a name="virtual_removeTimer"/>
+<div class="headline">removeTimer</div>
+<div class="usage">public void removeTimer( SpriteTimer timer )</div>
+<br/>
+
+<a name="virtual_restartAllAction"/>
+<div class="headline">restartAllAction</div>
+<div class="usage">public void restartAllAction(&#32; )</div>
+<br/>
+
+<a name="virtual_setActionLinearTo"/>
+<div class="headline">setActionLinearTo</div>
+<div class="usage">public SpriteAction setActionLinearTo( int msecDuration, int nTransparency, Vector2D vPos = null, Vector2D vZoom = null, double a0 = 0., double a1 = 0. )</div>
+<br/>
+
+<a name="virtual_setCenterPosition"/>
+<div class="headline">setCenterPosition</div>
+<div class="usage">public void setCenterPosition( double x, double y )</div>
+<br/>
+
+<a name="virtual_setClickableRect"/>
+<div class="headline">setClickableRect</div>
+<div class="usage">public void setClickableRect( Rect rect )</div>
+<br/>
+
+<a name="virtual_setEnable"/>
+<div class="headline">setEnable</div>
+<div class="usage">public void setEnable( boolean fEnable )</div>
+<br/>
+
+<a name="virtual_setFillBackColor"/>
+<div class="headline">setFillBackColor</div>
+<div class="usage">public void setFillBackColor( int argbFill, boolean flagFillBack = true )</div>
+<br/>
+
+<a name="virtual_setFilter2Parameter"/>
+<div class="headline">setFilter2Parameter</div>
+<div class="usage">public void setFilter2Parameter( int paramFilter )</div>
+<br/>
+
+<a name="virtual_setFilterParameter"/>
+<div class="headline">setFilterParameter</div>
+<div class="usage">public void setFilterParameter( int paramFilter )</div>
+<br/>
+
+<a name="virtual_setID"/>
+<div class="headline">setID</div>
+<div class="usage">public void setID( String id )</div>
+<br/>
+
+<a name="virtual_setKeyFocus"/>
+<div class="headline">setKeyFocus</div>
+<div class="usage">public void setKeyFocus(&#32; )</div>
+<br/>
+
+<a name="virtual_setLoopAnimation"/>
+<div class="headline">setLoopAnimation</div>
+<div class="usage">public void setLoopAnimation( int loop = -1, int iLoopStart = 0, int iLoopEnd = 0 )</div>
+<br/>
+
+<a name="virtual_setMouseCapture"/>
+<div class="headline">setMouseCapture</div>
+<div class="usage">public void setMouseCapture(&#32; )</div>
+<br/>
+
+<a name="virtual_setParameter"/>
+<div class="headline">setParameter</div>
+<div class="usage">public void setParameter( Sprite.Parameter param )</div>
+<br/>
+
+<a name="virtual_setPosition"/>
+<div class="headline">setPosition</div>
+<div class="usage">public void setPosition( double x, double y )</div>
+<br/>
+
+<a name="virtual_setRotation"/>
+<div class="headline">setRotation</div>
+<div class="usage">public void setRotation( double zAngle )</div>
+<br/>
+
+<a name="virtual_setScrollPageSize"/>
+<div class="headline">setScrollPageSize</div>
+<div class="usage">public void setScrollPageSize( int nPageSize, int scrlDir = 0 )</div>
+<br/>
+
+<a name="virtual_setScrollPos"/>
+<div class="headline">setScrollPos</div>
+<div class="usage">public void setScrollPos( int nPos, int scrlDir = 0 )</div>
+<br/>
+
+<a name="virtual_setScrollRange"/>
+<div class="headline">setScrollRange</div>
+<div class="usage">public void setScrollRange( int nRange, int scrlDir = 0 )</div>
+<br/>
+
+<a name="virtual_setSpriteEnable"/>
+<div class="headline">setSpriteEnable</div>
+<div class="usage">public void setSpriteEnable( String id, boolean fEnable )</div>
+<br/>
+
+<a name="virtual_setSpriteImage"/>
+<div class="headline">setSpriteImage</div>
+<div class="usage">public void setSpriteImage( String id, String image )</div>
+<br/>
+
+<a name="virtual_setSpriteScrollPageSize"/>
+<div class="headline">setSpriteScrollPageSize</div>
+<div class="usage">public void setSpriteScrollPageSize( String id, int nPageSize, int scrlDir = 0 )</div>
+<br/>
+
+<a name="virtual_setSpriteScrollPos"/>
+<div class="headline">setSpriteScrollPos</div>
+<div class="usage">public void setSpriteScrollPos( String id, int nPos, int scrlDir = 0 )</div>
+<br/>
+
+<a name="virtual_setSpriteScrollRange"/>
+<div class="headline">setSpriteScrollRange</div>
+<div class="usage">public void setSpriteScrollRange( String id, int nRange, int scrlDir = 0 )</div>
+<br/>
+
+<a name="virtual_setSpriteText"/>
+<div class="headline">setSpriteText</div>
+<div class="usage">public void setSpriteText( String id, String text )</div>
+<br/>
+
+<a name="virtual_setSpriteTextFont"/>
+<div class="headline">setSpriteTextFont</div>
+<div class="usage">public void setSpriteTextFont( String id, String font, int nSize = 0 )</div>
+<br/>
+
+<a name="virtual_setSpriteTransparency"/>
+<div class="headline">setSpriteTransparency</div>
+<div class="usage">public void setSpriteTransparency( String id, int transparency )</div>
+<br/>
+
+<a name="virtual_setSpriteVisible"/>
+<div class="headline">setSpriteVisible</div>
+<div class="usage">public void setSpriteVisible( String id, boolean visible )</div>
+<br/>
+
+<a name="virtual_setText"/>
+<div class="headline">setText</div>
+<div class="usage">public void setText( String text )</div>
+<br/>
+
+<a name="virtual_setTextFont"/>
+<div class="headline">setTextFont</div>
+<div class="usage">public void setTextFont( String font, int nSize = 0 )</div>
+<br/>
+
+<a name="virtual_setTransparency"/>
+<div class="headline">setTransparency</div>
+<div class="usage">public void setTransparency( int nTransparency )</div>
+<br/>
+
+<a name="virtual_setVisible"/>
+<div class="headline">setVisible</div>
+<div class="usage">public void setVisible( boolean visible )</div>
+<br/>
+
+<a name="virtual_setZoom"/>
+<div class="headline">setZoom</div>
+<div class="usage">public void setZoom( double x, double y )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

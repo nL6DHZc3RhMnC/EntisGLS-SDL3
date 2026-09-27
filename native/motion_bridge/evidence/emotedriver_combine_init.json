@@ -1,0 +1,10 @@
+{
+  "addr": "0x1005b9b0",
+  "code": "int __stdcall sub_1005B9B0(int a1)\n{\n  int result; // eax\n  unsigned int v2; // edi\n  int v3; // esi\n\n  qmemcpy(*(void **)(a1 + 4), **(const void ***)(a1 + 20), 0x80u); /*0x1005b9ca*/\n  result = *(_DWORD *)(a1 + 20); /*0x1005b9cc*/\n  v2 = 1; /*0x1005b9cf*/\n  *(_BYTE *)(result + 12) = 0; /*0x1005b9d4*/\n  if ( *(_DWORD *)(a1 + 24) > 1u ) /*0x1005b9db*/\n  {\n    v3 = 24; /*0x1005b9dd*/\n    do /*0x1005ba04*/\n    {\n      sub_10059480(a1: *(_DWORD *)(v3 + *(_DWORD *)(a1 + 20))); /*0x1005b9ed*/\n      result = *(_DWORD *)(a1 + 20); /*0x1005b9f2*/\n      v3 += 24; /*0x1005b9f5*/\n      ++v2; /*0x1005b9f8*/\n      *(_BYTE *)(v3 + result - 12) = 0; /*0x1005b9fc*/\n    }\n    while ( v2 < *(_DWORD *)(a1 + 24) ); /*0x1005ba04*/\n  }\n  return result; /*0x1005ba06*/\n}",
+  "refs": [
+    {
+      "addr": "0x10059480",
+      "name": "sub_10059480"
+    }
+  ]
+}

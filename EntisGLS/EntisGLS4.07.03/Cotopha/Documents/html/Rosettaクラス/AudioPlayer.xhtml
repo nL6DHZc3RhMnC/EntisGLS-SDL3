@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>AudioPlayer</title>
+</head>
+<body>
+<div class="chapter">AudioPlayer</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　AudioPlayer はオーディオファイル再生機能を供給します。<br/>
+　EntisGLS4 の SGLAudioPlayer コンテナです。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="AudioPlayer.xhtml">AudioPlayer</a>
+</div></div></div><br/>
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_lineComposition">lineComposition</a><br/>
+	<a href="#static_lineCount">lineCount</a><br/>
+	<a href="#static_lineMusic">lineMusic</a><br/>
+	<a href="#static_lineSound">lineSound</a><br/>
+	<a href="#static_lineSystem">lineSystem</a><br/>
+	<a href="#static_lineTotal">lineTotal</a><br/>
+	<a href="#static_lineTotal2nd">lineTotal2nd</a><br/>
+	<a href="#static_lineUserFirst">lineUserFirst</a><br/>
+	<a href="#static_lineVoice">lineVoice</a><br/>
+	<a href="#static_modeOpenAuto">modeOpenAuto</a><br/>
+	<a href="#static_modeOpenAutoStatic">modeOpenAutoStatic</a><br/>
+	<a href="#static_modeOpenDynamicOnMemory">modeOpenDynamicOnMemory</a><br/>
+	<a href="#static_modeOpenDynamicRead">modeOpenDynamicRead</a><br/>
+	<a href="#static_modeOpenMask">modeOpenMask</a><br/>
+	<a href="#static_modeOpenStatic">modeOpenStatic</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Functions</div>
+<div class="indent2">
+	<a href="#static_getLineVolume">getLineVolume</a><br/>
+	<a href="#static_setLineVolume">setLineVolume</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_AudioPlayer">AudioPlayer</a><br/>
+	<a href="#virtual_beginFadeVolume">beginFadeVolume</a><br/>
+	<a href="#virtual_cancelFadeVolume">cancelFadeVolume</a><br/>
+	<a href="#virtual_clonePlayer">clonePlayer</a><br/>
+	<a href="#virtual_close">close</a><br/>
+	<a href="#virtual_create">create</a><br/>
+	<a href="#virtual_flushFadeVolume">flushFadeVolume</a><br/>
+	<a href="#virtual_getPosition">getPosition</a><br/>
+	<a href="#virtual_getSampleFrequency">getSampleFrequency</a><br/>
+	<a href="#virtual_getTotalLength">getTotalLength</a><br/>
+	<a href="#virtual_getVolume">getVolume</a><br/>
+	<a href="#virtual_getVolumeLineMask">getVolumeLineMask</a><br/>
+	<a href="#virtual_isPaused">isPaused</a><br/>
+	<a href="#virtual_isPlaying">isPlaying</a><br/>
+	<a href="#virtual_isVolumeFading">isVolumeFading</a><br/>
+	<a href="#virtual_open">open</a><br/>
+	<a href="#virtual_pause">pause</a><br/>
+	<a href="#virtual_play">play</a><br/>
+	<a href="#virtual_resetVolumeLine">resetVolumeLine</a><br/>
+	<a href="#virtual_restart">restart</a><br/>
+	<a href="#virtual_seekPosition">seekPosition</a><br/>
+	<a href="#virtual_setLoop">setLoop</a><br/>
+	<a href="#virtual_setVolume">setVolume</a><br/>
+	<a href="#virtual_setVolumeLine">setVolumeLine</a><br/>
+	<a href="#virtual_setVolumeLineMask">setVolumeLineMask</a><br/>
+	<a href="#virtual_stop">stop</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_lineComposition"/>
+<div class="headline">lineComposition</div>
+<div class="usage">public static const Integer lineComposition = 2</div>
+<br/>
+
+<a name="static_lineCount"/>
+<div class="headline">lineCount</div>
+<div class="usage">public static const Integer lineCount = 32 /* 0x0020 */</div>
+<br/>
+
+<a name="static_lineMusic"/>
+<div class="headline">lineMusic</div>
+<div class="usage">public static const Integer lineMusic = 4</div>
+<br/>
+
+<a name="static_lineSound"/>
+<div class="headline">lineSound</div>
+<div class="usage">public static const Integer lineSound = 5</div>
+<br/>
+
+<a name="static_lineSystem"/>
+<div class="headline">lineSystem</div>
+<div class="usage">public static const Integer lineSystem = 3</div>
+<br/>
+
+<a name="static_lineTotal"/>
+<div class="headline">lineTotal</div>
+<div class="usage">public static const Integer lineTotal = 0</div>
+<br/>
+
+<a name="static_lineTotal2nd"/>
+<div class="headline">lineTotal2nd</div>
+<div class="usage">public static const Integer lineTotal2nd = 1</div>
+<br/>
+
+<a name="static_lineUserFirst"/>
+<div class="headline">lineUserFirst</div>
+<div class="usage">public static const Integer lineUserFirst = 7</div>
+<br/>
+
+<a name="static_lineVoice"/>
+<div class="headline">lineVoice</div>
+<div class="usage">public static const Integer lineVoice = 6</div>
+<br/>
+
+<a name="static_modeOpenAuto"/>
+<div class="headline">modeOpenAuto</div>
+<div class="usage">public static const Integer modeOpenAuto = 0</div>
+<br/>
+
+<a name="static_modeOpenAutoStatic"/>
+<div class="headline">modeOpenAutoStatic</div>
+<div class="usage">public static const Integer modeOpenAutoStatic = 2</div>
+<br/>
+
+<a name="static_modeOpenDynamicOnMemory"/>
+<div class="headline">modeOpenDynamicOnMemory</div>
+<div class="usage">public static const Integer modeOpenDynamicOnMemory = 3</div>
+<br/>
+
+<a name="static_modeOpenDynamicRead"/>
+<div class="headline">modeOpenDynamicRead</div>
+<div class="usage">public static const Integer modeOpenDynamicRead = 4</div>
+<br/>
+
+<a name="static_modeOpenMask"/>
+<div class="headline">modeOpenMask</div>
+<div class="usage">public static const Integer modeOpenMask = 255 /* 0x00FF */</div>
+<br/>
+
+<a name="static_modeOpenStatic"/>
+<div class="headline">modeOpenStatic</div>
+<div class="usage">public static const Integer modeOpenStatic = 1</div>
+<br/>
+
+<div class="chapter">Static Functions</div>
+
+<a name="static_getLineVolume"/>
+<div class="headline">getLineVolume</div>
+<div class="usage">public static double getLineVolume( int iLine )</div>
+<br/>
+
+<a name="static_setLineVolume"/>
+<div class="headline">setLineVolume</div>
+<div class="usage">public static void setLineVolume( int iLine, double volume )</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_AudioPlayer"/>
+<div class="headline">AudioPlayer</div>
+<div class="usage">public void AudioPlayer(&#32; )</div>
+<br/>
+
+<a name="virtual_beginFadeVolume"/>
+<div class="headline">beginFadeVolume</div>
+<div class="usage">public void beginFadeVolume( float[] pVolumes, int nChannels, int msecDuration )</div>
+<br/>
+
+<a name="virtual_cancelFadeVolume"/>
+<div class="headline">cancelFadeVolume</div>
+<div class="usage">public void cancelFadeVolume(&#32; )</div>
+<br/>
+
+<a name="virtual_clonePlayer"/>
+<div class="headline">clonePlayer</div>
+<div class="usage">public AudioPlayer clonePlayer(&#32; )</div>
+<br/>
+
+<a name="virtual_close"/>
+<div class="headline">close</div>
+<div class="usage">public boolean close(&#32; )</div>
+<br/>
+
+<a name="virtual_create"/>
+<div class="headline">create</div>
+<div class="usage">public boolean create( RandomAccessFile file, long nFlags = 0 )</div>
+<br/>
+
+<a name="virtual_flushFadeVolume"/>
+<div class="headline">flushFadeVolume</div>
+<div class="usage">public void flushFadeVolume(&#32; )</div>
+<br/>
+
+<a name="virtual_getPosition"/>
+<div class="headline">getPosition</div>
+<div class="usage">public long getPosition(&#32; )</div>
+<br/>
+
+<a name="virtual_getSampleFrequency"/>
+<div class="headline">getSampleFrequency</div>
+<div class="usage">public int getSampleFrequency(&#32; )</div>
+<br/>
+
+<a name="virtual_getTotalLength"/>
+<div class="headline">getTotalLength</div>
+<div class="usage">public long getTotalLength(&#32; )</div>
+<br/>
+
+<a name="virtual_getVolume"/>
+<div class="headline">getVolume</div>
+<div class="usage">public boolean getVolume( float[] pVolumes, int nChannels )</div>
+<br/>
+
+<a name="virtual_getVolumeLineMask"/>
+<div class="headline">getVolumeLineMask</div>
+<div class="usage">public const long getVolumeLineMask(&#32; )</div>
+<br/>
+
+<a name="virtual_isPaused"/>
+<div class="headline">isPaused</div>
+<div class="usage">public boolean isPaused(&#32; )</div>
+<br/>
+
+<a name="virtual_isPlaying"/>
+<div class="headline">isPlaying</div>
+<div class="usage">public boolean isPlaying(&#32; )</div>
+<br/>
+
+<a name="virtual_isVolumeFading"/>
+<div class="headline">isVolumeFading</div>
+<div class="usage">public const boolean isVolumeFading(&#32; )</div>
+<br/>
+
+<a name="virtual_open"/>
+<div class="headline">open</div>
+<div class="usage">public boolean open( String path, long nFlags = 0 )</div>
+<br/>
+
+<a name="virtual_pause"/>
+<div class="headline">pause</div>
+<div class="usage">public boolean pause(&#32; )</div>
+<br/>
+
+<a name="virtual_play"/>
+<div class="headline">play</div>
+<div class="usage">public boolean play( long nFlags = 0 )</div>
+<br/>
+
+<a name="virtual_resetVolumeLine"/>
+<div class="headline">resetVolumeLine</div>
+<div class="usage">public void resetVolumeLine( int iLine )</div>
+<br/>
+
+<a name="virtual_restart"/>
+<div class="headline">restart</div>
+<div class="usage">public boolean restart(&#32; )</div>
+<br/>
+
+<a name="virtual_seekPosition"/>
+<div class="headline">seekPosition</div>
+<div class="usage">public void seekPosition( long nPos )</div>
+<br/>
+
+<a name="virtual_setLoop"/>
+<div class="headline">setLoop</div>
+<div class="usage">public boolean setLoop( boolean flagLoop = true, long nStart = -1, long nEnd = -1 )</div>
+<br/>
+
+<a name="virtual_setVolume"/>
+<div class="headline">setVolume</div>
+<div class="usage">public boolean setVolume( float[] pVolumes, int nChannels )</div>
+<br/>
+
+<a name="virtual_setVolumeLine"/>
+<div class="headline">setVolumeLine</div>
+<div class="usage">public void setVolumeLine( int iLine )</div>
+<br/>
+
+<a name="virtual_setVolumeLineMask"/>
+<div class="headline">setVolumeLineMask</div>
+<div class="usage">public void setVolumeLineMask( long maskLines )</div>
+<br/>
+
+<a name="virtual_stop"/>
+<div class="headline">stop</div>
+<div class="usage">public boolean stop(&#32; )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

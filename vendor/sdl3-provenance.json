@@ -1,0 +1,16 @@
+{
+  "name": "SDL3",
+  "version": "3.4.16",
+  "repository": "https://github.com/libsdl-org/SDL",
+  "release_url": "https://github.com/libsdl-org/SDL/releases/tag/release-3.4.16",
+  "release_published_at": "2026-09-02T16:33:19Z",
+  "tag": "release-3.4.16",
+  "commit": "fa2c02bb6e21974a89ea9824bc53c9932abe5f9c",
+  "archive_url": "https://github.com/libsdl-org/SDL/releases/download/release-3.4.16/SDL3-3.4.16.tar.gz",
+  "archive_sha256": "7322236cd12090c3eb40b9728be4d49c76f66ad17d04369584d4ecad5cf77c68",
+  "source_directory": "vendor/sdl3",
+  "license": "Zlib",
+  "license_file": "vendor/sdl3/LICENSE.txt",
+  "upstream_modifications": [],
+  "verification": "python3 tools/setup_sdl3.py --verify"
+}

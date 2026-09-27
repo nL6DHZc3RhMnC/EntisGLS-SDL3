@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>SurfaceAttribute</title>
+</head>
+<body>
+<div class="chapter">SurfaceAttribute</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　SurfaceAttribute は3Dグラフィックス処理で扱うマテリアルの表面属性を表現します。<br/>
+　EntisGLS4 の S3DSurfaceAttribute と同等です。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="Uint8Pointer.xhtml">Uint8Pointer</a>
+<div class="indent1"><a href="Structure.xhtml">Structure</a>
+<div class="indent1"><a href="SurfaceAttribute.xhtml">SurfaceAttribute</a>
+</div></div></div></div><br/>
+
+<div class="headline">Members</div>
+<div class="indent2">
+	<a href="#member_flagsShading">flagsShading</a><br/>
+	<a href="#member_colorBase">colorBase</a><br/>
+	<a href="#member_colorShade">colorShade</a><br/>
+	<a href="#member_nAmbient">nAmbient</a><br/>
+	<a href="#member_nDiffusion">nDiffusion</a><br/>
+	<a href="#member_nSpecular">nSpecular</a><br/>
+	<a href="#member_nSpecularSize">nSpecularSize</a><br/>
+	<a href="#member_nTransparency">nTransparency</a><br/>
+	<a href="#member_nDeepness">nDeepness</a><br/>
+	<a href="#member_nDeepnessPower">nDeepnessPower</a><br/>
+	<a href="#member_nReflection">nReflection</a><br/>
+	<a href="#member_fpRefraction">fpRefraction</a><br/>
+	<a href="#member_nEmission">nEmission</a><br/>
+	<a href="#member_nExFlags">nExFlags</a><br/>
+	<a href="#member_cosShadeThreshold">cosShadeThreshold</a><br/>
+	<a href="#member_fpToonShadeThreshold">fpToonShadeThreshold</a><br/>
+	<a href="#member_fpToonShadeBrightness">fpToonShadeBrightness</a><br/>
+	<a href="#member_rgbSpecularColor">rgbSpecularColor</a><br/>
+	<a href="#member_rgbBorderColor">rgbBorderColor</a><br/>
+	<a href="#member_fpBorderThicknessA">fpBorderThicknessA</a><br/>
+	<a href="#member_fpBorderThicknessB">fpBorderThicknessB</a><br/>
+	<a href="#member_fpBackLight">fpBackLight</a><br/>
+	<a href="#member_colorBackLight">colorBackLight</a><br/>
+	<a href="#member_fpRimLight">fpRimLight</a><br/>
+	<a href="#member_fpRimLightDeepness">fpRimLightDeepness</a><br/>
+	<a href="#member_rgbRimLightColor">rgbRimLightColor</a><br/>
+	<a href="#member_nBackDiffusion">nBackDiffusion</a><br/>
+</div><br/>
+
+
+<div class="chapter">Members</div>
+
+<a name="member_flagsShading"/>
+<div class="headline">flagsShading</div>
+<div class="usage">&#9;public long flagsShading</div>
+<br/>
+
+<a name="member_colorBase"/>
+<div class="headline">colorBase</div>
+<div class="usage">&#9;public Color3D colorBase[1]</div>
+<br/>
+
+<a name="member_colorShade"/>
+<div class="headline">colorShade</div>
+<div class="usage">&#9;public Color3D colorShade[1]</div>
+<br/>
+
+<a name="member_nAmbient"/>
+<div class="headline">nAmbient</div>
+<div class="usage">&#9;public int nAmbient</div>
+<br/>
+
+<a name="member_nDiffusion"/>
+<div class="headline">nDiffusion</div>
+<div class="usage">&#9;public int nDiffusion</div>
+<br/>
+
+<a name="member_nSpecular"/>
+<div class="headline">nSpecular</div>
+<div class="usage">&#9;public int nSpecular</div>
+<br/>
+
+<a name="member_nSpecularSize"/>
+<div class="headline">nSpecularSize</div>
+<div class="usage">&#9;public int nSpecularSize</div>
+<br/>
+
+<a name="member_nTransparency"/>
+<div class="headline">nTransparency</div>
+<div class="usage">&#9;public int nTransparency</div>
+<br/>
+
+<a name="member_nDeepness"/>
+<div class="headline">nDeepness</div>
+<div class="usage">&#9;public int nDeepness</div>
+<br/>
+
+<a name="member_nDeepnessPower"/>
+<div class="headline">nDeepnessPower</div>
+<div class="usage">&#9;public int nDeepnessPower</div>
+<br/>
+
+<a name="member_nReflection"/>
+<div class="headline">nReflection</div>
+<div class="usage">&#9;public int nReflection</div>
+<br/>
+
+<a name="member_fpRefraction"/>
+<div class="headline">fpRefraction</div>
+<div class="usage">&#9;public float fpRefraction</div>
+<br/>
+
+<a name="member_nEmission"/>
+<div class="headline">nEmission</div>
+<div class="usage">&#9;public int nEmission</div>
+<br/>
+
+<a name="member_nExFlags"/>
+<div class="headline">nExFlags</div>
+<div class="usage">&#9;public int nExFlags</div>
+<br/>
+
+<a name="member_cosShadeThreshold"/>
+<div class="headline">cosShadeThreshold</div>
+<div class="usage">&#9;public float cosShadeThreshold</div>
+<br/>
+
+<a name="member_fpToonShadeThreshold"/>
+<div class="headline">fpToonShadeThreshold</div>
+<div class="usage">&#9;public float fpToonShadeThreshold</div>
+<br/>
+
+<a name="member_fpToonShadeBrightness"/>
+<div class="headline">fpToonShadeBrightness</div>
+<div class="usage">&#9;public float fpToonShadeBrightness</div>
+<br/>
+
+<a name="member_rgbSpecularColor"/>
+<div class="headline">rgbSpecularColor</div>
+<div class="usage">&#9;public int rgbSpecularColor</div>
+<br/>
+
+<a name="member_rgbBorderColor"/>
+<div class="headline">rgbBorderColor</div>
+<div class="usage">&#9;public int rgbBorderColor</div>
+<br/>
+
+<a name="member_fpBorderThicknessA"/>
+<div class="headline">fpBorderThicknessA</div>
+<div class="usage">&#9;public float fpBorderThicknessA</div>
+<br/>
+
+<a name="member_fpBorderThicknessB"/>
+<div class="headline">fpBorderThicknessB</div>
+<div class="usage">&#9;public float fpBorderThicknessB</div>
+<br/>
+
+<a name="member_fpBackLight"/>
+<div class="headline">fpBackLight</div>
+<div class="usage">&#9;public float fpBackLight</div>
+<br/>
+
+<a name="member_colorBackLight"/>
+<div class="headline">colorBackLight</div>
+<div class="usage">&#9;public Color3D colorBackLight[1]</div>
+<br/>
+
+<a name="member_fpRimLight"/>
+<div class="headline">fpRimLight</div>
+<div class="usage">&#9;public float fpRimLight</div>
+<br/>
+
+<a name="member_fpRimLightDeepness"/>
+<div class="headline">fpRimLightDeepness</div>
+<div class="usage">&#9;public float fpRimLightDeepness</div>
+<br/>
+
+<a name="member_rgbRimLightColor"/>
+<div class="headline">rgbRimLightColor</div>
+<div class="usage">&#9;public int rgbRimLightColor</div>
+<br/>
+
+<a name="member_nBackDiffusion"/>
+<div class="headline">nBackDiffusion</div>
+<div class="usage">&#9;public int nBackDiffusion</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

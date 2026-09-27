@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>RGBColor</title>
+</head>
+<body>
+<div class="chapter">RGBColor</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　RGBColor は RGBA を格納する構造体です（αを含んでいます）。<br/>
+　EntisGLS4 の SGLPalette と似ています。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="Uint8Pointer.xhtml">Uint8Pointer</a>
+<div class="indent1"><a href="Structure.xhtml">Structure</a>
+<div class="indent1"><a href="RGBColor.xhtml">RGBColor</a>
+</div></div></div></div><br/>
+
+<div class="headline">Members</div>
+<div class="indent2">
+	<a href="#member_blue">blue</a><br/>
+	<a href="#member_green">green</a><br/>
+	<a href="#member_red">red</a><br/>
+	<a href="#member_alpha">alpha</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_RGBColor">RGBColor</a><br/>
+	<a href="#virtual_blendTo">blendTo</a><br/>
+	<a href="#virtual_copy">copy</a><br/>
+	<a href="#virtual_getAlpha">getAlpha</a><br/>
+	<a href="#virtual_getBlue">getBlue</a><br/>
+	<a href="#virtual_getGreen">getGreen</a><br/>
+	<a href="#virtual_getInt">getInt</a><br/>
+	<a href="#virtual_getRed">getRed</a><br/>
+	<a href="#virtual_mul">mul</a><br/>
+	<a href="#virtual_setInt">setInt</a><br/>
+</div><br/>
+
+
+<div class="chapter">Members</div>
+
+<a name="member_blue"/>
+<div class="headline">blue</div>
+<div class="usage">&#9;public byte blue = 0</div>
+<br/>
+
+<a name="member_green"/>
+<div class="headline">green</div>
+<div class="usage">&#9;public byte green = 0</div>
+<br/>
+
+<a name="member_red"/>
+<div class="headline">red</div>
+<div class="usage">&#9;public byte red = 0</div>
+<br/>
+
+<a name="member_alpha"/>
+<div class="headline">alpha</div>
+<div class="usage">&#9;public byte alpha = 0</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_RGBColor"/>
+<div class="headline">RGBColor</div>
+<div class="usage">public void RGBColor( int red, int green, int blue, int alpha )</div>
+<br/>
+
+<a name="virtual_blendTo"/>
+<div class="headline">blendTo</div>
+<div class="usage">public const int blendTo( int argb )</div>
+<br/>
+
+<a name="virtual_copy"/>
+<div class="headline">copy</div>
+<div class="usage">public RGBColor copy( RGBColor color )</div>
+<br/>
+
+<a name="virtual_getAlpha"/>
+<div class="headline">getAlpha</div>
+<div class="usage">public const int getAlpha(&#32; )</div>
+<br/>
+
+<a name="virtual_getBlue"/>
+<div class="headline">getBlue</div>
+<div class="usage">public const int getBlue(&#32; )</div>
+<br/>
+
+<a name="virtual_getGreen"/>
+<div class="headline">getGreen</div>
+<div class="usage">public const int getGreen(&#32; )</div>
+<br/>
+
+<a name="virtual_getInt"/>
+<div class="headline">getInt</div>
+<div class="usage">public const int getInt(&#32; )</div>
+<br/>
+
+<a name="virtual_getRed"/>
+<div class="headline">getRed</div>
+<div class="usage">public const int getRed(&#32; )</div>
+<br/>
+
+<a name="virtual_mul"/>
+<div class="headline">mul</div>
+<div class="usage">public RGBColor mul( int alpha )</div>
+<br/>
+
+<a name="virtual_setInt"/>
+<div class="headline">setInt</div>
+<div class="usage">public RGBColor setInt( int argb )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

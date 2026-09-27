@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<agl_usage_definition>
+	<import file="std_sound_cmd.xml"/>
+	<command lead="@bgm" cmd="sound_play" arg_type="array">
+		<arg_list>
+			<arg name="src"/>
+			<arg name="loop" default="1"/>
+			<arg name="volume" default="1.0"/>
+			<arg name="line" default="music"/>
+			<arg name="channel" default="0"/>
+		</arg_list>
+	</command>
+	<command lead="@se" cmd="sound_play" arg_type="array">
+		<arg_list>
+			<arg name="src"/>
+			<arg name="loop" default="0"/>
+			<arg name="volume" default="1.0"/>
+			<arg name="line" default="sound"/>
+			<arg name="channel" default="1"/>
+		</arg_list>
+	</command>
+	<command lead="@stopbgm" cmd="sound_stop" arg_type="array">
+		<arg_list>
+			<arg name="fadeout" default="1000"/>
+			<arg name="channel" default="0"/>
+		</arg_list>
+	</command>
+	<command lead="@stopse" cmd="sound_stop" arg_type="array">
+		<arg_list>
+			<arg name="fadeout" default="0"/>
+			<arg name="channel" default="1"/>
+		</arg_list>
+	</command>
+	<command lead="@volbgm" cmd="sound_volume" arg_type="array">
+		<arg_list>
+			<arg name="volume"/>
+			<arg name="fade" default="500"/>
+			<arg name="channel" default="0"/>
+		</arg_list>
+	</command>
+	<command lead="@volse" cmd="sound_volume" arg_type="array">
+		<arg_list>
+			<arg name="volume"/>
+			<arg name="fade" default="500"/>
+			<arg name="channel" default="1"/>
+		</arg_list>
+	</command>
+	<command lead="@waitse" cmd="sound_wait" arg_type="array">
+		<arg_list>
+			<arg name="channel" default="1"/>
+		</arg_list>
+	</command>
+</agl_usage_definition>

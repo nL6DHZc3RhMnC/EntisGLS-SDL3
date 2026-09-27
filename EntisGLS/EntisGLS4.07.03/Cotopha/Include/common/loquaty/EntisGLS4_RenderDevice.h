@@ -1,0 +1,16 @@
+﻿
+
+DECL_LOQUATY_FUNC(EntisGLS4_RenderDevice_isOnRenderThread);
+DECL_LOQUATY_FUNC(EntisGLS4_RenderDevice_procedure);
+DECL_LOQUATY_FUNC(EntisGLS4_RenderDevice_waitUntilAsyncAllProcedures);
+DECL_LOQUATY_FUNC(EntisGLS4_RenderDevice_newRenderer);
+DECL_LOQUATY_FUNC(EntisGLS4_RenderDevice_commitImage);
+DECL_LOQUATY_FUNC(EntisGLS4_RenderDevice_commitVertexBuffer);
+DECL_LOQUATY_FUNC(EntisGLS4_RenderDevice_releaseImage);
+DECL_LOQUATY_FUNC(EntisGLS4_RenderDevice_releaseVertexBuffer);
+DECL_LOQUATY_FUNC(EntisGLS4_RenderDevice_getDeviceFeatures);
+DECL_LOQUATY_FUNC(EntisGLS4_RenderDevice_getCustomShaderAs);
+DECL_LOQUATY_FUNC(EntisGLS4_RenderDevice_buildCustomShader);
+DECL_LOQUATY_FUNC(EntisGLS4_RenderDevice_removeCustomShader);
+
+

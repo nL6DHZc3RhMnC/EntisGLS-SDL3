@@ -1,0 +1,920 @@
+﻿
+; ----------------------------------------------------------------------------
+;					詞葉標準スクリプトライブラリ
+; ----------------------------------------------------------------------------
+
+
+Include	"cotopha.ch"
+
+
+; ----------------------------------------------------------------------------
+;	算術関数
+; ----------------------------------------------------------------------------
+
+Function	Real fabs( Real x )
+	Return	x.Abs()
+EndFunc
+
+Function	Real log( Real x )
+	Return	x.Log()
+EndFunc
+
+Function	Real log10( Real x )
+	Return	x.Log( 10.0 )
+EndFunc
+
+Function	Real pow( Real x, Real y )
+	Return	x.Power( y )
+EndFunc
+
+Function	Real sqrt( Real x )
+	Return	x.Sqrt()
+EndFunc
+
+Function	Real sin( Real x )
+	Return	x.Sin()
+EndFunc
+
+Function	Real cos( Real x )
+	Return	x.Cos()
+EndFunc
+
+Function	Real tan( Real x )
+	Return	x.Tan()
+EndFunc
+
+Function	Real asin( Real x )
+	Return	x.ASin()
+EndFunc
+
+Function	Real acos( Real x )
+	Return	x.ACos()
+EndFunc
+
+Function	Real atan( Real x )
+	Return	x.ATan()
+EndFunc
+
+Function	Real atan2( Real x, Real y )
+	Return	x.ATan( y )
+EndFunc
+
+Function	Integer round( Real x )
+	Return	x.Round()
+EndFunc
+
+Function	Integer floor( Real x )
+	Return	x.Floor()
+EndFunc
+
+
+; ----------------------------------------------------------------------------
+;	Point 構造体
+; ----------------------------------------------------------------------------
+
+Function	void Point::Point( Integer x, Integer y )
+	this.x := stack.x
+	this.y := stack.y
+EndFunc
+
+Function	void Point::Point( const Point& pos )
+	this.x := pos.x
+	this.y := pos.y
+EndFunc
+
+Function	void Point::Point( const Size& size )
+	this.x := size.w
+	this.y := size.h
+EndFunc
+
+Function	Point Point::operator + ( const Point& pos ) const
+	Return	Point( this.x + pos.x, this.y + pos.y )
+EndFunc
+
+Function	Point Point::operator - ( const Point& pos ) const
+	Return	Point( this.x - pos.x, this.y - pos.y )
+EndFunc
+
+Function	const Point& Point::operator += ( const Point& pos )
+	this.x += pos.x
+	this.y += pos.y
+	Return	this
+EndFunc
+
+Function	const Point& Point::operator -= ( const Point& pos )
+	this.x -= pos.x
+	this.y -= pos.y
+	Return	this
+EndFunc
+
+
+; ----------------------------------------------------------------------------
+;	Size 構造体
+; ----------------------------------------------------------------------------
+
+Function	void Size::Size( Integer w, Integer h )
+	this.w := stack.w
+	this.h := stack.h
+EndFunc
+
+Function	void Size::Size( const Size& size )
+	this := size
+EndFunc
+
+Function	void Size::Size( const Point& pos )
+	this.w := pos.x
+	this.h := pos.y
+EndFunc
+
+Function	Size Size::operator + ( const Size& size ) const
+	Return	Size( this.w + size.w, this.h + size.h )
+EndFunc
+
+Function	Size Size::operator - ( const Size& size ) const
+	Return	Size( this.w - size.w, this.h - size.h )
+EndFunc
+
+Function	const Size& Size::operator += ( const Size& size )
+	this.w += size.w
+	this.h += size.h
+	Return	this
+EndFunc
+
+Function	const Size& Size::operator -= ( const Size& size )
+	this.w -= size.w
+	this.h -= size.h
+	Return	this
+EndFunc
+
+
+; ----------------------------------------------------------------------------
+;	Rect 構造体
+; ----------------------------------------------------------------------------
+
+Function	void Rect::Rect( Integer x0, Integer y0, Integer x1, Integer y1 )
+	this.left := x0
+	this.top := y0
+	this.right := x1
+	this.bottom := y1
+EndFunc
+
+Function	void Rect::Rect( const Rect& rect )
+	this := rect
+EndFunc
+
+Function	void Rect::Rect( const Point& pos, const Size& size )
+	this.left := pos.x
+	this.top := pos.y
+	this.right := pos.x + size.w - 1
+	this.bottom := pos.y + size.h - 1
+EndFunc
+
+Function	Rect Rect::operator + ( const Point& pos ) const
+	Return	Rect( left + pos.x, top + pos.y, right + pos.x, bottom + pos.y )
+EndFunc
+
+Function	Rect Rect::operator - ( const Point& pos ) const
+	Return	Rect( left - pos.x, top - pos.y, right - pos.x, bottom - pos.y )
+EndFunc
+
+Function	const Rect& Rect::operator += ( const Point& pos )
+	this.left += pos.x
+	this.top += pos.y
+	this.right += pos.x
+	this.bottom += pos.y
+	Return	this
+EndFunc
+
+Function	const Rect& Rect::operator -= ( const Point& pos )
+	this.left -= pos.x
+	this.top -= pos.y
+	this.right -= pos.x
+	this.bottom -= pos.y
+	Return	this
+EndFunc
+
+
+; ----------------------------------------------------------------------------
+;	Vector2D 構造体
+; ----------------------------------------------------------------------------
+
+Function	void Vector2D::Vector2D( Real x, Real y )
+	this.x := stack.x
+	this.y := stack.y
+EndFunc
+
+Function	void Vector2D::Vector2D( const Vector2D& vec )
+	this := vec
+EndFunc
+
+Function	Vector2D Vector2D::operator + ( const Vector2D& vec ) const
+	Return	Vector2D( this.x + vec.x, this.y + vec.y )
+EndFunc
+
+Function	Vector2D Vector2D::operator - ( const Vector2D& vec ) const
+	Return	Vector2D( this.x - vec.x, this.y - vec.y )
+EndFunc
+
+Function	Vector2D Vector2D::operator * ( Real r ) const
+	Return	Vector2D( this.x * r, this.y * r )
+EndFunc
+
+Function	Vector2D Vector2D::operator / ( Real r ) const
+	Return	Vector2D( this.x / r, this.y / r )
+EndFunc
+
+Function	const Vector2D& Vector2D::operator += ( const Vector2D& vec )
+	this.x += vec.x
+	this.y += vec.y
+	Return	this
+EndFunc
+
+Function	const Vector2D& Vector2D::operator -= ( const Vector2D& vec )
+	this.x -= vec.x
+	this.y -= vec.y
+	Return	this
+EndFunc
+
+Function	const Vector2D& Vector2D::operator *= ( Real r )
+	this.x *= r
+	this.y *= r
+	Return	this
+EndFunc
+
+Function	const Vector2D& Vector2D::operator /= ( Real r )
+	this.x /= r
+	this.y /= r
+	Return	this
+EndFunc
+
+Function	Vector2D Vector2D::Rotate( Real r ) const
+	Real	rad
+	rad := r * 3.141592653 / 180
+	Return	Vector2D( this.x * rad.Cos() - this.y * rad.Sin(),
+						this.x * rad.Sin() + this.y * rad.Cos() )
+EndFunc
+
+Function	Vector2D Vector2D::Revolve( Real r ) const
+	Real	rad
+	rad := r * 3.141592653 / 180
+	Return	Vector2D( this.x * rad.Cos() - this.y * rad.Sin(),
+						this.x * rad.Sin() + this.y * rad.Cos() )
+EndFunc
+
+Function	Real Vector2D::Abs() const
+	Return	(this.x * this.x + this.y * this.y).Sqrt( )
+EndFunc
+
+Function	void Vector2D::Normalize()
+	Real	r
+	r := Abs()
+	this.x /= r
+	this.y /= r
+EndFunc
+
+Function	void Vector2D::RoundTo1()
+	Real	r
+	r := Abs()
+	this.x /= r
+	this.y /= r
+EndFunc
+
+
+; ----------------------------------------------------------------------------
+;	Vector 構造体
+; ----------------------------------------------------------------------------
+
+Function	void Vector::Vector( Real x, Real y, Real z )
+	this.x := x
+	this.y := y
+	this.z := z
+EndFunc
+
+Function	void Vector::Vector( const Vector& vec )
+	this := vec
+EndFunc
+
+Function	Vector Vector::operator + ( const Vector& vec ) const
+	Return	Vector( x + vec.x, y + vec.y, z + vec.z )
+EndFunc
+
+Function	Vector Vector::operator - ( const Vector& vec ) const
+	Return	Vector( x - vec.x, y - vec.y, z - vec.z )
+EndFunc
+
+Function	Vector Vector::operator * ( Real r ) const
+	Return	Vector( x * r, y * r, z * r )
+EndFunc
+
+Function	Vector Vector::operator / ( Real r ) const
+	Return	Vector( x / r, y / r, z / r )
+EndFunc
+
+Function	const Vector& Vector::operator += ( const Vector& vec )
+	this.x += vec.x
+	this.y += vec.y
+	this.z += vec.z
+	Return	this
+EndFunc
+
+Function	const Vector& Vector::operator -= ( const Vector& vec )
+	this.x -= vec.x
+	this.y -= vec.y
+	this.z -= vec.z
+	Return	this
+EndFunc
+
+Function	const Vector& Vector::operator *= ( Real r )
+	this.x *= r
+	this.y *= r
+	this.z *= r
+	Return	this
+EndFunc
+
+Function	const Vector& Vector::operator /= ( Real r )
+	this.x /= r
+	this.y /= r
+	this.z /= r
+	Return	this
+EndFunc
+
+Function	Real Vector::Abs() const
+	Return	(this.x * this.x + this.y * this.y + this.z * this.z).Sqrt( )
+EndFunc
+
+Function	void Vector::Normalize()
+	Real	r
+	r := Abs( )
+	this.x /= r
+	this.y /= r
+	this.z /= r
+EndFunc
+
+Function	void Vector::RoundTo1()
+	Real	r
+	r := Abs( )
+	this.x /= r
+	this.y /= r
+	this.z /= r
+EndFunc
+
+
+; ----------------------------------------------------------------------------
+;	Quaternion 構造体
+; ----------------------------------------------------------------------------
+
+Function	void Quaternion::Quaternion( Real q0, Real q1, Real q2, Real q3 )
+	this.q0 := q0
+	this.q1 := q1
+	this.q2 := q2
+	this.q3 := q3
+EndFunc
+
+Function	void Quaternion::Quaternion( const Quaternion& q )
+	this := q
+EndFunc
+
+Function	Quaternion Quaternion::operator + ( const Quaternion& q ) const
+	Return	Quaternion( q0 + q.q0, q1 + q.q1, q2 + q.q2, q3 + q.q3 )
+EndFunc
+
+Function	Quaternion Quaternion::operator - ( const Quaternion& q ) const
+	Return	Quaternion( q0 - q.q0, q1 - q.q1, q2 - q.q2, q3 - q.q3 )
+EndFunc
+
+Function	Quaternion Quaternion::operator * ( Real r ) const
+	Return	Quaternion( q0 *r, q1 * r, q2 * r, q3 * r )
+EndFunc
+
+Function	const Quaternion& Quaternion::operator += ( const Quaternion& q )
+	this.q0 += q.q0
+	this.q1 += q.q1
+	this.q2 += q.q2
+	this.q3 += q.q3
+	Return	this
+EndFunc
+
+Function	const Quaternion& Quaternion::operator -= ( const Quaternion& q )
+	this.q0 -= q.q0
+	this.q1 -= q.q1
+	this.q2 -= q.q2
+	this.q3 -= q.q3
+	Return	this
+EndFunc
+
+Function	const Quaternion& Quaternion::operator *= ( Real r )
+	this.q0 *= r
+	this.q1 *= r
+	this.q2 *= r
+	this.q3 *= r
+	Return	this
+EndFunc
+
+Function	void Quaternion::Normalize()
+	Real	r := (this.q0 * this.q0 + this.q1 * this.q1 +
+					this.q2 * this.q2 + this.q3 * this.q3).Sqrt()
+	this.q0 /= r
+	this.q1 /= r
+	this.q2 /= r
+	this.q3 /= r
+EndFunc
+
+
+; ----------------------------------------------------------------------------
+;	Bezier1D 構造体
+; ----------------------------------------------------------------------------
+
+Function	void Bezier1D::Bezier1D( const Bezier1D & bzSrc )
+	this := bzSrc
+EndFunc
+
+Function	Integer Bezier1D::operator sizeof ( void ) const
+	If	this !== null
+		Return	sizeof(m_cp)
+	EndIf
+	Return	0
+EndFunc
+
+Function	Bezier1D::operator const Real[]&( void ) const
+	If	this !== null
+		Return	m_cp
+	EndIf
+	Return	null
+EndFunc
+
+Function	Bezier1D::operator Real[]&( void )
+	If	this !== null
+		Return	m_cp
+	EndIf
+	Return	null
+EndFunc
+
+Function	Real& Bezier1D::operator [] ( Integer nIndex )
+	If	this !== null
+		Return	m_cp[nIndex]
+	EndIf
+	Return	0
+EndFunc
+
+Function	void Bezier1D::SetLinear( Real r0, Real r1 )
+	Real	rDelta
+	rDelta := (r1 - r0) / 3.0
+	m_cp[0] := r0
+	m_cp[1] := r0 + rDelta
+	m_cp[2] := r1 - rDelta
+	m_cp[3] := r1
+EndFunc
+
+Function	void Bezier1D::SetAcceleration( Real a0, Real a1 )
+	m_cp[1] := (m_cp[1] - m_cp[0]) * a0 + m_cp[0]
+	m_cp[2] := (m_cp[2] - m_cp[3]) * a1 + m_cp[3]
+EndFunc
+
+Function	void Bezier1D::SetLine( Real p0, Real p1, Real v0, Real v1 )
+	SetLinear( p0, p1 )
+	SetAcceleration( v0, v1 )
+EndFunc
+
+Function	void Bezier1D::AddLine( Real p1, Real v0, Real v1 )
+	Integer	n := sizeof(m_cp)
+	If	n == 0
+		m_cp[0] := p1
+		n := 1
+	EndIf
+	Real	p0 := m_cp[n - 1]
+	Real	d := (p1 - p0) / 3.0
+	m_cp[n    ] := p0 + d * v0
+	m_cp[n + 1] := p1 - d * v1
+	m_cp[n + 2] := p1
+EndFunc
+
+Function	void Bezier1D::SetCurve(
+					Real p0, Real p1, Real p2, Real v0, Real v1, Real v2 )
+	Real	r := 2.0 / 3.0
+	Real	a := (p2 - p0) * (v1 * 0.25)
+	Real	b := p1 - a
+	Real	c := p1 + a
+	m_cp[0] := p0
+	m_cp[3] := p1
+	m_cp[6] := p2
+	m_cp[2] := p1 - a * r
+	m_cp[4] := p1 + a * r
+	m_cp[1] := p0 + (b - p0) * (v0 * r)
+	m_cp[5] := p2 + (c - p2) * (v2 * r)
+EndFunc
+
+Function	Real Bezier1D::pt( Real t, Integer base ) const
+	Real	p
+	Real	ct := 1.0 - t
+	p := m_cp[base] * (ct * ct * ct)
+	p += m_cp[base + 1] * (3.0 * t * ct * ct)
+	p += m_cp[base + 2] * (3.0 * t * t * ct)
+	p += m_cp[base + 3] * (t * t * t)
+	Return	p
+EndFunc
+
+Function	void Bezier1D::DivideBezier( Real t, Integer base )
+	Real	u := 1.0 - t
+	Real	P := m_cp[base] * u + m_cp[base + 1] * t
+	Real	Q := m_cp[base + 1] * u + m_cp[base + 2] * t
+	Real	R := m_cp[base + 2] * u + m_cp[base + 3] * t
+	Real	S := P * u + Q * t
+	Real	T := Q * u + R * t
+	Real	U := S * u + T * t
+	m_cp[base + 6] := m_cp[base + 3]
+	m_cp[base + 1] := P
+	m_cp[base + 2] := S
+	m_cp[base + 3] := U
+	m_cp[base + 4] := T
+	m_cp[base + 5] := R
+EndFunc
+
+
+; ----------------------------------------------------------------------------
+;	Bezier2D 構造体
+; ----------------------------------------------------------------------------
+
+Function	void Bezier2D::Bezier2D( const Bezier2D & bzSrc )
+	this := bzSrc
+EndFunc
+
+Function	Integer Bezier2D::operator sizeof ( void ) const
+	If	this !== null
+		Return	sizeof(m_cp)
+	EndIf
+	Return	0
+EndFunc
+
+Function	Bezier2D::operator const Vector2D[]&( void ) const
+	If	this !== null
+		Return	m_cp
+	EndIf
+	Return	null
+EndFunc
+
+Function	Bezier2D::operator Vector2D[]&( void )
+	If	this !== null
+		Return	m_cp
+	EndIf
+	Return	null
+EndFunc
+
+Function	Vector2D& Bezier2D::operator [] ( Integer nIndex )
+	Return	m_cp[nIndex]
+EndFunc
+
+Function	void Bezier2D::SetLinear( Real x0, Real y0, Real x1, Real y1 )
+	Vector2D	vDelta( (x1 - x0) / 3.0, (y1 - y0) / 3.0 )
+	m_cp[0].x := x0
+	m_cp[0].y := y0
+	m_cp[1].x := x0 + vDelta.x
+	m_cp[1].y := y0 + vDelta.y
+	m_cp[2].x := x1 - vDelta.x
+	m_cp[2].y := y1 - vDelta.y
+	m_cp[3].x := x1
+	m_cp[3].y := y1
+EndFunc
+
+Function	void Bezier2D::SetAcceleration( Real a0, Real a1 )
+	m_cp[1] := (m_cp[1] - m_cp[0]) * a0 + m_cp[0]
+	m_cp[2] := (m_cp[2] - m_cp[3]) * a1 + m_cp[3]
+EndFunc
+
+Function	void Bezier2D::SetLine(
+				Real x0, Real y0, Real x1, Real y1, Real v0, Real v1 )
+	SetLinear( x0, y0, x1, y1 )
+	SetAcceleration( v0, v1 )
+EndFunc
+
+Function	void Bezier2D::AddLine( Real x1, Real y1, Real v0, Real v1 )
+	Integer	n := sizeof(m_cp)
+	If	n == 0
+		m_cp[0] := Vector2D( x1, y1 )
+		n := 1
+	EndIf
+	Vector2D	p0 := m_cp[n - 1]
+	Vector2D	p1( x1, y1 )
+	Vector2D	d := (p1 - p0) / 3.0
+	m_cp[n    ] := p0 + d * v0
+	m_cp[n + 1] := p1 - d * v1
+	m_cp[n + 2] := p1
+EndFunc
+
+Function	void Bezier2D::SetCurve(
+				Real x0, Real y0, Real x1, Real y1,
+				Real x2, Real y2, Real v0, Real v1, Real v2 )
+	Vector2D	p0, p1, p2, a, b, c
+	Real		r := 2.0 / 3.0
+	p0.x := x0
+	p0.y := y0
+	p1.x := x1
+	p1.y := y1
+	p2.x := x2
+	p2.y := y2
+	a := (p2 - p0) * (v1 * 0.25)
+	b := p1 - a
+	c := p1 + a
+	m_cp[0] := p0
+	m_cp[3] := p1
+	m_cp[6] := p2
+	m_cp[2] := p1 - a * r
+	m_cp[4] := p1 + a * r
+	m_cp[1] := p0 + (b - p0) * (v0 * r)
+	m_cp[5] := p2 + (c - p2) * (v2 * r)
+EndFunc
+
+Function	Vector2D Bezier2D::pt( Real t, Integer base ) const
+	Vector2D	p
+	Real	ct := 1.0 - t
+	p := m_cp[base] * (ct * ct * ct)
+	p += m_cp[base + 1] * (3.0 * t * ct * ct)
+	p += m_cp[base + 2] * (3.0 * t * t * ct)
+	p += m_cp[base + 3] * (t * t * t)
+	Return	p
+EndFunc
+
+Function	void Bezier2D::DivideBezier( Real t, Integer base )
+	Real	u := 1.0 - t
+	Vector2D	P := m_cp[base] * u + m_cp[base + 1] * t ;
+	Vector2D	Q := m_cp[base + 1] * u + m_cp[base + 2] * t ;
+	Vector2D	R := m_cp[base + 2] * u + m_cp[base + 3] * t ;
+	Vector2D	S := P * u + Q * t ;
+	Vector2D	T := Q * u + R * t ;
+	Vector2D	U := S * u + T * t ;
+	m_cp[base + 6] := m_cp[base + 3]
+	m_cp[base + 1] := P
+	m_cp[base + 2] := S
+	m_cp[base + 3] := U
+	m_cp[base + 4] := T
+	m_cp[base + 5] := R
+EndFunc
+
+
+; ----------------------------------------------------------------------------
+;	Bezier3D 構造体
+; ----------------------------------------------------------------------------
+
+Function	void Bezier3D::Bezier3D( const Bezier3D & bzSrc )
+	this := bzSrc
+EndFunc
+
+Function	Integer Bezier3D::operator sizeof ( void ) const
+	If	this !== null
+		Return	sizeof(m_cp)
+	EndIf
+	Return	0
+EndFunc
+
+Function	Bezier3D::operator const Vector[]&( void ) const
+	If	this !== null
+		Return	m_cp
+	EndIf
+	Return	null
+EndFunc
+
+Function	Bezier3D::operator Vector[]&( void )
+	If	this !== null
+		Return	m_cp
+	EndIf
+	Return	null
+EndFunc
+
+Function	Vector& Bezier3D::operator [] ( Integer nIndex )
+	Return	m_cp[nIndex]
+EndFunc
+
+Function	void Bezier3D::SetLinear(
+				Real x0, Real y0, Real z0, Real x1, Real y1, Real z1 )
+	Vector	vDelta( (x1 - x0) / 3.0, (y1 - y0) / 3.0, (z1 - z0) / 3.0 )
+	m_cp[0].x := x0
+	m_cp[0].y := y0
+	m_cp[0].z := z0
+	m_cp[1].x := x0 + vDelta.x
+	m_cp[1].y := y0 + vDelta.y
+	m_cp[1].z := z0 + vDelta.z
+	m_cp[2].x := x1 - vDelta.x
+	m_cp[2].y := y1 - vDelta.y
+	m_cp[2].z := z1 - vDelta.z
+	m_cp[3].x := x1
+	m_cp[3].y := y1
+	m_cp[3].z := z1
+EndFunc
+
+Function	void Bezier3D::SetAcceleration( Real a0, Real a1 )
+	m_cp[1] := (m_cp[1] - m_cp[0]) * a0 + m_cp[0]
+	m_cp[2] := (m_cp[2] - m_cp[3]) * a1 + m_cp[3]
+EndFunc
+
+Function	void Bezier3D::SetLine(
+				Real x0, Real y0, Real z0,
+				Real x1, Real y1, Real z1, Real v0, Real v1 )
+	SetLinear( x0, y0, z0, x1, y1, z1 )
+	SetAcceleration( v0, v1 )
+EndFunc
+
+Function	void Bezier3D::AddLine(
+				Real x1, Real y1, Real z1, Real v0, Real v1 )
+	Integer	n := sizeof(m_cp)
+	If	n == 0
+		m_cp[0] := Vector( x1, y1, z1 )
+		n := 1
+	EndIf
+	Vector	p0 := m_cp[n - 1]
+	Vector	p1( x1, y1, z1 )
+	Vector	d := (p1 - p0) / 3.0
+	m_cp[n    ] := p0 + d * v0
+	m_cp[n + 1] := p1 - d * v1
+	m_cp[n + 2] := p1
+EndFunc
+
+Function	void Bezier3D::SetCurve(
+				Real x0, Real y0, Real z0,
+				Real x1, Real y1, Real z1,
+				Real x2, Real y2, Real z2,
+				Real v0, Real v1, Real v2 )
+	Vector	p0, p1, p2, a, b, c
+	Real	r := 2.0 / 3.0
+	p0.x := x0
+	p0.y := y0
+	p0.z := z0
+	p1.x := x1
+	p1.y := y1
+	p1.z := z1
+	p2.x := x2
+	p2.y := y2
+	p2.z := z2
+	a := (p2 - p0) * (v1 * 0.25)
+	b := p1 - a
+	c := p1 + a
+	m_cp[0] := p0
+	m_cp[3] := p1
+	m_cp[6] := p2
+	m_cp[2] := p1 - a * r
+	m_cp[4] := p1 + a * r
+	m_cp[1] := p0 + (b - p0) * (v0 * r)
+	m_cp[5] := p2 + (c - p2) * (v2 * r)
+EndFunc
+
+Function	Vector Bezier3D::pt( Real t, Integer base ) const
+	Vector	p
+	Real	ct := 1.0 - t
+	p := m_cp[base] * (ct * ct * ct)
+	p += m_cp[base + 1] * (3.0 * t * ct * ct)
+	p += m_cp[base + 2] * (3.0 * t * t * ct)
+	p += m_cp[base + 3] * (t * t * t)
+	Return	p
+EndFunc
+
+Function	void Bezier3D::DivideBezier( Real t, Integer base )
+	Real	u := 1.0 - t
+	Vector	P := m_cp[base] * u + m_cp[base + 1] * t ;
+	Vector	Q := m_cp[base + 1] * u + m_cp[base + 2] * t ;
+	Vector	R := m_cp[base + 2] * u + m_cp[base + 3] * t ;
+	Vector	S := P * u + Q * t ;
+	Vector	T := Q * u + R * t ;
+	Vector	U := S * u + T * t ;
+	m_cp[base + 6] := m_cp[base + 3]
+	m_cp[base + 1] := P
+	m_cp[base + 2] := S
+	m_cp[base + 3] := U
+	m_cp[base + 4] := T
+	m_cp[base + 5] := R
+EndFunc
+
+
+; ----------------------------------------------------------------------------
+;	Bezier4D 構造体
+; ----------------------------------------------------------------------------
+
+Function	void Bezier4D::Bezier4D( const Bezier4D & bzSrc )
+	this := bzSrc
+EndFunc
+
+Function	Integer Bezier4D::operator sizeof ( void ) const
+	If	this !== null
+		Return	sizeof(m_cp)
+	EndIf
+	Return	0
+EndFunc
+
+Function	Bezier4D::operator const Quaternion[]&( void ) const
+	If	this !== null
+		Return	m_cp
+	EndIf
+	Return	null
+EndFunc
+
+Function	Bezier4D::operator Quaternion[]&( void )
+	If	this !== null
+		Return	m_cp
+	EndIf
+	Return	null
+EndFunc
+
+Function	Quaternion& Bezier4D::operator [] ( Integer nIndex )
+	Return	m_cp[nIndex]
+EndFunc
+
+Function	void Bezier4D::SetLinear(
+				const Quaternion& q0, const Quaternion& q1 )
+	Quaternion	qDelta := (q1 - q0) * (1.0 / 3.0)
+	m_cp[0] := q0
+	m_cp[1] := q0 + qDelta
+	m_cp[2] := q1 - qDelta
+	m_cp[3] := q1
+EndFunc
+
+Function	void Bezier4D::SetAcceleration( Real a0, Real a1 )
+	m_cp[1] := (m_cp[1] - m_cp[0]) * a0 + m_cp[0]
+	m_cp[2] := (m_cp[2] - m_cp[3]) * a1 + m_cp[3]
+EndFunc
+
+Function	void Bezier4D::SetLine(
+				const Quaternion& q0, const Quaternion& q1, Real v0, Real v1 )
+	SetLinear( q0, q1 )
+	SetAcceleration( v0, v1 )
+EndFunc
+
+Function	void Bezier4D::SetCurve(
+				const Quaternion& q0, const Quaternion& q1,
+				const Quaternion& q2, Real v0, Real v1, Real v2 )
+	Quaternion	a, b, c
+	Real	r := 2.0 / 3.0
+	a := (q2 - q0) * (v1 * 0.25)
+	b := q1 - a
+	c := q1 + a
+	m_cp[0] := q0
+	m_cp[3] := q1
+	m_cp[6] := q2
+	m_cp[2] := q1 - a * r
+	m_cp[4] := q1 + a * r
+	m_cp[1] := q0 + (b - q0) * (v0 * r)
+	m_cp[5] := q2 + (c - q2) * (v2 * r)
+EndFunc
+
+Function	Quaternion Bezier4D::pt( Real t, Integer base ) const
+	Quaternion	q
+	Real	ct := 1.0 - t
+	q := m_cp[base] * (ct * ct * ct)
+	q += m_cp[base + 1] * (3.0 * t * ct * ct)
+	q += m_cp[base + 2] * (3.0 * t * t * ct)
+	q += m_cp[base + 3] * (t * t * t)
+	Return	q
+EndFunc
+
+Function	void Bezier4D::DivideBezier( Real t, Integer base )
+	Real	u := 1.0 - t
+	Quaternion	P := m_cp[base] * u + m_cp[base + 1] * t ;
+	Quaternion	Q := m_cp[base + 1] * u + m_cp[base + 2] * t ;
+	Quaternion	R := m_cp[base + 2] * u + m_cp[base + 3] * t ;
+	Quaternion	S := P * u + Q * t ;
+	Quaternion	T := Q * u + R * t ;
+	Quaternion	U := S * u + T * t ;
+	m_cp[base + 6] := m_cp[base + 3]
+	m_cp[base + 1] := P
+	m_cp[base + 2] := S
+	m_cp[base + 3] := U
+	m_cp[base + 4] := T
+	m_cp[base + 5] := R
+EndFunc
+
+
+; ----------------------------------------------------------------------------
+;	Time 構造体
+; ----------------------------------------------------------------------------
+
+Function	Integer Time::Compare( const Time & time ) const
+	If	this.nYear > time.nYear
+		Return	1
+	ElseIf	this.nYear < time.nYear
+		Return	-1
+	Else
+		If	this.nMonth > time.nMonth
+			Return	1
+		ElseIf	this.nMonth < time.nMonth
+			Return	-1
+		Else
+			If	this.nDay > time.nDay
+				Return	1
+			ElseIf	this.nDay < time.nDay
+				Return	-1
+			Else
+				If	this.nHour > time.nHour
+					Return	1
+				ElseIf	this.nHour < time.nHour
+					Return	-1
+				Else
+					If	this.nMinute > time.nMinute
+						Return	1
+					ElseIf	this.nMinute < time.nMinute
+						Return	-1
+					Else
+						return	this.nSecond - time.nSecond
+					EndIf
+				EndIf
+			EndIf
+		EndIf
+	EndIf
+EndFunc
+
+

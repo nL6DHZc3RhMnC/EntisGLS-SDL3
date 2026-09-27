@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>VideoInputStream</title>
+</head>
+<body>
+<div class="chapter">VideoInputStream</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　VideoInputStream はビデオファイルのデコーダーインターフェースを供給します。<br/>
+　EntisGLS4 の SGLVideoInputStream コンテナです。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="VideoInputStream.xhtml">VideoInputStream</a>
+</div></div></div><br/>
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_getImageFormat">getImageFormat</a><br/>
+	<a href="#virtual_getVideoDuration">getVideoDuration</a><br/>
+	<a href="#virtual_getVideoLength">getVideoLength</a><br/>
+	<a href="#virtual_getVideoOptinalInfo">getVideoOptinalInfo</a><br/>
+	<a href="#virtual_readFrame">readFrame</a><br/>
+	<a href="#virtual_seekFrame">seekFrame</a><br/>
+</div><br/>
+
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_getImageFormat"/>
+<div class="headline">getImageFormat</div>
+<div class="usage">public boolean getImageFormat( Image.BufferInfo fmt )</div>
+<br/>
+
+<a name="virtual_getVideoDuration"/>
+<div class="headline">getVideoDuration</div>
+<div class="usage">public const long getVideoDuration(&#32; )</div>
+<br/>
+
+<a name="virtual_getVideoLength"/>
+<div class="headline">getVideoLength</div>
+<div class="usage">public const long getVideoLength(&#32; )</div>
+<br/>
+
+<a name="virtual_getVideoOptinalInfo"/>
+<div class="headline">getVideoOptinalInfo</div>
+<div class="usage">public boolean getVideoOptinalInfo( MediaOptionalInfo optinf )</div>
+<br/>
+
+<a name="virtual_readFrame"/>
+<div class="headline">readFrame</div>
+<div class="usage">public boolean readFrame( Image img )</div>
+<br/>
+
+<a name="virtual_seekFrame"/>
+<div class="headline">seekFrame</div>
+<div class="usage">public boolean seekFrame( long nFrames )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

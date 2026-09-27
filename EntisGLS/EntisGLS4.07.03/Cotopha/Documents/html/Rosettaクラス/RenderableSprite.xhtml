@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>RenderableSprite</title>
+</head>
+<body>
+<div class="chapter">RenderableSprite</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　RenderableSprite は Rosetta スクリプト上で描画関数をオーバーライド可能な Sprite です。<br/>
+　RenderableSprite コンストラクタはオーバーライド可能な Sprite の実体を生成しますので、派生クラスでコンストラクタを記述する際には、super() の呼び出しを忘れないように注意が必要です。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="Sprite.xhtml">Sprite</a>
+<div class="indent1"><a href="RenderableSprite.xhtml">RenderableSprite</a>
+</div></div></div></div><br/>
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_errorIgnore">errorIgnore</a><br/>
+	<a href="#static_errorStdOut">errorStdOut</a><br/>
+	<a href="#static_s3dLeftView">s3dLeftView</a><br/>
+	<a href="#static_s3dMonoview">s3dMonoview</a><br/>
+	<a href="#static_s3dRightView">s3dRightView</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_RenderableSprite">RenderableSprite</a><br/>
+	<a href="#virtual_getRenderRect">getRenderRect</a><br/>
+	<a href="#virtual_isHitTest">isHitTest</a><br/>
+	<a href="#virtual_onRender">onRender</a><br/>
+	<a href="#virtual_onTimer">onTimer</a><br/>
+	<a href="#virtual_setErrorMode">setErrorMode</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_errorIgnore"/>
+<div class="headline">errorIgnore</div>
+<div class="usage">public static const Integer errorIgnore = 0</div>
+<br/>
+
+<a name="static_errorStdOut"/>
+<div class="headline">errorStdOut</div>
+<div class="usage">public static const Integer errorStdOut = 1</div>
+<br/>
+
+<a name="static_s3dLeftView"/>
+<div class="headline">s3dLeftView</div>
+<div class="usage">public static const Integer s3dLeftView = 1</div>
+<br/>
+
+<a name="static_s3dMonoview"/>
+<div class="headline">s3dMonoview</div>
+<div class="usage">public static const Integer s3dMonoview = -1</div>
+<br/>
+
+<a name="static_s3dRightView"/>
+<div class="headline">s3dRightView</div>
+<div class="usage">public static const Integer s3dRightView = 0</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_RenderableSprite"/>
+<div class="headline">RenderableSprite</div>
+<div class="usage">public void RenderableSprite(&#32; )</div>
+<br/>
+
+<a name="virtual_getRenderRect"/>
+<div class="headline">getRenderRect</div>
+<div class="usage">protected boolean getRenderRect( Rect rect )</div>
+<br/>
+
+<a name="virtual_isHitTest"/>
+<div class="headline">isHitTest</div>
+<div class="usage">protected boolean isHitTest( double xLocal, double yLocal )</div>
+<br/>
+
+<a name="virtual_onRender"/>
+<div class="headline">onRender</div>
+<div class="usage">protected void onRender( RenderContext render, int s3dView )</div>
+<br/>
+
+<a name="virtual_onTimer"/>
+<div class="headline">onTimer</div>
+<div class="usage">protected void onTimer( int msecPast )</div>
+<br/>
+
+<a name="virtual_setErrorMode"/>
+<div class="headline">setErrorMode</div>
+<div class="usage">protected void setErrorMode( int error )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

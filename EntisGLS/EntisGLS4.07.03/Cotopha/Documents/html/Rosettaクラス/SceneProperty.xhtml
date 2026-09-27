@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>SceneProperty</title>
+</head>
+<body>
+<div class="chapter">SceneProperty</div>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="SceneParameter.xhtml">SceneParameter</a>
+<div class="indent1"><a href="SceneProperty.xhtml">SceneProperty</a>
+</div></div></div></div><br/>
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_attrAppExtension1">attrAppExtension1</a><br/>
+	<a href="#static_attrAppExtension2">attrAppExtension2</a><br/>
+	<a href="#static_attrAppExtension3">attrAppExtension3</a><br/>
+	<a href="#static_attrAppExtension4">attrAppExtension4</a><br/>
+	<a href="#static_attrAppExtension5">attrAppExtension5</a><br/>
+	<a href="#static_attrAppExtension6">attrAppExtension6</a><br/>
+	<a href="#static_attrAppExtension7">attrAppExtension7</a><br/>
+	<a href="#static_attrAppExtension8">attrAppExtension8</a><br/>
+	<a href="#static_attrCategory1">attrCategory1</a><br/>
+	<a href="#static_attrCategory2">attrCategory2</a><br/>
+	<a href="#static_attrCategory3">attrCategory3</a><br/>
+	<a href="#static_attrCategory4">attrCategory4</a><br/>
+	<a href="#static_attrCategory5">attrCategory5</a><br/>
+	<a href="#static_attrCategory6">attrCategory6</a><br/>
+	<a href="#static_attrCategory7">attrCategory7</a><br/>
+	<a href="#static_attrCategoryMask">attrCategoryMask</a><br/>
+	<a href="#static_attrCategoryShift">attrCategoryShift</a><br/>
+	<a href="#static_attrConstant">attrConstant</a><br/>
+	<a href="#static_attrConstant1">attrConstant1</a><br/>
+	<a href="#static_attrConstant2">attrConstant2</a><br/>
+	<a href="#static_attrConstant3">attrConstant3</a><br/>
+	<a href="#static_attrConstant4">attrConstant4</a><br/>
+	<a href="#static_attrConstant5">attrConstant5</a><br/>
+	<a href="#static_attrConstant6">attrConstant6</a><br/>
+	<a href="#static_attrConstant7">attrConstant7</a><br/>
+	<a href="#static_attrDynamicValidation">attrDynamicValidation</a><br/>
+	<a href="#static_attrEditUpdateFrame">attrEditUpdateFrame</a><br/>
+	<a href="#static_attrEditorCommand">attrEditorCommand</a><br/>
+	<a href="#static_attrFlagSetInteger">attrFlagSetInteger</a><br/>
+	<a href="#static_attrGlobalTransform">attrGlobalTransform</a><br/>
+	<a href="#static_attrNoLocalTransform">attrNoLocalTransform</a><br/>
+	<a href="#static_attrNoSerializeFlags">attrNoSerializeFlags</a><br/>
+	<a href="#static_attrReadOnlyParam">attrReadOnlyParam</a><br/>
+	<a href="#static_attrStringEnumeration">attrStringEnumeration</a><br/>
+	<a href="#static_attrUIOnlyEnumeration">attrUIOnlyEnumeration</a><br/>
+	<a href="#static_attrUIScalarSlider">attrUIScalarSlider</a><br/>
+	<a href="#static_typeBinary">typeBinary</a><br/>
+	<a href="#static_typeBoolean">typeBoolean</a><br/>
+	<a href="#static_typeColor">typeColor</a><br/>
+	<a href="#static_typeCommand">typeCommand</a><br/>
+	<a href="#static_typeDirection">typeDirection</a><br/>
+	<a href="#static_typeInteger">typeInteger</a><br/>
+	<a href="#static_typeInvalid">typeInvalid</a><br/>
+	<a href="#static_typeMatrix">typeMatrix</a><br/>
+	<a href="#static_typeMatrix4">typeMatrix4</a><br/>
+	<a href="#static_typePose">typePose</a><br/>
+	<a href="#static_typePosition">typePosition</a><br/>
+	<a href="#static_typeScalar">typeScalar</a><br/>
+	<a href="#static_typeSelector">typeSelector</a><br/>
+	<a href="#static_typeVector2">typeVector2</a><br/>
+	<a href="#static_typeVector4">typeVector4</a><br/>
+	<a href="#static_typeZoom">typeZoom</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_createParameterSequencer">createParameterSequencer</a><br/>
+	<a href="#virtual_findParameterID">findParameterID</a><br/>
+	<a href="#virtual_getItemIdentity">getItemIdentity</a><br/>
+	<a href="#virtual_getParameterAttributes">getParameterAttributes</a><br/>
+	<a href="#virtual_getParameterCount">getParameterCount</a><br/>
+	<a href="#virtual_getParameterDescription">getParameterDescription</a><br/>
+	<a href="#virtual_getParameterFriendlyName">getParameterFriendlyName</a><br/>
+	<a href="#virtual_getParameterID">getParameterID</a><br/>
+	<a href="#virtual_getParameterSequencer">getParameterSequencer</a><br/>
+	<a href="#virtual_getParameterType">getParameterType</a><br/>
+	<a href="#virtual_isParameterValidation">isParameterValidation</a><br/>
+	<a href="#virtual_removeParameterSequencer">removeParameterSequencer</a><br/>
+	<a href="#virtual_setItemIdentity">setItemIdentity</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_attrAppExtension1"/>
+<div class="headline">attrAppExtension1</div>
+<div class="usage">public static const Integer attrAppExtension1 = 16777216 /* 0x01000000 */</div>
+<br/>
+
+<a name="static_attrAppExtension2"/>
+<div class="headline">attrAppExtension2</div>
+<div class="usage">public static const Integer attrAppExtension2 = 33554432 /* 0x02000000 */</div>
+<br/>
+
+<a name="static_attrAppExtension3"/>
+<div class="headline">attrAppExtension3</div>
+<div class="usage">public static const Integer attrAppExtension3 = 67108864 /* 0x04000000 */</div>
+<br/>
+
+<a name="static_attrAppExtension4"/>
+<div class="headline">attrAppExtension4</div>
+<div class="usage">public static const Integer attrAppExtension4 = 134217728 /* 0x08000000 */</div>
+<br/>
+
+<a name="static_attrAppExtension5"/>
+<div class="headline">attrAppExtension5</div>
+<div class="usage">public static const Integer attrAppExtension5 = 268435456 /* 0x10000000 */</div>
+<br/>
+
+<a name="static_attrAppExtension6"/>
+<div class="headline">attrAppExtension6</div>
+<div class="usage">public static const Integer attrAppExtension6 = 536870912 /* 0x20000000 */</div>
+<br/>
+
+<a name="static_attrAppExtension7"/>
+<div class="headline">attrAppExtension7</div>
+<div class="usage">public static const Integer attrAppExtension7 = 1073741824 /* 0x40000000 */</div>
+<br/>
+
+<a name="static_attrAppExtension8"/>
+<div class="headline">attrAppExtension8</div>
+<div class="usage">public static const Integer attrAppExtension8 = -2147483648 /* 0xFFFFFFFF80000000 */</div>
+<br/>
+
+<a name="static_attrCategory1"/>
+<div class="headline">attrCategory1</div>
+<div class="usage">public static const Integer attrCategory1 = 4096 /* 0x1000 */</div>
+<br/>
+
+<a name="static_attrCategory2"/>
+<div class="headline">attrCategory2</div>
+<div class="usage">public static const Integer attrCategory2 = 8192 /* 0x2000 */</div>
+<br/>
+
+<a name="static_attrCategory3"/>
+<div class="headline">attrCategory3</div>
+<div class="usage">public static const Integer attrCategory3 = 12288 /* 0x3000 */</div>
+<br/>
+
+<a name="static_attrCategory4"/>
+<div class="headline">attrCategory4</div>
+<div class="usage">public static const Integer attrCategory4 = 16384 /* 0x4000 */</div>
+<br/>
+
+<a name="static_attrCategory5"/>
+<div class="headline">attrCategory5</div>
+<div class="usage">public static const Integer attrCategory5 = 20480 /* 0x5000 */</div>
+<br/>
+
+<a name="static_attrCategory6"/>
+<div class="headline">attrCategory6</div>
+<div class="usage">public static const Integer attrCategory6 = 24576 /* 0x6000 */</div>
+<br/>
+
+<a name="static_attrCategory7"/>
+<div class="headline">attrCategory7</div>
+<div class="usage">public static const Integer attrCategory7 = 28672 /* 0x7000 */</div>
+<br/>
+
+<a name="static_attrCategoryMask"/>
+<div class="headline">attrCategoryMask</div>
+<div class="usage">public static const Integer attrCategoryMask = 61440 /* 0xF000 */</div>
+<br/>
+
+<a name="static_attrCategoryShift"/>
+<div class="headline">attrCategoryShift</div>
+<div class="usage">public static const Integer attrCategoryShift = 12</div>
+<br/>
+
+<a name="static_attrConstant"/>
+<div class="headline">attrConstant</div>
+<div class="usage">public static const Integer attrConstant = 1</div>
+<br/>
+
+<a name="static_attrConstant1"/>
+<div class="headline">attrConstant1</div>
+<div class="usage">public static const Integer attrConstant1 = 4097 /* 0x1001 */</div>
+<br/>
+
+<a name="static_attrConstant2"/>
+<div class="headline">attrConstant2</div>
+<div class="usage">public static const Integer attrConstant2 = 8193 /* 0x2001 */</div>
+<br/>
+
+<a name="static_attrConstant3"/>
+<div class="headline">attrConstant3</div>
+<div class="usage">public static const Integer attrConstant3 = 12289 /* 0x3001 */</div>
+<br/>
+
+<a name="static_attrConstant4"/>
+<div class="headline">attrConstant4</div>
+<div class="usage">public static const Integer attrConstant4 = 16385 /* 0x4001 */</div>
+<br/>
+
+<a name="static_attrConstant5"/>
+<div class="headline">attrConstant5</div>
+<div class="usage">public static const Integer attrConstant5 = 20481 /* 0x5001 */</div>
+<br/>
+
+<a name="static_attrConstant6"/>
+<div class="headline">attrConstant6</div>
+<div class="usage">public static const Integer attrConstant6 = 24577 /* 0x6001 */</div>
+<br/>
+
+<a name="static_attrConstant7"/>
+<div class="headline">attrConstant7</div>
+<div class="usage">public static const Integer attrConstant7 = 28673 /* 0x7001 */</div>
+<br/>
+
+<a name="static_attrDynamicValidation"/>
+<div class="headline">attrDynamicValidation</div>
+<div class="usage">public static const Integer attrDynamicValidation = 16</div>
+<br/>
+
+<a name="static_attrEditUpdateFrame"/>
+<div class="headline">attrEditUpdateFrame</div>
+<div class="usage">public static const Integer attrEditUpdateFrame = 128 /* 0x0080 */</div>
+<br/>
+
+<a name="static_attrEditorCommand"/>
+<div class="headline">attrEditorCommand</div>
+<div class="usage">public static const Integer attrEditorCommand = 256 /* 0x0100 */</div>
+<br/>
+
+<a name="static_attrFlagSetInteger"/>
+<div class="headline">attrFlagSetInteger</div>
+<div class="usage">public static const Integer attrFlagSetInteger = 32 /* 0x0020 */</div>
+<br/>
+
+<a name="static_attrGlobalTransform"/>
+<div class="headline">attrGlobalTransform</div>
+<div class="usage">public static const Integer attrGlobalTransform = 512 /* 0x0200 */</div>
+<br/>
+
+<a name="static_attrNoLocalTransform"/>
+<div class="headline">attrNoLocalTransform</div>
+<div class="usage">public static const Integer attrNoLocalTransform = 2</div>
+<br/>
+
+<a name="static_attrNoSerializeFlags"/>
+<div class="headline">attrNoSerializeFlags</div>
+<div class="usage">public static const Integer attrNoSerializeFlags = 1280 /* 0x0500 */</div>
+<br/>
+
+<a name="static_attrReadOnlyParam"/>
+<div class="headline">attrReadOnlyParam</div>
+<div class="usage">public static const Integer attrReadOnlyParam = 1024 /* 0x0400 */</div>
+<br/>
+
+<a name="static_attrStringEnumeration"/>
+<div class="headline">attrStringEnumeration</div>
+<div class="usage">public static const Integer attrStringEnumeration = 4</div>
+<br/>
+
+<a name="static_attrUIOnlyEnumeration"/>
+<div class="headline">attrUIOnlyEnumeration</div>
+<div class="usage">public static const Integer attrUIOnlyEnumeration = 8</div>
+<br/>
+
+<a name="static_attrUIScalarSlider"/>
+<div class="headline">attrUIScalarSlider</div>
+<div class="usage">public static const Integer attrUIScalarSlider = 64 /* 0x0040 */</div>
+<br/>
+
+<a name="static_typeBinary"/>
+<div class="headline">typeBinary</div>
+<div class="usage">public static const Integer typeBinary = 12</div>
+<br/>
+
+<a name="static_typeBoolean"/>
+<div class="headline">typeBoolean</div>
+<div class="usage">public static const Integer typeBoolean = 8</div>
+<br/>
+
+<a name="static_typeColor"/>
+<div class="headline">typeColor</div>
+<div class="usage">public static const Integer typeColor = 5</div>
+<br/>
+
+<a name="static_typeCommand"/>
+<div class="headline">typeCommand</div>
+<div class="usage">public static const Integer typeCommand = 10</div>
+<br/>
+
+<a name="static_typeDirection"/>
+<div class="headline">typeDirection</div>
+<div class="usage">public static const Integer typeDirection = 2</div>
+<br/>
+
+<a name="static_typeInteger"/>
+<div class="headline">typeInteger</div>
+<div class="usage">public static const Integer typeInteger = 7</div>
+<br/>
+
+<a name="static_typeInvalid"/>
+<div class="headline">typeInvalid</div>
+<div class="usage">public static const Integer typeInvalid = -1</div>
+<br/>
+
+<a name="static_typeMatrix"/>
+<div class="headline">typeMatrix</div>
+<div class="usage">public static const Integer typeMatrix = 0</div>
+<br/>
+
+<a name="static_typeMatrix4"/>
+<div class="headline">typeMatrix4</div>
+<div class="usage">public static const Integer typeMatrix4 = 13</div>
+<br/>
+
+<a name="static_typePose"/>
+<div class="headline">typePose</div>
+<div class="usage">public static const Integer typePose = 11</div>
+<br/>
+
+<a name="static_typePosition"/>
+<div class="headline">typePosition</div>
+<div class="usage">public static const Integer typePosition = 1</div>
+<br/>
+
+<a name="static_typeScalar"/>
+<div class="headline">typeScalar</div>
+<div class="usage">public static const Integer typeScalar = 6</div>
+<br/>
+
+<a name="static_typeSelector"/>
+<div class="headline">typeSelector</div>
+<div class="usage">public static const Integer typeSelector = 9</div>
+<br/>
+
+<a name="static_typeVector2"/>
+<div class="headline">typeVector2</div>
+<div class="usage">public static const Integer typeVector2 = 15</div>
+<br/>
+
+<a name="static_typeVector4"/>
+<div class="headline">typeVector4</div>
+<div class="usage">public static const Integer typeVector4 = 14</div>
+<br/>
+
+<a name="static_typeZoom"/>
+<div class="headline">typeZoom</div>
+<div class="usage">public static const Integer typeZoom = 3</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_createParameterSequencer"/>
+<div class="headline">createParameterSequencer</div>
+<div class="usage">public SceneSequencer createParameterSequencer( int i )</div>
+<br/>
+
+<a name="virtual_findParameterID"/>
+<div class="headline">findParameterID</div>
+<div class="usage">public const int findParameterID( String id )</div>
+<br/>
+
+<a name="virtual_getItemIdentity"/>
+<div class="headline">getItemIdentity</div>
+<div class="usage">public const String getItemIdentity(&#32; )</div>
+<br/>
+
+<a name="virtual_getParameterAttributes"/>
+<div class="headline">getParameterAttributes</div>
+<div class="usage">public const int getParameterAttributes( int i )</div>
+<br/>
+
+<a name="virtual_getParameterCount"/>
+<div class="headline">getParameterCount</div>
+<div class="usage">public const int getParameterCount(&#32; )</div>
+<br/>
+
+<a name="virtual_getParameterDescription"/>
+<div class="headline">getParameterDescription</div>
+<div class="usage">public const String getParameterDescription( int i )</div>
+<br/>
+
+<a name="virtual_getParameterFriendlyName"/>
+<div class="headline">getParameterFriendlyName</div>
+<div class="usage">public const String getParameterFriendlyName( int i )</div>
+<br/>
+
+<a name="virtual_getParameterID"/>
+<div class="headline">getParameterID</div>
+<div class="usage">public const String getParameterID( int i )</div>
+<br/>
+
+<a name="virtual_getParameterSequencer"/>
+<div class="headline">getParameterSequencer</div>
+<div class="usage">public const SceneSequencer getParameterSequencer( int i )</div>
+<br/>
+
+<a name="virtual_getParameterType"/>
+<div class="headline">getParameterType</div>
+<div class="usage">public const int getParameterType( int i )</div>
+<br/>
+
+<a name="virtual_isParameterValidation"/>
+<div class="headline">isParameterValidation</div>
+<div class="usage">public const boolean isParameterValidation( int i )</div>
+<br/>
+
+<a name="virtual_removeParameterSequencer"/>
+<div class="headline">removeParameterSequencer</div>
+<div class="usage">public void removeParameterSequencer( int i )</div>
+<br/>
+
+<a name="virtual_setItemIdentity"/>
+<div class="headline">setItemIdentity</div>
+<div class="usage">public void setItemIdentity( String id )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

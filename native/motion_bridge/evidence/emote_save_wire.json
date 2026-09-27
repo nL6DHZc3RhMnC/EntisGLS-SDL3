@@ -1,0 +1,165 @@
+{
+  "binary": "build/analysis/ststeady.exe",
+  "sha256": "9750f67ae51ba158cda4f756ccbd0875fb837ddd15e84db713be53f8573d91b3",
+  "image_base": "0x400000",
+  "functions": [
+    {
+      "addr": "0x82DCE0",
+      "code": "int __thiscall sub_82DCE0(_DWORD *this, int *a2, unsigned int a3)\n{\n  unsigned int v4; // esi\n  int result; // eax\n  int v7; // eax\n  unsigned int v8; // eax\n  int v9; // eax\n  unsigned int v10; // eax\n  _DWORD *v11; // edi\n  _DWORD *v12; // eax\n  _DWORD *v13; // esi\n  unsigned int v14; // eax\n  unsigned int v15; // ecx\n  const char *v16; // [esp+0h] [ebp-14h]\n  int v17; // [esp+4h] [ebp-10h]\n  unsigned int v18; // [esp+Ch] [ebp-8h]\n  unsigned int v19; // [esp+10h] [ebp-4h] BYREF\n  unsigned int i; // [esp+1Ch] [ebp+8h]\n\n  v4 = a3; /*0x82dceb*/\n  result = sub_44FF30(a1: a2, a2: a3); /*0x82dcf3*/\n  if ( result == 0 ) /*0x82dcfa*/\n  {\n    result = (*(int (__thiscall **)(_DWORD *, int *, unsigned int))(*(this + 552) + 180))(a1: this + 552, a2, a3: v4); /*0x82dd0e*/\n    if ( result == 0 ) /*0x82dd16*/\n    {\n      (*(void (__thiscall **)(int *, _DWORD *, int))(*a2 + 24))(a1: a2, a2: this + 547, a3: 8); /*0x82dd29*/\n      (*(void (__thiscall **)(int *, _DWORD *, int))(*a2 + 24))(a1: a2, a2: this + 549, a3: 4); /*0x82dd39*/\n      (*(void (__thiscall **)(int *, _DWORD *, int))(*a2 + 24))(a1: a2, a2: this + 550, a3: 8); /*0x82dd49*/\n      v7 = *a2; /*0x82dd4c*/\n      a3 = 0; /*0x82dd56*/\n      (*(void (__thiscall **)(int *, unsigned int *, int))(v7 + 24))(a1: a2, a2: &a3, a3: 4); /*0x82dd5d*/\n      v8 = a3; /*0x82dd60*/\n      if ( a3 >= *(this + 584) ) /*0x82dd69*/\n      {\n        (*(void (__thiscall **)(_DWORD *, unsigned int))(*(this + 581) + 20))(a1: this + 581, a2: a3 + 1); /*0x82dd79*/\n        v8 = a3; /*0x82dd7c*/\n      }\n      (*(void (__thiscall **)(int *, _DWORD, unsigned int))(*a2 + 24))(a1: a2, a2: *(this + 582), a3: 2 * v8); /*0x82dd8c*/\n      sub_40AEE0(a1: a3); /*0x82dd98*/\n      v9 = *a2; /*0x82dd9d*/\n      a3 = 0; /*0x82dda7*/\n      (*(void (__thiscall **)(int *, unsigned int *, int))(v9 + 24))(a1: a2, a2: &a3, a3: 4); /*0x82ddae*/\n      v10 = a3; /*0x82ddb1*/\n      if ( a3 >= *(this + 588) ) /*0x82ddba*/\n      {\n        (*(void (__thiscall **)(_DWORD *, unsigned int))(*(this + 585) + 20))(a1: this + 585, a2: a3 + 1); /*0x82ddca*/\n        v10 = a3; /*0x82ddcd*/\n      }\n      (*(void (__thiscall **)(int *, _DWORD, unsigned int))(*a2 + 24))(a1: a2, a2: *(this + 586), a3: 2 * v10); /*0x82dddd*/\n      sub_40AEE0(a1: a3); /*0x82dde9*/\n      (*(void (__thiscall **)(int *, unsigned int *, int))(*a2 + 24))(a1: a2, a2: &v19, a3: 4); /*0x82ddf8*/\n      v11 = this + 589; /*0x82ddfb*/\n      sub_414470(a1: v11); /*0x82de03*/\n      for ( i = 0; i < v19; ++i ) /*0x82de13*/\n      {\n        v12 = ESLObject::operator new(a1: 0x10u, a2: v16, a3: v17); /*0x82de22*/\n        v13 = v12; /*0x82de27*/\n        if ( v12 != nullptr ) /*0x82de2e*/\n        {\n          v12[1] = 0; /*0x82de30*/\n          v12[2] = 0; /*0x82de37*/\n          v12[3] = 0; /*0x82de3e*/\n          *v12 = &EWideString::`vftable'; /*0x82de45*/\n        }\n        else\n        {\n          v13 = nullptr; /*0x82de4d*/\n        }\n        (*(void (__thiscall **)(int *, unsigned int *, int))(*a2 + 24))(a1: a2, a2: &a3, a3: 4); /*0x82de59*/\n        v14 = a3; /*0x82de5c*/\n        if ( a3 >= v13[3] ) /*0x82de62*/\n        {\n          (*(void (__thiscall **)(_DWORD *, unsigned int))(*v13 + 20))(a1: v13, a2: a3 + 1); /*0x82de6a*/\n          v14 = a3; /*0x82de6d*/\n        }\n        (*(void (__thiscall **)(int *, _DWORD, unsigned int))(*a2 + 24))(a1: a2, a2: v13[1], a3: 2 * v14); /*0x82de7a*/\n        sub_40AEE0(a1: a3); /*0x82de82*/\n        v15 = v11[2]; /*0x82de87*/\n        v18 = v15; /*0x82de8a*/\n        if ( v15 >= v11[3] ) /*0x82de90*/\n        {\n          sub_40E950(a1: v15 + 1, a2: 0); /*0x82dea5*/\n          *(_DWORD *)(v11[1] + 4 * v18) = v13; /*0x82deb0*/\n        }\n        else\n        {\n          *(_DWORD *)(v11[1] + 4 * v15) = v13; /*0x82de95*/\n          ++v11[2]; /*0x82de98*/\n        }\n      }\n      return 0; /*0x82dec3*/\n    }\n  }\n  return result; /*0x82dec5*/\n}",
+      "refs": [
+        {
+          "addr": "0x44ff30",
+          "name": "sub_44FF30"
+        },
+        {
+          "addr": "0x40aee0",
+          "name": "sub_40AEE0"
+        },
+        {
+          "addr": "0x414470",
+          "name": "sub_414470"
+        },
+        {
+          "addr": "0x401000",
+          "name": "??2ESLObject@@SAPAXIPBDH@Z"
+        },
+        {
+          "addr": "0x8cbb20",
+          "name": "??_7EWideString@@6B@"
+        },
+        {
+          "addr": "0x40e950",
+          "name": "sub_40E950"
+        }
+      ]
+    },
+    {
+      "addr": "0x82EF50",
+      "code": "int __thiscall sub_82EF50(_DWORD *this, unsigned int a2, int a3)\n{\n  int v3; // esi\n  unsigned int v4; // edi\n  _DWORD *v5; // ebx\n  int result; // eax\n  unsigned int i; // esi\n  int v8; // ebx\n\n  v3 = a3; /*0x82ef56*/\n  v4 = a2; /*0x82ef5a*/\n  v5 = this; /*0x82ef5e*/\n  result = sub_44F880(a1: a2, a2: a3); /*0x82ef64*/\n  if ( result == 0 ) /*0x82ef6b*/\n  {\n    result = (*(int (__thiscall **)(_DWORD *, unsigned int, int))(v5[552] + 176))(a1: v5 + 552, a2: v4, a3: v3); /*0x82ef7f*/\n    if ( result == 0 ) /*0x82ef87*/\n    {\n      (*(void (__thiscall **)(unsigned int, _DWORD *, int))(*(_DWORD *)v4 + 28))(a1: v4, a2: v5 + 547, a3: 8); /*0x82ef9a*/\n      (*(void (__thiscall **)(unsigned int, _DWORD *, int))(*(_DWORD *)v4 + 28))(a1: v4, a2: v5 + 549, a3: 4); /*0x82efaa*/\n      (*(void (__thiscall **)(unsigned int, _DWORD *, int))(*(_DWORD *)v4 + 28))(a1: v4, a2: v5 + 550, a3: 8); /*0x82efba*/\n      a3 = v5[583]; /*0x82efc8*/\n      (*(void (__thiscall **)(unsigned int, int *, int))(*(_DWORD *)v4 + 28))(a1: v4, a2: &a3, a3: 4); /*0x82efd0*/\n      (*(void (__thiscall **)(unsigned int, _DWORD, int))(*(_DWORD *)v4 + 28))(a1: v4, a2: v5[582], a3: 2 * a3); /*0x82efe3*/\n      a3 = v5[587]; /*0x82eff1*/\n      (*(void (__thiscall **)(unsigned int, int *, int))(*(_DWORD *)v4 + 28))(a1: v4, a2: &a3, a3: 4); /*0x82eff9*/\n      (*(void (__thiscall **)(unsigned int, _DWORD, int))(*(_DWORD *)v4 + 28))(a1: v4, a2: v5[586], a3: 2 * a3); /*0x82f00c*/\n      a2 = v5[591]; /*0x82f01a*/\n      (*(void (__thiscall **)(unsigned int, unsigned int *, int))(*(_DWORD *)v4 + 28))(a1: v4, &a2, a3: 4); /*0x82f022*/\n      for ( i = 0; i < a2; ++i ) /*0x82f02a*/\n      {\n        if ( i >= v5[591] ) /*0x82f036*/\n          v8 = 0; /*0x82f043*/\n        else\n          v8 = *(_DWORD *)(v5[590] + 4 * i); /*0x82f03e*/\n        a3 = *(_DWORD *)(v8 + 8); /*0x82f04d*/\n        (*(void (__thiscall **)(unsigned int, int *, int))(*(_DWORD *)v4 + 28))(a1: v4, a2: &a3, a3: 4); /*0x82f055*/\n        (*(void (__thiscall **)(unsigned int, _DWORD, int))(*(_DWORD *)v4 + 28))( /*0x82f065*/\n          a1: v4,\n          a2: *(_DWORD *)(v8 + 4),\n          a3: 2 * a3);\n        v5 = this; /*0x82f068*/\n      }\n      return 0; /*0x82f071*/\n    }\n  }\n  return result; /*0x82f073*/\n}",
+      "refs": [
+        {
+          "addr": "0x44f880",
+          "name": "sub_44F880"
+        }
+      ]
+    },
+    {
+      "addr": "0x82D2E0",
+      "code": "int __thiscall sub_82D2E0(int this, int a2)\n{\n  int result; // eax\n  int v5; // ebx\n  int v6; // eax\n  int *v7; // ecx\n  int v8; // edx\n  int v9; // [esp+4h] [ebp-4Ch]\n  _BYTE v10[16]; // [esp+1Ch] [ebp-34h] BYREF\n  LPCWCH v11[4]; // [esp+2Ch] [ebp-24h] BYREF\n  __int64 v12; // [esp+3Ch] [ebp-14h] BYREF\n  int v13; // [esp+4Ch] [ebp-4h]\n  int v14; // [esp+58h] [ebp+8h]\n\n  result = sub_44F140(a1: a2); /*0x82d30e*/\n  if ( result == 0 ) /*0x82d315*/\n  {\n    result = (*(int (__thiscall **)(int, int))(*(_DWORD *)(this + 2208) + 172))(a1: this + 2208, a2); /*0x82d328*/\n    if ( result == 0 ) /*0x82d330*/\n    {\n      v5 = sub_82BEA0(a1: *(_DWORD *)(this + 2248)); /*0x82d341*/\n      if ( v5 != 0 ) /*0x82d348*/\n      {\n        v14 = *(_DWORD *)(this + 2196); /*0x82d356*/\n        v12 = *(_QWORD *)(this + 2200); /*0x82d363*/\n        sub_413E10(a1: this + 2324); /*0x82d37f*/\n        v11[0] = (LPCWCH)&EWideString::`vftable'; /*0x82d384*/\n        sub_82DED0(this, a2: v5, lpWideCharStr: v11[1], a4: a2); /*0x82d399*/\n        v13 = -1; /*0x82d3a1*/\n        sub_401210(a1: v11); /*0x82d3a8*/\n        sub_82F100((_DWORD *)this, a2: (unsigned int)v14); /*0x82d3c4*/\n        sub_82F080((_DWORD *)this, a2: &v12, a3: 0); /*0x82d3d7*/\n        if ( *(_DWORD *)(this + 2164) != 0 && *(_DWORD *)(this + 2348) != 0 ) /*0x82d3ec*/\n        {\n          v6 = sub_40EE60(lpWideCharStr: *(LPCWCH *)(this + 2344), cchWideChar: -1); /*0x82d3f9*/\n          v7 = *(int **)(this + 2164); /*0x82d3fe*/\n          v8 = *v7; /*0x82d406*/\n          v9 = *(_DWORD *)(v6 + 4); /*0x82d408*/\n          v13 = 1; /*0x82d40b*/\n          (*(void (__thiscall **)(int *, int, int))(v8 + 228))(a1: v7, a2: v9, a3: 1); /*0x82d412*/\n          sub_401150(a1: v10); /*0x82d41b*/\n        }\n      }\n      return 0; /*0x82d420*/\n    }\n  }\n  return result; /*0x82d422*/\n}",
+      "refs": [
+        {
+          "addr": "0x44f140",
+          "name": "sub_44F140"
+        },
+        {
+          "addr": "0x82bea0",
+          "name": "sub_82BEA0"
+        },
+        {
+          "addr": "0x413e10",
+          "name": "sub_413E10"
+        },
+        {
+          "addr": "0x8cbb20",
+          "name": "??_7EWideString@@6B@"
+        },
+        {
+          "addr": "0x82ded0",
+          "name": "sub_82DED0"
+        },
+        {
+          "addr": "0x401210",
+          "name": "sub_401210"
+        },
+        {
+          "addr": "0x82f100",
+          "name": "sub_82F100"
+        },
+        {
+          "addr": "0x82f080",
+          "name": "sub_82F080"
+        },
+        {
+          "addr": "0x40ee60",
+          "name": "sub_40EE60"
+        },
+        {
+          "addr": "0x401150",
+          "name": "sub_401150"
+        }
+      ]
+    },
+    {
+      "addr": "0x82ef20",
+      "code": "int __thiscall sub_82EF20(_DWORD *this, int a2, int a3)\n{\n  int result; // eax\n\n  result = sub_431200(a1: a2, a2: a3); /*0x82ef2c*/\n  if ( result == 0 ) /*0x82ef33*/\n    return (*(int (__thiscall **)(_DWORD *, int, int))(*(this + 11) + 176))(a1: this + 11, a2, a3); /*0x82ef3d*/\n  return result; /*0x82ef43*/\n}",
+      "refs": [
+        {
+          "addr": "0x431200",
+          "name": "sub_431200"
+        }
+      ]
+    },
+    {
+      "addr": "0x82dcb0",
+      "code": "int __thiscall sub_82DCB0(_DWORD *this, int a2, int a3)\n{\n  int result; // eax\n\n  result = sub_431210(a1: a2, a2: a3); /*0x82dcbc*/\n  if ( result == 0 ) /*0x82dcc3*/\n    return (*(int (__thiscall **)(_DWORD *, int, int))(*(this + 11) + 180))(a1: this + 11, a2, a3); /*0x82dccd*/\n  return result; /*0x82dcd3*/\n}",
+      "refs": [
+        {
+          "addr": "0x431210",
+          "name": "sub_431210"
+        }
+      ]
+    },
+    {
+      "addr": "0x82D780",
+      "code": "int __thiscall sub_82D780(_DWORD *this)\n{\n  sub_44EE70(); /*0x82d783*/\n  return (*(int (__thiscall **)(_DWORD *))(*(this + 552) + 164))(a1: this + 552);\n}",
+      "refs": [
+        {
+          "addr": "0x44ee70",
+          "name": "sub_44EE70"
+        }
+      ]
+    },
+    {
+      "addr": "0x82d290",
+      "code": "int __thiscall sub_82D290(_DWORD *this)\n{\n  return (*(int (__thiscall **)(_DWORD *))(*(this + 11) + 168))(a1: this + 11);\n}"
+    },
+    {
+      "addr": "0x82d2d0",
+      "code": "int __thiscall sub_82D2D0(_DWORD *this)\n{\n  return (*(int (__thiscall **)(_DWORD *))(*(this + 11) + 172))(a1: this + 11);\n}"
+    },
+    {
+      "addr": "0x82C680",
+      "code": "int __thiscall sub_82C680(int this, int a2, int a3, __int64 a4, int a5)\n{\n  int result; // eax\n\n  if ( dword_A23D0C != 0 ) /*0x82c68f*/\n    sub_4FD630(); /*0x82c691*/\n  result = sub_4016A0(a1: a2, a2: a5, a3: 0, a4: -1, a5: 0, a6: 0, a7: 0); /*0x82c6ad*/\n  *(_DWORD *)(this + 2512) = 0; /*0x82c6b2*/\n  *(_BYTE *)(this + 2524) = 0; /*0x82c6bc*/\n  if ( dword_A23D0C != 0 ) /*0x82c6cb*/\n    result = sub_4FD660(); /*0x82c6cd*/\n  if ( a2 != 0 ) /*0x82c6d4*/\n  {\n    result = sub_40B690(a1: *(_DWORD *)(a2 + 92)); /*0x82c6d9*/\n    if ( result != 0 ) /*0x82c6e3*/\n    {\n      result = sub_82E0B0(a1: result); /*0x82c6e8*/\n      if ( (_BYTE)result != 0 ) /*0x82c6ef*/\n      {\n        if ( dword_A23D0C != 0 ) /*0x82c6f9*/\n          sub_4FD630(); /*0x82c6fb*/\n        *(_BYTE *)(this + 2525) = 0; /*0x82c709*/\n        result = sub_40AE60(a1: a3); /*0x82c710*/\n        *(_QWORD *)(this + 2544) = a4; /*0x82c71a*/\n        *(_BYTE *)(this + 2524) = 1; /*0x82c722*/\n        if ( dword_A23D0C != 0 ) /*0x82c731*/\n          return sub_4FD660(); /*0x82c733*/\n      }\n    }\n  }\n  return result; /*0x82c738*/\n}",
+      "refs": [
+        {
+          "addr": "0x4fd630",
+          "name": "sub_4FD630"
+        },
+        {
+          "addr": "0xa23d0c",
+          "name": "dword_A23D0C"
+        },
+        {
+          "addr": "0x4016a0",
+          "name": "sub_4016A0"
+        },
+        {
+          "addr": "0x4fd660",
+          "name": "sub_4FD660"
+        },
+        {
+          "addr": "0x40b690",
+          "name": "sub_40B690"
+        },
+        {
+          "addr": "0x82e0b0",
+          "name": "sub_82E0B0"
+        },
+        {
+          "addr": "0x40ae60",
+          "name": "sub_40AE60"
+        }
+      ]
+    }
+  ]
+}

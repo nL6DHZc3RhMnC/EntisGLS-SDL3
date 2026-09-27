@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>PaintContext</title>
+</head>
+<body>
+<div class="chapter">PaintContext</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　PaintContext クラスは描画オブジェクトを保持します。<br/>
+　EntisGLS4 の SGLPaintContext と同等です。<br/>
+　PaintContext.PaintParam クラスは SGLPaintParam 構造体に相当します。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="PaintContext.xhtml">PaintContext</a>
+</div></div></div><br/>
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="PaintContext.PaintParam.xhtml">PaintContext.PaintParam</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_clearTargetColor">clearTargetColor</a><br/>
+	<a href="#static_clearTargetZBuffer">clearTargetZBuffer</a><br/>
+	<a href="#static_paintApplyAlphaMul">paintApplyAlphaMul</a><br/>
+	<a href="#static_paintApplyColorAdd">paintApplyColorAdd</a><br/>
+	<a href="#static_paintApplyColorMask">paintApplyColorMask</a><br/>
+	<a href="#static_paintApplyColorMul">paintApplyColorMul</a><br/>
+	<a href="#static_paintApplyShifter">paintApplyShifter</a><br/>
+	<a href="#static_paintDelayable">paintDelayable</a><br/>
+	<a href="#static_paintDstAlphaMask">paintDstAlphaMask</a><br/>
+	<a href="#static_paintFixedPosition">paintFixedPosition</a><br/>
+	<a href="#static_paintFunctionAdd">paintFunctionAdd</a><br/>
+	<a href="#static_paintFunctionDiv">paintFunctionDiv</a><br/>
+	<a href="#static_paintFunctionMax">paintFunctionMax</a><br/>
+	<a href="#static_paintFunctionMin">paintFunctionMin</a><br/>
+	<a href="#static_paintFunctionMove">paintFunctionMove</a><br/>
+	<a href="#static_paintFunctionMul">paintFunctionMul</a><br/>
+	<a href="#static_paintFunctionShifter">paintFunctionShifter</a><br/>
+	<a href="#static_paintFunctionSub">paintFunctionSub</a><br/>
+	<a href="#static_paintMaskApply">paintMaskApply</a><br/>
+	<a href="#static_paintMaskFunction">paintMaskFunction</a><br/>
+	<a href="#static_paintMultipleByAlpha">paintMultipleByAlpha</a><br/>
+	<a href="#static_paintNoBlendAlpha">paintNoBlendAlpha</a><br/>
+	<a href="#static_paintNoProductOfAlpha">paintNoProductOfAlpha</a><br/>
+	<a href="#static_paintOrderNoCare">paintOrderNoCare</a><br/>
+	<a href="#static_paintPolygonShaped">paintPolygonShaped</a><br/>
+	<a href="#static_paintSmoothStretch">paintSmoothStretch</a><br/>
+	<a href="#static_paintUnsmoothStretch">paintUnsmoothStretch</a><br/>
+	<a href="#static_paintWithZOrder">paintWithZOrder</a><br/>
+	<a href="#static_paintWithZOrderNoWrite">paintWithZOrderNoWrite</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_PaintContext">PaintContext</a><br/>
+	<a href="#virtual_appendTransformation">appendTransformation</a><br/>
+	<a href="#virtual_attachTargetImage">attachTargetImage</a><br/>
+	<a href="#virtual_currentAffine">currentAffine</a><br/>
+	<a href="#virtual_currentTransparency">currentTransparency</a><br/>
+	<a href="#virtual_detachTargetImage">detachTargetImage</a><br/>
+	<a href="#virtual_drawArc">drawArc</a><br/>
+	<a href="#virtual_drawBezier">drawBezier</a><br/>
+	<a href="#virtual_drawEllipse">drawEllipse</a><br/>
+	<a href="#virtual_drawImage">drawImage</a><br/>
+	<a href="#virtual_drawMesh">drawMesh</a><br/>
+	<a href="#virtual_drawThinLine">drawThinLine</a><br/>
+	<a href="#virtual_drawThinLines">drawThinLines</a><br/>
+	<a href="#virtual_fillArc">fillArc</a><br/>
+	<a href="#virtual_fillClearTarget">fillClearTarget</a><br/>
+	<a href="#virtual_fillEllipse">fillEllipse</a><br/>
+	<a href="#virtual_fillPolygon">fillPolygon</a><br/>
+	<a href="#virtual_fillRectangle">fillRectangle</a><br/>
+	<a href="#virtual_finish">finish</a><br/>
+	<a href="#virtual_flush">flush</a><br/>
+	<a href="#virtual_getPaintFlags">getPaintFlags</a><br/>
+	<a href="#virtual_getTargetImage">getTargetImage</a><br/>
+	<a href="#virtual_getTargetZBuffer">getTargetZBuffer</a><br/>
+	<a href="#virtual_getViewPort">getViewPort</a><br/>
+	<a href="#virtual_popTransformation">popTransformation</a><br/>
+	<a href="#virtual_pushTransformation">pushTransformation</a><br/>
+	<a href="#virtual_resetTransformation">resetTransformation</a><br/>
+	<a href="#virtual_setPaintFlags">setPaintFlags</a><br/>
+	<a href="#virtual_setTransformation">setTransformation</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_clearTargetColor"/>
+<div class="headline">clearTargetColor</div>
+<div class="usage">public static const Integer clearTargetColor = 1</div>
+<br/>
+
+<a name="static_clearTargetZBuffer"/>
+<div class="headline">clearTargetZBuffer</div>
+<div class="usage">public static const Integer clearTargetZBuffer = 2</div>
+<br/>
+
+<a name="static_paintApplyAlphaMul"/>
+<div class="headline">paintApplyAlphaMul</div>
+<div class="usage">public static const Integer paintApplyAlphaMul = 8912896 /* 0x00880000 */</div>
+<br/>
+
+<a name="static_paintApplyColorAdd"/>
+<div class="headline">paintApplyColorAdd</div>
+<div class="usage">public static const Integer paintApplyColorAdd = 8388608 /* 0x00800000 */</div>
+<br/>
+
+<a name="static_paintApplyColorMask"/>
+<div class="headline">paintApplyColorMask</div>
+<div class="usage">public static const Integer paintApplyColorMask = 8978432 /* 0x00890000 */</div>
+<br/>
+
+<a name="static_paintApplyColorMul"/>
+<div class="headline">paintApplyColorMul</div>
+<div class="usage">public static const Integer paintApplyColorMul = 8519680 /* 0x00820000 */</div>
+<br/>
+
+<a name="static_paintApplyShifter"/>
+<div class="headline">paintApplyShifter</div>
+<div class="usage">public static const Integer paintApplyShifter = 16</div>
+<br/>
+
+<a name="static_paintDelayable"/>
+<div class="headline">paintDelayable</div>
+<div class="usage">public static const Integer paintDelayable = 256 /* 0x0100 */</div>
+<br/>
+
+<a name="static_paintDstAlphaMask"/>
+<div class="headline">paintDstAlphaMask</div>
+<div class="usage">public static const Integer paintDstAlphaMask = 2315255808 /* 0x8A000000 */</div>
+<br/>
+
+<a name="static_paintFixedPosition"/>
+<div class="headline">paintFixedPosition</div>
+<div class="usage">public static const Integer paintFixedPosition = 64 /* 0x0040 */</div>
+<br/>
+
+<a name="static_paintFunctionAdd"/>
+<div class="headline">paintFunctionAdd</div>
+<div class="usage">public static const Integer paintFunctionAdd = 2147483648 /* 0x80000000 */</div>
+<br/>
+
+<a name="static_paintFunctionDiv"/>
+<div class="headline">paintFunctionDiv</div>
+<div class="usage">public static const Integer paintFunctionDiv = 2197815296 /* 0x83000000 */</div>
+<br/>
+
+<a name="static_paintFunctionMax"/>
+<div class="headline">paintFunctionMax</div>
+<div class="usage">public static const Integer paintFunctionMax = 2214592512 /* 0x84000000 */</div>
+<br/>
+
+<a name="static_paintFunctionMin"/>
+<div class="headline">paintFunctionMin</div>
+<div class="usage">public static const Integer paintFunctionMin = 2231369728 /* 0x85000000 */</div>
+<br/>
+
+<a name="static_paintFunctionMove"/>
+<div class="headline">paintFunctionMove</div>
+<div class="usage">public static const Integer paintFunctionMove = 2281701376 /* 0x88000000 */</div>
+<br/>
+
+<a name="static_paintFunctionMul"/>
+<div class="headline">paintFunctionMul</div>
+<div class="usage">public static const Integer paintFunctionMul = 2181038080 /* 0x82000000 */</div>
+<br/>
+
+<a name="static_paintFunctionShifter"/>
+<div class="headline">paintFunctionShifter</div>
+<div class="usage">public static const Integer paintFunctionShifter = 24 /* 0x0018 */</div>
+<br/>
+
+<a name="static_paintFunctionSub"/>
+<div class="headline">paintFunctionSub</div>
+<div class="usage">public static const Integer paintFunctionSub = 2164260864 /* 0x81000000 */</div>
+<br/>
+
+<a name="static_paintMaskApply"/>
+<div class="headline">paintMaskApply</div>
+<div class="usage">public static const Integer paintMaskApply = 16711680 /* 0x00FF0000 */</div>
+<br/>
+
+<a name="static_paintMaskFunction"/>
+<div class="headline">paintMaskFunction</div>
+<div class="usage">public static const Integer paintMaskFunction = 4278190080 /* 0xFF000000 */</div>
+<br/>
+
+<a name="static_paintMultipleByAlpha"/>
+<div class="headline">paintMultipleByAlpha</div>
+<div class="usage">public static const Integer paintMultipleByAlpha = 2298478592 /* 0x89000000 */</div>
+<br/>
+
+<a name="static_paintNoBlendAlpha"/>
+<div class="headline">paintNoBlendAlpha</div>
+<div class="usage">public static const Integer paintNoBlendAlpha = -2013265920 /* 0xFFFFFFFF88000000 */</div>
+<br/>
+
+<a name="static_paintNoProductOfAlpha"/>
+<div class="headline">paintNoProductOfAlpha</div>
+<div class="usage">public static const Integer paintNoProductOfAlpha = 8912896 /* 0x00880000 */</div>
+<br/>
+
+<a name="static_paintOrderNoCare"/>
+<div class="headline">paintOrderNoCare</div>
+<div class="usage">public static const Integer paintOrderNoCare = 512 /* 0x0200 */</div>
+<br/>
+
+<a name="static_paintPolygonShaped"/>
+<div class="headline">paintPolygonShaped</div>
+<div class="usage">public static const Integer paintPolygonShaped = 128 /* 0x0080 */</div>
+<br/>
+
+<a name="static_paintSmoothStretch"/>
+<div class="headline">paintSmoothStretch</div>
+<div class="usage">public static const Integer paintSmoothStretch = 16</div>
+<br/>
+
+<a name="static_paintUnsmoothStretch"/>
+<div class="headline">paintUnsmoothStretch</div>
+<div class="usage">public static const Integer paintUnsmoothStretch = 32 /* 0x0020 */</div>
+<br/>
+
+<a name="static_paintWithZOrder"/>
+<div class="headline">paintWithZOrder</div>
+<div class="usage">public static const Integer paintWithZOrder = 2</div>
+<br/>
+
+<a name="static_paintWithZOrderNoWrite"/>
+<div class="headline">paintWithZOrderNoWrite</div>
+<div class="usage">public static const Integer paintWithZOrderNoWrite = 4</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_PaintContext"/>
+<div class="headline">PaintContext</div>
+<div class="usage">public void PaintContext(&#32; )</div>
+<br/>
+
+<a name="virtual_appendTransformation"/>
+<div class="headline">appendTransformation</div>
+<div class="usage">public boolean appendTransformation( Affine af, int nTransparency )</div>
+<br/>
+
+<a name="virtual_attachTargetImage"/>
+<div class="headline">attachTargetImage</div>
+<div class="usage">public boolean attachTargetImage( Image pImage, Image pZBuffer, Rect pView = null )</div>
+<br/>
+
+<a name="virtual_currentAffine"/>
+<div class="headline">currentAffine</div>
+<div class="usage">public const boolean currentAffine( Affine af )</div>
+<br/>
+
+<a name="virtual_currentTransparency"/>
+<div class="headline">currentTransparency</div>
+<div class="usage">public const int currentTransparency(&#32; )</div>
+<br/>
+
+<a name="virtual_detachTargetImage"/>
+<div class="headline">detachTargetImage</div>
+<div class="usage">public boolean detachTargetImage(&#32; )</div>
+<br/>
+
+<a name="virtual_drawArc"/>
+<div class="headline">drawArc</div>
+<div class="usage">public boolean drawArc( double xCenter, double yCenter, double rWidth, double rHeight, double radFirst, double radEnd, int argb, double z = 0., int flags = 0 )</div>
+<br/>
+
+<a name="virtual_drawBezier"/>
+<div class="headline">drawBezier</div>
+<div class="usage">public boolean drawBezier( Vector2D pPoints, int nPoints, int argb, double z = 0., int flags = 0 )</div>
+<br/>
+
+<a name="virtual_drawEllipse"/>
+<div class="headline">drawEllipse</div>
+<div class="usage">public boolean drawEllipse( double xCenter, double yCenter, double rWidth, double rHeight, int argb, double z = 0., int flags = 0 )</div>
+<br/>
+
+<a name="virtual_drawImage"/>
+<div class="headline">drawImage</div>
+<div class="usage">public boolean drawImage( PaintContext.PaintParam ppPaint, Image pSrcImage, Rect pSrcClip = null )</div>
+<br/>
+
+<a name="virtual_drawMesh"/>
+<div class="headline">drawMesh</div>
+<div class="usage">public boolean drawMesh( Vector2D pDstMesh, Vector2D pSrcMesh, int widthMesh, int heightMesh, PaintContext.PaintParam ppPaint, Image pSrcImage, Rect pSrcClip = null )</div>
+<br/>
+
+<a name="virtual_drawThinLine"/>
+<div class="headline">drawThinLine</div>
+<div class="usage">public boolean drawThinLine( int x0, int y0, int x1, int y1, int argb, double z = 0., int flags = 0 )</div>
+<br/>
+
+<a name="virtual_drawThinLines"/>
+<div class="headline">drawThinLines</div>
+<div class="usage">public boolean drawThinLines( Vector2D pLines, int nLines, int argb, double z = 0., int flags = 0 )</div>
+<br/>
+
+<a name="virtual_fillArc"/>
+<div class="headline">fillArc</div>
+<div class="usage">public boolean fillArc( double xCenter, double yCenter, double rWidth, double rHeight, double radFirst, double radEnd, int argb, double z = 0., int flags = 0 )</div>
+<br/>
+
+<a name="virtual_fillClearTarget"/>
+<div class="headline">fillClearTarget</div>
+<div class="usage">public boolean fillClearTarget( int argb = 4278190080 /* 0xFF000000 */, long flags = 0 )</div>
+<br/>
+
+<a name="virtual_fillEllipse"/>
+<div class="headline">fillEllipse</div>
+<div class="usage">public boolean fillEllipse( double xCenter, double yCenter, double rWidth, double rHeight, int argb, double z = 0., int flags = 0 )</div>
+<br/>
+
+<a name="virtual_fillPolygon"/>
+<div class="headline">fillPolygon</div>
+<div class="usage">public boolean fillPolygon( Vector2D vertices, int count, int argb, double z = 0., int flags = 0 )</div>
+<br/>
+
+<a name="virtual_fillRectangle"/>
+<div class="headline">fillRectangle</div>
+<div class="usage">public boolean fillRectangle( int x, int y, int width, int height, int argb, double z = 0., int flags = 0 )</div>
+<br/>
+
+<a name="virtual_finish"/>
+<div class="headline">finish</div>
+<div class="usage">public boolean finish(&#32; )</div>
+<br/>
+
+<a name="virtual_flush"/>
+<div class="headline">flush</div>
+<div class="usage">public boolean flush(&#32; )</div>
+<br/>
+
+<a name="virtual_getPaintFlags"/>
+<div class="headline">getPaintFlags</div>
+<div class="usage">public long getPaintFlags(&#32; )</div>
+<br/>
+
+<a name="virtual_getTargetImage"/>
+<div class="headline">getTargetImage</div>
+<div class="usage">public const Image getTargetImage(&#32; )</div>
+<br/>
+
+<a name="virtual_getTargetZBuffer"/>
+<div class="headline">getTargetZBuffer</div>
+<div class="usage">public const Image getTargetZBuffer(&#32; )</div>
+<br/>
+
+<a name="virtual_getViewPort"/>
+<div class="headline">getViewPort</div>
+<div class="usage">public const boolean getViewPort( Rect rctView )</div>
+<br/>
+
+<a name="virtual_popTransformation"/>
+<div class="headline">popTransformation</div>
+<div class="usage">public boolean popTransformation(&#32; )</div>
+<br/>
+
+<a name="virtual_pushTransformation"/>
+<div class="headline">pushTransformation</div>
+<div class="usage">public boolean pushTransformation(&#32; )</div>
+<br/>
+
+<a name="virtual_resetTransformation"/>
+<div class="headline">resetTransformation</div>
+<div class="usage">public boolean resetTransformation(&#32; )</div>
+<br/>
+
+<a name="virtual_setPaintFlags"/>
+<div class="headline">setPaintFlags</div>
+<div class="usage">public void setPaintFlags( long nFlags )</div>
+<br/>
+
+<a name="virtual_setTransformation"/>
+<div class="headline">setTransformation</div>
+<div class="usage">public boolean setTransformation( Affine af, int nTransparency )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# User-provided commercial game resources are not part of the launcher.
+/StudySteadyR18/
+/StudySteady.zip
+
+# Local toolchains, build outputs, verification artifacts and assistant settings.
+/.android-tools/
+/build/
+/artifacts/
+/.codex/
+.DS_Store
+__pycache__/
+*.pyc

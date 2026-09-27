@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>System</title>
+</head>
+<body>
+<div class="chapter">System</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　System はシステム情報や機能を提供します。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="System.xhtml">System</a>
+</div></div><br/>
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="System.ShellResult.xhtml">System.ShellResult</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_languageSigEnglish">languageSigEnglish</a><br/>
+	<a href="#static_languageSigJapanese">languageSigJapanese</a><br/>
+	<a href="#static_shellExeSync">shellExeSync</a><br/>
+	<a href="#static_shellNoConsole">shellNoConsole</a><br/>
+	<a href="#static_shellOpenSync">shellOpenSync</a><br/>
+	<a href="#static_shellResultExitCode">shellResultExitCode</a><br/>
+	<a href="#static_shellResultSuccess">shellResultSuccess</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Functions</div>
+<div class="indent2">
+	<a href="#static_addReadableFilePath">addReadableFilePath</a><br/>
+	<a href="#static_addReadableStorageFile">addReadableStorageFile</a><br/>
+	<a href="#static_console">console</a><br/>
+	<a href="#static_currentLanguageType">currentLanguageType</a><br/>
+	<a href="#static_currentTimeMillis">currentTimeMillis</a><br/>
+	<a href="#static_enableToWriteAllFilePath">enableToWriteAllFilePath</a><br/>
+	<a href="#static_eval">eval</a><br/>
+	<a href="#static_getEnvironmentVariables">getEnvironmentVariables</a><br/>
+	<a href="#static_removeReadableFilePath">removeReadableFilePath</a><br/>
+	<a href="#static_restoreFromXML">restoreFromXML</a><br/>
+	<a href="#static_restoreObject">restoreObject</a><br/>
+	<a href="#static_serializeObject">serializeObject</a><br/>
+	<a href="#static_serializeToXML">serializeToXML</a><br/>
+	<a href="#static_setWritableFilePath">setWritableFilePath</a><br/>
+	<a href="#static_shellOpenFile">shellOpenFile</a><br/>
+	<a href="#static_trace">trace</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_languageSigEnglish"/>
+<div class="headline">languageSigEnglish</div>
+<div class="usage">public static const String languageSigEnglish = &quot;en&quot;</div>
+<br/>
+
+<a name="static_languageSigJapanese"/>
+<div class="headline">languageSigJapanese</div>
+<div class="usage">public static const String languageSigJapanese = &quot;jp&quot;</div>
+<br/>
+
+<a name="static_shellExeSync"/>
+<div class="headline">shellExeSync</div>
+<div class="usage">public static const Integer shellExeSync = 2</div>
+<br/>
+
+<a name="static_shellNoConsole"/>
+<div class="headline">shellNoConsole</div>
+<div class="usage">public static const Integer shellNoConsole = 16</div>
+<br/>
+
+<a name="static_shellOpenSync"/>
+<div class="headline">shellOpenSync</div>
+<div class="usage">public static const Integer shellOpenSync = 1</div>
+<br/>
+
+<a name="static_shellResultExitCode"/>
+<div class="headline">shellResultExitCode</div>
+<div class="usage">public static const Integer shellResultExitCode = 2</div>
+<br/>
+
+<a name="static_shellResultSuccess"/>
+<div class="headline">shellResultSuccess</div>
+<div class="usage">public static const Integer shellResultSuccess = 1</div>
+<br/>
+
+<div class="chapter">Static Functions</div>
+
+<a name="static_addReadableFilePath"/>
+<div class="headline">addReadableFilePath</div>
+<div class="usage">public static boolean addReadableFilePath( String path, String id = null )</div>
+<div class="notes_parameter">
+<div class="param_name">path</div>
+<div class="param_desc">
+追加するファイルパス
+<br/>
+$(CURRENT), $(APPDATA), $(DOCUMENTS) 等のパス用環境変数（getEnvironmentVariables で取得できるものとは異なります）を含むことができます。
+<br/>
+rosetta コマンドでは $(SCRIPT_DIR) にスクリプトファイルのディレクトリが設定されています。
+</div>
+<div class="param_name">id</div>
+<div class="param_desc">
+パスの識別子（省略可）
+<br/>
+後で removeReadableFilePath で削除したい場合には必要です。
+</div>
+</div>
+<div class="indent1">
+　デフォルトで読み込み可能なファイルパスを追加します。
+<br/>
+　追加されたパスのファイルはディレクトリ無指定で読み込み用に開くことができます。
+</div><br/>
+<br/>
+
+<a name="static_addReadableStorageFile"/>
+<div class="headline">addReadableStorageFile</div>
+<div class="usage">public static boolean addReadableStorageFile( String path, String id = null )</div>
+<div class="notes_parameter">
+<div class="param_name">path</div>
+<div class="param_desc">
+追加する書庫ファイル
+<br/>
+addReadableFilePath とは異なり、パスに環境変数を含むことはできませんが、既に addReadableFilePath で追加されたパス上のファイルの場合ディレクトリの指定は不要です。
+</div>
+<div class="param_name">id</div>
+<div class="param_desc">
+パスの識別子（省略可）
+<br/>
+後で removeReadableFilePath で削除したい場合には必要です。
+</div>
+</div>
+<div class="indent1">
+　デフォルトで読み込み可能なファイルを格納した書庫ファイルファイルを追加します。
+<br/>
+　追加された書庫ファイル内のファイルは読み込み用ファイルとして開くことが出来るようになります。
+</div><br/>
+<br/>
+
+<a name="static_console"/>
+<div class="headline">console</div>
+<div class="usage">public static Console console(&#32; )</div>
+<br/>
+
+<a name="static_currentLanguageType"/>
+<div class="headline">currentLanguageType</div>
+<div class="usage">public static String currentLanguageType(&#32; )</div>
+<br/>
+
+<a name="static_currentTimeMillis"/>
+<div class="headline">currentTimeMillis</div>
+<div class="usage">public static long currentTimeMillis(&#32; )</div>
+<br/>
+
+<a name="static_enableToWriteAllFilePath"/>
+<div class="headline">enableToWriteAllFilePath</div>
+<div class="usage">public static boolean enableToWriteAllFilePath( boolean flagEnable )</div>
+<div class="normal">
+　書き込み用ディレクトリ以外のディレクトリへの書き込みを許可するか設定します。<br/>
+　rosetta コマンドでは、デフォルトで全ディレクトリへの書き込みは許可されています。<br/>
+　スクリプトの実行環境によってはデフォルトで禁止されている場合もあることに注意してください。
+</div>
+<br/>
+
+<a name="static_eval"/>
+<div class="headline">eval</div>
+<div class="usage">public static Object eval( String expr )</div>
+<div class="normal">
+　現在の名前空間で式を評価します。<br/>
+　関数のローカル変数も対象になりますが、関数がコンパイルされている場合、ローカル変数は評価されません。<br/>
+　with 文は有効です。
+</div>
+<br/>
+
+<a name="static_getEnvironmentVariables"/>
+<div class="headline">getEnvironmentVariables</div>
+<div class="usage">public static HashMap&lt;String&gt; getEnvironmentVariables(&#32; )</div>
+<br/>
+
+<a name="static_removeReadableFilePath"/>
+<div class="headline">removeReadableFilePath</div>
+<div class="usage">public static boolean removeReadableFilePath( String id )</div>
+<div class="normal">
+　addReadableFilePath や addReadableStorageFile で追加されたファイルパスを削除します。
+</div>
+<br/>
+
+<a name="static_restoreFromXML"/>
+<div class="headline">restoreFromXML</div>
+<div class="usage">public static Object restoreFromXML( String xml )</div>
+<br/>
+
+<a name="static_restoreObject"/>
+<div class="headline">restoreObject</div>
+<div class="usage">public static Object restoreObject( Uint8Pointer bin )</div>
+<br/>
+
+<a name="static_serializeObject"/>
+<div class="headline">serializeObject</div>
+<div class="usage">public static Uint8Pointer serializeObject( Object obj )</div>
+<br/>
+
+<a name="static_serializeToXML"/>
+<div class="headline">serializeToXML</div>
+<div class="usage">public static String serializeToXML( Object obj )</div>
+<br/>
+
+<a name="static_setWritableFilePath"/>
+<div class="headline">setWritableFilePath</div>
+<div class="usage">public static boolean setWritableFilePath( String path )</div>
+<div class="notes_parameter">
+<div class="param_name">path</div>
+<div class="param_desc">
+設定する書き込み可能ディレクトリ
+<br/>
+$(CURRENT), $(APPDATA), $(DOCUMENTS) 等のパス用環境変数（getEnvironmentVariables で取得できるものとは異なります）を含むことができます。
+</div>
+</div>
+<div class="indent1">
+　書き込み可能なディレクトリを設定します。
+<br/>
+　この関数を呼び出すと、書き込み用に開いたファイルは設定したディレクトリに限定されます。
+<br/>
+　書き込み可能なディレクトリは読み込み用パスとは異なり１つだけ設定できます。
+</div><br/>
+<br/>
+
+<a name="static_shellOpenFile"/>
+<div class="headline">shellOpenFile</div>
+<div class="usage">public static boolean shellOpenFile( String strURL, String strAppPath = null, String strAppPlacement = null, int nFlags = 0, System.ShellResult pResult = null )</div>
+<br/>
+
+<a name="static_trace"/>
+<div class="headline">trace</div>
+<div class="usage">public static void trace( String fmt, ... )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

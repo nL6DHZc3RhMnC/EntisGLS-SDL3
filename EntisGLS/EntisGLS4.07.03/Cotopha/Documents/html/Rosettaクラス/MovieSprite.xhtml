@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>MovieSprite</title>
+</head>
+<body>
+<div class="chapter">MovieSprite</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　MovieSprite は動画を再生表示できます。<br/>
+　EntisGLS4 の SGLSpriteMovie コンテナです。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="Sprite.xhtml">Sprite</a>
+<div class="indent1"><a href="MovieSprite.xhtml">MovieSprite</a>
+</div></div></div></div><br/>
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_playDrawDirect">playDrawDirect</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_MovieSprite">MovieSprite</a><br/>
+	<a href="#virtual_closeMovieFile">closeMovieFile</a><br/>
+	<a href="#virtual_getMovieFrequency">getMovieFrequency</a><br/>
+	<a href="#virtual_getMovieLength">getMovieLength</a><br/>
+	<a href="#virtual_getMoviePosition">getMoviePosition</a><br/>
+	<a href="#virtual_getMovieSize">getMovieSize</a><br/>
+	<a href="#virtual_getVolume">getVolume</a><br/>
+	<a href="#virtual_hasEndedOfDuration">hasEndedOfDuration</a><br/>
+	<a href="#virtual_isMoviePaused">isMoviePaused</a><br/>
+	<a href="#virtual_isMoviePlaying">isMoviePlaying</a><br/>
+	<a href="#virtual_openMovieFile">openMovieFile</a><br/>
+	<a href="#virtual_pauseMovie">pauseMovie</a><br/>
+	<a href="#virtual_playMovie">playMovie</a><br/>
+	<a href="#virtual_resetEndOfDuration">resetEndOfDuration</a><br/>
+	<a href="#virtual_restartMovie">restartMovie</a><br/>
+	<a href="#virtual_seekMovie">seekMovie</a><br/>
+	<a href="#virtual_setMovieLoop">setMovieLoop</a><br/>
+	<a href="#virtual_setVolume">setVolume</a><br/>
+	<a href="#virtual_setVolumeLine">setVolumeLine</a><br/>
+	<a href="#virtual_stopMovie">stopMovie</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_playDrawDirect"/>
+<div class="headline">playDrawDirect</div>
+<div class="usage">public static const Integer playDrawDirect = 1</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_MovieSprite"/>
+<div class="headline">MovieSprite</div>
+<div class="usage">public void MovieSprite(&#32; )</div>
+<br/>
+
+<a name="virtual_closeMovieFile"/>
+<div class="headline">closeMovieFile</div>
+<div class="usage">public boolean closeMovieFile(&#32; )</div>
+<br/>
+
+<a name="virtual_getMovieFrequency"/>
+<div class="headline">getMovieFrequency</div>
+<div class="usage">public const int getMovieFrequency(&#32; )</div>
+<br/>
+
+<a name="virtual_getMovieLength"/>
+<div class="headline">getMovieLength</div>
+<div class="usage">public const long getMovieLength(&#32; )</div>
+<br/>
+
+<a name="virtual_getMoviePosition"/>
+<div class="headline">getMoviePosition</div>
+<div class="usage">public const long getMoviePosition(&#32; )</div>
+<br/>
+
+<a name="virtual_getMovieSize"/>
+<div class="headline">getMovieSize</div>
+<div class="usage">public const Size getMovieSize(&#32; )</div>
+<br/>
+
+<a name="virtual_getVolume"/>
+<div class="headline">getVolume</div>
+<div class="usage">public const boolean getVolume( float[] pVolumes, int nChannels )</div>
+<br/>
+
+<a name="virtual_hasEndedOfDuration"/>
+<div class="headline">hasEndedOfDuration</div>
+<div class="usage">public const boolean hasEndedOfDuration(&#32; )</div>
+<br/>
+
+<a name="virtual_isMoviePaused"/>
+<div class="headline">isMoviePaused</div>
+<div class="usage">public const boolean isMoviePaused(&#32; )</div>
+<br/>
+
+<a name="virtual_isMoviePlaying"/>
+<div class="headline">isMoviePlaying</div>
+<div class="usage">public const boolean isMoviePlaying(&#32; )</div>
+<br/>
+
+<a name="virtual_openMovieFile"/>
+<div class="headline">openMovieFile</div>
+<div class="usage">public boolean openMovieFile( String path )</div>
+<br/>
+
+<a name="virtual_pauseMovie"/>
+<div class="headline">pauseMovie</div>
+<div class="usage">public boolean pauseMovie(&#32; )</div>
+<br/>
+
+<a name="virtual_playMovie"/>
+<div class="headline">playMovie</div>
+<div class="usage">public boolean playMovie( long nFlags = 0 )</div>
+<br/>
+
+<a name="virtual_resetEndOfDuration"/>
+<div class="headline">resetEndOfDuration</div>
+<div class="usage">public const void resetEndOfDuration(&#32; )</div>
+<br/>
+
+<a name="virtual_restartMovie"/>
+<div class="headline">restartMovie</div>
+<div class="usage">public boolean restartMovie(&#32; )</div>
+<br/>
+
+<a name="virtual_seekMovie"/>
+<div class="headline">seekMovie</div>
+<div class="usage">public void seekMovie( long nPos )</div>
+<br/>
+
+<a name="virtual_setMovieLoop"/>
+<div class="headline">setMovieLoop</div>
+<div class="usage">public boolean setMovieLoop( boolean flagLoop = true, long nStart = -1, long nEnd = -1 )</div>
+<br/>
+
+<a name="virtual_setVolume"/>
+<div class="headline">setVolume</div>
+<div class="usage">public boolean setVolume( float[] pVolumes, int nChannels )</div>
+<br/>
+
+<a name="virtual_setVolumeLine"/>
+<div class="headline">setVolumeLine</div>
+<div class="usage">public boolean setVolumeLine( int iLine )</div>
+<br/>
+
+<a name="virtual_stopMovie"/>
+<div class="headline">stopMovie</div>
+<div class="usage">public boolean stopMovie(&#32; )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

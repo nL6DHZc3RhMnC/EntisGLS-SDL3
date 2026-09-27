@@ -1,0 +1,1113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugMDd|Win32">
+      <Configuration>DebugMDd</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugMDd|x64">
+      <Configuration>DebugMDd</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugNXP|Win32">
+      <Configuration>DebugNXP</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugNXP|x64">
+      <Configuration>DebugNXP</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseMD|Win32">
+      <Configuration>ReleaseMD</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseMD|x64">
+      <Configuration>ReleaseMD</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseNXP|Win32">
+      <Configuration>ReleaseNXP</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseNXP|x64">
+      <Configuration>ReleaseNXP</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{67203279-8B5B-4FE8-9D9F-ADAB1546C9C4}</ProjectGuid>
+    <RootNamespace>GLS4_OpenGL</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugNXP|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugNXP|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseNXP|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseNXP|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMD|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMD|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugMDd|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugMDd|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugNXP|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugNXP|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseNXP|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseNXP|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMD|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMD|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugMDd|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugMDd|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LibraryPath>$(VCInstallDir)PlatformSDK\lib;$(COTOPHA_HOME)\Library\win32\vs2017;$(DXSDK_DIR)\lib;$(OCULUS_SDK_HOME)\LibOVR\Lib\Windows\Win32\Release\VS2017;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(GLS3_HOME)\ESL\Include;$(GLS3_HOME)\EGL\Include;$(GLS3_HOME)\EGL\common;$(GLS3_HOME)\erisalib\Include;$(GLS3_HOME)\GLS3\Include;$(GLS3_HOME)\GLS3\common;$(COTOPHA_HOME)\Include\entisgls;$(COTOPHA_HOME)\Include\opengl;$(COTOPHA_HOME)\Include\win32;$(COTOPHA_HOME)\Include\common;$(DXSDK_DIR)\Include;$(OCULUS_SDK_HOME)\LibOVR\Include;$(OPENVR_SDK_HOME)\headers;$(OPENXR_SDK_HOME)\include;$(STEAM_SDK_PUBLIC);$(TINYGLTF_HOME);$(LOQUATY_HOME)\Loquaty\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugMDd|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LibraryPath>$(VCInstallDir)PlatformSDK\lib;$(COTOPHA_HOME)\Library\win32\vs2017;$(DXSDK_DIR)\lib;$(OCULUS_SDK_HOME)\LibOVR\Lib\Windows\Win32\Release\VS2017;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(GLS3_HOME)\ESL\Include;$(GLS3_HOME)\EGL\Include;$(GLS3_HOME)\EGL\common;$(GLS3_HOME)\erisalib\Include;$(GLS3_HOME)\GLS3\Include;$(GLS3_HOME)\GLS3\common;$(COTOPHA_HOME)\Include\entisgls;$(COTOPHA_HOME)\Include\opengl;$(COTOPHA_HOME)\Include\win32;$(COTOPHA_HOME)\Include\common;$(DXSDK_DIR)\Include;$(OCULUS_SDK_HOME)\LibOVR\Include;$(OPENVR_SDK_HOME)\headers;$(OPENXR_SDK_HOME)\include;$(STEAM_SDK_PUBLIC);$(TINYGLTF_HOME);$(LOQUATY_HOME)\Loquaty\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LibraryPath>$(VCInstallDir)PlatformSDK\lib;$(COTOPHA_HOME)\Library\win32\vs2017;$(DXSDK_DIR)\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(GLS3_HOME)\ESL\Include;$(GLS3_HOME)\EGL\Include;$(GLS3_HOME)\EGL\common;$(GLS3_HOME)\erisalib\Include;$(GLS3_HOME)\GLS3\Include;$(GLS3_HOME)\GLS3\common;$(COTOPHA_HOME)\Include\entisgls;$(COTOPHA_HOME)\Include\opengl;$(COTOPHA_HOME)\Include\win32;$(COTOPHA_HOME)\Include\common;$(DXSDK_DIR)\Include;$(OCULUS_SDK_HOME)\LibOVR\Include;$(OPENVR_SDK_HOME)\headers;$(OPENXR_SDK_HOME)\include;$(STEAM_SDK_PUBLIC);$(TINYGLTF_HOME);$(LOQUATY_HOME)\Loquaty\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugMDd|x64'">
+    <LibraryPath>$(VCInstallDir)PlatformSDK\lib;$(COTOPHA_HOME)\Library\win32\vs2017;$(DXSDK_DIR)\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(GLS3_HOME)\ESL\Include;$(GLS3_HOME)\EGL\Include;$(GLS3_HOME)\EGL\common;$(GLS3_HOME)\erisalib\Include;$(GLS3_HOME)\GLS3\Include;$(GLS3_HOME)\GLS3\common;$(COTOPHA_HOME)\Include\entisgls;$(COTOPHA_HOME)\Include\opengl;$(COTOPHA_HOME)\Include\win32;$(COTOPHA_HOME)\Include\common;$(DXSDK_DIR)\Include;$(OCULUS_SDK_HOME)\LibOVR\Include;$(OPENVR_SDK_HOME)\headers;$(OPENXR_SDK_HOME)\include;$(STEAM_SDK_PUBLIC);$(TINYGLTF_HOME);$(LOQUATY_HOME)\Loquaty\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LibraryPath>$(VCInstallDir)PlatformSDK\lib;$(COTOPHA_HOME)\Library\win32\vs2017;$(DXSDK_DIR)\lib;$(OCULUS_SDK_HOME)\LibOVR\Lib\Windows\Win32\Release\VS2017;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(GLS3_HOME)\ESL\Include;$(GLS3_HOME)\EGL\Include;$(GLS3_HOME)\EGL\common;$(GLS3_HOME)\erisalib\Include;$(GLS3_HOME)\GLS3\Include;$(GLS3_HOME)\GLS3\common;$(COTOPHA_HOME)\Include\entisgls;$(COTOPHA_HOME)\Include\opengl;$(COTOPHA_HOME)\Include\win32;$(COTOPHA_HOME)\Include\common;$(DXSDK_DIR)\Include;$(OCULUS_SDK_HOME)\LibOVR\Include;$(OPENVR_SDK_HOME)\headers;$(OPENXR_SDK_HOME)\include;$(STEAM_SDK_PUBLIC);$(TINYGLTF_HOME);$(LOQUATY_HOME)\Loquaty\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMD|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LibraryPath>$(VCInstallDir)PlatformSDK\lib;$(COTOPHA_HOME)\Library\win32\vs2017;$(DXSDK_DIR)\lib;$(OCULUS_SDK_HOME)\LibOVR\Lib\Windows\Win32\Release\VS2017;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(GLS3_HOME)\ESL\Include;$(GLS3_HOME)\EGL\Include;$(GLS3_HOME)\EGL\common;$(GLS3_HOME)\erisalib\Include;$(GLS3_HOME)\GLS3\Include;$(GLS3_HOME)\GLS3\common;$(COTOPHA_HOME)\Include\entisgls;$(COTOPHA_HOME)\Include\opengl;$(COTOPHA_HOME)\Include\win32;$(COTOPHA_HOME)\Include\common;$(DXSDK_DIR)\Include;$(OCULUS_SDK_HOME)\LibOVR\Include;$(OPENVR_SDK_HOME)\headers;$(OPENXR_SDK_HOME)\include;$(STEAM_SDK_PUBLIC);$(TINYGLTF_HOME);$(LOQUATY_HOME)\Loquaty\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LibraryPath>$(VCInstallDir)PlatformSDK\lib;$(COTOPHA_HOME)\Library\win32\vs2017;$(DXSDK_DIR)\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(GLS3_HOME)\ESL\Include;$(GLS3_HOME)\EGL\Include;$(GLS3_HOME)\EGL\common;$(GLS3_HOME)\erisalib\Include;$(GLS3_HOME)\GLS3\Include;$(GLS3_HOME)\GLS3\common;$(COTOPHA_HOME)\Include\entisgls;$(COTOPHA_HOME)\Include\opengl;$(COTOPHA_HOME)\Include\win32;$(COTOPHA_HOME)\Include\common;$(DXSDK_DIR)\Include;$(OCULUS_SDK_HOME)\LibOVR\Include;$(OPENVR_SDK_HOME)\headers;$(OPENXR_SDK_HOME)\include;$(STEAM_SDK_PUBLIC);$(TINYGLTF_HOME);$(LOQUATY_HOME)\Loquaty\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMD|x64'">
+    <LibraryPath>$(VCInstallDir)PlatformSDK\lib;$(COTOPHA_HOME)\Library\win32\vs2017;$(DXSDK_DIR)\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(GLS3_HOME)\ESL\Include;$(GLS3_HOME)\EGL\Include;$(GLS3_HOME)\EGL\common;$(GLS3_HOME)\erisalib\Include;$(GLS3_HOME)\GLS3\Include;$(GLS3_HOME)\GLS3\common;$(COTOPHA_HOME)\Include\entisgls;$(COTOPHA_HOME)\Include\opengl;$(COTOPHA_HOME)\Include\win32;$(COTOPHA_HOME)\Include\common;$(DXSDK_DIR)\Include;$(OCULUS_SDK_HOME)\LibOVR\Include;$(OPENVR_SDK_HOME)\headers;$(OPENXR_SDK_HOME)\include;$(STEAM_SDK_PUBLIC);$(TINYGLTF_HOME);$(LOQUATY_HOME)\Loquaty\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseNXP|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LibraryPath>$(VCInstallDir)PlatformSDK\lib;$(COTOPHA_HOME)\Library\win32\vs2017;$(DXSDK_DIR)\lib;$(OCULUS_SDK_HOME)\LibOVR\Lib\Windows\Win32\Release\VS2017;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(GLS3_HOME)\ESL\Include;$(GLS3_HOME)\EGL\Include;$(GLS3_HOME)\EGL\common;$(GLS3_HOME)\erisalib\Include;$(GLS3_HOME)\GLS3\Include;$(GLS3_HOME)\GLS3\common;$(COTOPHA_HOME)\Include\entisgls;$(COTOPHA_HOME)\Include\opengl;$(COTOPHA_HOME)\Include\win32;$(COTOPHA_HOME)\Include\common;$(DXSDK_DIR)\Include;$(OCULUS_SDK_HOME)\LibOVR\Include;$(OPENVR_SDK_HOME)\headers;$(OPENXR_SDK_HOME)\include;$(STEAM_SDK_PUBLIC);$(TINYGLTF_HOME);$(LOQUATY_HOME)\Loquaty\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseNXP|x64'">
+    <LibraryPath>$(VCInstallDir)PlatformSDK\lib;$(COTOPHA_HOME)\Library\win32\vs2017;$(DXSDK_DIR)\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(GLS3_HOME)\ESL\Include;$(GLS3_HOME)\EGL\Include;$(GLS3_HOME)\EGL\common;$(GLS3_HOME)\erisalib\Include;$(GLS3_HOME)\GLS3\Include;$(GLS3_HOME)\GLS3\common;$(COTOPHA_HOME)\Include\entisgls;$(COTOPHA_HOME)\Include\opengl;$(COTOPHA_HOME)\Include\win32;$(COTOPHA_HOME)\Include\common;$(DXSDK_DIR)\Include;$(OCULUS_SDK_HOME)\LibOVR\Include;$(OPENVR_SDK_HOME)\headers;$(OPENXR_SDK_HOME)\include;$(STEAM_SDK_PUBLIC);$(TINYGLTF_HOME);$(LOQUATY_HOME)\Loquaty\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugNXP|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LibraryPath>$(VCInstallDir)PlatformSDK\lib;$(COTOPHA_HOME)\Library\win32\vs2017;$(DXSDK_DIR)\lib;$(OCULUS_SDK_HOME)\LibOVR\Lib\Windows\Win32\Release\VS2017;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(GLS3_HOME)\ESL\Include;$(GLS3_HOME)\EGL\Include;$(GLS3_HOME)\EGL\common;$(GLS3_HOME)\erisalib\Include;$(GLS3_HOME)\GLS3\Include;$(GLS3_HOME)\GLS3\common;$(COTOPHA_HOME)\Include\entisgls;$(COTOPHA_HOME)\Include\opengl;$(COTOPHA_HOME)\Include\win32;$(COTOPHA_HOME)\Include\common;$(DXSDK_DIR)\Include;$(OCULUS_SDK_HOME)\LibOVR\Include;$(OPENVR_SDK_HOME)\headers;$(OPENXR_SDK_HOME)\include;$(STEAM_SDK_PUBLIC);$(TINYGLTF_HOME);$(LOQUATY_HOME)\Loquaty\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugNXP|x64'">
+    <LibraryPath>$(VCInstallDir)PlatformSDK\lib;$(COTOPHA_HOME)\Library\win32\vs2017;$(DXSDK_DIR)\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(GLS3_HOME)\ESL\Include;$(GLS3_HOME)\EGL\Include;$(GLS3_HOME)\EGL\common;$(GLS3_HOME)\erisalib\Include;$(GLS3_HOME)\GLS3\Include;$(GLS3_HOME)\GLS3\common;$(COTOPHA_HOME)\Include\entisgls;$(COTOPHA_HOME)\Include\opengl;$(COTOPHA_HOME)\Include\win32;$(COTOPHA_HOME)\Include\common;$(DXSDK_DIR)\Include;$(OCULUS_SDK_HOME)\LibOVR\Include;$(OPENVR_SDK_HOME)\headers;$(OPENXR_SDK_HOME)\include;$(STEAM_SDK_PUBLIC);$(TINYGLTF_HOME);$(LOQUATY_HOME)\Loquaty\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;DISABLE_ENTIS_GLS3;_USING_V110_SDK71_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gls4_ogl_db.lib</OutputFile>
+    </Lib>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)gls4_ogl_db.lib $(COTOPHA_HOME)\Library\win32\vs2022\gls4_ogl_db.lib</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugMDd|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;DISABLE_ENTIS_GLS3;_USING_V110_SDK71_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gls4_ogl_mdd.lib</OutputFile>
+    </Lib>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)gls4_ogl_mdd.lib $(COTOPHA_HOME)\Library\win32\vs2022\gls4_ogl_mdd.lib</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;DISABLE_ENTIS_GLS3;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gls4_w64_ogl_db.lib</OutputFile>
+    </Lib>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)gls4_w64_ogl_db.lib $(COTOPHA_HOME)\Library\win32\vs2022\gls4_w64_ogl_db.lib</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugMDd|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;DISABLE_ENTIS_GLS3;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gls4_w64_ogl_mdd.lib</OutputFile>
+    </Lib>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)gls4_w64_ogl_mdd.lib $(COTOPHA_HOME)\Library\win32\vs2022\gls4_w64_ogl_mdd.lib</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;DISABLE_ENTIS_GLS3;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gls4_ogl.lib</OutputFile>
+    </Lib>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)gls4_ogl.lib $(COTOPHA_HOME)\Library\win32\vs2022\gls4_ogl.lib</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMD|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;DISABLE_ENTIS_GLS3;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gls4_ogl_md.lib</OutputFile>
+    </Lib>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)gls4_ogl_md.lib $(COTOPHA_HOME)\Library\win32\vs2022\gls4_ogl_md.lib</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;DISABLE_ENTIS_GLS3;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gls4_w64_ogl.lib</OutputFile>
+    </Lib>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)gls4_w64_ogl.lib $(COTOPHA_HOME)\Library\win32\vs2022\gls4_w64_ogl.lib</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMD|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;DISABLE_ENTIS_GLS3;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gls4_w64_ogl_md.lib</OutputFile>
+    </Lib>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)gls4_w64_ogl_md.lib $(COTOPHA_HOME)\Library\win32\vs2022\gls4_w64_ogl_md.lib</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseNXP|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;DISABLE_ENTIS_GLS3;ENTISGLS4_DLL_IMPORT;DISABLE_ENTIS_GLS4_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gls4_ogl_dll.lib</OutputFile>
+    </Lib>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)gls4_ogl_dll.lib $(COTOPHA_HOME)\Library\win32\vs2022\gls4_ogl_dll.lib</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseNXP|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;DISABLE_ENTIS_GLS3;ENTISGLS4_DLL_IMPORT;DISABLE_ENTIS_GLS4_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gls4_w64_ogl_dll.lib</OutputFile>
+    </Lib>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)gls4_w64_ogl_dll.lib $(COTOPHA_HOME)\Library\win32\vs2022\gls4_w64_ogl_dll.lib</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugNXP|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;DISABLE_ENTIS_GLS3;ENTISGLS4_DLL_IMPORT;DISABLE_ENTIS_GLS4_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gls4_ogl_dll_db.lib</OutputFile>
+    </Lib>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)gls4_ogl_dll_db.lib $(COTOPHA_HOME)\Library\win32\vs2022\gls4_ogl_dll_db.lib</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugNXP|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;DISABLE_ENTIS_GLS3;ENTISGLS4_DLL_IMPORT;DISABLE_ENTIS_GLS4_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gls4_w64_ogl_dll_db.lib</OutputFile>
+    </Lib>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)gls4_w64_ogl_dll_db.lib $(COTOPHA_HOME)\Library\win32\vs2022\gls4_w64_ogl_dll_db.lib</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Cotopha\Source\common\antirrhinum\antirrhinum_graphics.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\antirrhinum\antirrhinum_kernel.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\antirrhinum\antirrhinum_message.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\antirrhinum\antirrhinum_sound.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\antirrhinum\antirrhinum_vars.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\esl\esl_charset.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\esl\esl_object.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_module_maker.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_vibrator.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_AudioInputStream.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_AudioPlayer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_Collider.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_Collision.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_EditSprite.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_Environment.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_Image.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_ImageComposition.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_ImageComposition_Layer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_Material.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_MaterialLibrary.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_MessageSprite.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_ModelBone.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_ModelBuffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_ModelMarker.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_ModelPose.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_ModelPoseLibrary.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_MovieSprite.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_PaintContext.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_RectangleSprite.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_RenderableSprite.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_RenderBuffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_RenderContext.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_RenderDevice.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_RenderDevice_ShaderDesc.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_Scene.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneBulleteItem.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneBulleteItem_Bullet.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneCamera.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneCommon.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneComposer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneComposition.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneController.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneCustomController.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneCustomItem.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneDynamicModel.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneInstancingItem.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneItem.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneItemInstanceRef.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneLight.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneManager.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneMeshBuffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneMeshController.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneMultiModel.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneParameter.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_ScenePoseController.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneProperty.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneSequencer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneSoundItem.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneSpace.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneSprite.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SceneSubComposition.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_ShadowMapInfo.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SoftwareRenderDevice.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_Sprite.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SpriteFilterBlendAlpha.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SpriteFilterShadingOff.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SpriteFilterTone.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SpriteFilterTransparencyDrawer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SpriteKeyListener.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SpriteMouseListener.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_SpriteTimer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_TextSprite.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_TextureLibrary.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_VertexBuffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_VertexVariantBuffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_VirtualInput.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_Window.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\EntisGLS4_WindowSprite.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\gls4_loquaty.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\gls4_loquaty_file.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\loquaty\gls4_loquaty_scene.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_array_buffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_class.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_compiler.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_crypt.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_date.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_dialog.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_file.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_image.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_media.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_model.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_parser.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_scene.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_sprite.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_thread.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_virtual_machine.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuracl\erisa\sgl_erisa_md5_context.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\extra\sglx3d_scene_plugin.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\extra\sglx_image_composition.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\extra\sglx_media_streamer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\extra\sglx_model_gltf_importer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\extra\sglx_version_downloader.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_particle.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene_canvas.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene_composer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene_edit_mesh.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene_effector.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene_instancing.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene_item.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene_item_bullet.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene_item_curve.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene_item_mesh.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene_particle.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene_rsrc_proc.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene_shader.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene_sprite.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_scene_vr_item.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx_model_loader.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sglx_std_app.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_cursor.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_edit.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_list.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_movie.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_multi_view.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\ui\sglx_platform_ui.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\ui\sglx_vr_goggle_producer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\erisa\sgl_erisa_encode_image.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\erisa\sgl_erisa_encode_sound.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\media\sgl_media_composer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\media\sgl_mei_media_composer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\media\sgl_sound_recorder.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\media\sgl_sound_software_mixer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_image_buf_interface.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_spline_curve.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl3d\sgl3d_matrix.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl3d\sgl_render_device.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl3d\sgl_render_shaper.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl3d\sgl_render_software_renderer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\window\sgl_srd_window_producer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\window\sgl_window_producer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_bit_array.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_buffered_file.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_byte_buffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_charset.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_chunk_file.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_date.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_environment.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_file.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_fragment_file.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_frame_thread.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_heap_memory.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_http_file.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_module.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_object.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_queue_buffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_smart_buffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_socket.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_stack_buffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_std_ui.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\opengl\sakuragl\sgl_opengl_custom_shader.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\opengl\sakuragl\sgl_opengl_window_producer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\opengl\sakuragl\sgl_vr_view_producer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakuragl\sgl_d3d12_object.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakuragl\sgl_gdi_window_producer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakuragl\sgl_mme_sound_recorder.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakuragl\sgl_vr_oculus_producer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakuragl\sgl_vr_openvr_producer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakuragl\sgl_vr_openxr_producer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakuragl\sgl_win_avi_composer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakuragl\sgl_win_screen_capture.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakura\ssys_stdapi.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_string.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_string_parser.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_synchronism.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_thread.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakura\ssys_win_internet_file.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakura\ssys_win_registry.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakura\ssys_win_resource_file.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakura\ssys_xml_document.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\extra\psdlib.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sakuraglx.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx3d_collision.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\ui\sglx_joy_stick.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\render\sglx_model_buffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_resource_manager.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_button.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_filter.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_formed.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_frame.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_message.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_progress_bar.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_rectangle.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_scroll_bar.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_scroller.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_text.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_sprite_window.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuraglx\sprite\sglx_virtual_input.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sakuragl.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\media\sgl_audio_decoder.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\media\sgl_audio_decoding_player.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\media\sgl_audio_player.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_bitmap_font.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_bitmap_font_maker.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakuragl\sgl_direct_sound_player.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakuragl\sgl_dshow_audio_player.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakuragl\sgl_dshow_media_player.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_font.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakuragl\sgl_gdiplus_image_decoder.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakuragl\sgl_generic_window.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl3d\sgl_hybrid_renderer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_image.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_image_buffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_image_conversion.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_image_decoder.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_image_encoder.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_image_filter.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_lettering.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\media\sgl_media_player.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\media\sgl_mei_media_player.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\media\sgl_mio_audio_decoder.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\opengl\sakuragl\sgl_opengl_context.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\opengl\sakuragl\sgl_opengl_extension.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\opengl\sakuragl\sgl_opengl_render_context.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_paint_buffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_paint_context.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl2d\sgl_paint_region.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl3d\sgl_render_buffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl3d\sgl_render_buffered_context.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl3d\sgl_render_context.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl3d\sgl_render_parameter_context.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl3d\sgl_render_software_shader.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\media\sgl_sound_player.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\media\sgl_threading_audio_decoder.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\media\sgl_wav_audio_decoder.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakuragl\sgl_win_display_mode.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\sgl_window.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\opengl\sakuragl\sgl_window_implement.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\window\sgl_window_menu.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_array.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_assembler.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_buffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_env_vm.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_heap_buffer.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_jit_arm_compiler.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_jit_native_compiler.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_jit_sse2_compiler.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_jit_x86_compiler.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_module.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_audio_decoder.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_audio_player.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_environment.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_file.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_font.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_heap.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_image.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_joy_stick.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_media_player.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_module.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_paint.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_render.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_socket.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_sound.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_std_ui.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_synchronism.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_thread.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_vm.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_volatile.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_window.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_obj_window_menu.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_processor.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_processor_info.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_std_vm.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\glscs\glscs_sakura2_vm.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuracl\erisa\scl_erisa_fast_dct.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuracl\erisa\scl_erisa_matrix.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\erisa\sgl_erisa_archive_file.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\erisa\sgl_erisa_context_model.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuracl\erisa\sgl_erisa_crc32_context.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\erisa\sgl_erisa_crypt_context.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\erisa\sgl_erisa_decode_context.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\erisa\sgl_erisa_decode_image.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\erisa\sgl_erisa_decode_sound.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\erisa\sgl_erisa_encode_context.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\erisa\sgl_erisa_media_file.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\erisa\sgl_erisa_movie_file_player.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\sakuragl\erisa\sgl_erisa_sound_file_player.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_array.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_context.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_exception.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_generic_object.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_number.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_object.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_reference.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\common\rosetta\rosetta_string.cpp" />
+    <ClCompile Include="..\..\..\Cotopha\Source\win32\sakura\ssys_win_shell_folder.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Cotopha\Include\common\antirrhinum\antirrhinum.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\antirrhinum\antirrhinum_graphics.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\antirrhinum\antirrhinum_kernel.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\antirrhinum\antirrhinum_message.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\antirrhinum\antirrhinum_sound.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\antirrhinum\antirrhinum_vars.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_module_maker.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_vibrator.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_AudioInputStream.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_AudioPlayer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_Collider.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_Collision.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_EditSprite.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_Environment.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_Image.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_ImageComposition.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_ImageComposition_Layer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_Material.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_MaterialLibrary.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_MessageSprite.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_ModelBone.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_ModelBuffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_ModelMarker.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_ModelPose.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_ModelPoseLibrary.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_MovieSprite.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_PaintContext.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_RectangleSprite.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_RenderableSprite.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_RenderBuffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_RenderContext.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_RenderDevice.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_RenderDevice_ShaderDesc.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_Scene.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneBulleteItem.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneBulleteItem_Bullet.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneCamera.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneCommon.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneComposer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneComposition.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneController.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneCustomController.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneCustomItem.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneDynamicModel.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneInstancingItem.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneItem.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneItemInstanceRef.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneLight.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneManager.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneMeshBuffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneMeshController.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneMultiModel.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneParameter.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_ScenePoseController.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneProperty.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneSequencer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneSoundItem.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneSpace.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneSprite.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SceneSubComposition.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_ShadowMapInfo.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SoftwareRenderDevice.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_Sprite.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SpriteFilterBlendAlpha.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SpriteFilterShadingOff.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SpriteFilterTone.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SpriteFilterTransparencyDrawer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SpriteKeyListener.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SpriteMouseListener.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_SpriteTimer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_TextSprite.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_TextureLibrary.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_VertexBuffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_VertexVariantBuffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_VirtualInput.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_Window.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\EntisGLS4_WindowSprite.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\gls4_loquaty.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\gls4_loquaty_def.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\gls4_loquaty_file.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\loquaty\gls4_loquaty_scene.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_array_buffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_compiler.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_crypt.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_date.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_dialog.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_file.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_image.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_media.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_model.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_parser.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_scene.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_sprite.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_thread.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuracl\erisa\sgl_erisa_md5_context.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuracl\scl_erisa_lib.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuracl\erisa\scl_erisa_matrix.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\extra\psdlib.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\extra\sglx3d_scene_plugin.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\extra\sglx_image_composition.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\extra\sglx_media_streamer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\extra\sglx_model_gltf_importer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\extra\sglx_version_downloader.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_particle.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene_canvas.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene_composer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene_edit_mesh.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene_effector.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene_instancing.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene_item.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene_item_bullet.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene_item_curve.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene_item_mesh.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene_particle.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene_rsrc_proc.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene_shader.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene_sprite.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene_vr_item.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx_model_loader.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sglx3d_render.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sglx_std_app.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_cursor.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_edit.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_list.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_movie.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_multi_view.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\ui\sglx_vr_goggle_producer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\erisa\sgl_erisa_archive_file.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\erisa\sgl_erisa_context_model.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuracl\erisa\sgl_erisa_crc32_context.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\erisa\sgl_erisa_crypt_context.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuracl\erisa\sgl_erisa_crypt_math.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\erisa\sgl_erisa_decode_context.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\erisa\sgl_erisa_decode_image.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\erisa\sgl_erisa_decode_sound.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\erisa\sgl_erisa_encode_context.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\erisa\sgl_erisa_media_file.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\erisa\sgl_erisa_movie_file_player.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\erisa\sgl_erisa_sound_file_player.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\esl\esl_charset.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\esl\esl_java_object.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\esl\esl_object.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\media\sgl_media_composer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\media\sgl_mei_media_composer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\media\sgl_sound_recorder.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\media\sgl_sound_software_mixer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl_image_buf_object.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl_spline_curve.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl3d\sgl_render_device.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl3d\sgl_render_software_renderer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\window\sgl_srd_window_producer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\window\sgl_window_producer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_array_set.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_bit_array.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_frame_thread.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_heap_memory.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_pointer_hash.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_smart_object_array.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\opengl\sakuragl\sgl_opengl_custom_shader.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\opengl\sakuragl\sgl_opengl_window_producer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\opengl\sakuragl\sgl_vr_view_producer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\esl\esl_stddefs.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\esl\esl_stddefs_win32.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\esl\jis_to_unicode.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\sakura.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\sakura_cpp_presets.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_array.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_binary_tree.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_buffered_file.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_byte_buffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_charset.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_chunk_file.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_environment.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_file.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_fragment_file.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_http_file.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_indexed_array.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_linked_list.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_module.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_object.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_object_array.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_pointer_array.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_queue_buffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_reference_array.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_smart_buffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_smart_pointer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_socket.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_sort_array.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_stack_buffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_std_ui.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_stdapi.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_string.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_string_parser.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_synchronism.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_thread.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakuragl\sgl_d3d12_object.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakuragl\sgl_gdi_window_producer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakuragl\sgl_mme_sound_recorder.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakuragl\sgl_vr_oculus_producer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakuragl\sgl_vr_openvr_producer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakuragl\sgl_vr_openxr_producer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakuragl\sgl_win_avi_composer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakuragl\sgl_win_screen_capture.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakura\ssys_win_internet_file.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakura\ssys_win_registry.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakura\ssys_win_resource_file.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakura\ssys_xml_document.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\esl\unicode_to_jis.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sakuragl.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d_image.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl2d_stddef.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl3d_image.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\media\sgl_audio_decoder.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\media\sgl_audio_decoding_player.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\media\sgl_audio_player.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl_bitmap_font.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl_bitmap_font_maker.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakuragl\sgl_direct_sound_player.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakuragl\sgl_dshow_audio_player.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakuragl\sgl_dshow_media_player.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl_erisa_lib.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl_font.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakuragl\sgl_gdiplus_image_decoder.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakuragl\sgl_generic_window.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl3d\sgl_hybrid_renderer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl_image.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl_image_buffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl_image_conversion.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl_image_decoder.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl_image_encoder.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl_image_filter.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl_lettering.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl_media.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\media\sgl_media_player.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\media\sgl_mei_media_player.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\media\sgl_mio_audio_decoder.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\opengl\sakuragl\sgl_opengl_context.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\opengl\sakuragl\sgl_opengl_extension.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\opengl\sakuragl\sgl_opengl_render_context.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\opengl\sakuragl\sgl_opengl_window_implement.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl_paint_buffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl2d\sgl_paint_context.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl3d\sgl_render_buffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl3d\sgl_render_buffered_context.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl3d\sgl_render_context.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl3d\sgl_render_parameter_context.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl3d\sgl_render_shaper.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl3d\sgl_render_software_shader.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\media\sgl_sound_player.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\media\sgl_threading_audio_decoder.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\media\sgl_wav_audio_decoder.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakuragl\sgl_win_display_mode.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl_window.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\opengl\sakuragl\sgl_window_implement.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\window\sgl_window_menu.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuragl\sgl3d\sglh3d_stddef.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sakuraglx.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sgl_object.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_collision.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx3d_scene.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\ui\sglx_joy_stick.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\render\sglx_model_buffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sglx_platform_ui.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_resource_manager.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_button.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_filter.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_formed.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_frame.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sglx_sprite_lib.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_message.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_progress_bar.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_rectangle.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_scroll_bar.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_scroller.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_text.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_sprite_window.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\sakuraglx\sprite\sglx_virtual_input.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_array.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_assembler.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_buffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_env_vm.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_heap_buffer.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_jit_arm_compiler.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_jit_native_compiler.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_jit_sse2_compiler.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_jit_x86_compiler.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_module.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_new_object.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_audio_decoder.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_audio_player.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_environment.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_file.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_font.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_heap.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_image.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_joy_stick.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_media_player.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_module.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_paint.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_render.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_socket.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_sound.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_std_ui.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_synchronism.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_thread.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_vm.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_volatile.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_window.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_obj_window_menu.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_processor.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_std_vm.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_sys_call.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\glscs\glscs_sakura2_vm.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_array.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_class.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_context.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_exception.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_generic_object.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_number.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_object.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_reference.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_string.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\common\rosetta\rosetta_virtual_machine.h" />
+    <ClInclude Include="..\..\..\Cotopha\Include\win32\sakura\ssys_win_shell_folder.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

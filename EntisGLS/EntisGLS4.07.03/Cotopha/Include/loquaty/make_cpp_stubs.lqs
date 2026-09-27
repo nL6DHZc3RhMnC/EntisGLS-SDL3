@@ -1,0 +1,7 @@
+﻿
+@include "elementary.lqs"
+@include "color_comp.lqs"
+@include "xml_document.lqs"
+
+@include "entisgls4.lqs"
+

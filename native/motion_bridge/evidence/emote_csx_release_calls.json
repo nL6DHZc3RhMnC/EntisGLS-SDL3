@@ -1,0 +1,426 @@
+{
+  "path": "build/game/script.csx",
+  "sha256": "897cb337bc2fc1d99d2c685a9f30b10a76439f03f5aa79a94a738333e773567a",
+  "function_records": 819,
+  "unique_decoded_instructions": 73771,
+  "undecoded_regions": [
+    {
+      "function": "DynamicLayerSet::MouthLayer::AttachVoice",
+      "address": "0x1c98d",
+      "error": "unsupported naked opcode 0xd6 at image+0x1c98d"
+    },
+    {
+      "function": "DynamicLayerSet::MouthLayer::ConvertVolumeList",
+      "address": "0x1cb3e",
+      "error": "unsupported naked opcode 0xdc at image+0x1cb3e"
+    },
+    {
+      "function": "PhysicalSpringMesh::AdvanceTime",
+      "address": "0x1bfb0",
+      "error": "unsupported naked opcode 0xd6 at image+0x1bfb0"
+    },
+    {
+      "function": "PhysicalSpringMesh::Initialize",
+      "address": "0x1bc0b",
+      "error": "unsupported naked opcode 0xd6 at image+0x1bc0b"
+    },
+    {
+      "function": "PhysicalSpringMesh::Motion::<image>",
+      "address": "0x882b",
+      "error": "'utf-16-le' codec can't decode bytes in position 18836-18837: illegal encoding"
+    },
+    {
+      "function": "PhysicalSpringMesh::Parameter::<image>",
+      "address": "0x989f",
+      "error": "'utf-16-le' codec can't decode bytes in position 14620-14621: illegal encoding"
+    },
+    {
+      "function": "PhysicalSpringMesh::Parameter::AdvanceTime",
+      "address": "0x1b0af",
+      "error": "unsupported naked opcode 0xde at image+0x1b0af"
+    },
+    {
+      "function": "PhysicalSpringMesh::Parameter::InitializeWeightMap",
+      "address": "0x1aea0",
+      "error": "unsupported naked opcode 0xde at image+0x1aea0"
+    },
+    {
+      "function": "XMLDocument::FastParseTagAttributes",
+      "address": "0x76e60",
+      "error": "unsupported naked opcode 0xde at image+0x76e60"
+    },
+    {
+      "function": "XMLDocument::nakedAddTagAttributeValue",
+      "address": "0x77481",
+      "error": "unsupported naked opcode 0xde at image+0x77481"
+    },
+    {
+      "function": "XMLDocument::nakedDecodeXMLText",
+      "address": "0x788d9",
+      "error": "unsupported naked opcode 0xdc at image+0x788d9"
+    },
+    {
+      "function": "XMLDocument::nakedGetMappedDTD",
+      "address": "0x7923b",
+      "error": "unsupported naked opcode 0xdc at image+0x7923b"
+    },
+    {
+      "function": "XMLDocument::nakedOutputError",
+      "address": "0x77527",
+      "error": "unsupported naked opcode 0xdc at image+0x77527"
+    },
+    {
+      "function": "XMLDocument::nakedSeekIndex",
+      "address": "0x775d3",
+      "error": "unsupported naked opcode 0xdc at image+0x775d3"
+    }
+  ],
+  "release_player_declarations": [
+    {
+      "class": "EmoteSprite",
+      "class_index": 87,
+      "method_index": 129,
+      "raw_typed_call_candidates": []
+    }
+  ],
+  "release_player_decoded_calls": [],
+  "release_player_constant_strings": [],
+  "emote_calls": [
+    {
+      "function": "Initialize",
+      "address": 25953,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteDevice.Initialize [class=86, method=0]",
+        2
+      ],
+      "bytes": "14020000005600000000000000"
+    },
+    {
+      "function": "Release",
+      "address": 32124,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteDevice.Release [class=86, method=1]",
+        1
+      ],
+      "bytes": "14010000005600000001000000"
+    },
+    {
+      "function": "ScreenData::AttachVoiceSync",
+      "address": 173988,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.AttachVoiceSync [class=87, method=136]",
+        4
+      ],
+      "bytes": "14040000005700000088000000"
+    },
+    {
+      "function": "ScreenData::ChangeBustshot",
+      "address": 156744,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.CreateSprite [class=87, method=34]",
+        4
+      ],
+      "bytes": "14040000005700000022000000"
+    },
+    {
+      "function": "ScreenData::ChangeBustshot",
+      "address": 156795,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.SetBackColor [class=87, method=36]",
+        3
+      ],
+      "bytes": "14030000005700000024000000"
+    },
+    {
+      "function": "ScreenData::ChangeBustshot",
+      "address": 156839,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.SetScreenSize [class=87, method=130]",
+        3
+      ],
+      "bytes": "14030000005700000082000000"
+    },
+    {
+      "function": "ScreenData::ChangeBustshot",
+      "address": 156874,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.LoadPlayer [class=87, method=128]",
+        3
+      ],
+      "bytes": "14030000005700000080000000"
+    },
+    {
+      "function": "ScreenData::ChangeBustshot",
+      "address": 156929,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.SetScale [class=87, method=131]",
+        3
+      ],
+      "bytes": "14030000005700000083000000"
+    },
+    {
+      "function": "ScreenData::ChangeBustshot",
+      "address": 156987,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.SetCoord [class=87, method=132]",
+        4
+      ],
+      "bytes": "14040000005700000084000000"
+    },
+    {
+      "function": "ScreenData::MoveEmoteBustshot",
+      "address": 164597,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.SetCoord [class=87, method=132]",
+        4
+      ],
+      "bytes": "14040000005700000084000000"
+    },
+    {
+      "function": "ScreenData::PlayTimeline",
+      "address": 171493,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.PlayTimeline [class=87, method=133]",
+        2
+      ],
+      "bytes": "14020000005700000085000000"
+    },
+    {
+      "function": "ScreenData::PostTimeline",
+      "address": 171915,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.PostTimeline [class=87, method=134]",
+        2
+      ],
+      "bytes": "14020000005700000086000000"
+    },
+    {
+      "function": "UITitle::LoadChara",
+      "address": 217314,
+      "size": 11,
+      "opcode": 17,
+      "mnemonic": "obj.ex.call.imm",
+      "args": [
+        "0x1e1bc (BustshotExtension::GetEmoteInfo)",
+        2
+      ],
+      "bytes": "11020000000004bce10100"
+    },
+    {
+      "function": "UITitle::LoadChara",
+      "address": 217376,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.CreateSprite [class=87, method=34]",
+        4
+      ],
+      "bytes": "14040000005700000022000000"
+    },
+    {
+      "function": "UITitle::LoadChara",
+      "address": 217427,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.SetBackColor [class=87, method=36]",
+        3
+      ],
+      "bytes": "14030000005700000024000000"
+    },
+    {
+      "function": "UITitle::LoadChara",
+      "address": 217462,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.SetScreenSize [class=87, method=130]",
+        3
+      ],
+      "bytes": "14030000005700000082000000"
+    },
+    {
+      "function": "UITitle::LoadChara",
+      "address": 217671,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.LoadPlayer [class=87, method=128]",
+        3
+      ],
+      "bytes": "14030000005700000080000000"
+    },
+    {
+      "function": "UITitle::LoadChara",
+      "address": 217734,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.SetScale [class=87, method=131]",
+        3
+      ],
+      "bytes": "14030000005700000083000000"
+    },
+    {
+      "function": "UITitle::LoadChara",
+      "address": 217822,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.SetCoord [class=87, method=132]",
+        4
+      ],
+      "bytes": "14040000005700000084000000"
+    },
+    {
+      "function": "UITitle::LoadChara",
+      "address": 218043,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.SetVisible [class=87, method=54]",
+        2
+      ],
+      "bytes": "14020000005700000036000000"
+    },
+    {
+      "function": "UITitle::OnUpdateTimeline",
+      "address": 218563,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.IsPlayingTimeline [class=87, method=135]",
+        2
+      ],
+      "bytes": "14020000005700000087000000"
+    },
+    {
+      "function": "UITitle::OnUpdateTimeline",
+      "address": 218606,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.IsPlayingTimeline [class=87, method=135]",
+        2
+      ],
+      "bytes": "14020000005700000087000000"
+    },
+    {
+      "function": "UITitle::OnUpdateTimeline",
+      "address": 218649,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.IsPlayingTimeline [class=87, method=135]",
+        2
+      ],
+      "bytes": "14020000005700000087000000"
+    },
+    {
+      "function": "UITitle::OnUpdateTimeline",
+      "address": 218692,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.IsPlayingTimeline [class=87, method=135]",
+        2
+      ],
+      "bytes": "14020000005700000087000000"
+    },
+    {
+      "function": "UITitle::OnUpdateTimeline",
+      "address": 218814,
+      "size": 13,
+      "opcode": 20,
+      "mnemonic": "obj.call.native.member",
+      "args": [
+        "EmoteSprite.PlayTimeline [class=87, method=133]",
+        2
+      ],
+      "bytes": "14020000005700000085000000"
+    },
+    {
+      "function": "WitchWizard::MoveEmoteBustshot",
+      "address": 466855,
+      "size": 11,
+      "opcode": 17,
+      "mnemonic": "obj.ex.call.imm",
+      "args": [
+        "0x280fe (ScreenData::MoveEmoteBustshot)",
+        5
+      ],
+      "bytes": "11050000000004fe800200"
+    },
+    {
+      "function": "WitchWizard::RunDynamicScriptCommand",
+      "address": 404864,
+      "size": 11,
+      "opcode": 17,
+      "mnemonic": "obj.ex.call.imm",
+      "args": [
+        "0x1e1bc (BustshotExtension::GetEmoteInfo)",
+        2
+      ],
+      "bytes": "11020000000004bce10100"
+    },
+    {
+      "function": "WitchWizard::RunDynamicScriptCommand",
+      "address": 405921,
+      "size": 11,
+      "opcode": 17,
+      "mnemonic": "obj.ex.call.imm",
+      "args": [
+        "0x71e7e (WitchWizard::MoveEmoteBustshot)",
+        6
+      ],
+      "bytes": "110600000000047e1e0700"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<files>
+<!---
+	以下のように出力する環境ファイルに付加する属性タグを任意数記述する
+	<archive file="filename.noa" display_name="ファイル名"/>
+-->
+</files>

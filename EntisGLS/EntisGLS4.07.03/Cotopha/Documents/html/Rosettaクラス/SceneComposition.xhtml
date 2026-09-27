@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>SceneComposition</title>
+</head>
+<body>
+<div class="chapter">SceneComposition</div>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="SceneParameter.xhtml">SceneParameter</a>
+<div class="indent1"><a href="SceneProperty.xhtml">SceneProperty</a>
+<div class="indent1"><a href="SceneItem.xhtml">SceneItem</a>
+<div class="indent1"><a href="SceneComposition.xhtml">SceneComposition</a>
+</div></div></div></div></div></div><br/>
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_seekJump">seekJump</a><br/>
+	<a href="#static_seekJumpReset">seekJumpReset</a><br/>
+	<a href="#static_seekStream">seekStream</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_createSpaceChild">createSpaceChild</a><br/>
+	<a href="#virtual_delayRemoveItem">delayRemoveItem</a><br/>
+	<a href="#virtual_postTimelineFrame">postTimelineFrame</a><br/>
+	<a href="#virtual_removeSpaceChild">removeSpaceChild</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_seekJump"/>
+<div class="headline">seekJump</div>
+<div class="usage">public static const Integer seekJump = 2</div>
+<br/>
+
+<a name="static_seekJumpReset"/>
+<div class="headline">seekJumpReset</div>
+<div class="usage">public static const Integer seekJumpReset = 3</div>
+<br/>
+
+<a name="static_seekStream"/>
+<div class="headline">seekStream</div>
+<div class="usage">public static const Integer seekStream = 0</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_createSpaceChild"/>
+<div class="headline">createSpaceChild</div>
+<div class="usage">public SceneItem createSpaceChild( SceneItem space, String typeId, String itemId )</div>
+<br/>
+
+<a name="virtual_delayRemoveItem"/>
+<div class="headline">delayRemoveItem</div>
+<div class="usage">public void delayRemoveItem( SceneItem space, SceneItem item )</div>
+<br/>
+
+<a name="virtual_postTimelineFrame"/>
+<div class="headline">postTimelineFrame</div>
+<div class="usage">public void postTimelineFrame( double frame )</div>
+<br/>
+
+<a name="virtual_removeSpaceChild"/>
+<div class="headline">removeSpaceChild</div>
+<div class="usage">public boolean removeSpaceChild( SceneItem space, SceneItem item )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

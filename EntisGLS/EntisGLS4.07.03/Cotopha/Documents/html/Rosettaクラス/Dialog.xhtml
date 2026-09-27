@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>Dialog</title>
+</head>
+<body>
+<div class="chapter">Dialog</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　Dialog はダイアログウィンドウを提供するクラスです。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="Window.xhtml">Window</a>
+<div class="indent1"><a href="Dialog.xhtml">Dialog</a>
+</div></div></div><br/>
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="Dialog.ElementInfo.xhtml">Dialog.ElementInfo</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_editboxStyleMultiLine">editboxStyleMultiLine</a><br/>
+	<a href="#static_editboxStyleNumber">editboxStyleNumber</a><br/>
+	<a href="#static_editboxStylePassword">editboxStylePassword</a><br/>
+	<a href="#static_flagArrangeCol1">flagArrangeCol1</a><br/>
+	<a href="#static_flagArrangeCol2">flagArrangeCol2</a><br/>
+	<a href="#static_flagArrangeCol3">flagArrangeCol3</a><br/>
+	<a href="#static_flagArrangeCol4">flagArrangeCol4</a><br/>
+	<a href="#static_flagEndOfGroupBox">flagEndOfGroupBox</a><br/>
+	<a href="#static_flagEndOfLine">flagEndOfLine</a><br/>
+	<a href="#static_flagEndOfRadio">flagEndOfRadio</a><br/>
+	<a href="#static_flagFullWidth">flagFullWidth</a><br/>
+	<a href="#static_flagLineCenter">flagLineCenter</a><br/>
+	<a href="#static_flagLineRight">flagLineRight</a><br/>
+	<a href="#static_flagMaskTypeButton">flagMaskTypeButton</a><br/>
+	<a href="#static_flagMinWidth">flagMinWidth</a><br/>
+	<a href="#static_flagNegativeButton">flagNegativeButton</a><br/>
+	<a href="#static_flagNeutralButton">flagNeutralButton</a><br/>
+	<a href="#static_flagPositiveButton">flagPositiveButton</a><br/>
+	<a href="#static_itemButton">itemButton</a><br/>
+	<a href="#static_itemCheck">itemCheck</a><br/>
+	<a href="#static_itemDropDownList">itemDropDownList</a><br/>
+	<a href="#static_itemEdit">itemEdit</a><br/>
+	<a href="#static_itemGroupBox">itemGroupBox</a><br/>
+	<a href="#static_itemNull">itemNull</a><br/>
+	<a href="#static_itemProgress">itemProgress</a><br/>
+	<a href="#static_itemRadio">itemRadio</a><br/>
+	<a href="#static_itemScroll">itemScroll</a><br/>
+	<a href="#static_itemText">itemText</a><br/>
+	<a href="#static_msgboxResultAbort">msgboxResultAbort</a><br/>
+	<a href="#static_msgboxResultCancel">msgboxResultCancel</a><br/>
+	<a href="#static_msgboxResultIgnore">msgboxResultIgnore</a><br/>
+	<a href="#static_msgboxResultNo">msgboxResultNo</a><br/>
+	<a href="#static_msgboxResultOk">msgboxResultOk</a><br/>
+	<a href="#static_msgboxResultRetry">msgboxResultRetry</a><br/>
+	<a href="#static_msgboxResultUser">msgboxResultUser</a><br/>
+	<a href="#static_msgboxResultYes">msgboxResultYes</a><br/>
+	<a href="#static_msgboxStyleAbortRetryIgnore">msgboxStyleAbortRetryIgnore</a><br/>
+	<a href="#static_msgboxStyleOk">msgboxStyleOk</a><br/>
+	<a href="#static_msgboxStyleOkCancel">msgboxStyleOkCancel</a><br/>
+	<a href="#static_msgboxStyleRetryCancel">msgboxStyleRetryCancel</a><br/>
+	<a href="#static_msgboxStyleYesNo">msgboxStyleYesNo</a><br/>
+	<a href="#static_msgboxStyleYesNoCancel">msgboxStyleYesNoCancel</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Functions</div>
+<div class="indent2">
+	<a href="#static_browseDirectory">browseDirectory</a><br/>
+	<a href="#static_browseOpenFile">browseOpenFile</a><br/>
+	<a href="#static_browseSaveFile">browseSaveFile</a><br/>
+	<a href="#static_messageBox">messageBox</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_Dialog">Dialog</a><br/>
+	<a href="#virtual_doModal">doModal</a><br/>
+	<a href="#virtual_enableItemAs">enableItemAs</a><br/>
+	<a href="#virtual_endDialog">endDialog</a><br/>
+	<a href="#virtual_getInputIntegerAs">getInputIntegerAs</a><br/>
+	<a href="#virtual_getInputStringAs">getInputStringAs</a><br/>
+	<a href="#virtual_onCancel">onCancel</a><br/>
+	<a href="#virtual_onInitDialog">onInitDialog</a><br/>
+	<a href="#virtual_onItemCallback">onItemCallback</a><br/>
+	<a href="#virtual_setCaption">setCaption</a><br/>
+	<a href="#virtual_setCustomItems">setCustomItems</a><br/>
+	<a href="#virtual_setItemIntegerAs">setItemIntegerAs</a><br/>
+	<a href="#virtual_setItemStringAs">setItemStringAs</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_editboxStyleMultiLine"/>
+<div class="headline">editboxStyleMultiLine</div>
+<div class="usage">public static const Integer editboxStyleMultiLine = 1</div>
+<br/>
+
+<a name="static_editboxStyleNumber"/>
+<div class="headline">editboxStyleNumber</div>
+<div class="usage">public static const Integer editboxStyleNumber = 2</div>
+<br/>
+
+<a name="static_editboxStylePassword"/>
+<div class="headline">editboxStylePassword</div>
+<div class="usage">public static const Integer editboxStylePassword = 4</div>
+<br/>
+
+<a name="static_flagArrangeCol1"/>
+<div class="headline">flagArrangeCol1</div>
+<div class="usage">public static const Integer flagArrangeCol1 = 4096 /* 0x1000 */</div>
+<br/>
+
+<a name="static_flagArrangeCol2"/>
+<div class="headline">flagArrangeCol2</div>
+<div class="usage">public static const Integer flagArrangeCol2 = 8192 /* 0x2000 */</div>
+<br/>
+
+<a name="static_flagArrangeCol3"/>
+<div class="headline">flagArrangeCol3</div>
+<div class="usage">public static const Integer flagArrangeCol3 = 16384 /* 0x4000 */</div>
+<br/>
+
+<a name="static_flagArrangeCol4"/>
+<div class="headline">flagArrangeCol4</div>
+<div class="usage">public static const Integer flagArrangeCol4 = 32768 /* 0x8000 */</div>
+<br/>
+
+<a name="static_flagEndOfGroupBox"/>
+<div class="headline">flagEndOfGroupBox</div>
+<div class="usage">public static const Integer flagEndOfGroupBox = 4</div>
+<br/>
+
+<a name="static_flagEndOfLine"/>
+<div class="headline">flagEndOfLine</div>
+<div class="usage">public static const Integer flagEndOfLine = 1</div>
+<br/>
+
+<a name="static_flagEndOfRadio"/>
+<div class="headline">flagEndOfRadio</div>
+<div class="usage">public static const Integer flagEndOfRadio = 2</div>
+<br/>
+
+<a name="static_flagFullWidth"/>
+<div class="headline">flagFullWidth</div>
+<div class="usage">public static const Integer flagFullWidth = 32 /* 0x0020 */</div>
+<br/>
+
+<a name="static_flagLineCenter"/>
+<div class="headline">flagLineCenter</div>
+<div class="usage">public static const Integer flagLineCenter = 8</div>
+<br/>
+
+<a name="static_flagLineRight"/>
+<div class="headline">flagLineRight</div>
+<div class="usage">public static const Integer flagLineRight = 16</div>
+<br/>
+
+<a name="static_flagMaskTypeButton"/>
+<div class="headline">flagMaskTypeButton</div>
+<div class="usage">public static const Integer flagMaskTypeButton = 768 /* 0x0300 */</div>
+<br/>
+
+<a name="static_flagMinWidth"/>
+<div class="headline">flagMinWidth</div>
+<div class="usage">public static const Integer flagMinWidth = 1024 /* 0x0400 */</div>
+<br/>
+
+<a name="static_flagNegativeButton"/>
+<div class="headline">flagNegativeButton</div>
+<div class="usage">public static const Integer flagNegativeButton = 512 /* 0x0200 */</div>
+<br/>
+
+<a name="static_flagNeutralButton"/>
+<div class="headline">flagNeutralButton</div>
+<div class="usage">public static const Integer flagNeutralButton = 768 /* 0x0300 */</div>
+<br/>
+
+<a name="static_flagPositiveButton"/>
+<div class="headline">flagPositiveButton</div>
+<div class="usage">public static const Integer flagPositiveButton = 256 /* 0x0100 */</div>
+<br/>
+
+<a name="static_itemButton"/>
+<div class="headline">itemButton</div>
+<div class="usage">public static const Integer itemButton = 3</div>
+<br/>
+
+<a name="static_itemCheck"/>
+<div class="headline">itemCheck</div>
+<div class="usage">public static const Integer itemCheck = 4</div>
+<br/>
+
+<a name="static_itemDropDownList"/>
+<div class="headline">itemDropDownList</div>
+<div class="usage">public static const Integer itemDropDownList = 9</div>
+<br/>
+
+<a name="static_itemEdit"/>
+<div class="headline">itemEdit</div>
+<div class="usage">public static const Integer itemEdit = 2</div>
+<br/>
+
+<a name="static_itemGroupBox"/>
+<div class="headline">itemGroupBox</div>
+<div class="usage">public static const Integer itemGroupBox = 6</div>
+<br/>
+
+<a name="static_itemNull"/>
+<div class="headline">itemNull</div>
+<div class="usage">public static const Integer itemNull = 0</div>
+<br/>
+
+<a name="static_itemProgress"/>
+<div class="headline">itemProgress</div>
+<div class="usage">public static const Integer itemProgress = 7</div>
+<br/>
+
+<a name="static_itemRadio"/>
+<div class="headline">itemRadio</div>
+<div class="usage">public static const Integer itemRadio = 5</div>
+<br/>
+
+<a name="static_itemScroll"/>
+<div class="headline">itemScroll</div>
+<div class="usage">public static const Integer itemScroll = 8</div>
+<br/>
+
+<a name="static_itemText"/>
+<div class="headline">itemText</div>
+<div class="usage">public static const Integer itemText = 1</div>
+<br/>
+
+<a name="static_msgboxResultAbort"/>
+<div class="headline">msgboxResultAbort</div>
+<div class="usage">public static const Integer msgboxResultAbort = 5</div>
+<br/>
+
+<a name="static_msgboxResultCancel"/>
+<div class="headline">msgboxResultCancel</div>
+<div class="usage">public static const Integer msgboxResultCancel = 1</div>
+<br/>
+
+<a name="static_msgboxResultIgnore"/>
+<div class="headline">msgboxResultIgnore</div>
+<div class="usage">public static const Integer msgboxResultIgnore = 6</div>
+<br/>
+
+<a name="static_msgboxResultNo"/>
+<div class="headline">msgboxResultNo</div>
+<div class="usage">public static const Integer msgboxResultNo = 3</div>
+<br/>
+
+<a name="static_msgboxResultOk"/>
+<div class="headline">msgboxResultOk</div>
+<div class="usage">public static const Integer msgboxResultOk = 0</div>
+<br/>
+
+<a name="static_msgboxResultRetry"/>
+<div class="headline">msgboxResultRetry</div>
+<div class="usage">public static const Integer msgboxResultRetry = 4</div>
+<br/>
+
+<a name="static_msgboxResultUser"/>
+<div class="headline">msgboxResultUser</div>
+<div class="usage">public static const Integer msgboxResultUser = 7</div>
+<br/>
+
+<a name="static_msgboxResultYes"/>
+<div class="headline">msgboxResultYes</div>
+<div class="usage">public static const Integer msgboxResultYes = 2</div>
+<br/>
+
+<a name="static_msgboxStyleAbortRetryIgnore"/>
+<div class="headline">msgboxStyleAbortRetryIgnore</div>
+<div class="usage">public static const Integer msgboxStyleAbortRetryIgnore = 5</div>
+<br/>
+
+<a name="static_msgboxStyleOk"/>
+<div class="headline">msgboxStyleOk</div>
+<div class="usage">public static const Integer msgboxStyleOk = 0</div>
+<br/>
+
+<a name="static_msgboxStyleOkCancel"/>
+<div class="headline">msgboxStyleOkCancel</div>
+<div class="usage">public static const Integer msgboxStyleOkCancel = 1</div>
+<br/>
+
+<a name="static_msgboxStyleRetryCancel"/>
+<div class="headline">msgboxStyleRetryCancel</div>
+<div class="usage">public static const Integer msgboxStyleRetryCancel = 4</div>
+<br/>
+
+<a name="static_msgboxStyleYesNo"/>
+<div class="headline">msgboxStyleYesNo</div>
+<div class="usage">public static const Integer msgboxStyleYesNo = 2</div>
+<br/>
+
+<a name="static_msgboxStyleYesNoCancel"/>
+<div class="headline">msgboxStyleYesNoCancel</div>
+<div class="usage">public static const Integer msgboxStyleYesNoCancel = 3</div>
+<br/>
+
+<div class="chapter">Static Functions</div>
+
+<a name="static_browseDirectory"/>
+<div class="headline">browseDirectory</div>
+<div class="usage">public static int browseDirectory( String strDirPath, String strCaption = null, String strInitDir = null, int nFlags = 0, Window wndParent = null )</div>
+<br/>
+
+<a name="static_browseOpenFile"/>
+<div class="headline">browseOpenFile</div>
+<div class="usage">public static int browseOpenFile( String strFilePath, String strCaption = null, String strInitDir = null, String[] strFileFilters = null, int nFlags = 0, Window wndParent = null )</div>
+<br/>
+
+<a name="static_browseSaveFile"/>
+<div class="headline">browseSaveFile</div>
+<div class="usage">public static int browseSaveFile( String strFilePath, String strCaption = null, String strInitDir = null, String[] strFileFilters = null, int nFlags = 0, Window wndParent = null )</div>
+<br/>
+
+<a name="static_messageBox"/>
+<div class="headline">messageBox</div>
+<div class="usage">public static int messageBox( String msg, String caption = null, int styles = 0, Window wndParent = null )</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_Dialog"/>
+<div class="headline">Dialog</div>
+<div class="usage">public void Dialog(&#32; )</div>
+<br/>
+
+<a name="virtual_doModal"/>
+<div class="headline">doModal</div>
+<div class="usage">public int doModal( long nFlags = 0, Window wndParent = null )</div>
+<br/>
+
+<a name="virtual_enableItemAs"/>
+<div class="headline">enableItemAs</div>
+<div class="usage">public void enableItemAs( String id, boolean fEnable )</div>
+<br/>
+
+<a name="virtual_endDialog"/>
+<div class="headline">endDialog</div>
+<div class="usage">public void endDialog( int nResultCode )</div>
+<br/>
+
+<a name="virtual_getInputIntegerAs"/>
+<div class="headline">getInputIntegerAs</div>
+<div class="usage">public const int getInputIntegerAs( String id )</div>
+<br/>
+
+<a name="virtual_getInputStringAs"/>
+<div class="headline">getInputStringAs</div>
+<div class="usage">public const String getInputStringAs( String id )</div>
+<br/>
+
+<a name="virtual_onCancel"/>
+<div class="headline">onCancel</div>
+<div class="usage">public boolean onCancel(&#32; )</div>
+<br/>
+
+<a name="virtual_onInitDialog"/>
+<div class="headline">onInitDialog</div>
+<div class="usage">public void onInitDialog(&#32; )</div>
+<br/>
+
+<a name="virtual_onItemCallback"/>
+<div class="headline">onItemCallback</div>
+<div class="usage">public boolean onItemCallback( Dialog.ElementInfo item, int code )</div>
+<br/>
+
+<a name="virtual_setCaption"/>
+<div class="headline">setCaption</div>
+<div class="usage">public boolean setCaption( String strCaption )</div>
+<br/>
+
+<a name="virtual_setCustomItems"/>
+<div class="headline">setCustomItems</div>
+<div class="usage">public void setCustomItems( Dialog.ElementInfo[] elements )</div>
+<br/>
+
+<a name="virtual_setItemIntegerAs"/>
+<div class="headline">setItemIntegerAs</div>
+<div class="usage">public void setItemIntegerAs( String id, int nValue )</div>
+<br/>
+
+<a name="virtual_setItemStringAs"/>
+<div class="headline">setItemStringAs</div>
+<div class="usage">public void setItemStringAs( String id, String strText )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

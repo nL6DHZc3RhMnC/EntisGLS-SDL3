@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>SceneItem</title>
+</head>
+<body>
+<div class="chapter">SceneItem</div>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="SceneParameter.xhtml">SceneParameter</a>
+<div class="indent1"><a href="SceneProperty.xhtml">SceneProperty</a>
+<div class="indent1"><a href="SceneItem.xhtml">SceneItem</a>
+</div></div></div></div></div><br/>
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_paramCameraShift">paramCameraShift</a><br/>
+	<a href="#static_paramCameraSpace">paramCameraSpace</a><br/>
+	<a href="#static_paramColorAdd">paramColorAdd</a><br/>
+	<a href="#static_paramColorMul">paramColorMul</a><br/>
+	<a href="#static_paramForceBorder">paramForceBorder</a><br/>
+	<a href="#static_paramForceToon">paramForceToon</a><br/>
+	<a href="#static_paramFreeBorder">paramFreeBorder</a><br/>
+	<a href="#static_paramFreeToon">paramFreeToon</a><br/>
+	<a href="#static_paramGlobalSpace">paramGlobalSpace</a><br/>
+	<a href="#static_paramHideFar">paramHideFar</a><br/>
+	<a href="#static_paramHideNear">paramHideNear</a><br/>
+	<a href="#static_paramIgnore">paramIgnore</a><br/>
+	<a href="#static_paramItemClass">paramItemClass</a><br/>
+	<a href="#static_paramItemPriority">paramItemPriority</a><br/>
+	<a href="#static_paramLayeredDynamicItem1">paramLayeredDynamicItem1</a><br/>
+	<a href="#static_paramLayeredDynamicItem2">paramLayeredDynamicItem2</a><br/>
+	<a href="#static_paramLayeredDynamicItem3">paramLayeredDynamicItem3</a><br/>
+	<a href="#static_paramLayeredEffectItem">paramLayeredEffectItem</a><br/>
+	<a href="#static_paramLayeredField">paramLayeredField</a><br/>
+	<a href="#static_paramLayeredParam">paramLayeredParam</a><br/>
+	<a href="#static_paramLayeredPriority">paramLayeredPriority</a><br/>
+	<a href="#static_paramLayeredReflMap">paramLayeredReflMap</a><br/>
+	<a href="#static_paramLayeredRefrMap">paramLayeredRefrMap</a><br/>
+	<a href="#static_paramLayeredStaticItem1">paramLayeredStaticItem1</a><br/>
+	<a href="#static_paramLayeredStaticItem2">paramLayeredStaticItem2</a><br/>
+	<a href="#static_paramPosition">paramPosition</a><br/>
+	<a href="#static_paramRotation">paramRotation</a><br/>
+	<a href="#static_paramSetLayerSace">paramSetLayerSace</a><br/>
+	<a href="#static_paramTransparency">paramTransparency</a><br/>
+	<a href="#static_paramUseCollision">paramUseCollision</a><br/>
+	<a href="#static_paramVisible">paramVisible</a><br/>
+	<a href="#static_paramZoom">paramZoom</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_createController">createController</a><br/>
+	<a href="#virtual_getChildItemAt">getChildItemAt</a><br/>
+	<a href="#virtual_getChildItemCount">getChildItemCount</a><br/>
+	<a href="#virtual_getComposer">getComposer</a><br/>
+	<a href="#virtual_getComposition">getComposition</a><br/>
+	<a href="#virtual_getControllerAs">getControllerAs</a><br/>
+	<a href="#virtual_getControllerAt">getControllerAt</a><br/>
+	<a href="#virtual_getControllerCount">getControllerCount</a><br/>
+	<a href="#virtual_getGlobalTransformation">getGlobalTransformation</a><br/>
+	<a href="#virtual_getItemPosition">getItemPosition</a><br/>
+	<a href="#virtual_getItemRotation">getItemRotation</a><br/>
+	<a href="#virtual_getItemZoom">getItemZoom</a><br/>
+	<a href="#virtual_getManager">getManager</a><br/>
+	<a href="#virtual_getParentSpace">getParentSpace</a><br/>
+	<a href="#virtual_getScene">getScene</a><br/>
+	<a href="#virtual_getSceneItemAs">getSceneItemAs</a><br/>
+	<a href="#virtual_isItemVisible">isItemVisible</a><br/>
+	<a href="#virtual_setItemPosition">setItemPosition</a><br/>
+	<a href="#virtual_setItemRotation">setItemRotation</a><br/>
+	<a href="#virtual_setItemVisible">setItemVisible</a><br/>
+	<a href="#virtual_setItemZoom">setItemZoom</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_paramCameraShift"/>
+<div class="headline">paramCameraShift</div>
+<div class="usage">public static const String paramCameraShift = &quot;camera_shift&quot;</div>
+<br/>
+
+<a name="static_paramCameraSpace"/>
+<div class="headline">paramCameraSpace</div>
+<div class="usage">public static const String paramCameraSpace = &quot;camera_space&quot;</div>
+<br/>
+
+<a name="static_paramColorAdd"/>
+<div class="headline">paramColorAdd</div>
+<div class="usage">public static const String paramColorAdd = &quot;color_add&quot;</div>
+<br/>
+
+<a name="static_paramColorMul"/>
+<div class="headline">paramColorMul</div>
+<div class="usage">public static const String paramColorMul = &quot;color_mul&quot;</div>
+<br/>
+
+<a name="static_paramForceBorder"/>
+<div class="headline">paramForceBorder</div>
+<div class="usage">public static const String paramForceBorder = &quot;force_border&quot;</div>
+<br/>
+
+<a name="static_paramForceToon"/>
+<div class="headline">paramForceToon</div>
+<div class="usage">public static const String paramForceToon = &quot;force_toon&quot;</div>
+<br/>
+
+<a name="static_paramFreeBorder"/>
+<div class="headline">paramFreeBorder</div>
+<div class="usage">public static const String paramFreeBorder = &quot;free_border&quot;</div>
+<br/>
+
+<a name="static_paramFreeToon"/>
+<div class="headline">paramFreeToon</div>
+<div class="usage">public static const String paramFreeToon = &quot;free_toon&quot;</div>
+<br/>
+
+<a name="static_paramGlobalSpace"/>
+<div class="headline">paramGlobalSpace</div>
+<div class="usage">public static const String paramGlobalSpace = &quot;global_space&quot;</div>
+<br/>
+
+<a name="static_paramHideFar"/>
+<div class="headline">paramHideFar</div>
+<div class="usage">public static const String paramHideFar = &quot;hide_far&quot;</div>
+<br/>
+
+<a name="static_paramHideNear"/>
+<div class="headline">paramHideNear</div>
+<div class="usage">public static const String paramHideNear = &quot;hide_near&quot;</div>
+<br/>
+
+<a name="static_paramIgnore"/>
+<div class="headline">paramIgnore</div>
+<div class="usage">public static const String paramIgnore = &quot;space_ignore&quot;</div>
+<br/>
+
+<a name="static_paramItemClass"/>
+<div class="headline">paramItemClass</div>
+<div class="usage">public static const String paramItemClass = &quot;item_class&quot;</div>
+<br/>
+
+<a name="static_paramItemPriority"/>
+<div class="headline">paramItemPriority</div>
+<div class="usage">public static const String paramItemPriority = &quot;render_priority&quot;</div>
+<br/>
+
+<a name="static_paramLayeredDynamicItem1"/>
+<div class="headline">paramLayeredDynamicItem1</div>
+<div class="usage">public static const String paramLayeredDynamicItem1 = &quot;layered_dynamic_item1&quot;</div>
+<br/>
+
+<a name="static_paramLayeredDynamicItem2"/>
+<div class="headline">paramLayeredDynamicItem2</div>
+<div class="usage">public static const String paramLayeredDynamicItem2 = &quot;layered_dynamic_item2&quot;</div>
+<br/>
+
+<a name="static_paramLayeredDynamicItem3"/>
+<div class="headline">paramLayeredDynamicItem3</div>
+<div class="usage">public static const String paramLayeredDynamicItem3 = &quot;layered_dynamic_item3&quot;</div>
+<br/>
+
+<a name="static_paramLayeredEffectItem"/>
+<div class="headline">paramLayeredEffectItem</div>
+<div class="usage">public static const String paramLayeredEffectItem = &quot;layered_effect_item&quot;</div>
+<br/>
+
+<a name="static_paramLayeredField"/>
+<div class="headline">paramLayeredField</div>
+<div class="usage">public static const String paramLayeredField = &quot;layered_field&quot;</div>
+<br/>
+
+<a name="static_paramLayeredParam"/>
+<div class="headline">paramLayeredParam</div>
+<div class="usage">public static const String paramLayeredParam = &quot;layered_param&quot;</div>
+<br/>
+
+<a name="static_paramLayeredPriority"/>
+<div class="headline">paramLayeredPriority</div>
+<div class="usage">public static const String paramLayeredPriority = &quot;layered_priority&quot;</div>
+<br/>
+
+<a name="static_paramLayeredReflMap"/>
+<div class="headline">paramLayeredReflMap</div>
+<div class="usage">public static const String paramLayeredReflMap = &quot;layered_refl_map&quot;</div>
+<br/>
+
+<a name="static_paramLayeredRefrMap"/>
+<div class="headline">paramLayeredRefrMap</div>
+<div class="usage">public static const String paramLayeredRefrMap = &quot;layered_refr_map&quot;</div>
+<br/>
+
+<a name="static_paramLayeredStaticItem1"/>
+<div class="headline">paramLayeredStaticItem1</div>
+<div class="usage">public static const String paramLayeredStaticItem1 = &quot;layered_static_item1&quot;</div>
+<br/>
+
+<a name="static_paramLayeredStaticItem2"/>
+<div class="headline">paramLayeredStaticItem2</div>
+<div class="usage">public static const String paramLayeredStaticItem2 = &quot;layered_static_item2&quot;</div>
+<br/>
+
+<a name="static_paramPosition"/>
+<div class="headline">paramPosition</div>
+<div class="usage">public static const String paramPosition = &quot;position&quot;</div>
+<br/>
+
+<a name="static_paramRotation"/>
+<div class="headline">paramRotation</div>
+<div class="usage">public static const String paramRotation = &quot;rotation&quot;</div>
+<br/>
+
+<a name="static_paramSetLayerSace"/>
+<div class="headline">paramSetLayerSace</div>
+<div class="usage">public static const String paramSetLayerSace = &quot;layered_space&quot;</div>
+<br/>
+
+<a name="static_paramTransparency"/>
+<div class="headline">paramTransparency</div>
+<div class="usage">public static const String paramTransparency = &quot;transparency&quot;</div>
+<br/>
+
+<a name="static_paramUseCollision"/>
+<div class="headline">paramUseCollision</div>
+<div class="usage">public static const String paramUseCollision = &quot;use_collision&quot;</div>
+<br/>
+
+<a name="static_paramVisible"/>
+<div class="headline">paramVisible</div>
+<div class="usage">public static const String paramVisible = &quot;visible&quot;</div>
+<br/>
+
+<a name="static_paramZoom"/>
+<div class="headline">paramZoom</div>
+<div class="usage">public static const String paramZoom = &quot;zoom&quot;</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_createController"/>
+<div class="headline">createController</div>
+<div class="usage">public SceneController createController( int i, String typeId, String ctrlId )</div>
+<br/>
+
+<a name="virtual_getChildItemAt"/>
+<div class="headline">getChildItemAt</div>
+<div class="usage">public const SceneItem getChildItemAt( int i )</div>
+<br/>
+
+<a name="virtual_getChildItemCount"/>
+<div class="headline">getChildItemCount</div>
+<div class="usage">public const int getChildItemCount(&#32; )</div>
+<br/>
+
+<a name="virtual_getComposer"/>
+<div class="headline">getComposer</div>
+<div class="usage">public const SceneComposer getComposer(&#32; )</div>
+<br/>
+
+<a name="virtual_getComposition"/>
+<div class="headline">getComposition</div>
+<div class="usage">public const SceneComposition getComposition(&#32; )</div>
+<br/>
+
+<a name="virtual_getControllerAs"/>
+<div class="headline">getControllerAs</div>
+<div class="usage">public const SceneController getControllerAs( String id )</div>
+<br/>
+
+<a name="virtual_getControllerAt"/>
+<div class="headline">getControllerAt</div>
+<div class="usage">public const SceneController getControllerAt( int i )</div>
+<br/>
+
+<a name="virtual_getControllerCount"/>
+<div class="headline">getControllerCount</div>
+<div class="usage">public const int getControllerCount(&#32; )</div>
+<br/>
+
+<a name="virtual_getGlobalTransformation"/>
+<div class="headline">getGlobalTransformation</div>
+<div class="usage">public const void getGlobalTransformation( Matrix3D matGlobal, Vector3D vGlobalPos )</div>
+<br/>
+
+<a name="virtual_getItemPosition"/>
+<div class="headline">getItemPosition</div>
+<div class="usage">public const Vector3D getItemPosition(&#32; )</div>
+<br/>
+
+<a name="virtual_getItemRotation"/>
+<div class="headline">getItemRotation</div>
+<div class="usage">public const Matrix3D getItemRotation(&#32; )</div>
+<br/>
+
+<a name="virtual_getItemZoom"/>
+<div class="headline">getItemZoom</div>
+<div class="usage">public const Vector3D getItemZoom(&#32; )</div>
+<br/>
+
+<a name="virtual_getManager"/>
+<div class="headline">getManager</div>
+<div class="usage">public const SceneManager getManager(&#32; )</div>
+<br/>
+
+<a name="virtual_getParentSpace"/>
+<div class="headline">getParentSpace</div>
+<div class="usage">public const SceneItem getParentSpace(&#32; )</div>
+<br/>
+
+<a name="virtual_getScene"/>
+<div class="headline">getScene</div>
+<div class="usage">public const Scene getScene(&#32; )</div>
+<br/>
+
+<a name="virtual_getSceneItemAs"/>
+<div class="headline">getSceneItemAs</div>
+<div class="usage">public const SceneItem getSceneItemAs( String id )</div>
+<br/>
+
+<a name="virtual_isItemVisible"/>
+<div class="headline">isItemVisible</div>
+<div class="usage">public const boolean isItemVisible(&#32; )</div>
+<br/>
+
+<a name="virtual_setItemPosition"/>
+<div class="headline">setItemPosition</div>
+<div class="usage">public void setItemPosition( Vector3D vPos )</div>
+<br/>
+
+<a name="virtual_setItemRotation"/>
+<div class="headline">setItemRotation</div>
+<div class="usage">public void setItemRotation( Matrix3D matRotation )</div>
+<br/>
+
+<a name="virtual_setItemVisible"/>
+<div class="headline">setItemVisible</div>
+<div class="usage">public void setItemVisible( boolean flagVisible )</div>
+<br/>
+
+<a name="virtual_setItemZoom"/>
+<div class="headline">setItemZoom</div>
+<div class="usage">public void setItemZoom( Vector3D vZoom )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

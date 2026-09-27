@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>ImageComposition</title>
+</head>
+<body>
+<div class="chapter">ImageComposition</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　ImageComposition クラスは複数の画像データから構成されたデータを保持します。<br/>
+　EntisGLS4 の SGLImageComposition と同等です。<br/>
+　主に PSD ファイルを読み込んで処理するために利用されます。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="ImageComposition.xhtml">ImageComposition</a>
+</div></div></div><br/>
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="ImageComposition.Layer.xhtml">ImageComposition.Layer</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_blendAddition">blendAddition</a><br/>
+	<a href="#static_blendColor">blendColor</a><br/>
+	<a href="#static_blendDarken">blendDarken</a><br/>
+	<a href="#static_blendDifference">blendDifference</a><br/>
+	<a href="#static_blendDissolve">blendDissolve</a><br/>
+	<a href="#static_blendDivision">blendDivision</a><br/>
+	<a href="#static_blendHardLight">blendHardLight</a><br/>
+	<a href="#static_blendHue">blendHue</a><br/>
+	<a href="#static_blendLighten">blendLighten</a><br/>
+	<a href="#static_blendLuminosity">blendLuminosity</a><br/>
+	<a href="#static_blendMultiply">blendMultiply</a><br/>
+	<a href="#static_blendNormal">blendNormal</a><br/>
+	<a href="#static_blendOverlay">blendOverlay</a><br/>
+	<a href="#static_blendPass">blendPass</a><br/>
+	<a href="#static_blendSat">blendSat</a><br/>
+	<a href="#static_blendScreen">blendScreen</a><br/>
+	<a href="#static_blendSoftLight">blendSoftLight</a><br/>
+	<a href="#static_blendSubtraction">blendSubtraction</a><br/>
+	<a href="#static_layerBackground">layerBackground</a><br/>
+	<a href="#static_layerEndOfGroup">layerEndOfGroup</a><br/>
+	<a href="#static_layerGroup">layerGroup</a><br/>
+	<a href="#static_layerNormal">layerNormal</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_ImageComposition">ImageComposition</a><br/>
+	<a href="#virtual_appendGroupLayer">appendGroupLayer</a><br/>
+	<a href="#virtual_appendLayer">appendLayer</a><br/>
+	<a href="#virtual_getCanvasSize">getCanvasSize</a><br/>
+	<a href="#virtual_getLayerAt">getLayerAt</a><br/>
+	<a href="#virtual_getLayerCount">getLayerCount</a><br/>
+	<a href="#virtual_getLayerTreeAt">getLayerTreeAt</a><br/>
+	<a href="#virtual_getLayerTreeCount">getLayerTreeCount</a><br/>
+	<a href="#virtual_loadPsdFile">loadPsdFile</a><br/>
+	<a href="#virtual_readPsdFile">readPsdFile</a><br/>
+	<a href="#virtual_savePsdFile">savePsdFile</a><br/>
+	<a href="#virtual_setCanvasInfo">setCanvasInfo</a><br/>
+	<a href="#virtual_writePsdFile">writePsdFile</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_blendAddition"/>
+<div class="headline">blendAddition</div>
+<div class="usage">public static const Integer blendAddition = 1818518631 /* 0x6C646467 */</div>
+<br/>
+
+<a name="static_blendColor"/>
+<div class="headline">blendColor</div>
+<div class="usage">public static const Integer blendColor = 1668246642 /* 0x636F6C72 */</div>
+<br/>
+
+<a name="static_blendDarken"/>
+<div class="headline">blendDarken</div>
+<div class="usage">public static const Integer blendDarken = 1684107883 /* 0x6461726B */</div>
+<br/>
+
+<a name="static_blendDifference"/>
+<div class="headline">blendDifference</div>
+<div class="usage">public static const Integer blendDifference = 1684629094 /* 0x64696666 */</div>
+<br/>
+
+<a name="static_blendDissolve"/>
+<div class="headline">blendDissolve</div>
+<div class="usage">public static const Integer blendDissolve = 1684632435 /* 0x64697373 */</div>
+<br/>
+
+<a name="static_blendDivision"/>
+<div class="headline">blendDivision</div>
+<div class="usage">public static const Integer blendDivision = 1684633120 /* 0x64697620 */</div>
+<br/>
+
+<a name="static_blendHardLight"/>
+<div class="headline">blendHardLight</div>
+<div class="usage">public static const Integer blendHardLight = 1749838196 /* 0x684C6974 */</div>
+<br/>
+
+<a name="static_blendHue"/>
+<div class="headline">blendHue</div>
+<div class="usage">public static const Integer blendHue = 1752524064 /* 0x68756520 */</div>
+<br/>
+
+<a name="static_blendLighten"/>
+<div class="headline">blendLighten</div>
+<div class="usage">public static const Integer blendLighten = 1818850405 /* 0x6C697465 */</div>
+<br/>
+
+<a name="static_blendLuminosity"/>
+<div class="headline">blendLuminosity</div>
+<div class="usage">public static const Integer blendLuminosity = 1819634976 /* 0x6C756D20 */</div>
+<br/>
+
+<a name="static_blendMultiply"/>
+<div class="headline">blendMultiply</div>
+<div class="usage">public static const Integer blendMultiply = 1836411936 /* 0x6D756C20 */</div>
+<br/>
+
+<a name="static_blendNormal"/>
+<div class="headline">blendNormal</div>
+<div class="usage">public static const Integer blendNormal = 1852797549 /* 0x6E6F726D */</div>
+<br/>
+
+<a name="static_blendOverlay"/>
+<div class="headline">blendOverlay</div>
+<div class="usage">public static const Integer blendOverlay = 1870030194 /* 0x6F766572 */</div>
+<br/>
+
+<a name="static_blendPass"/>
+<div class="headline">blendPass</div>
+<div class="usage">public static const Integer blendPass = 1885434739 /* 0x70617373 */</div>
+<br/>
+
+<a name="static_blendSat"/>
+<div class="headline">blendSat</div>
+<div class="usage">public static const Integer blendSat = 1935766560 /* 0x73617420 */</div>
+<br/>
+
+<a name="static_blendScreen"/>
+<div class="headline">blendScreen</div>
+<div class="usage">public static const Integer blendScreen = 1935897198 /* 0x7363726E */</div>
+<br/>
+
+<a name="static_blendSoftLight"/>
+<div class="headline">blendSoftLight</div>
+<div class="usage">public static const Integer blendSoftLight = 1934387572 /* 0x734C6974 */</div>
+<br/>
+
+<a name="static_blendSubtraction"/>
+<div class="headline">blendSubtraction</div>
+<div class="usage">public static const Integer blendSubtraction = 1718842722 /* 0x66737562 */</div>
+<br/>
+
+<a name="static_layerBackground"/>
+<div class="headline">layerBackground</div>
+<div class="usage">public static const Integer layerBackground = 1</div>
+<br/>
+
+<a name="static_layerEndOfGroup"/>
+<div class="headline">layerEndOfGroup</div>
+<div class="usage">public static const Integer layerEndOfGroup = 3</div>
+<br/>
+
+<a name="static_layerGroup"/>
+<div class="headline">layerGroup</div>
+<div class="usage">public static const Integer layerGroup = 2</div>
+<br/>
+
+<a name="static_layerNormal"/>
+<div class="headline">layerNormal</div>
+<div class="usage">public static const Integer layerNormal = 0</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_ImageComposition"/>
+<div class="headline">ImageComposition</div>
+<div class="usage">public void ImageComposition(&#32; )</div>
+<br/>
+
+<a name="virtual_appendGroupLayer"/>
+<div class="headline">appendGroupLayer</div>
+<div class="usage">public ImageComposition.Layer appendGroupLayer( String name, ImageComposition.Layer parent = null )</div>
+<br/>
+
+<a name="virtual_appendLayer"/>
+<div class="headline">appendLayer</div>
+<div class="usage">public ImageComposition.Layer appendLayer( String name, Image image = null, int x = 0, int y = 0, ImageComposition.Layer parent = null )</div>
+<br/>
+
+<a name="virtual_getCanvasSize"/>
+<div class="headline">getCanvasSize</div>
+<div class="usage">public const Size getCanvasSize(&#32; )</div>
+<br/>
+
+<a name="virtual_getLayerAt"/>
+<div class="headline">getLayerAt</div>
+<div class="usage">public const ImageComposition.Layer getLayerAt( int index )</div>
+<br/>
+
+<a name="virtual_getLayerCount"/>
+<div class="headline">getLayerCount</div>
+<div class="usage">public const int getLayerCount(&#32; )</div>
+<br/>
+
+<a name="virtual_getLayerTreeAt"/>
+<div class="headline">getLayerTreeAt</div>
+<div class="usage">public const ImageComposition.Layer getLayerTreeAt( int index )</div>
+<br/>
+
+<a name="virtual_getLayerTreeCount"/>
+<div class="headline">getLayerTreeCount</div>
+<div class="usage">public const int getLayerTreeCount(&#32; )</div>
+<br/>
+
+<a name="virtual_loadPsdFile"/>
+<div class="headline">loadPsdFile</div>
+<div class="usage">public boolean loadPsdFile( String file )</div>
+<br/>
+
+<a name="virtual_readPsdFile"/>
+<div class="headline">readPsdFile</div>
+<div class="usage">public boolean readPsdFile( InputStream is )</div>
+<br/>
+
+<div class="headline">readPsdFile</div>
+<div class="usage">public boolean readPsdFile( RandomAccessFile file )</div>
+<br/>
+
+<a name="virtual_savePsdFile"/>
+<div class="headline">savePsdFile</div>
+<div class="usage">public boolean savePsdFile( String file )</div>
+<br/>
+
+<a name="virtual_setCanvasInfo"/>
+<div class="headline">setCanvasInfo</div>
+<div class="usage">public void setCanvasInfo( int width, int height, int channels = 3 )</div>
+<br/>
+
+<a name="virtual_writePsdFile"/>
+<div class="headline">writePsdFile</div>
+<div class="usage">public boolean writePsdFile( RandomAccessFile file )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

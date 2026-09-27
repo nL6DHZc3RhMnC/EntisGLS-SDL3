@@ -1,0 +1,5176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="article.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>Antirrhinum マニュアル</title>
+</head>
+<body>
+
+<div class="title0">Antirrhinum マニュアル</div>
+<br/>
+
+<div class="headline">目次</div>
+
+<div class="indent1">
+<a href="#chapter_abstract">§概略</a><br/>
+	<div class="indent2">
+	<a href="#abstract_first">はじめに</a><br/>
+	<a href="#abstract_history">成り立ち・位置付け</a><br/>
+	<a href="#abstract_summary">概要</a><br/>
+	</div>
+<br/>
+<a href="#chapter_directive">§ディレクティブ</a><br/>
+	<div class="indent2">
+	<a href="#directive_summary">概要</a><br/>
+	<a href="#usage_format">書式記法</a><br/>
+	<a href="#directive_comment">;（コメントアウト）</a><br/>
+	<a href="#directive_eval">Rosetta 文</a><br/>
+	<a href="#directive_label">#（ラベル定義）</a><br/>
+	<a href="#directive_if">.if, .elseif, .else, .end ディレクティブ</a><br/>
+	<a href="#directive_while">.while ディレクティブ</a><br/>
+	<a href="#directive_return">.return ディレクティブ</a><br/>
+	<a href="#directive_break">.break ディレクティブ</a><br/>
+	<a href="#directive_continue">.continue ディレクティブ</a><br/>
+	<a href="#directive_call">.call ディレクティブ</a><br/>
+	<a href="#directive_jump">.jump ディレクティブ</a><br/>
+	<a href="#directive_thread">.thread ディレクティブ</a><br/>
+	<a href="#directive_fwait">.fwait ディレクティブ</a><br/>
+	<a href="#directive_macro">.macro, .endm ディレクティブ</a><br/>
+	<a href="#directive_mlet">.mlet ディレクティブ</a><br/>
+	<a href="#directive_mexpr">.mexpr ディレクティブ</a><br/>
+	</div>
+<br/>
+<a href="#chapter_user_command">§ユーザーコマンド書式</a><br/>
+	<div class="indent2">
+	<a href="#user_command_summary">概要</a><br/>
+	<a href="#user_command_array_arg">引数配列タイプコマンド書式</a><br/>
+	<a href="#user_command_array_named_arg">名前付き引数配列タイプコマンド書式</a><br/>
+	<a href="#user_command_reg_usage">正規表現タイプコマンド書式</a><br/>
+	<a href="#user_command_msg_usage">メッセージ文書式</a><br/>
+	</div>
+<br/>
+<a href="#chapter_core_command">§Core コマンド</a><br/>
+	<div class="indent2">
+	<a href="#core_command_summary">概要</a><br/>
+	<a href="#core_command_wait">@wait 文</a><br/>
+	<a href="#core_command_wait_for">@wait_for 文</a><br/>
+	<a href="#core_command_start_timer">@start_timer 文</a><br/>
+	<a href="#core_command_wait_timer">@wait_timer 文</a><br/>
+	<a href="#core_command_terminate">@terminate 文</a><br/>
+	<a href="#core_command_trace">@trace 文</a><br/>
+	<a href="#core_command_permit_skip">@permit_skip 文</a><br/>
+	<a href="#core_command_prohibit_skip">@prohibit_skip 文</a><br/>
+	<a href="#core_command_dis_interrupt">@dis_interrupt 文</a><br/>
+	</div>
+<br/>
+<a href="#chapter_def_file">§書式定義ファイル</a><br/>
+	<div class="indent2">
+	<a href="#def_file_summary">概要</a><br/>
+	<a href="#def_file_root_tag">&lt;agl_usage_definition&gt; タグ</a><br/>
+	<a href="#def_file_script_tag">&lt;script&gt; タグ</a><br/>
+	<a href="#def_file_import_tag">&lt;import&gt; タグ</a><br/>
+	<a href="#def_file_command_tag">&lt;command&gt; タグ</a><br/>
+	<a href="#def_file_message_tag">&lt;message&gt; タグ</a><br/>
+	</div>
+<br/>
+<a href="#chapter_compiler">§コンパイラツール</a><br/>
+	<div class="indent2">
+	<a href="#compiler_command_line_tool">コマンドラインツール</a><br/>
+	<a href="#compiler_AGLCompiler">AGLCompiler クラス</a><br/>
+	</div>
+<br/>
+<a href="#chapter_AGLCompiler_class">§AGLCompiler クラス</a><br/>
+	<div class="indent2">
+	<a href="#AGLCompiler_class_loadUsageDefFile">loadUsageDefFile</a><br/>
+	<a href="#AGLCompiler_class_loadConfigFile">loadConfigFile</a><br/>
+	<a href="#AGLCompiler_class_run">run</a><br/>
+	<a href="#AGLCompiler_class_initialize">initialize</a><br/>
+	<a href="#AGLCompiler_class_loadSourceFile">loadSourceFile</a><br/>
+	<a href="#AGLCompiler_class_compileSource">compileSource</a><br/>
+	<a href="#AGLCompiler_class_saveModuleFile">saveModuleFile</a><br/>
+	<a href="#AGLCompiler_class_formatModuleFile">formatModuleFile</a><br/>
+	<a href="#AGLCompiler_class_getLastCodeCommand">getLastCodeCommand</a><br/>
+	<a href="#AGLCompiler_class_addCodeCommand">addCodeCommand</a><br/>
+	<a href="#AGLCompiler_class_getConfig">getCompileListener</a><br/>
+	<a href="#AGLCompiler_class_getCompileListener">getConfig</a><br/>
+	<a href="#AGLCompiler_class_getParserContext">getParserContext</a><br/>
+	<a href="#AGLCompiler_class_outputErrort">outputError</a><br/>
+	</div>
+<br/>
+<a href="#chapter_listener_class">§AGLCompiler.Listener クラス</a><br/>
+	<div class="indent2">
+	<a href="#listener_class_summary">概要</a><br/>
+	<a href="#listener_class_initializee">initialize</a><br/>
+	<a href="#listener_class_onBeginCompile">onBeginCompile</a><br/>
+	<a href="#listener_class_onBlankLine">onBlankLine</a><br/>
+	<a href="#listener_class_isExtendCommand">isExtendCommand</a><br/>
+	<a href="#listener_class_beforeAddCommand">beforeAddCommand</a><br/>
+	<a href="#listener_class_onEndCompile">onEndCompile</a><br/>
+	</div>
+<br/>
+<a href="#chapter_reg_expression">§EntisGLS4 正規表現</a><br/>
+	<div class="indent2">
+	<a href="#reg_expr_summary">概要</a><br/>
+	<a href="#reg_expr_phrase">文節</a><br/>
+	<a href="#reg_expr_string">文字列</a><br/>
+	<a href="#reg_expr_character">文字</a><br/>
+	<a href="#reg_expr_space">空白</a><br/>
+	<a href="#reg_expr_end_of_usage">文末</a><br/>
+	<a href="#reg_expr_repeat">書式の反復</a><br/>
+	<a href="#reg_expr_wildcard_number">数値ワイルドカード</a><br/>
+	<a href="#reg_expr_wildcard_phrase">文節ワイルドカード</a><br/>
+	<a href="#reg_expr_wildcard_enclosed">閉文字列ワイルドカード</a><br/>
+	<a href="#reg_expr_wildcard_expression">数式ワイルドカード</a><br/>
+	<a href="#reg_expr_parameter">引数箇所の指定</a><br/>
+	<a href="#reg_expr_omittable">省略可能箇所の指定</a><br/>
+	<a href="#reg_expr_selectable">選択可能箇所の指定</a><br/>
+	</div>
+<br/>
+<a href="#chapter_implementation">§実装</a><br/>
+	<div class="indent2">
+	<a href="#implementation_summary">概要</a><br/>
+	<a href="#implementation_var_scope">変数スコープ</a><br/>
+	<a href="#implementation_thread_instance">スレッド毎のインスタンス</a><br/>
+	<a href="#implementation_save">セーブ処理</a><br/>
+	<a href="#implementation_load">ロード処理</a><br/>
+	<a href="#implementation_dependence">依存処理</a><br/>
+	</div>
+<br/>
+<a href="#chapter_AGLVariablesProcessor">§AGLVariablesProcessor</a><br/>
+	<div class="indent2">
+	<a href="#AGLVariablesProcessor_summary">概要</a><br/>
+	<a href="#AGLVariablesProcessor_config">設定ファイル</a><br/>
+	<a href="#AGLVariablesProcessor_init_sflag">@init_sflag コマンド</a><br/>
+	<a href="#AGLVariablesProcessor_set_sflag">@set_sflag コマンド</a><br/>
+	<a href="#AGLVariablesProcessor_add_sflag">@add_sflag コマンド</a><br/>
+	<a href="#AGLVariablesProcessor_add_deed">@add_deed コマンド</a><br/>
+	</div>
+<br/>
+<a href="#chapter_AGLMessageProcessor">§AGLMessageProcessor</a><br/>
+	<div class="indent2">
+	<a href="#AGLMessageProcessor_summary">概要</a><br/>
+	<a href="#AGLMessageProcessor_config">設定ファイル</a><br/>
+	<a href="#AGLMessageProcessor_marker_file">サウンド位置マーカーファイル</a><br/>
+	<a href="#AGLMessageProcessor_msg_statement">メッセージ文</a><br/>
+	<a href="#AGLMessageProcessor_msg_tags">メッセージテキスト書式</a><br/>
+	<a href="#AGLMessageProcessor_voice">@voice コマンド</a><br/>
+	<a href="#AGLMessageProcessor_voices">@voices コマンド</a><br/>
+	<a href="#AGLMessageProcessor_stopvoice">@stopvoice コマンド</a><br/>
+	<a href="#AGLMessageProcessor_voice_sync">@voice_sync コマンド</a><br/>
+	<a href="#AGLMessageProcessor_msg_window_id">@msg_window_id コマンド</a><br/>
+	<a href="#AGLMessageProcessor_showmsg">@showmsg コマンド</a><br/>
+	<a href="#AGLMessageProcessor_msg_face">@msg_face コマンド</a><br/>
+	<a href="#AGLMessageProcessor_clr_face">@clr_face コマンド</a><br/>
+	<a href="#AGLMessageProcessor_pause">@pause コマンド</a><br/>
+	<a href="#AGLMessageProcessor_msg">@msg コマンド</a><br/>
+	<a href="#AGLMessageProcessor_en">@en コマンド</a><br/>
+	<a href="#AGLMessageProcessor_msg_sync">@msg_sync コマンド</a><br/>
+	<a href="#AGLMessageProcessor_msg_clear">@msg_clear コマンド</a><br/>
+	<a href="#AGLMessageProcessor_enable_skip">@enable_skip コマンド</a><br/>
+	<a href="#AGLMessageProcessor_disable_skip">@disable_skip コマンド</a><br/>
+	<a href="#AGLMessageProcessor_keep_skip">@keep_skip コマンド</a><br/>
+	<a href="#AGLMessageProcessor_scene_skip">@scene_skip コマンド</a><br/>
+	<a href="#AGLMessageProcessor_selector">@selector コマンド</a><br/>
+	<a href="#AGLMessageProcessor_menu">@menu コマンド</a><br/>
+	<a href="#AGLMessageProcessor_endsel">@endsel コマンド</a><br/>
+	</div>
+<br/>
+<a href="#chapter_AGLSoundProcessor">§AGLSoundProcessor</a><br/>
+	<div class="indent2">
+	<a href="#AGLSoundProcessor_summary">概要</a><br/>
+	<a href="#AGLSoundProcessor_config">設定ファイル</a><br/>
+	<a href="#AGLSoundProcessor_sound_play">@sound_play コマンド</a><br/>
+	<a href="#AGLSoundProcessor_sound_stop">@sound_stop コマンド</a><br/>
+	<a href="#AGLSoundProcessor_sound_volume">@sound_volume コマンド</a><br/>
+	<a href="#AGLSoundProcessor_sound_wait">@sound_wait コマンド</a><br/>
+	<a href="#AGLSoundProcessor_bgm">@bgm コマンド</a><br/>
+	<a href="#AGLSoundProcessor_stopbgm">@stopbgm コマンド</a><br/>
+	<a href="#AGLSoundProcessor_stopse">@stopse コマンド</a><br/>
+	<a href="#AGLSoundProcessor_sound_volbgm">@volbgm コマンド</a><br/>
+	<a href="#AGLSoundProcessor_sound_volse">@volse コマンド</a><br/>
+	<a href="#AGLSoundProcessor_sound_volse">@waitse コマンド</a><br/>
+	</div>
+<br/>
+<a href="#chapter_AGLGraphicsProcessor">§AGLGraphicsProcessor</a><br/>
+	<div class="indent2">
+	<a href="#AGLGraphicsProcessor_summary">概要</a><br/>
+	<a href="#AGLGraphicsProcessor_config">設定ファイル</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_path">レイヤーパス</a><br/>
+	<a href="#AGLGraphicsProcessor_screen_init">@screen_init コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_screen_clone">@screen_clone コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_screen_delete">@screen_delete コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_screen_swap">@screen_swap コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_screen_select">@screen_select コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_create">@layer_create コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_image">@layer_image コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_delete">@layer_delete コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_exist">@layer_exist コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_parameter">@layer_parameter コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_pre_move">@layer_pre_move コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_add_move">@layer_add_move コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_start_move">@layer_start_move コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_wait_move">@layer_wait_move コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_flush_move">@layer_flush_move コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_add_filter">@layer_add_filter コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_clear_filter">@layer_clear_filter コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_operate">@layer_operate コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_freeze">@layer_freeze コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_layer_defrost">@layer_defrost コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_begin_trans">@begin_trans コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_end_trans">@begin_trans コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_movie">@movie コマンド</a><br/>
+	<a href="#AGLGraphicsProcessor_move">@move マクロ</a><br/>
+	<a href="#AGLGraphicsProcessor_clear">@clear マクロ</a><br/>
+	<a href="#AGLGraphicsProcessor_image">@image マクロ</a><br/>
+	<a href="#AGLGraphicsProcessor_bg">@bg マクロ</a><br/>
+	<a href="#AGLGraphicsProcessor_char">@char マクロ</a><br/>
+	</div>
+</div>
+
+
+<a name="chapter_abstract"/>
+<div class="chapter">§概略</div>
+
+
+<a name="abstract_first"/>
+<div class="headline">はじめに</div>
+<div class="normal">
+
+<div class="code_quote">
+.if isFirstPlay()<br/>
+<br/>
+ようこそ Antirrhinum スクリプトの世界へ！<br/>
+<br/>
+${<br/>
+&nbsp; &nbsp; resetFirstPlayFlag();<br/>
+}<br/>
+
+.end<br/>
+</div>
+
+　Antirrhinum は EntisGLS4 で提供される疑似言語フレームワークで、ゲーム中のスクリプト記述を容易にカスタマイズして提供することを目的としたインタプリタ言語です。<br/>
+　コマンドの実装や書式を容易にカスタマイズできるというコンセプトは EntisGLS3 での詞葉言語と同様のものですが、Antirrhinum では付け加え、実装面でのカプセル化が大幅に強化されています。<br/>
+</div>
+<br/>
+
+
+<a name="abstract_history"/>
+<div class="headline">成り立ち・位置付け</div>
+<div class="normal">
+　EntisGLS4 には独自言語として、Sakura2（詞葉言語）仮想マシン、Rosetta スクリプト言語、Antirrhinum の３つが提供されており、それぞれの位置づけが異なります。<br/>
+<br/>
+　Sakura2（詞葉）は EntisGLS3 で提供されていた独自の言語と仮想マシンのサブセットでしたが、EntisGLS4 では実行のための仮想マシンのみのサブセットが提供されています。<br/>
+　EntisGLS4 自体は元々詞葉コンパイラの C++ 互換モードでコンパイルできるコードとして記述されています。<br/>
+（但し、現在は Android での C++ 開発環境が整ってきていることなどから詞葉は使用せず専ら C++ でコンパイルすることしか想定されていませんが、API 群は EntisGLS4 をベース、使用できる文法は C++ 互換モード（凡そ C++98～C++03 相当）を基準としたコードとなっています）<br/>
+<br/>
+　一方、Rosetta は EntisGLS4 で提供されるスクリプト言語で、ゲーム中のスクリプト言語や、その他テキスト、画像、音声、動画などを簡易に処理することを目的としたインタプリタ言語です。<br/>
+　また実行時には Sakura2 仮想マシン用のバイナリを出力するコンパイル機能を有しており、Sakura2 の JIT コンパイル機能を利用してネイティブコード化して高速に実行することもできます。<br/>
+　Antirrhinum コンパイラも Rosetta で記述されています。<br/>
+<br/>
+　一方で、Antirrhinum は主にゲーム中のスクリプトを記述（高級な処理手順を記述）することを目的としています。<br/>
+　特にスクリプトとして利用する際に、スクリプト呼び出し側から、スクリプトの途中まで（１フレーム分の処理のみを）実行できる機能を有していることが特徴です（これは Sakura2 仮想マシンにもある機能ですが、Rosetta にはない機能です）。<br/>
+　EntisGLS4 には Rosetta のインタプリタ、及びコンパイラ機能が提供されるため、Antirrhinum のソースコードは EntisGLS4 上で動的にコンパイルして実行することもできます。<br/>
+
+</div>
+<br/>
+
+
+<a name="abstract_summary"/>
+<div class="headline">概要</div>
+<div class="normal">
+　Antirrhinum コンパイラはプレーンテキストのソースコードをコンパイルし、xml 形式のファイルを出力します。<br/>
+　コンパイラは Rosetta で記述されており、任意の書式のユーザーコマンドを追加することができます。<br/>
+　ほとんどの書式は書式定義ファイルをコンパイラに渡すことで任意のコマンドを追加することができます。<br/>
+　あるいはもっと簡単に、マクロスクリプトでより高級なマクロを定義することができます。ユーザー定義コマンドを追加しないならばマクロは非常に強力です。<br/>
+　またユーザー定義コマンドでなくても、Antirrhinum スクリプト上から Rosetta スクリプトを実行できるため、Rosetta クラス／関数を供給すれば、ゲーム固有の処理をスクリプト上で容易に記述できます。<br/>
+<br/>
+　Antirrhinum 仮想マシンでは、実行コマンドとそれの実行プロセッサー（後述 EpicProcessor）は高度にカプセル化されています。<br/>
+　１つの EpicProcessor は１つのコマンドセットを実装しており、仮想マシンには複数の EpicProcessor を任意に組み合わせて使用できます。<br/>
+　正しく設計・実装された EpicProcessor は、仮に他の EpicProcessor と依存関係にあっても疎な結合であり、自由な組み合わせで使用することができます。<br/>
+　GUI の構造が大幅に変更されようとも、あるいは、ノベル・アドベンチャー、RPG、シミュレーション、シューティング、アクション等、ジャンルに依らず、同様の要素は容易に使いまわすことができます。<br/>
+<br/>
+　本書の後半には標準実装のコマンドを収録していますが、Antirrhinum のコンセプトはユーザー定義コマンドの自由なカスタマイズと、実装のカプセル化ですから、あくまで標準実装コマンドは標準実装コマンドにすぎません。
+
+</div>
+<br/>
+
+
+
+<a name="chapter_directive"/>
+<div class="chapter">§ディレクティブ</div>
+
+
+<a name="directive_summary"/>
+<div class="headline">概要</div>
+<div class="normal">
+　Antirrhinum コンパイラは「基本的に」ソースコードを行単位で解釈します。<br/>
+　行の先頭（空白やタブなどを除いた）に特定の文字 '.'（ピリオド） '$'（ドル） '#'（シャープ） ';'（セミコロン）を見つけると、その行はディレクティブとして解釈されます。<br/>
+<br/>
+</div>
+<br/>
+
+
+
+<a name="usage_format"/>
+<div class="headline">書式記法</div>
+
+<div class="normal">
+
+　ここでは構文の書式は以下のように表記します。<br/>
+<br/>
+
+<div class="usage">
+<bold>abc</bold>
+</div>
+<br/>
+<div class="indent1">
+　装飾されていない（あるいは読みやすさのため太字強調されている）文字や記号はそのまま記述します。<br/>
+</div>
+<br/>
+<br/>
+
+<div class="usage">
+<italic>abc</italic>
+</div>
+<br/>
+<div class="indent1">
+　斜体部分は任意の名前や式を記述します。<br/>
+</div>
+<br/>
+<br/>
+
+<div class="usage">
+<italic>abc</italic><br/>
+<br/>
+<italic>abc</italic>:<br/>
+&nbsp; &nbsp; <italic>def</italic>
+</div>
+<br/>
+<div class="indent1">
+　任意書式 <italic>abc</italic> の詳細が、行をあけ : 記号以降に定義されています。<br/>
+　上の例は、任意の <italic>def</italic> を記述することを意味します。<br/>
+</div>
+<br/>
+<br/>
+
+<div class="usage">
+[ <bold>abc</bold> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+<div class="indent1">
+　[ ]<sub><italic>opt</italic></sub> で囲まれた部分は省略可能であることを意味します。単に [ abc ] と表記した場合には、角括弧を含めそのままの表記を意味することに注意してください。<br/>
+</div>
+<br/>
+<br/>
+
+<div class="usage">
+{ <bold>a</bold> | <bold>b</bold> | <bold>c</bold> }<sub><italic>opt</italic></sub>
+</div>
+<br/>
+<div class="indent1">
+　{ }<sub><italic>opt</italic></sub> で囲まれた部分は書式が選択的であることを意味します。 | 記号で区切られた範囲が選択可能な一つの書式となります。つまり、上の例は a 又は b 又は c の何れかを記述することを意味します。<br/>
+</div>
+
+</div>
+<br/>
+<br/>
+
+
+
+<a name="directive_comment"/>
+<div class="headline">;（コメントアウト）</div>
+
+<div class="usage">
+<bold>;</bold> <italic>comment</italic><br/>
+</div>
+<br/>
+
+<div class="normal">
+　コメント行は何も出力されません。
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="directive_eval"/>
+<div class="headline">Rosetta 文</div>
+
+<div class="usage">
+<bold>$</bold> <italic>statement-list</italic>
+</div>
+<div class="usage">
+<bold>${</bold> <italic>statement-list</italic> <bold>}</bold><br/>
+<br/>
+<italic>statement-list</italic>:<br/>
+&nbsp; &nbsp; <italic>statement</italic> <bold>;</bold> [ <italic>statement-list</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="normal">
+　Rosetta スクリプト文を記述できます。<br/>
+　${ } の場合、波括弧の間は複数行に渡って記述することができます。<br/>
+　Rosetta 文はすべての構文を記述できます。反復文や任意の関数の呼び出しもできますが、長い処理は推奨されません。<br/>
+（処理中はステートセーブができません。具体的には後述の AGLKernel::Execute 関数から復帰しないためです。）<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="directive_label"/>
+<div class="headline">#（ラベル定義）</div>
+
+<div class="usage">
+<bold>#</bold> <italic>label-name</italic><br/>
+</div>
+<br/>
+
+<div class="normal">
+　ラベル名を定義します。<br/>
+　ラベルは .call や .jump、.thread 文で処理を開始する行を指定する識別子です。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="directive_if"/>
+<div class="headline">.if, .elseif, .else, .end ディレクティブ</div>
+
+<div class="usage">
+<bold>.if</bold> <italic>expr</italic><br/>
+</div>
+<div class="usage">
+<bold>.elseif</bold> <italic>expr</italic><br/>
+</div>
+<div class="usage">
+<bold>.else</bold><br/>
+</div>
+<div class="usage">
+<bold>.end</bold><br/>
+</div>
+<br/>
+
+<div class="normal">
+　.if ディレクティブは expr 条件式が真の時に .if～.else（又は .elseif、.end）までのブロックを実行します。<br/>
+　条件式の評価が偽の時に .else～.end ブロックが実行されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="directive_while"/>
+<div class="headline">.while ディレクティブ</div>
+
+<div class="usage">
+<bold>.while</bold> <italic>expr</italic><br/>
+<bold>.end</bold>
+</div>
+<br/>
+
+<div class="normal">
+　expr 条件式が真の間 .while～.end ブロックを実行します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="directive_return"/>
+<div class="headline">.return ディレクティブ</div>
+
+<div class="usage">
+<bold>.return</bold> [ <bold>if</bold> <italic>expr</italic> ]<sub><italic>opt</italic></sub><br/>
+</div>
+<br/>
+
+<div class="normal">
+　.call 呼び出しから復帰、又はスレッドを終了します。<br/>
+　if で条件式 expr を指定した場合、評価が偽の時には何もしません。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="directive_break"/>
+<div class="headline">.break ディレクティブ</div>
+
+<div class="usage">
+<bold>.break</bold> [ <bold>if</bold> <italic>expr</italic> ]<sub><italic>opt</italic></sub><br/>
+</div>
+<br/>
+
+<div class="normal">
+　.while 反復ブロックから脱出します。<br/>
+　if で条件式 expr を指定した場合、評価が偽の時には何もしません。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="directive_continue"/>
+<div class="headline">.continue ディレクティブ</div>
+
+<div class="usage">
+<bold>.continue</bold> [ <bold>if</bold> <italic>expr</italic> ]<sub><italic>opt</italic></sub><br/>
+</div>
+<br/>
+
+<div class="normal">
+　.while 反復ブロックの先頭に（反復条件判定まで）戻ります。<br/>
+　if で条件式 expr を指定した場合、評価が偽の時には何もしません。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="directive_call"/>
+<div class="headline">.call ディレクティブ</div>
+
+<div class="usage">
+<bold>.call</bold> <italic>script#label</italic> [ <bold>if</bold> <italic>expr</italic> ]<sub><italic>opt</italic></sub><br/>
+<br/>
+<italic>script#label</italic>:<br/>
+&nbsp; &nbsp; { <italic>script</italic><br/>
+&nbsp; &nbsp; | <bold>#</bold><italic>label</italic><br/>
+&nbsp; &nbsp; | <italic>script</italic><bold>#</bold><italic>label</italic> }<sub><italic>opt</italic></sub><br/>
+</div>
+<br/>
+
+<div class="normal">
+　サブルーチンを呼び出します。<br/>
+　if で条件式 expr を指定した場合、評価が偽の時には何もしません。<br/>
+　script はスクリプトファイル名、label は後述のラベル識別子です。空白文字を含む場合には、'（シングルクォーテーション）、又は "（ダブルクォーテーション）で囲みます。script ファイルの拡張子は省略でき（推奨）、省略した場合には .xmlagl が付加されます。<br/>
+　ラベル名を省略した場合にはスクリプトファイルの先頭から実行されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="directive_jump"/>
+<div class="headline">.jump ディレクティブ</div>
+
+<div class="usage">
+<bold>.jump</bold> <italic>script#label</italic> [ <bold>if</bold> <italic>expr</italic> ]<sub><italic>opt</italic></sub><br/>
+</div>
+<br/>
+
+<div class="normal">
+　処理を移行します。<br/>
+　if で条件式 expr を指定した場合、評価が偽の時には何もしません。<br/>
+　script#label 指定は .call ディレクティブと同様です。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="directive_thread"/>
+<div class="headline">.thread ディレクティブ</div>
+
+<div class="usage">
+<bold>.thread</bold> <italic>script#label</italic> [ <bold>as</bold> <italic>name</italic> ]<sub><italic>opt</italic></sub> [ <bold>if</bold> <italic>expr</italic> ]<sub><italic>opt</italic></sub><br/>
+</div>
+<div class="usage">
+<bold>.thread</bold> [ <bold>as</bold> <italic>name</italic> ]<sub><italic>opt</italic></sub> [ <bold>if</bold> <italic>expr</italic> ]<sub><italic>opt</italic></sub><br/>
+<bold>.end</bold>
+</div>
+<br/>
+
+<div class="normal">
+　サブルーチンをスレッドとして実行します。<br/>
+　if で条件式 expr を指定した場合、評価が偽の時には何もしません。<br/>
+　script#label を省略した場合、.thread～.end ブロックをスレッドとして実行します。<br/>
+　as で name を指定した場合、@terminate 文でスレッドを即時終了させることができます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="directive_fwait"/>
+<div class="headline">.fwait ディレクティブ</div>
+
+<div class="usage">
+<bold>.fwait</bold><br/>
+</div>
+<br/>
+
+<div class="normal">
+　実行を１フレーム待機します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="directive_macro"/>
+<div class="headline">.macro, .endm ディレクティブ</div>
+
+<div class="usage">
+<bold>.macro</bold> <italic>macro-name</italic> [<bold>:</bold> <italic>macro-arg-list</italic> ]<sub><italic>opt</italic></sub><br/>
+<bold>.endm</bold><br/>
+<br/>
+<italic>macro-arg-list</italic>:<br/>
+&nbsp; &nbsp; <italic>macro-arg-definition</italic> [<bold>,</bold> <italic>macro-arg-list</italic> ]<sub><italic>opt</italic></sub><br/>
+<br/>
+<italic>macro-arg-definition</italic>:<br/>
+&nbsp; &nbsp; { <italic>arg-name</italic> [<bold>=</bold> <italic>default-value</italic> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; | <bold>"</bold><italic>arg-name</italic><bold>"</bold> [<bold>=</bold> <bold>"</bold><italic>default-value</italic><bold>"</bold> ]<sub><italic>opt</italic></sub> }<sub><italic>opt</italic></sub><br/>
+</div>
+<br/>
+
+<div class="normal">
+　.macro ～ .endm ブロックをマクロとして定義します。<br/>
+　定義したマクロは、ユーザー定義コマンドと同様に、行頭に記述することでマクロを呼び出して展開することができます。<br/>
+（ユーザー定義コマンドと同名のマクロを定義した場合、マクロ定義が優先されます）<br/>
+　マクロ引数の定義で、"arg0" のようにダブルクォーテーションで囲むと、その引数は文字列引数として定義され、ダブルクォーテーションで囲んで引数が渡されると、クォーテーション内部の文字列が引数として解釈されます。<br/>
+　マクロ引数の後ろに = 記号でデフォルト値を定義することができます。<br/>
+　マクロを展開する際、引数が省略されているとデフォルト値が使用されます。<br/>
+　マクロ引数は必ず , （コンマ）記号で区切ることに注意してください。<br/>
+<br/>
+　.macro ～ .endm 間にはマクロの内容を記述します。<br/>
+　文中にマクロ引数名に一致するトークンが存在すると、マクロとして展開されます。<br/>
+　マクロ引数をより明示的に記述するには以下のようにします。<br/>
+<br/>
+<div class="notes_parameter">
+<div class="param_name">%"arg"</div>
+<div class="param_desc">
+"arg" として展開。但しエスケープ文字は修飾されます。
+</div>
+
+<div class="param_name">%&lt;arg&gt;</div>
+<div class="param_desc">
+arg として展開。
+</div>
+
+<div class="param_name">%(expr)</div>
+<div class="param_desc">
+expr 中のマクロを展開した文字列を数式として評価して展開します。<br/>
+expr 内に %"arg" や %&lt;arg&gt; を入れ子に記述できますが、%(expr) の多重入れ子は記述できません。
+</div>
+</div>
+<br/>
+
+　例えば以下のようなマクロ
+
+<div class="code_quote">
+.macro マクロ : arg0, arg1, "arg2"="default", arg3=500<br/>
+@bg black %(arg3/2)<br/>
+arg0<br/>
+@bg %"arg2" %(arg3*2)<br/>
+「%&lt;arg1&gt;」<br/>
+.endm
+</div>
+
+を定義し、
+
+<div class="code_quote">
+マクロ @flash white, きゃぁ
+</div>
+
+のように記述した場合、
+
+<div class="code_quote">
+@bg black 250<br/>
+@flash white<br/>
+@bg "default" 1000<br/>
+「きゃぁ」
+</div>
+
+のように展開されます。<br/>
+（ユーザー定義コマンド同様、マクロ名はメッセージ文と干渉しないようなマクロ名にすることが必要です）<br/>
+<br/>
+　マクロ引数に , （コンマ）記号を含めたい場合などには、&lt;&gt; 記号で囲んで記述することができます。<br/>
+
+<div class="code_quote">
+マクロ &lt;@flash white, 200, 3&gt;, ぐはぁぁぁっ！, ev001a, 300
+</div>
+
+は、
+
+<div class="code_quote">
+@bg black 150<br/>
+@flash white, 200, 3<br/>
+@bg "ev001a" 600<br/>
+「ぐはぁぁぁっ！」<br/>
+</div>
+
+のように展開されます。<br/>
+
+<br/>
+　マクロ文はユーザー定義コマンドと同じように複数のコマンドを１行で記述できる点で似ていますがが、以下のようにユーザー定義マクロでは使用できないディレクティブを含むことができます。<br/>
+
+<div class="code_quote">
+.macro @マクロ : arg0<br/>
+&nbsp; .if f.char_mode == 0<br/>
+&nbsp; &nbsp; @char %"arg0"<br/>
+&nbsp; .else<br/>
+&nbsp; &nbsp; @char_d %"arg0"<br/>
+&nbsp; .end<br/>
+.end
+</div>
+
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="directive_mlet"/>
+<div class="headline">.mlet ディレクティブ</div>
+
+<div class="usage">
+<bold>.mlet</bold> <italic>macro-var-name</italic> <bold>=</bold> <italic>macro-expr</italic><br/>
+</div>
+<br/>
+
+<div class="normal">
+　マクロ変数を定義します。<br/>
+　マクロ変数はコンパイル時に評価される変数で、マクロ式中でのみ使用できます。<br/>
+　マクロ式は、.mlet の右辺、.mexpr ディレクティブ、マクロ展開文中の %() 内でのみ利用できます。<br/>
+<br/>
+　マクロ変数は、Antirrhinum スクリプトを超えて保持されます（複数のスクリプトを一度にコンパイルする場合に、以前コンパイルした結果が残っています）。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="directive_mexpr"/>
+<div class="headline">.mexpr ディレクティブ</div>
+
+<div class="usage">
+<bold>.mexpr</bold> <italic>macro-expr</italic><br/>
+</div>
+<br/>
+
+<div class="normal">
+　マクロ式を実行します。<br/>
+　一度 .mlet ディレクティブで定義しておけば、以下のように代入演算なども .mexpr ディレクティブで実行できます。<br/>
+
+<div class="code_quote">
+.mlet a=0<br/>
+.mlet b="abc"<br/>
+.mlet c = new HashMap()<br/>
+.mexpr ++a<br/>
+.mexpr b += "def"<br/>
+.mexpr c[b]=a<br/>
+.mexpr System.console().printf( "%s\n", b )
+</div>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="chapter_user_command"/>
+<div class="chapter">§ユーザーコマンド書式</div>
+
+
+<a name="user_command_summary"/>
+<div class="headline">概要</div>
+<div class="normal">
+　ディレクティブ以外のコマンドは、任意に追加することができます。<br/>
+　コマンドの書式には大きく分けて４つのパターンがあり、コマンドごとにそのいずれかを選択して定義することができます。<br/>
+<br/>
+</div>
+<br/>
+
+
+
+<a name="user_command_array_arg"/>
+<div class="headline">引数配列タイプコマンド書式</div>
+
+<div class="usage">
+<italic>command-name</italic> <italic>argument-list</italic><br/>
+<br/>
+<italic>argument-list</italic>:<br/>
+&nbsp; &nbsp; <italic>argument</italic> [[<bold>,</bold>]<sub><italic>opt</italic></sub> <italic>argument-list</italic> ]<sub><italic>opt</italic></sub><br/>
+<br/>
+<italic>argument</italic>:<br/>
+&nbsp; &nbsp; { <italic>parameter</italic><br/>
+&nbsp; &nbsp; | <bold>"</bold><italic>parameter</italic><bold>"</bold><br/>
+&nbsp; &nbsp; | <bold>'</bold><italic>parameter</italic><bold>'</bold> }<sub><italic>opt</italic></sub><br/>
+</div>
+<div class="usage">
+例１: @move "target", '1000'<br/>
+例２: @move target 1000
+</div>
+<br/>
+
+<div class="normal">
+　初めにコマンド名を記述し、それに続けて引数リストを記述する書式です。<br/>
+　各引数はクォーテーションで囲むこともでき、また引数同士を ,（コンマ）で区切って記述することもできます。<br/>
+　引数をクォーテーション記号で囲んだ場合には、文字列は C 言語 \ エスケープシーケンスと同様の処理が施されます。<br/>
+（但しシングルクォーテーションで囲んだ場合にはダブルクォーテーション、ダブルクォーテーションで囲んだ場合シングルクォーテーションは \ エスケープシーケンス無しでも記述できます）<br/>
+　クォーテーション記号で囲まない場合、引数は空白（又はタブ）記号で区切られるため、引数に空白を含むことができないことに注意してください。<br/>
+<br/>
+　引数を省略する場合には、引数を記述せずに（あるいは空白のみで） ,（コンマ）で区切って指定します。<br/>
+　例１と例２は同じ意味です。<br/>
+　コマンド名の先頭に @（アットマーク）を付加する必要はありませんが、後述するメッセージコマンドとの干渉を避けたい場合などに、@ や _ などをコマンド名の先頭文字にすることが推奨されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="user_command_array_named_arg"/>
+<div class="headline">名前付き引数配列タイプコマンド書式</div>
+
+<div class="usage">
+<italic>command-name</italic> <italic>named-argument-list</italic><br/>
+<br/>
+<italic>named-argument-list</italic>:<br/>
+&nbsp; &nbsp; <italic>named-argument</italic> [[<bold>,</bold>]<sub><italic>opt</italic></sub> <italic>named-argument-list</italic> ]<sub><italic>opt</italic></sub><br/>
+<br/>
+<italic>named-argument</italic>:<br/>
+&nbsp; &nbsp; [ <italic>name</italic> <bold>=</bold> ]<sub><italic>opt</italic></sub> <italic>argument</italic><br/>
+<br/>
+<italic>argument</italic>:<br/>
+&nbsp; &nbsp; { <italic>parameter</italic><br/>
+&nbsp; &nbsp; | <bold>"</bold><italic>parameter</italic><bold>"</bold><br/>
+&nbsp; &nbsp; | <bold>'</bold><italic>parameter</italic><bold>'</bold> }<sub><italic>opt</italic></sub><br/>
+</div>
+<div class="usage">
+例１: @move id="target" time=1000<br/>
+例２: @move target time=1000<br/>
+</div>
+<br/>
+
+<div class="normal">
+　初めにコマンド名を記述し、それに続けて名前付き引数リストを記述する書式です。<br/>
+　この書式の場合、引数を記述する順序は任意となります。<br/>
+　但し、name を省略することもでき、その場合にはデフォルトの順序で引数を記述することになります。<br/>
+　また、parameter をクォーテーション記号で囲んだ場合には、文字列は C 言語 \ エスケープシーケンスと同様の処理が施されます。<br/>
+（但しシングルクォーテーションで囲んだ場合にはダブルクォーテーション、ダブルクォーテーションで囲んだ場合シングルクォーテーションは \ エスケープシーケンス無しでも記述できます）<br/>
+　parameter をクォーテーション記号で囲まない場合に、空白を含む引数は記述できません。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="user_command_reg_usage"/>
+<div class="headline">正規表現タイプコマンド書式</div>
+
+<div class="usage">
+<italic>command-name</italic> <italic>regular-expression</italic>
+</div>
+<br/>
+
+<div class="normal">
+　引数を EntisGLS4 の正規表現形式で指定した書式で記述するタイプです。<br/>
+（EntisGLS4 の正規表現形式については後述）<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="user_command_msg_usage"/>
+<div class="headline">メッセージ文書式</div>
+
+<div class="usage">
+<italic>regular-expression</italic>
+</div>
+<br/>
+
+<div class="normal">
+　いずれのユーザー定義コマンドにも合致しない場合、これをメッセージ文として EntisGLS4 の正規表現形式で指定した書式で記述するタイプです。<br/>
+　メッセージ文とは、会話やモノローグなどの文章をゲーム中にメッセージウィンドウなどに出力することを想定したもので、ユーザーコマンドの書式ではない文章をそのまま処理することができる、記述効率と視認性を向上させるための構文です。<br/>
+　メッセージ文書式は他のユーザー定義コマンドとは異なり、１つしか定義できません。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+
+<a name="chapter_core_command"/>
+<div class="chapter">§Core コマンド</div>
+
+
+<a name="core_command_summary"/>
+<div class="headline">概要</div>
+<div class="normal">
+　Core コマンドとは、システムで定義されたユーザー定義コマンドです。<br/>
+<br/>
+</div>
+<br/>
+
+
+
+<a name="core_command_wait"/>
+<div class="headline">@wait 文</div>
+
+<div class="usage">
+<bold>@wait</bold> <italic>milli-sec</italic>
+</div>
+<br/>
+
+<div class="normal">
+　指定のミリ秒だけ処理を停止します。<br/>
+<br/>
+<div class="notes_indent1">
+※この @wait 文に限らず、すべての待機コマンドは、ユーザーのマウスクリックやスキップモードボタンなどによって、時間が経過しなくても通過する可能性があることに注意してください（標準実装の場合 AGLMessageProcessor クラスによって）。<br/>
+　ユーザー操作によって待機コマンドが中断されないようにするには、AGLMessageProcessor::GetBehaviorFlags のオーバーライド、@prohibit_skip コマンド、@disable_skip コマンドなどによるスキップ禁止を行ってください。<br/>
+　AGLMessageProcessor のようにユーザー操作で待機コマンドをスキップさせる作用のある EpicProcessor を使用しない環境下では、待機コマンドが条件以外で通過する心配はありません。
+</div>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="core_command_wait_for"/>
+<div class="headline">@wait_for 文</div>
+
+<div class="usage">
+<bold>@wait_for</bold> <italic>condition-expr</italic> [<bold>,</bold> <italic>timeout-expr</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="normal">
+　condition-expr の評価値が真になるまで停止します。<br/>
+　timeout-expr を指定した場合、タイムアウト時間（ミリ秒）を指定することもできます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="core_command_start_timer"/>
+<div class="headline">@start_timer 文</div>
+
+<div class="usage">
+<bold>@start_timer</bold>
+</div>
+<br/>
+
+<div class="normal">
+　タイマーをリセットし、この文が実行された時間を 0 とします。<br/>
+<br/>
+</div>
+<br/>
+
+
+
+<a name="core_command_wait_timer"/>
+<div class="headline">@wait_timer 文</div>
+
+<div class="usage">
+<bold>@wait_timer</bold> <italic>timeout-expr</italic>
+</div>
+<br/>
+
+<div class="normal">
+　@start_timer 実行時点から、timeout-expr で指定された時間（ミリ秒）が経過するまで停止します。<br/>
+　timeout-expr は一度の待機につき一度だけ評価されます。毎フレーム再評価はされません。但し、再度実行される際には再評価されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="core_command_terminate"/>
+<div class="headline">@terminate 文</div>
+
+<div class="usage">
+<bold>@terminate</bold> <italic>thread-name</italic>
+</div>
+<br/>
+
+<div class="normal">
+　thread-name で指定された名前のスレッドが実行中の場合、即座に終了させます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="core_command_trace"/>
+<div class="headline">@trace 文</div>
+
+<div class="usage">
+<bold>@trace</bold> <italic>trace-string</italic>
+</div>
+<br/>
+
+<div class="normal">
+　デバッグ用のトレース出力へ trace-string 文字列を出力します。<br/>
+　文字列中に %(expr) 形式の記述がある場合、expr が Rosetta スクリプトの数式として評価され、文字列に置換されて出力されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="core_command_permit_skip"/>
+<div class="headline">@permit_skip 文</div>
+
+<div class="usage">
+<bold>@permit_skip</bold> <italic>flags</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">flags</div>
+<div class="param_desc">有効にするスキップ機能のフラグの組み合わせ（複数の場合は | 記号で結合）を指定します。<br/>
+　all : すべてスキップ可能にする<br/>
+　time : 時間待機をスキップ可能にする<br/>
+　message : メッセージ待ちをスキップ可能にする<br/>
+　effect : エフェクト進行時間をスキップ可能にする<br/>
+　event : イベント同期処理をスキップ可能にする</div>
+</div>
+<br/>
+
+<div class="normal">
+　このスレッドでの待機命令のスキップを許可します。<br/>
+※ .thread 文で生成されたスレッドは、デフォルトでは待機命令のスキップは許可されていません。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="core_command_prohibit_skip"/>
+<div class="headline">@prohibit_skip 文</div>
+
+<div class="usage">
+<bold>@prohibit_skip</bold> <italic>flags</italic>
+</div>
+<br/>
+
+<div class="normal">
+　このスレッドでの待機命令のスキップを禁止します。<br/>
+　flags は @permit_skip と同じです。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="core_command_dis_interrupt"/>
+<div class="headline">@dis_interrupt 文</div>
+
+<div class="usage">
+<bold>@dis_interrupt</bold> {<bold>0</bold>|<bold>1</bold>}<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="normal">
+　割り込み禁止フラグを設定します。<br/>
+　通常は禁止フラグは設定されていません（0）。<br/>
+　割り込み禁止フラグが設定されている（1）と、割り込みの発生が禁止されます。<br/>
+　キー入力等で割り込みが発生する（特定ラベルへジャンプ／コールする）ような特殊なシステムで、割り込みを発生させたくない区間で禁止フラグを設定します。<br/>
+　設定された割り込み禁止フラグは、現在のブロック（又は関数）を脱出すると以前の状態に復帰します。<br/>
+　割り込みを利用する場合でも、このコマンドではなく、割り込みを発生させるシステムで用意されたコマンドで制御すべきです（UI等の連動の為）。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+
+<a name="chapter_def_file"/>
+<div class="chapter">§書式定義ファイル</div>
+
+
+<a name="def_file_summary"/>
+<div class="headline">概要</div>
+<div class="normal">
+　書式定義ファイルは、文字通りユーザー定義コマンドの書式を定義したファイルです。<br/>
+　xml 形式で記述します。<br/>
+<br/>
+　Antirrhinum コンパイラはソースコードを xml 形式に変換しますが、各コマンドは基本的に１つの xml タグに対応しています。<br/>
+　書式定義ファイルは、このコマンドごとの対応を記述します。<br/>
+　また、変則的な処理を行いたい場合には、その処理を Rosetta スクリプトで定義ファイル内に記述することもできます。<br/>
+<br/>
+　書式定義ファイルを書き換えるだけでスクリプトの書式を容易に定義／変更することができます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="def_file_root_tag"/>
+<div class="headline">&lt;agl_usage_definition&gt; タグ</div>
+<div class="normal">
+　agl_usage_definition タグは書式定義ファイルのルート要素です。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="def_file_script_tag"/>
+<div class="headline">&lt;agl_usage_definition&gt;&lt;script&gt; タグ</div>
+
+<div class="usage">
+<bold>&lt;script file="</bold><italic>rosetta-script-path</italic><bold>"</bold> [ <bold>listener="</bold><italic>listener-class</italic><bold>"</bold> ]<sub><italic>opt</italic></sub> <bold>"/&gt;</bold>
+</div>
+<br/>
+
+<div class="normal">
+　rosetta-script-path に指定された Rosetta スクリプトファイルを読み込みます。<br/>
+　また、listener-class が指定された場合、インスタンスを作成しコンパイラにリスナを追加します（後述 AGLCompiler.Listener 参照）。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="def_file_macro_tag"/>
+<div class="headline">&lt;agl_usage_definition&gt;&lt;macro&gt; タグ</div>
+
+<div class="usage">
+<bold>&lt;macro file="</bold><italic>antirrhinum-macro-path</italic> <bold>"/&gt;</bold>
+</div>
+<br/>
+
+<div class="normal">
+　antirrhinum-macro-path に指定された Antirrhinum マクロファイルを読み込みます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="def_file_import_tag"/>
+<div class="headline">&lt;agl_usage_definition&gt;&lt;import&gt; タグ</div>
+
+<div class="usage">
+<bold>&lt;import file="</bold><italic>def-file-path</italic><bold>"/&gt;</bold>
+</div>
+<br/>
+
+<div class="normal">
+　def-file-path に指定された書式定義ファイルを追加で読み込みます。<br/>
+　import タグで読み込まれる書式定義ファイルに import タグがあっても問題ありません。<br/>
+　また、同じ書式定義ファイルが２回以上 import される場合には、２回目以降は処理はスキップされます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="def_file_command_tag"/>
+<div class="headline">&lt;agl_usage_definition&gt;&lt;command&gt; タグ</div>
+
+<div class="usage">
+<bold>&lt;command <br/>
+&nbsp; &nbsp; lead="</bold><italic>command-lead-string</italic><bold>" <br/>
+&nbsp; &nbsp; cmd="</bold><italic>ouput-tag-name</italic><bold>" <br/>
+&nbsp; &nbsp; arg_type="</bold>{<bold>array</bold>|<bold>named</bold>|<bold>var_named</bold>|<bold>usage</bold>}<sub><italic>opt</italic></sub><bold>" <br/>
+&nbsp; &nbsp; </bold>[ <bold>usage="</bold><italic>arg-regular-expression</italic><bold>"</bold> ]<sub><italic>opt</italic></sub><bold> &gt;<br/>
+&nbsp; &lt;arg_list&gt; </bold><italic>arg-def-list</italic><bold> &lt;/arg_list&gt;<br/>
+&nbsp; </bold>[ <bold>&lt;proto_list&gt; </bold><italic>prototype-list</italic><bold> &lt;/proto_list&gt;</bold> ]<sub><italic>opt</italic></sub><bold><br/>
+&nbsp; </bold>[ <bold>&lt;proc&gt;&lt;![CDATA[<br/>
+&nbsp; &nbsp; &nbsp; function( HashMap </bold><italic>params</italic><bold> )<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  -&gt; AGLCompiler { </bold><italic>rosetta-statement-list</italic><bold> } ]]&gt;&lt;/proc&gt;</bold> ]<sub><italic>opt</italic></sub><bold><br/>
+&lt;/command&gt;</bold><br/>
+<br/>
+<italic>arg-def-list</italic>:<br/>
+&nbsp; &nbsp; <bold>&lt;arg name="</bold><italic>xml-attr-name</italic><bold>"</bold> [<bold>default="</bold><italic>default-value</italic><bold>"</bold>]<sub><italic>opt</italic></sub> <bold>/&gt;</bold> [ <italic>arg-def-list</italic> ]<sub><italic>opt</italic></sub><br/>
+<br/>
+<italic>prototype-list</italic>:<br/>
+&nbsp; &nbsp; <bold>&lt;prototype cmd="</bold><italic>output-tag-name</italic><bold>"</bold> [ <bold>vararg="1"</bold> ]<sub><italic>opt</italic></sub> <bold>&gt;</bold><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; <italic>proto-arg-list</italic><br/>
+&nbsp; &nbsp; <bold>&lt;/prototype&gt;</bold> [ <italic>prototype-list</italic> ]<sub><italic>opt</italic></sub><br/>
+<br/>
+<italic>proto-arg-list</italic>:<br/>
+&nbsp; &nbsp; <bold>&lt;arg name="</bold><italic>xml-attr-name</italic><bold>"</bold><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; [ <bold>src="</bold><italic>source-param-name</italic><bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; [ <bold>value="</bold><italic>constant-value</italic><bold>"</bold> ]<sub><italic>opt</italic></sub> <bold>/&gt;</bold> [ <italic>proto-arg-list</italic> ]<sub><italic>opt</italic></sub><br/>
+
+
+</div>
+<br/>
+
+<div class="normal">
+　command タグはユーザー定義コマンドの書式と、出力する xml タグの対応を定義します。<br/>
+<br/>
+　command-lead-string はユーザー定義コマンドのコマンド名に該当します。<br/>
+<br/>
+　ouput-tag-name と arg-def-list は出力する xml タグのタグ名と、属性名に対応しています。<br/>
+　arg_type 属性には書式のタイプを指定します。<br/>
+　array は配列タイプ引数、named は名前付き配列タイプ引数、var_named は名前付き配列タイプ引数ですが、定義された引数以外の名前の記述も可能な書式です。<br/>
+　arg_type="usage" を指定した場合には arg-regular-expression に書式を EntisGLS4 の正規表現で指定します。<br/>
+<br/>
+　arg-def-list に指定したパラメータ名（xml-attr-name）をそのまま出力しない場合や、複数の xml タグとして出力する場合には、prototype-list を記述します。<br/>
+　prototype-list では、一つの prototype  タグが、出力する一つの xml タグに対応します。<br/>
+　vararg="1" を指定したコマンドはプロトタイプに定義されていないパラメータも出力します。<br/>
+<br/>
+　またより複雑なパラメータへの加工を行いたい場合には、proc タグで処理関数を Rosetta スクリプトで記述できます。<br/>
+　関数は引数に HashMap を受け取り、これはユーザー定義コマンドをパースした arg-def-list に対応しています。<br/>
+　スクリプトではパラメータを変更したり、追加することができます。<br/>
+　また、getParserContext() メソッドで取得できる HashMap オブジェクトに値を保存したり取り出したりして、文脈に依存した処理を行うこともできます。<br/>
+　処理された HashMap をソースとして prototype-list に基づいた xml タグの出力が行われます。<br/>
+<br/>
+</div>
+<br/>
+
+
+<a name="def_file_message_tag"/>
+<div class="headline">&lt;agl_usage_definition&gt;&lt;message&gt; タグ</div>
+
+<div class="usage">
+<bold>&lt;message usage="</bold><italic>regular-expression</italic><bold>" /&gt;<br/>
+&nbsp; &lt;arg_list&gt; </bold><italic>arg-def-list</italic><bold> &lt;/arg_list&gt;<br/>
+&nbsp; </bold>[ <bold>&lt;parser&gt;&lt;![CDATA[<br/>
+&nbsp; &nbsp; &nbsp; function( HashMap </bold><italic>params</italic><bold>, StringParser </bold><italic>parser</italic><bold> )<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : boolean -&gt; AGLCompiler { </bold><italic>parser-statement-list</italic><bold> } ]]&gt;&lt;/parser&gt;</bold> ]<sub><italic>opt</italic></sub><bold><br/>
+&nbsp; </bold>[ <bold>&lt;proc&gt;&lt;![CDATA[<br/>
+&nbsp; &nbsp; &nbsp; function( HashMap </bold><italic>params</italic><bold> )<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : String -&gt; AGLCompiler { </bold><italic>proc-statement-list</italic><bold> } ]]&gt;&lt;/proc&gt;</bold> ]<sub><italic>opt</italic></sub><bold><br/>
+&lt;/message&gt;</bold><br/>
+<br/>
+<italic>arg-def-list</italic>:<br/>
+&nbsp; &nbsp; <bold>&lt;arg name="</bold><italic>xml-attr-name</italic><bold>" /&gt;</bold> [ <italic>arg-def-list</italic> ]<sub><italic>opt</italic></sub><br/>
+</div>
+<br/>
+
+<div class="normal">
+　message タグはメッセージ文の書式と、出力する xml タグの対応を定義します。<br/>
+　通常は regular-expression に EntisGLS4 の正規表現でメッセージ文全体の書式と、出力する xml タグの属性を指定します。<br/>
+　但し、parser タグにパーサー関数を記述した場合には regular-expression と arg-def-list を指定する必要はありません（無視されます）。<br/>
+<br/>
+　パーサー関数は１つ目の引数に HashMap を、２つ目の引数にメッセージ文が設定された StringParser を受け取り、関数はメッセージ文を解釈して、HashMap にパラメータを設定し、構文に誤りがなければ true を返却します。<br/>
+　パーサー関数は単純に１行を処理するだけではなく、getParserContext() メソッドで取得できる HashMap オブジェクトに値を保存したり取り出したりして、文脈に依存した解釈を行うことができます。<br/>
+<br/>
+　また、ユーザー関数同様に proc タグでは、既に解釈されたパラメータへの加工を行うことができます。<br/>
+　但しユーザー定義コマンドとは異なり、加工関数は String を返却し、これは出力する xml タグのタグ名となります。<br/>
+　デフォルトのメッセージ文の出力する xml タグは msg となります。<br/>
+　単にタグ名を任意に変更したい場合には
+
+<div class="code_quote">
+	&lt;proc&gt;&lt;![CDATA[<br/>
+		&nbsp; &nbsp; function( HashMap params ) : String -&gt; AGLCompiler <br/>
+		&nbsp; &nbsp; {<br/>
+		&nbsp; &nbsp; &nbsp; &nbsp; return "msg_tag" ;<br/>
+		&nbsp; &nbsp; }<br/>
+	]]&gt;&lt;/proc&gt;
+</div>
+
+のようにタグ名を返却するだけの関数を記述します。<br/>
+　null を返却するとそのメッセージ行に対応する xml タグは出力されません。<br/>
+　複数のタグを出力したい場合や完全にマニュアルで出力したい場合には、加工関数内で addCodeCommand を呼び出し、null を返却します。<br/>
+（getParserContext() で取得する HashMap に文脈情報を保存しておくことによって、複数行で１つの xml タグを出力することもできます）<br/>
+
+</div>
+
+
+
+
+<a name="chapter_compiler"/>
+<div class="chapter">§コンパイラツール</div>
+
+
+<a name="compiler_command_line_tool"/>
+<div class="headline">コマンドラインツール</div>
+
+<div class="usage">
+<bold>antirrhinum</bold>[<bold>.bat</bold>]<sub><italic>opt</italic></sub> <italic>argument-list</italic><br/>
+<br/>
+<italic>argument-list</italic>:<br/>
+&nbsp; &nbsp; <italic>argument</italic> [ <italic>argument-list</italic> ]<sub><italic>opt</italic></sub><br/>
+<br/>
+<italic>argument</italic>:<br/>
+&nbsp; &nbsp; { <bold>/def</bold> <italic>usage-def-file</italic><br/>
+&nbsp; &nbsp; | <bold>/cfg</bold> <italic>config-file</italic><br/>
+&nbsp; &nbsp; | <bold>/dst</bold> <italic>output-file</italic><br/>
+&nbsp; &nbsp; | <bold>/dst_dir</bold> <italic>destination-directory</italic><br/>
+&nbsp; &nbsp; | [<bold>/src</bold>]<sub><italic>opt</italic></sub> <italic>source-file</italic> }<sub><italic>opt</italic></sub><br/>
+</div>
+<br/>
+
+<div class="normal">
+　コマンドラインツールは、Tools ディレクトリに置かれています。<br/>
+　コンパイラクラスである AGLCompiler は antirrhinum.rs に記述され、コマンドラインの引数の解釈は antirrhinum_compiler.rs に実装されています。<br/>
+　antirrhinum.bat は antirrhinum_compiler.rs を呼び出しています。<br/>
+<br/>
+　デフォルトの書式定義ファイルもこのディレクトリに設置されており、コンパイラは環境変数 ANTIRRHINUM_HOME を参照し、カレントディレクトリにファイルが見つからないとき、%ANTIRRHINUM_HOME%\Tools に相当するディレクトリのファイルを探します。<br/>
+<br/>
+　usage-def-file には書式定義ファイルを、config-file には設定ファイルを、output-file には出力ファイル名を、destination-directory には出力ディレクトリを、source-file  には Antirrhinum スクリプトソースファイルを指定します。<br/>
+　書式定義ファイルとソースファイルは複数指定することができますが、複数の書式定義ファイルを import する書式ファイルを記述しておけば 1 つにすることができます。<br/>
+　ソースファイルを複数指定した場合には出力ファイル名は指定できません（同名の .xmlagl ファイルが出力ディレクトリへ出力されます）。<br/>
+<br/>
+　設定ファイルはコンパイラ（書式定義ファイルから読み込むスクリプトが参照してコンパイルする際）に、設定を反映するためのものです。<br/>
+　スクリプト毎に自由な設定の書式をとることができますが、基本的に後述の AGLKernel::LoadConfiguration で読み込む設定ファイルと全く同じものを渡してコンパイルできるように設計します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="compiler_AGLCompiler"/>
+<div class="headline">AGLCompiler クラス</div>
+
+<div class="normal">
+　AGLCompiler を直接使用してコンパイルする場合には以下のような Rosetta スクリプトを記述します。<br/>
+
+<div class="code_quote">
+	import "antirrhinum.rs" ;<br/>
+<br/>
+	// AGLCompiler の作成<br/>
+	AGLCompiler	compiler = new AGLCompiler() ;<br/>
+<br/>
+	// 設定ファイルの読み込み<br/>
+	compiler.loadConfigFile( "agl_config.xml" ) ;<br/>
+<br/>
+	// ユーザー定義コマンドの書式定義ファイルの読み込み<br/>
+	compiler.loadUsageDefFile( "def_user_cmd1.xml" ) ;<br/>
+	compiler.loadUsageDefFile( "def_user_cmd2.xml" ) ;<br/>
+	...<br/>
+	// マクロスクリプトの読み込み（必要な場合）<br/>
+	compiler.initialize() ;<br/>
+	compiler.loadSourceFile( "macro_script.txt" ) ;<br/>
+<br/>
+	// スクリプトファイルのコンパイル<br/>
+	compiler.run( "source1.txt", "source1.xmlagl" ) ;<br/>
+	compiler.run( "source2.txt", "source2.xmlagl" ) ;<br/>
+	...<br/>
+</div>
+
+　一度 AGLCompiler オブジェクトを作成し、設定ファイル、書式定義ファイルを読み込んでおけば、再度書式定義ファイルを読み込み直さなくても何度でもスクリプトファイルをコンパイルできます。<br/>
+（ここでは簡略化のためエラー判定を省略しています）<br/>
+<br/>
+　コンパイル結果をファイルへ書き出さずに直接メモリ上で受け取りたい場合には、run メソッドの代わりに、
+
+<div class="code_quote">
+	compiler.initialize() ;<br/>
+	compiler.loadSourceFile( "source1.txt" ) ;<br/>
+	SmartBufferFile buf = compiler.formatModuleFile() ;
+</div>
+
+のようなコードで、buf に直接 xml ファイルのバイナリを受け取ることができます。<br/>
+　この場合でも何度もスクリプトファイルをコンパイルすることができます。<br/>
+（initialize メソッドでは書式定義やマクロ定義は保持されます）<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+
+
+<a name="chapter_AGLCompiler_class"/>
+<div class="chapter">§AGLCompiler クラス</div>
+
+<a name="AGLCompiler_class_loadUsageDefFile"/>
+<div class="headline">loadUsageDefFile</div>
+
+<div class="usage">
+public boolean loadUsageDefFile( String strDefFile ) ;
+</div>
+<br/>
+
+<div class="normal">
+　書式定義ファイルを読み込みます。<br/>
+　関数が成功すると true が返されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLCompiler_class_loadConfigFile"/>
+<div class="headline">loadConfigFile</div>
+
+<div class="usage">
+public boolean loadConfigFile( String strCfgFile ) ;
+</div>
+<br/>
+
+<div class="normal">
+　設定ファイルを読み込みます。<br/>
+　関数が成功すると true が返されます。<br/>
+　読み込んだ XMLDocument は getConfig 関数で取得できます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLCompiler_class_run"/>
+<div class="headline">run</div>
+
+<div class="usage">
+public int run( String strSrcPath, String strDstPath ) ;
+</div>
+<br/>
+
+<div class="normal">
+　スクリプトをコンパイルします。<br/>
+　strSrcPath には Antirrhinum スクリプトファイル名を、strDstPath には出力ファイル名を指定しします。<br/>
+　関数は発生したエラー数を返します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLCompiler_class_initialize"/>
+<div class="headline">initialize</div>
+
+<div class="usage">
+public void initialize( void ) ;
+</div>
+<br/>
+
+<div class="normal">
+　スクリプトコンパイル用リソースを初期設定します。<br/>
+　但し、書式定義やリスナの設定などは初期化されません。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLCompiler_class_loadSourceFile"/>
+<div class="headline">loadSourceFile</div>
+
+<div class="usage">
+public int loadSourceFile( String strFilePath, boolean flagNoSuccessReport = false ) ;
+</div>
+<br/>
+
+<div class="normal">
+　Antirrhinum スクリプトを読み込んでコンパイルします。<br/>
+　strFilePath にはスクリプトのファイルパスを指定します。<br/>
+　flagNoSuccessReport に true を指定した場合、エラーが発生しなかった場合には標準出力に結果を出力しません。<br/>
+　関数は発生したエラー数を返します。<br/>
+<br/>
+　この関数は run から呼び出されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLCompiler_class_compileSource"/>
+<div class="headline">compileSource</div>
+
+<div class="usage">
+public int compileSource( StringParser sparsSrc, String strFilePath, boolean flagNoSuccessReport = false ) ;
+</div>
+<br/>
+
+<div class="normal">
+　Antirrhinum スクリプトをコンパイルします。<br/>
+　sparsSrc には Antirrhinum スクリプトを、strFilePath にはスクリプトのファイル名を指定します。<br/>
+　flagNoSuccessReport に true を指定した場合、エラーが発生しなかった場合には標準出力に結果を出力しません。<br/>
+　関数は発生したエラー数を返します。<br/>
+<br/>
+　この関数はファイルを介さずに直接コンパイルすることができます。<br/>
+　strFilePath は仮のもので構いませんが、AGLCompiler.Listener がファイル名を使って何らかの処理をする場合には、その処理に対して有効な名前にしておく必要があります。<br/>
+　この関数は loadSourceFile から呼び出されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLCompiler_class_saveModuleFile"/>
+<div class="headline">saveModuleFile</div>
+
+<div class="usage">
+public boolean saveModuleFile( String strFilePath ) ;
+</div>
+<br/>
+
+<div class="normal">
+　コンパイルされた xml をファイルへ出力します。<br/>
+　strFilePath には出力するファイルパスを指定します。<br/>
+　関数が成功すると true が返されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLCompiler_class_formatModuleFile"/>
+<div class="headline">formatModuleFile</div>
+
+<div class="usage">
+public SmartBufferFile formatModuleFile() ;
+</div>
+<br/>
+
+<div class="normal">
+　コンパイルされた xml を SmartBufferFile へ出力します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLCompiler_class_getLastCodeCommand"/>
+<div class="headline">getLastCodeCommand</div>
+
+<div class="usage">
+public const XMLDocument getLastCodeCommand() ;
+</div>
+<br/>
+
+<div class="normal">
+　最後に出力された xml タグを取得します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLCompiler_class_addCodeCommand"/>
+<div class="headline">addCodeCommand</div>
+
+<div class="usage">
+public void addCodeCommand( XMLDocument xmlCmd ) ;
+</div>
+<br/>
+
+<div class="normal">
+　コマンド用 xml タグを追加します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLCompiler_class_getConfig"/>
+<div class="headline">getConfig</div>
+
+<div class="usage">
+public const XMLDocument getConfig() ;
+</div>
+<br/>
+
+<div class="normal">
+　loadConfigFile で読み込んだ XMLDocument を取得します。<br/>
+　読み込んでいない場合には null が返されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLCompiler_class_getCompileListener"/>
+<div class="headline">getCompileListener</div>
+
+<div class="usage">
+public Listener getCompileListener( Class cls )
+</div>
+<br/>
+
+<div class="normal">
+　指定されたクラスに適合する Listener を取得します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLCompiler_class_getParserContext"/>
+<div class="headline">getParserContext</div>
+
+<div class="usage">
+public const HashMap getParserContext() ;
+</div>
+<br/>
+
+<div class="normal">
+　書式処理関数で利用できる HashMap オブジェクトを取得します。<br/>
+　自由にオブジェクト要素を追加、変更、削除して構いませんが、処理関数同士で副作用がないように注意しなければなりません。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLCompiler_class_outputErrort"/>
+<div class="headline">outputError</div>
+
+<div class="usage">
+public void outputError( String sErr ) ;
+</div>
+<br/>
+
+<div class="normal">
+　エラーを出力します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+
+
+<a name="chapter_listener_class"/>
+<div class="chapter">§AGLCompiler.Listener クラス</div>
+
+
+<a name="listener_class_summary"/>
+<div class="headline">概要</div>
+
+<div class="normal">
+　書式定義ファイルで Rosetta スクリプトを読み込む場合、そのスクリプトで AGLCompiler.Listener 派生クラスを記述し、より複雑なコンパイル処理をカスタマイズすることができます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="listener_class_initializee"/>
+<div class="headline">initialize</div>
+
+<div class="usage">
+public abstract void initialize( AGLCompiler compiler, XMLDocument xmlTag ) ;
+</div>
+<br/>
+
+<div class="normal">
+　リスナの初期化処理が必要な場合、ここで行います。<br/>
+　xmlTag には書式定義ファイルの &lt;script&gt; タグが渡されます。追加的なパラメータをタグの属性に記述しておき、それを使って初期化することができます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="listener_class_onBeginCompile"/>
+<div class="headline">onBeginCompile</div>
+
+<div class="usage">
+public abstract void onBeginCompile( AGLCompiler compiler, String strScriptFile ) ;
+</div>
+<br/>
+
+<div class="normal">
+　Antirrhinum スクリプトのコンパイルを開始する際に、ファイル毎に呼び出されます。<br/>
+　strScriptFile には AGLCompiler.compileSource に渡されたファイル名が渡されます。<br/>
+
+<br/>
+</div>
+<br/>
+<br/>
+
+
+<a name="listener_class_onBlankLine"/>
+<div class="headline">onBlankLine</div>
+
+<div class="usage">
+	public abstract void onBlankLine( AGLCompiler compiler ) ;
+</div>
+<br/>
+
+<div class="normal">
+　空白行を通過する際に呼び出されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="listener_class_isExtendCommand"/>
+<div class="headline">isExtendCommand</div>
+
+<div class="usage">
+public abstract boolean isExtendCommand( AGLCompiler compiler, StringParser line ) ;
+</div>
+<br/>
+
+<div class="normal">
+　ディレクティブやユーザー定義コマンドに合致しない行は、メッセージ文として解釈される前に呼び出されます（空白行は呼び出されません）。<br/>
+　line にはスクリプト１行が設定されています。<br/>
+　リスナが何らかの処理を行い、この後コンパイルする必要が無い場合には true を返却します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="listener_class_beforeAddCommand"/>
+<div class="headline">beforeAddCommand</div>
+
+<div class="usage">
+public abstract void beforeAddCommand( AGLCompiler compiler, XMLDocument cmd ) ;
+</div>
+<br/>
+
+<div class="normal">
+　何らかのコマンドがコンパイルされて xml タグが追加される前に呼び出されます。<br/>
+　cmd 引数には追加される xml タグが渡されます。このタグの中身を変更した場合、その変更は出力に反映されます。<br/>
+　タグの出力を中止したい場合、
+
+<div class="code_quote">
+	cmd.removeAllContents() ;<br/>
+</div>
+
+のように空の要素に変換すると AGLCompiler はタグを出力しません。<br/>
+　あるいは setTag 関数で &lt;nop&gt; タグへ置き換えます（&lt;nop&gt; タグは出力されますが、標準実装では何も実行されません）。<br/>
+
+<br/>
+　この関数は AGLCompiler.addCodeCommand 関数内から呼び出されるため、この関数内で addCodeCommand 関数を呼び出す場合には無限ループにならないように注意が必要です。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="listener_class_onEndCompile"/>
+<div class="headline">onEndCompile</div>
+
+<div class="usage">
+public abstract void onEndCompile( AGLCompiler compiler ) ;
+</div>
+<br/>
+
+<div class="normal">
+　Antirrhinum スクリプトをすべて処理し終えた時に呼び出されます（必ず onBeginCompile の呼び出しに対応します）。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="chapter_reg_expression"/>
+<div class="chapter">§EntisGLS4 正規表現</div>
+
+
+<a name="reg_expr_summary"/>
+<div class="headline">概要</div>
+
+<div class="normal">
+　EntisLGS4 での正規表現と文字列解釈は SSystem::SUsageMatcher クラスで提供されており、これは EntisGLS3 の正規表現と互換性があります。<br/>
+　元々この正規表現形式は EntisGLS3 で提供される独自の言語「詞葉」のユーザー定義マクロ構文を記述するためのもので、文字単位より文節単位の処理に適しています。<br/>
+<br/>
+　１つの文節は、空白記号（タブや改行を含む）か（区切り）記号によって区切られた範囲の文字列です。また当然区切り記号自身も１つの文節となります。<br/>
+　例えば、
+
+<div class="code_quote">
+	int a=0;<br/>
+	a+=func(b,c);
+</div>
+
+のようなテキストは、
+
+<div class="code_quote">
+	"int", "a", "=", "0", ";", "a", "+=", "func", "(", "b", ",", "c", ")", ";"
+</div>
+
+のような文字列配列に分解されます。<br/>
+　ここで１つ注意すべきことがあります。<br/>
+　例えば、"+=" はなぜ１つの文節になり、");" は２つの文節に分解されたのでしょうか？<br/>
+　これに対応する最も原始的な実装は SSystem::SStringParser クラスによって行われ、記号（区切り記号）は、通常の記号（連続した場合１つの文節にする）と、必ず１文字で１つの文節になる特殊区切り記号が定義されていて、この場合、括弧記号はデフォルトで特殊区切り記号として設定されているので分割されます。<br/>
+　次に疑問に思うのは C 言語などと同等の演算子を記述する場合、&gt;&gt; はどうするのか？ということでしょう。<br/>
+　このような特殊な文節の判定は、処理したい言語毎に SStringParser から派生したクラスが利用されています。<br/>
+　しかし正規表現では（直接 SUsageMatcher クラスを利用する場合の除き）SStringParser の実装に暗黙に準じます。<br/>
+　したがって、文節単位のマッチングでは
+
+<div class="code_quote">
+	&gt;&gt;
+</div>
+
+と
+
+<div class="code_quote">
+	&gt; &gt;
+</div>
+
+は区別できません。&gt;= や &lt;= は注意が必要です。 <br/>
+（厳密には正規表現 &gt;&gt; には &gt; &gt; はマッチングしませんが、正規表現 &gt; &gt; に &gt;&gt; はマッチングします）<br/>
+<br/>
+　正規表現には文節単位ではない文字や文字列のマッチング書式もあり、組み合わせて記述する必要があります。<br/>
+　SStringParser では以下の文字が特殊区切り記号として定義されています。<br/>
+
+<div class="code_quote">
+	" ' ( ) , ; &lt; &gt; [ ] { }
+</div>
+
+　記述の通り、特殊区切り記号とは、連続していても1文字1文字が独立した文節として解釈される文字記号です。<br/>
+<br/>
+　また、記号（区切り記号）として以下の文字が定義されています。
+
+<div class="code_quote">
+	! # $ % &amp; * + - . / : = \ ^ ` | ~
+</div>
+
+　記号は記号同士が連続している場合、繋がった1つの文節として解釈される文字です。<br/>
+　@（アットマーク）と _（アンダーバー）は区切り記号として扱われないことに注意してください。<br/>
+
+
+<br/>
+</div>
+<br/>
+
+
+<a name="reg_expr_phrase"/>
+<div class="headline">文節</div>
+
+<div class="usage">
+<italic>abc</italic>
+</div>
+<div class="usage">
+<bold>&amp;!</bold><italic>abc</italic><bold>&amp;</bold>
+</div>
+<br/>
+
+<div class="normal">
+　正規表現は文節単位でマッチングされます。<br/>
+　&amp;! ～ &amp; で囲まれた文字列は、アルファベットの大文字小文字を区別せずに文節単位でマッチングします。<br/>
+　&amp; 記号で囲んだ文字列に、&amp;、+、!、\ 記号が含まれる場合、\&amp;、\+、\!、\\ などのように記述する必要があります。<br/>
+<br/>
+　空白記号（タブや改行含む）は無視されるため、例えば以下のような正規表現
+
+<div class="code_quote">
+	&amp;!This&amp; is a pen .
+</div>
+
+は、
+
+<div class="code_quote">
+	this &nbsp;is<br/>
+	a &nbsp; &nbsp; pen.
+</div>
+
+にもマッチングします。
+
+<br/>
+</div>
+<br/>
+
+
+<a name="reg_expr_string"/>
+<div class="headline">文字列</div>
+
+<div class="usage">
+<bold>&amp;</bold><italic>abc</italic><bold>&amp;</bold>
+</div>
+<div class="usage">
+<bold>&amp;+</bold><italic>abc</italic><bold>&amp;</bold>
+</div>
+<br/>
+
+<div class="normal">
+　&amp; 記号で囲むことで、文節を考慮しない文字列の一致判定を行うことができます。<br/>
+　&amp;+ ～ &amp; で囲まれた文字列は、アルファベットの大文字小文字を区別せずに文字列の一致判定を行います。<br/>
+
+
+<br/>
+</div>
+<br/>
+
+
+<a name="reg_expr_character"/>
+<div class="headline">文字</div>
+
+<div class="usage">
+<bold>\</bold><italic>single-character</italic>
+</div>
+<div class="usage">
+<bold>&lt;</bold><italic>multi-characters</italic><bold>&gt;</bold><br/>
+</div>
+<div class="usage">
+<bold>&lt;-</bold><italic>multi-characters</italic><bold>&gt;</bold><br/>
+</div>
+<br/>
+
+<div class="normal">
+　\ 記号に続く１文字は無条件に文節を考慮しない１文字として判定されます。<br/>
+<br/>
+　&lt; ～ &gt; 括弧で囲むと、その範囲の文字のいずれかの１文字として判定されます。ただし、\、-、&lt;、&gt; 記号は \\、\-、\&lt;、\&gt; のように記述する必要があります。<br/>
+　また、A-Z のようにハイフンが記述されるとその両隣りの文字の文字コード区間のすべての文字と同等の記述になります。つまり、A-Z は ABCDEFGHIJKLMNOPQRSTUVWXYZ と同等です。また、A-Za-z はすべての半角アルファベットを意味します。<br/>
+<br/>
+　&lt;- ～ &gt; 括弧で囲むと、その範囲の文字のいずれの文字でもない１文字として判定されます。<br/>
+
+
+<br/>
+</div>
+<br/>
+
+
+<a name="reg_expr_space"/>
+<div class="headline">空白</div>
+
+<div class="normal">
+　正規表現中のスペースは、０文字以上のスペース記号（タブ、改行コードを含む）にマッチングします。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="reg_expr_end_of_usage"/>
+<div class="headline">文末</div>
+
+<div class="usage">
+<bold>\</bold>
+</div>
+<br/>
+
+<div class="normal">
+　正規表現末尾の \ 記号は、マッチング対象の文字列の末尾に合致することを指定します。<br/>
+　正規表現末尾に \ 記号が無い場合には、対象文字列の左側の一致するまでの範囲が対象となります。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="reg_expr_repeat"/>
+<div class="headline">書式の反復</div>
+
+<div class="usage">
+<italic>abc</italic><bold>*</bold>
+</div>
+<br/>
+
+<div class="normal">
+　* 記号直前の書式が１回以上反復することを指定します。<br/>
+　後述の () や []、{} などの入れ子状になった複数の書式を含んでいても有効です。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="reg_expr_wildcard_number"/>
+<div class="headline">数値ワイルドカード</div>
+
+<div class="usage">
+<bold>%n</bold>
+</div>
+<br/>
+
+<div class="normal">
+　任意桁の数値（10進数の整数）を指定します。<br/>
+　{-|[+]} &lt;0-9&gt;* と同じ意味です。（[]、{} については後述）
+<br/>
+</div>
+<br/>
+
+
+<a name="reg_expr_wildcard_phrase"/>
+<div class="headline">文節ワイルドカード</div>
+
+<div class="usage">
+<bold>%t</bold>
+</div>
+<br/>
+
+<div class="normal">
+　任意の文節を指定します。<br/>
+　記号のみの文節でもマッチングすることに注意してください。<br/>
+<br/>
+</div>
+<br/>
+
+
+<a name="reg_expr_wildcard_enclosed"/>
+<div class="headline">閉文字列ワイルドカード</div>
+
+<div class="usage">
+<bold>%c</bold><italic>close-character</italic>
+</div>
+<br/>
+
+<div class="normal">
+　close-character までの文字列を指定します。<br/>
+　close-character 自身は含まないことに注意してください。<br/>
+　SStringParser（及び派生クラス）の実装によって終端判定が異なることに注意してください。<br/>
+　デフォルトの SStringParser 実装では、"（ダブルクォーテーション）と '（シングルクォーテーション）が close-character の場合、C 言語と同様の \ 記号エスケープシーケンスが機能するものとして判定されます。<br/>
+<br/>
+　例えば以下のような正規表現
+
+<div class="code_quote">
+	"%c""
+</div>
+
+に対して
+
+<div class="code_quote">
+	"\"hello world\""
+</div>
+
+をマッチングした場合、%c" にマッチングする箇所は \"hello world\" になります。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="reg_expr_wildcard_string"/>
+<div class="headline">文字列ワイルドカード</div>
+
+<div class="usage">
+<bold>%s</bold>
+</div>
+<br/>
+
+<div class="normal">
+　任意の文字列を指定します。<br/>
+　文字列の終端は、%s の直後の書式に合致する最初の位置です。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="reg_expr_wildcard_expression"/>
+<div class="headline">数式ワイルドカード</div>
+
+<div class="usage">
+<bold>%x</bold>
+</div>
+<br/>
+
+<div class="normal">
+　任意の数式を指定します。<br/>
+　数式の終端は、%x の直後の書式に合致する最初の位置です。<br/>
+　%s との違いは、"（ダブルクォーテーション）と '（シングルクォーテーション）で囲まれた文字列中、あるいは () 括弧、[] 括弧、{} 括弧で入れ子になった途中で %x の次の書式に合致する箇所があったとしても、それは無視されるという点です。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="reg_expr_parameter"/>
+<div class="headline">引数箇所の指定</div>
+
+<div class="usage">
+<bold>(</bold><italic>abc</italic><bold>)</bold>
+</div>
+<br/>
+
+<div class="normal">
+　() 括弧で囲まれた正規表現にマッチングする文字列が引数として抽出され、文字列配列として取得することができます。<br/>
+　例えば、
+
+<div class="code_quote">
+	if (%x) then (%x) [else (%x)]
+</div>
+
+のような正規表現（[] については後述）に対して、
+
+<div class="code_quote">
+	if a == b then "not else"
+</div>
+
+のような文字列を処理した場合、
+
+<div class="code_quote">
+	"a == b", "\"not else\"", ""
+</div>
+
+のような文字列配列を受け取ります。（ここでは便宜上文字列は C 言語 \ エスケープシーケンスを伴って表現しています）<br/>
+<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="reg_expr_omittable"/>
+<div class="headline">省略可能箇所の指定</div>
+
+<div class="usage">
+<bold>[</bold><italic>abc</italic><bold>]</bold>
+</div>
+<br/>
+
+<div class="normal">
+　[] 括弧で囲まれた正規表現は、省略可能であることを意味します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="reg_expr_selectable"/>
+<div class="headline">選択可能箇所の指定</div>
+
+<div class="usage">
+<bold>{</bold><italic>a</italic><bold>|</bold><italic>b</italic><bold>|</bold><italic>c</italic><bold>|</bold>...<bold>}</bold>
+</div>
+<br/>
+
+<div class="normal">
+　{} 括弧で囲まれ、| 記号で分割される複数の正規表現は、そのいずれかの書式であることを意味します。<br/>
+　もし複数の正規表現に合致する場合には、一番初めの正規表現が選択されます。<br/>
+　但し、| で区切られた各正規表現の末尾まで合致しなけば合致したとはみなされません。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+
+
+<a name="chapter_implementation"/>
+<div class="chapter">§実装</div>
+
+
+<a name="implementation_summary"/>
+<div class="headline">概要</div>
+
+<div class="normal">
+　以下に簡素な Antirrhinum 実装例を示します。<br/>
+　まず、以下のヘッダファイルをインクルードし、名前空間を以下のように省略するものとします。<br/>
+
+<div class="code_quote">
+	#include &lt;sakuraglx/sakuraglx.h&gt;<br/>
+	#include &lt;antirrhinum/antirrhinum.h&gt;<br/>
+	#include &lt;linkgls4.h&gt;<br/>
+<br/>
+	using namespace SSystem ;<br/>
+	using namespace SakuraGL ;<br/>
+	using namespace Rosetta ;<br/>
+	using namespace	AntirrhinumGL ;<br/>
+</div>
+
+　初めに、Sakura2 仮想マシンを準備します。
+
+<div class="code_quote">
+	ECSSakura2::EnvironmentVM vmSakura2 ;<br/>
+<br/>
+	vmSakura2.InitializeVM() ;
+</div>
+
+　Sakura2 仮想マシンは必ずしも必須ではありません。<br/>
+　また、SGLStdApplication クラスを派生してアプリケーションを記述している場合（推奨）は、GetEnvironmentVM() 関数で初期化済みの ECSSakura2::EnvironmentVM を（StartUpApp、又は Run 関数内で）取得できます。<br/>
+<br/>
+　次に Rosetta 仮想マシンを準備します。<br/>
+
+<div class="code_quote">
+	RSVirtualMachine	vmRosetta ;<br/>
+<br/>
+	vmRosetta.Initialize() ;<br/>
+	vmRosetta.AddScriptEnvironmentPath( L"ROSETTA_INCLUDE_PATH" ) ;<br/>
+	vmRosetta.AttachSakura2VM( &amp;vmSakura2 ) ;<br/>
+</div>
+
+　AddScriptEnvironmentPath の呼び出しは必須ではありません。<br/>
+　ここでは ROSETTA_INCLUDE_PATH 環境変数の値をインクルードパスへ追加しています。<br/>
+　ゲームのような配布環境では必要なスクリプトファイルはすべて同梱しておきます（通常は書庫ファイル化）。<br/>
+<br/>
+　必要に応じて Rosetta スクリプトを読み込みます。<br/>
+
+<div class="code_quote">
+	SParserErrorLogger	perrLog ;<br/>
+	vmRosetta.LoadScript( L"script1.rs", perrLog ) ;<br/>
+	vmRosetta.LoadScript( L"script2.rs", perrLog ) ;<br/>
+	// ...<br/>
+	vmRosetta.CompileToSakura2( true, true, perrLog ) ;<br/>
+</div>
+
+　CompileToSakura2 は読み込んだ Rosetta スクリプトを Sakura2 仮想マシン用の中間コードへコンパイルし、またネイティブコードへコンパイルします。コンパイルは必ずしも必要ではありません（LoadScript のみで実行はできます）。<br/>
+<br/>
+　いよいよ Antirrhinum の実装に必要なオブジェクトを準備します。<br/>
+
+<div class="code_quote">
+	AGLModuleManager			aglManager ;<br/>
+	AGLKernel					aglKernel ;<br/>
+	AGLEpicCoreProcessor		aglCore ;<br/>
+	AGLVariablesProcessor		aglVars ;<br/>
+	AGLStdMessageProcessor		aglMessage ;<br/>
+	AGLSoundProcessor			aglSound ;<br/>
+	AGLGraphicsProcessor		aglGraphics ;<br/>
+</div>
+
+　aglVars、aglMessage、aglSound, aglGraphics 等は任意です。<br/>
+　まず、Antirrhinum 仮想マシン環境を準備します。<br/>
+
+<div class="code_quote">
+	aglKernel.AttachRosettaVM( &amp;vmRosetta ) ;<br/>
+	aglVars.AttachRosettaVM( &amp;vmRosetta ) ;<br/>
+	aglKernel.AttachModuleManager( &amp;aglManager ) ;<br/>
+	aglKernel.AttachEpicProcessor( &amp;aglCore ) ;<br/>
+	aglKernel.AttachEpicProcessor( &amp;aglVars ) ;<br/>
+	aglKernel.AttachEpicProcessor( &amp;aglMessage ) ;<br/>
+	aglKernel.AttachEpicProcessor( &amp;aglSound ) ;<br/>
+	aglKernel.AttachEpicProcessor( &amp;aglGraphics ) ;<br/>
+</div>
+
+　AttachEpicProcessor 関数では任意の実装モジュール（EpicProcessor）を追加しています。これによって使用できるコマンドセットを任意にカスタマイズできます。<br/>
+　AGLEpicCoreProcessor は標準のディレクティブと Core コマンドが実装された EpicProcessor です。<br/>
+　また、AGLStdMessageProcessor を使用する場合、ここで aglMessage にユーザーインターフェースの設定を行うか、AGLStdMessageProcessor クラス（又は親クラスの AGLMessageProcessor）を派生して実装する必要があります。<br/>
+　AGLGraphicsProcessor についても表示先の設定を行っておきます。<br/>
+<br/>
+　次に設定ファイルを読み込みます。<br/>
+
+<div class="code_quote">
+	SXMLDocument	xmlConfig ;<br/>
+	if ( xmlConfig.LoadDocument( L"agl_config.xml", perrLog ) == errSuccess )<br/>
+	{<br/>
+	&nbsp; &nbsp; SXMLDocument *	pxmlConfig = xmlConfig.GetElementTagAs( L"config" ) ;<br/>
+	&nbsp; &nbsp; if ( pxmlConfig != nullptr )<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; aglKernel.LoadConfiguration( *pxmlConfig ) ;<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+</div>
+
+　ルートタグは任意ですが（ここでは &lt;config&gt;）、その要素タグとして各 EpicProcessor 毎の設定を記述し、LoadConfiguration から各 EpicProcessor へ分配され、設定が反映されます。<br/>
+<br/>
+　ここまでの作業が完了したらコンパイル済みの Antirrhinum スクリプトを実行できます。<br/>
+
+<div class="code_quote">
+	aglKernel.InitializeGame() ;<br/>
+	<br/>
+	SSmartRef&lt;AGLThread&gt; refThread = aglKernel.BeginThread( L"sample.xmlagl" ) ;<br/>
+	while ( aglKernel.Execute() != AGLThread::statusHalt )<br/>
+	{<br/>
+	&nbsp; &nbsp; // ...<br/>
+	}<br/>
+	<br/>
+	aglKernel.ReleaseGame() ;<br/>
+</div>
+
+　この例では aglKernel.Execute() でループを回していますが、他のループの中で、１フレーム分の処理として aglKernel.Execute() を実行できます。<br/>
+<br/>
+<div class="notes_indent1">
+※実行すべきスレッドが一つもなくなった時に AGLThread::statusHalt を返却しますが、ゲームの作りや Antirrhinum をどこに使うかによって、ゲームを終了する必要があるとは限りません。<br/>
+<br/>
+※BeginThread の返り値として AGLThread の参照を受け取っていますが、通常アプリケーション側が直接 AGLThread を操作する必要はありません。<br/>
+　スレッドが終了すれば Execute 内で破棄されます。AGLThread が生存しているかどうかは、aglKernel.IsValidThread を呼び出すことによって確認できます。あるいは単に参照型を nullptr と比較します。<br/>
+<br/>
+※スクリプトや利用するコマンドによっては aglKernel.Execute() はやや長い時間の処理を行うことがあります（ファイルの読み込みなどを伴うコマンドなど）。コマンドの実装法によってはファイルの読み込み中でも即座に aglKernel.Execute() を復帰するように実装出来ますが、主に会話シーンなどで使うアドベンチャーゲーム用コマンドの標準実装はそうなっていません。<br/>
+　従ってアドベンチャーゲームや会話シーンなどのスクリプトは通常 UI スレッドではないバックグラウンドスレッドで実行することを想定しています。<br/>
+　アクションゲームなどの敵のアルゴリズムに Antirrhinum スクリプトを利用する場合にはファイル読み込みなど長い時間のコマンドは用いず、あるいは用いる場合にもコマンド側が非同期処理を行い、コマンドは即時復帰できるように実装する必要があります。<br/>
+（それ以外の場合には .fwait ディレクティブで aglKernel.Execute() が復帰します）<br/>
+<br/>
+※会話シーンなどで扱う Antirrhinum スクリプト（バックグラウンドスレッド用）と、敵アルゴリズムなどで扱う Antirrhinum スクリプト（メインループ内用）を併用する場合には、それぞれ別に２つの AGLKernel を作成します（AGLModuleManager や Rosetta 仮想マシンは共通で構いません）。<br/>
+</div>
+<br/>
+　尚、終了時には以下のような順序で終了処理を行います。<br/>
+
+<div class="code_quote">
+aglKernel.ReleaseKernel() ;<br/>
+vmRosetta.Release() ;
+</div>
+
+　これらの解放関数はデストラクタで自動的に呼び出されるものですが、依存関係があるために明示的に AGLKernel → RSVirtualMachine → ECSSakura2::EnvironmentVM の順に終了処理する必要があります。<br/>
+
+
+<br/>
+</div>
+<br/>
+
+
+<a name="implementation_var_scope"/>
+<div class="headline">変数スコープ</div>
+
+<div class="normal">
+　Antirrhinum では Rosetta スクリプトを実行できますが、単に実行できるだけではなく、フラグも Rosetta を利用します。<br/>
+　Rosetta スクリプトであらかじめ使用するフラグを作成しておき、Antirrhinum 側で利用することになりますが、グローバルに直接フラグを作成してしまうとゲーム開始時の初期化処理や、セーブ時の処理が複雑になったり、セーブ漏れが生じる原因になります。<br/>
+　そこで Antirrhinum で利用するフラグのみを格納するクラスを作っておき、Antirrhinum の変数スコープとして設定することで、Antirrhinum 側からの変数の記述をシンプルにし、かつフラグの初期化やセーブ等を簡略化できます。<br/>
+<br/>
+　典型的には、まず以下のような Rosetta クラスとオブジェクトを定義しておきます。<br/>
+
+<div class="code_quote">
+class	AGLVariables<br/>
+{<br/>
+&nbsp; &nbsp; public HashMap	f ;<br/>
+&nbsp; &nbsp; public HashMap	s ;<br/>
+<br/>
+&nbsp; &nbsp; public AGLVariables()<br/>
+&nbsp; &nbsp; {<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; f = {} ;<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; s = {} ;<br/>
+&nbsp; &nbsp; }<br/>
+}<br/>
+<br/>
+AGLVariables	g_aglVars = new AGLVariables() ;<br/>
+</div>
+
+　Tools/antirrhinum_vars.rs にもう少し丁寧な AGLVariables 実装がありますので、<br/>
+
+<div class="code_quote">
+import "antirrhinum_vars.rs" ;<br/>
+AGLVariables	g_aglVars = new AGLVariables() ;<br/>
+</div>
+
+としても構いません。<br/>
+（antirrhinum_vars.rs はゲーム実行時にパスが通る場所に格納（通常は書庫ファイル化するので書庫の中に格納）する必要があります）<br/>
+<br/>
+　ここで、f は通常のフラグ変数（AGLVariablesProcessor ではゲームフラグと呼び、InitializeGame 関数で初期化されます）、s はゲームを初めからやり直しても初期化されないフラグ変数（同じく共有フラグ）を保存することを想定しています。<br/>
+<br/>
+　AGLVariables クラスではなく、直接 HashMap を使う場合、
+
+<div class="code_quote">
+HashMap	g_aglVars =  { f:{}, s:{} } ;<br/>
+g_aglVars.freeze() ;
+</div>
+
+のように freeze することが推奨されます。<br/>
+（そうでない場合、Antirrhinum 側から Rosetta のグローバル空間へアクセスできなくなります。しかしスクリプト上から Rosetta のグローバル空間にアクセスさせたくない場合や、特定のクラスだけに限定したい場合には、ここにアクセスを許可するクラスを追加し freeze をしないという方法もあります）<br/>
+<br/>
+　実装側では、上記のような Rosetta スクリプトをロードした後、
+
+<div class="code_quote">
+	RSContext	context( &amp;vmRosetta ) ;<br/>
+	RSSmartPtr	pVars = vmRosetta.GetMemberAs( context, L"g_aglVars" ) ;<br/>
+	if ( pVars != nullptr )<br/>
+	{<br/>
+	&nbsp; &nbsp; aglKernel.SetDefaultThisObject( pVars ) ;<br/>
+	}<br/>
+</div>
+
+のように SetDefaultThisObject で変数スコープを設定します。<br/>
+<br/>
+　こうすると、Antirrhinum 上では、
+
+<div class="code_quote">
+	$f.var1=0;<br/>
+	$f.var2=0;<br/>
+</div>
+
+のように任意の名前の変数を初期化してから
+
+<div class="code_quote">
+	$f.var1++;<br/>
+	.jump #label1 if f.var1>=3
+</div>
+
+のようにフラグとして利用できます。<br/>
+（SetDefaultThisObject で g_aglVars を設定しない場合、g_aglVars.f.var1 のような記述が必要になります）<br/>
+<br/>
+　また、AGLVariables クラスのメソッドをグローバル関数と同じように呼び出すことができますので、antirrhinum_vars.rs を利用した場合、<br/>
+
+<div class="code_quote">
+	$clearAllFlags();<br/>
+	$initSFlag( "a", 0 );<br/>
+</div>
+
+のような記述をすることもできます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="implementation_thread_instance"/>
+<div class="headline">スレッド毎のインスタンス</div>
+
+<div class="normal">
+　AGLKernel::BeginThread でスレッドを作成する際、以下のようにスレッド毎に Rosetta インスタンスを作成して設定することができます。<br/>
+
+<div class="code_quote">
+	RSSmartPtr pInstance = context.new_Object( L"TypeName" ) ;<br/>
+	aglKernel.BeginThread( L"sample.xmlagl", L"start_label", pInstance ) ;<br/>
+</div>
+
+　スレッドにインスタンスが関連付けられた場合、Antirrhinum スクリプト上からの名前スコープは pInstance になり、AGLKernel::SetDefaultThisObject で設定したものではなくなることに注意してください。<br/>
+　アクションゲームなどで敵のアルゴリズムを実装する場合などには、このようにスレッド毎にインスタンスを設定します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="implementation_save"/>
+<div class="headline">セーブ処理</div>
+
+<div class="normal">
+　aglKernel.Execute() 実行中でなければ基本的にいつでもセーブ処理を実行することができます。<br/>
+（EpicProcessor は Execute 中でなければ基本的にいつでも（AGLKernel 以外の処理の副作用のない範囲で（同期などを行い））セーブできるように実装しなければなりません）<br/>
+<br/>
+　典型的なセーブ処理は以下のようになります。<br/>
+
+<div class="code_quote">
+	SXMLDocument	xmlSave ;<br/>
+	xmlSave.SetTag( L"save" ) ;<br/>
+	aglKernel.Serialize( xmlSave ) ;<br/>
+	xmlSave.SaveDocument( L"save.xml" ) ;<br/>
+</div>
+
+　Serialize 関数では、すべてのスレッドの実行状態、及びすべての EpicProcessor がそれぞれ xml の要素タグとして記録されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="implementation_load"/>
+<div class="headline">ロード処理</div>
+
+<div class="normal">
+　セーブ処理同様、典型的なロード処理は以下のようになります。<br/>
+
+<div class="code_quote">
+	SXMLDocument	xmlSave ;<br/>
+	xmlSave.LoadDocument( L"save.xml", perrLog ) ;<br/>
+<br/>
+	SXMLDocument *	pxmlSave = xmlSave.GetElementTagAs( L"save" ) ;<br/>
+	if ( pxmlSave != nullptr )<br/>
+	{<br/>
+	&nbsp; &nbsp; aglKernel.Deserialize( *pxmlSave ) ;<br/>
+	&nbsp; &nbsp; aglKernel.AfterDeserialize() ;<br/>
+	}<br/>
+</div>
+
+　Deserialize 関数では、すべてのスレッドの実行状態、及びすべての EpicProcessor の状態が、それぞれ対応する xml の要素タグから復元されます。<br/>
+　ほぼセーブと逆の処理を行うだけですが、復元処理が終わった後に AfterDeserialize 関数を呼び出すことを忘れないでください。<br/>
+<br/>
+　ロード処理をした後に InitializeGame を呼び出すと初期化処理がされてしまうため、InitializeGame の後にロード処理を行います。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="implementation_dependence "/>
+<div class="headline">依存処理</div>
+
+<div class="normal">
+　ある EpicProcessor が何かの処理をするとき、別の EpicProcessor の設定等を参照したい場合がまれに生じます。<br/>
+　例えば、変数の設定や、キャラクターの設定などを参照したい場合、変数の設定なら AGLVariablesProcessor、キャラクターの設定なら AGLMessageProcessor が設定を持っています。<br/>
+　そういう場合には AGLKernel::GetEpicProcessor 関数を利用します。<br/>
+
+<div class="code_quote">
+AGLMessageProcessor * pMsgProc = GetKernel()-&gt;GetEpicProcessor&lt;AGLMessageProcessor&gt;() ;
+</div>
+<br/>
+　また、ある EpicProcessor から何らかの通知などを行いたい場合には、FirstEpicProcessor 関数と NextEpicProcessor 関数を利用することで複数の EpicProcessor を取得できます。<br/>
+　例えば、AGLMessageProcessor には VoiceListener サブクラスが定義されており、以下のようにボイスの再生に関する通知を行っています。<br/>
+
+<div class="code_quote">
+	AGLKernel::EpicProcessorIterator	iter = GetKernel()->FirstEpicProcessor() ;<br/>
+	for ( ; ; )<br/>
+	{<br/>
+	&nbsp; &nbsp; VoiceListener *	pListener = GetKernel()-&gt;NextEpicProcessor&lt;VoiceListener&gt;( iter ) ;<br/>
+	&nbsp; &nbsp; if ( pListener == nullptr )<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; break ;<br/>
+	&nbsp; &nbsp; }<br/>
+	&nbsp; &nbsp; pListener->OnLoadedVoice( voice ) ;<br/>
+	}
+</div>
+
+　他の EpicProcessor は AGLMessageProcessor::VoiceListener を派生しておくとボイスのロードや再生開始、終了時などに通知を受け取り、例えばキャラクターの表示に連動して音量をパンしたり、口パクをさせたりということが可能です。<br/>
+
+
+
+<br/>
+</div>
+<br/>
+
+
+
+
+<a name="chapter_AGLVariablesProcessor"/>
+<div class="chapter">§AGLVariablesProcessor</div>
+
+
+<a name="AGLVariablesProcessor_summary"/>
+<div class="headline">概要</div>
+
+<div class="normal">
+　ゲームで使用するフラグのシリアライズ・デシリアライズを行う標準の EpicProcessor です。<br/>
+　コマンドセットは書式定義ファイル std_variables_cmd.xml に定義されています。<br/>
+<br/>
+　AGLVariablesProcessor ではゲームフラグ（ゲーム中でフラグとして使用し、セーブの対象になる HashMap の要素）と、共有フラグ（ゲームを初めからプレイする時にクリアされず保持される HashMap の要素）が管理されています。<br/>
+　これらフラグの標準的な実装は Tools\antirrhinum_vars.rs に記述されています。<br/>
+<br/>
+　共有フラグの中には既読（read）フラグ（スクリプト毎にインデックスが振られたメッセージを一度でも読んだことがあるか）や、功績（deed）フラグ（スクリプトラベル通過回数、CG閲覧回数、その他なんらかの実行回数などの記録）が規定の機能として提供されます。<br/>
+　これらのフラグが、Rosetta スクリプト上のどの変数かは設定ファイルに記述され、設定がない場合、コマンドを実行しても何の作用も発生しません。<br/>
+　標準的な設定は以下のようになります。<br/>
+
+<div class="code_quote">
+&lt;config&gt;<br/>
+&nbsp; &nbsp; &lt;variables<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; game_flags="g_aglVars.f"<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; shared_flags="g_aglVars.s"<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; shared_read=".read"<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; shared_deed=".deed"/&gt;<br/>
+&nbsp; &nbsp; ...<br/>
+&lt;/config>
+</div>
+
+　ゲームフラグは標準の初期化・セーブ・ロードフレームワークで処理されますが、共有フラグは AGLKernel 初期設定後（設定ファイル読み込み後）に読み込み、任意タイミング（終了前等）に保存を行う必要があります。<br/>
+<br/>
+　共有フラグの読み込みは以下のように DeserializeSharedFlags 関数で行うことができます。<br/>
+
+<div class="code_quote">
+SXMLDocument	xmlShared ;<br/>
+xmlShared.LoadDocument( L"shared.xml", perrLog ) ;<br/>
+<br/>
+SXMLDocument *	pxmlShared = xmlShared.GetElementTagAs( L"shared" ) ;<br/>
+if ( pxmlShared != nullptr )<br/>
+{<br/>
+&nbsp; &nbsp; aglVars.DeserializeSharedFlags( *pxmlShared ) ;<br/>
+}<br/>
+</div>
+
+　同じく保存処理は以下のように SerializeSharedFlags 関数で行うことができます。<br/>
+
+<div class="code_quote">
+SXMLDocument	xmlShared ;<br/>
+aglVars.SerializeSharedFlags( xmlShared ) ;<br/>
+xmlShared.SetTag( L"shared" ) ;<br/>
+xmlShared.SaveDocument( L"shared.xml" ) ;
+</div>
+
+<br/>
+　ゲームフラグはスクリプト上で初期値を代入すれば初期化できますが、共有フラグは代入してしまうと通常のフラグと変わらずゲームを開始するたびに初期化されてします。<br/>
+　そこで、フラグ未設定時にのみ値を設定する @init_sflag コマンドや AGLVariables.initSFlag 関数が用意されています。<br/>
+　通常初回プレイ時に共有フラグは undefined になります。<br/>
+　以下のようなコードは何度実行しても undefined が出力されます。<br/>
+
+<div class="code_quote">
+@trace "%(s.a)\n"<br/>
+$s.a++;
+</div>
+
+　以下のように @init_sflag を初めに実行しておくと実行のたびに値が1増えます。<br/>
+
+<div class="code_quote">
+@init_sflag a 0<br/>
+@trace "%(s.a)\n"<br/>
+$s.a++;
+</div>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLVariablesProcessor_config"/>
+<div class="headline">設定ファイル</div>
+
+<div class="usage">
+<bold>
+&lt;variables<br/>
+&nbsp; &nbsp; game_flags="</bold><italic>game-flags-expr</italic><bold>"<br/>
+&nbsp; &nbsp; shared_flags="</bold><italic>shared-flags-expr</italic><bold>"</bold><br/>
+&nbsp; &nbsp; [ <bold>shared_read="</bold><italic>read-element-name</italic><bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>shared_deed="</bold><italic>deed-element-name</italic><bold>"</bold> ]<sub><italic>opt</italic></sub> <bold>/&gt;</bold><br/>
+</div>
+<br/>
+
+<div class="normal">
+　ゲームフラグ、共有フラグを設定します。<br/>
+　read-element-name には既読フラグを格納する要素名を、deed-element-name には功績フラグを格納する要素名を指定します。<br/>
+　省略した場合にはそれぞれ .read、.deed となります。<br/>
+　既読フラグや功績フラグを機能させたくない場合には shared_read="" や shared_deed="" のように空文字列を明示する必要があります。<br/>
+<br/>
+　仮に shared_flags="g_aglVars.s" shared_read=".read" shared_deed=".deed" の時、g_aglVars.s[".read"] に既読フラグ用の HashMap が、g_aglVars.s[".deed"] に功績フラグ用の HashMap が生成されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLVariablesProcessor_init_sflag"/>
+<div class="headline">@init_sflag コマンド</div>
+
+<div class="usage">
+<bold>@init_sflag</bold> <italic>var-name&nbsp; init-expr</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">var-name</div>
+<div class="param_desc">共有フラグ名</div>
+
+<div class="param_name">init</div>
+<div class="param_desc">初期値</div>
+</div>
+<br/>
+
+<div class="normal">
+　共有フラグが未定義の場合、初期値を設定します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLVariablesProcessor_set_sflag"/>
+<div class="headline">@set_sflag コマンド</div>
+
+<div class="usage">
+<bold>@set_sflag</bold> <italic>var-name&nbsp; expr</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">var-name</div>
+<div class="param_desc">共有フラグ名</div>
+
+<div class="param_name">expr</div>
+<div class="param_desc">値</div>
+</div>
+<br/>
+
+<div class="normal">
+　共有フラグに値を設定します。<br/>
+　s["var-name"]=expr と同じ意味です。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLVariablesProcessor_add_sflag"/>
+<div class="headline">@add_sflag コマンド</div>
+
+<div class="usage">
+<bold>@add_sflag</bold> <italic>var-name&nbsp; expr</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">var-name</div>
+<div class="param_desc">共有フラグ名</div>
+
+<div class="param_name">expr</div>
+<div class="param_desc">加算値</div>
+</div>
+<br/>
+
+<div class="normal">
+　共有フラグに値を加算します。<br/>
+　フラグが未定義の場合、初期値として設定します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLVariablesProcessor_add_deed"/>
+<div class="headline">@add_deed コマンド</div>
+
+<div class="usage">
+<bold>@add_deed</bold> <italic>var-name</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">var-name</div>
+<div class="param_desc">功績フラグ名</div>
+</div>
+<br/>
+
+<div class="normal">
+　功績フラグに値を１加算します。<br/>
+　功績フラグが未定義の場合、初期値として１を設定します。<br/>
+　このコマンドで加算されたフラグの値は表現可能な整数の最大値を超えることはありません。<br/>
+　デフォルトでは、スクリプト上のラベルを通過するたびに功績フラグとしてカウントされます（フラグ名は script#label 形式）。<br/>
+　それ以外で功績フラグを設定したい場合には、スクリプト上で明示的に @add_deed コマンドを記述してください。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+
+<a name="chapter_AGLMessageProcessor"/>
+<div class="chapter">§AGLMessageProcessor</div>
+
+
+<a name="AGLMessageProcessor_summary"/>
+<div class="headline">概要</div>
+
+<div class="normal">
+　キャラクターのセリフ等を出力する EpicProcessor です。<br/>
+　ユーザー入力に関係する処理はここに集約されています。<br/>
+　コマンドセットは書式定義ファイル std_message_cmd.xml（及び std_message_cmd.rs スクリプト）に定義されています。<br/>
+<br/>
+　AGLMessageProcessor クラスは抽象クラスで、派生クラスで UI やユーザー入力などの実装を行う必要があります。<br/>
+　UI やユーザー入力を結び付ける標準的な実装の AGLStdMessageProcessor 派生クラスを利用することもできます。<br/>
+<br/>
+　AGLMessageProcessor では、特に注記のないコマンドでも、文字列（テキストやファイル名等）を受け取るパラメータには、%(～) 形式で、Rosetta 式を含む記述が可能です。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_config"/>
+<div class="headline">設定ファイル</div>
+
+<div class="usage">
+<bold>&lt;message</bold><br/>
+&nbsp; &nbsp; [ <bold>stop_skip_no_read="</bold>{<bold>0</bold>|<bold>1</bold>}<bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>stop_fast_skip_no_read="</bold>{<bold>0</bold>|<bold>1</bold>}<bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>stop_skip_selector="</bold>{<bold>0</bold>|<bold>1</bold>}<bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>save_in_log="</bold>{<bold>0</bold>|<bold>1</bold>}<bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>nosave_in_skip="</bold>{<bold>0</bold>|<bold>1</bold>}<bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>nosave_in_fast_skip="</bold>{<bold>0</bold>|<bold>1</bold>}<bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>click_cancel_auto="</bold>{<bold>0</bold>|<bold>1</bold>}<bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>click_cancel_skip="</bold>{<bold>0</bold>|<bold>1</bold>}<bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>click_cancel_fast_skip="</bold>{<bold>0</bold>|<bold>1</bold>}<bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>skip_effect_speed="</bold><italic>skip-effect-speed</italic><bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>msg_window_fade_time="</bold><italic>message-window-fade-time</italic><bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>msg_log_limit="</bold><italic>message-log-limit</italic><bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>base_char_vol_line="</bold><italic>voice-volume-line-base</italic><bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>name_start_chars="</bold><italic>name-start-chars</italic><bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>name_close_chars="</bold><italic>name-close-chars</italic><bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>must_name_encloser="</bold><italic>must-name-encloser</italic><bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; [ <bold>warn_msg_lead_chars="</bold><italic>warn-msg-lead-chars</italic><bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+<bold>&lt;/message&gt;</bold><br/>
+<bold>&lt;character_definition</bold> [ <bold>strict_char_id="</bold>{<bold>0</bold>|<bold>1</bold>}<bold>"</bold> ]<sub><italic>opt</italic></sub> <bold>&gt;</bold><br/>
+&nbsp; &nbsp; <italic>character-definition-list</italic><br/>
+<bold>&lt;/character_definition&gt;</bold><br/>
+<br/>
+<italic>character-definition-list</italic>:<br/>
+&nbsp; &nbsp; <bold>&lt;character index="</bold><italic>character-index</italic><bold>"<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;id="</bold><italic>character-id</italic><bold>" name="</bold><italic>character-name</italic><bold>"</bold><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; [ <bold>name_jp="</bold><italic>japanese-char-name</italic><bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; [ <bold>name_en="</bold><italic>english-char-name</italic><bold>"</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; <bold>face_file_lead="</bold><italic>face-file-lead-name</italic><bold>"</bold><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; <bold>bs_file_lead="</bold><italic>bs-file-lead-name</italic><bold>"</bold><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; <bold>volume_line="</bold><italic>user-line-index</italic><bold>"</bold><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; <bold>text_color="</bold><italic>text-ARGB-hex</italic><bold>"</bold><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; <bold>border_color="</bold><italic>border-ARGB-hex</italic><bold>"</bold><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; <bold>shadow_color="</bold><italic>shadow-ARGB-hex</italic><bold>"&gt;</bold><br/>
+&nbsp; &nbsp; &nbsp; <bold>&lt;bs_file_filter&gt;</bold><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [ <italic>file-filter-list</italic> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; &nbsp; <bold>&lt;/bs_file_filter&gt;</bold><br/>
+&nbsp; &nbsp; &nbsp; <bold>&lt;voice_file_filter&gt;</bold><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [ <italic>file-filter-list</italic> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; &nbsp; <bold>&lt;/voice_file_filter&gt;</bold><br/>
+&nbsp; &nbsp; &nbsp; <bold>&lt;voice_file_exception&gt;</bold><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [ <italic>file-filter-list</italic> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; &nbsp; <bold>&lt;/voice_file_exception&gt;</bold><br/>
+&nbsp; &nbsp; <bold>&lt;/character&gt;</bold><br/>
+&nbsp; &nbsp; [ <italic>character-definition-list</italic> ]<sub><italic>opt</italic></sub><br/>
+<br/>
+<italic>file-filter-list</italic>:<br/>
+&nbsp; &nbsp; <bold>&lt;filter usage="</bold><italic>voice-file-reg-expr</italic><bold>"/&gt;</bold> [ <italic>file-filter-list</italic> ]<sub><italic>opt</italic></sub><br/>
+</div>
+<br/>
+
+<div class="normal">
+　&lt;message&gt; タグはメッセージの動作設定を保持しています。<br/>
+　すべての属性は省略可能で、省略時はデフォルトの設定が適用されます。<br/>
+<br/>
+　stop_skip_no_read は未読メッセージ表示の際にスキップモードを停止、stop_fast_skip_no_read は同じく未読メッセージで高速スキップモードを停止、stop_skip_selector は選択肢でスキップ・高速スキップモードを停止します。<br/>
+　save_in_log はメッセージログにメッセージ毎のセーブデータを保存、nosave_in_skip は save_in_log=1 の時、スキップモードでのセーブを省略、nosave_in_fast_skip は同じく高速スキップモード時にセーブを省略します。<br/>
+　click_cancel_auto は画面クリックでオートモード停止、click_cancel_skip は同じくスキップモード停止、click_cancel_fast_skip は同じく高速スキップモード停止です。<br/>
+　これらの挙動を動的に変化させたい場合には、派生したクラスで GetBehaviorFlags 関数をオーバーライドしてください。<br/>
+<br/>
+　skip-effect-speed には 0～100 の値で、スキップモード時の画面効果などの進行速度を（時間比を百分率で）指定します。0 は即時、50 は倍速、100 は等速となります。
+<br/>
+<br/>
+　message-window-fade-time にはメッセージウィンドウのフェードイン、フェードアウト時間のデフォルト値をミリ秒単位で指定します。<br/>
+<br/>
+　message-log-limit にはメッセージログの最大保持数を指定します。<br/>
+<br/>
+　voice-volume-line-base にはキャラクターボイスの音量を個別に設定する場合、そのボリュームラインのベース番号を指定します。<br/>
+　&lt;character_definition&gt;&lt;character &gt; タグの volume_line 属性で指定する値に、この値を加算した番号が、実際の音量ラインとして使用されます。<br/>
+<br/>
+　name-start-chars、name-close-chars、must-name-encloser はコンパイル時に使用するパラメータで、メッセージ文の名前部分の開始と終了文字を指定できます（後述メッセージ文参照）。<br/>
+<br/>
+　warn-msg-lead-chars はコンパイル時に、メッセージの先頭の文字に指定文字のいずれかであった場合、エラーを表示するします。例えば "@" を指定すると、コマンドの書き間違えがメッセージ出力となってしまった場合にエラーを出力できます。<br/>
+<br/>
+<br/>
+　&lt;character_definition&gt; タグは登場人物全般の設定を保持しています。<br/>
+
+<br/>
+　character-index は通常 0 から始まる整数で、ゲームのコンフィグ画面などで管理する人物ごとの設定のインデックスと一致させます。<br/>
+　但し場合によってはマイナスの値を使用することもできます（例えば名前が指定されないメッセージの設定を行いたい場合には -1 を指定します）。<br/>
+<br/>
+　character-id は登場人物の識別子です。<br/>
+　メッセージ文でキャラクターを識別するために指定する識別子です（全言語共通）。<br/>
+<br/>
+　character-name は登場人物の名前です。メッセージウィンドウの名前表示枠に表示する場合などのデフォルトの名前を設定します。この項目は必須ではありません。<br/>
+　japanese-char-name、english-char-name はそれぞれ多言語対応する場合の、日本語名、英語名を指定します。デフォルトが日本語名の場合には日本語名は不要です（逆にデフォルトが英語名の場合、英語名は不要です）。<br/>
+<br/>
+　face-file-lead-name はフェイス画像のファイル名の先頭の共通部分です。<br/>
+<br/>
+　bs-file-lead-name は立ち絵画像のファイル名の先頭部分で人物を判定する場合の共通部分です。<br/>
+<br/>
+　user-line-index はボイスの音量に適用するボリュームラインのインデックス（0～15 の範囲の整数）です。この数値は &lt;sound&gt;&lt;volume_lines&gt;&lt;line&gt; の num 属性と共通の値です。<br/>
+　登場人物ごとに音量設定を持たない場合にはすべての登場人物を 0 にします。<br/>
+<br/>
+　text-ARGB-hex、border-ARGB-hex、shadow-ARGB-hex は登場人物のセリフを表示する際の文字色、文字縁色、文字影色を ARGB 形式８桁の１６進数で指定します。黒は 000000 ではなく、FF000000 であることに注意してください。<br/>
+<br/>
+　voice-filter-reg-expr には登場人物ごとのファイル名を判別するための EntisGLS4 正規表現を指定します。<br/>
+　filter タグ要素を複数記述した場合には、それいずれかの条件に合致すれば真になります。<br/>
+<br/>
+　&lt;bs_file_filter&gt; タグ内には、立ち絵ファイルを判別する条件を記述します。立ち絵ファイルは bs-file-lead-name でも指定できますが両方指定した場合には両方の条件が一致した場合が条件となります。<br/>
+<br/>
+　&lt;voice_file_filter&gt; タグ内には、ボイスファイルを判別する条件を記述します。いずれかの &lt;filter&gt; タグの条件に一致すれば真となります。<br/>
+　しかし、&lt;voice_file_exception&gt; タグには除外条件を指定することができ、その要素タグのいずれかに一致する場合には偽となります。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_marker_file"/>
+<div class="headline">サウンド位置マーカーファイル</div>
+
+<div class="usage">
+<bold>&lt;marks&gt;</bold><br/>
+&nbsp; &nbsp; <italic>marker-list</italic><br/>
+<bold>&lt;/marks&gt;</bold><br/>
+<br/>
+<italic>marker-list</italic>:<br/>
+&nbsp; &nbsp; <bold>&lt;mark name="</bold><italic>marker-id</italic><bold>" pos="</bold><italic>position-in-samples</italic><bold>" length="</bold><italic>length-in-samples</italic><bold>"/&gt;</bold><br/>
+&nbsp; &nbsp; [ <italic>marker-list</italic> ]<sub><italic>opt</italic></sub><br/>
+</div>
+<br/>
+
+<div class="normal">
+　サウンド位置マーカーファイルは、ボイス等の再生位置とスクリプト処理の同期を取るための情報を格納したファイルです。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_msg_statement"/>
+<div class="headline">メッセージ文</div>
+
+<div class="usage">
+[[<italic>name-starter</italic>]<sub><italic>opt</italic></sub> <italic>char-id</italic> [<bold>/</bold><italic>name</italic>]<sub><italic>opt</italic></sub>  [<bold>,</bold><italic>face-opt</italic>]<sub><italic>opt</italic></sub> [<italic>name-closer</italic>]<sub><italic>opt</italic></sub>]<sub><italic>opt</italic></sub> [<italic>option-parameter-list</italic>]<sub><italic>opt</italic></sub> [{<bold>\</bold>|<italic>△</italic>}<sub><italic>opt</italic></sub>]<sub><italic>opt</italic></sub> <italic>text</italic> [<bold>|</bold><italic>voice-file-list</italic>]<sub><italic>opt</italic></sub><br/>
+<br/>
+<italic>option-parameter-list</italic>:<br/>
+&nbsp; &nbsp; {<bold>+</bold>|<bold>-</bold>|<bold>&amp;a</bold>|<bold>&amp;t=</bold><italic>timeout</italic>|<bold>&amp;f=</bold><italic>fadeout</italic>}<sub><italic>opt</italic></sub> [<italic>option-parameter-list</italic>]<sub><italic>opt</italic></sub><br/>
+<br/>
+<italic>△</italic>:<br/>
+&nbsp; &nbsp; <italic>space-or-tab-character</italic><br/>
+<br/>
+<italic>voice-file-list</italic>:<br/>
+&nbsp; &nbsp; <italic>voice-file</italic> [<bold>|</bold><italic>voice-file-list</italic>]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">name-starter</div>
+<div class="param_desc">名前開始部分を指定する文字です。設定ファイルで定義できます。</div>
+
+<div class="param_name">char-id</div>
+<div class="param_desc">キャラクター識別子。設定ファイル &lt;character_definition&gt;&lt;character&gt; タグ id 属性と同じものを指定します。</div>
+
+<div class="param_name">name</div>
+<div class="param_desc">キャラクター表示名。設定ファイルのデフォルトの名前と異なる名前を表示する時に指定します。<br/>
+%(～) 形式で名前に式を含めることができます。因みに設定ファイルの名前にも %(～) 形式の式を含むことができます。</div>
+
+<div class="param_name">face-opt</div>
+<div class="param_desc">フェイス画像を表示する時、 &lt;character_definition&gt;&lt;character&gt; タグ face_file_lead 属性の後置修飾ファイル名を指定します。<br/>
+（実際のフェイス画像ファイルは face_file_lead と face-opt を結合した名前になります）<br/>
+省略すると前回と同じフェイスファイルが指定されます。<br/>
+明示的に空文字列を指定するとフェイスの指定は行われません。</div>
+
+<div class="param_name">name-closer</div>
+<div class="param_desc">名前終了部分を指定する文字です。設定ファイルで定義できます。</div>
+
+<div class="param_name">option-parameter-list</div>
+<div class="param_desc">オプションフラグを記述できます。<br/>
++ 記号は以前のメッセージを消去せずに追加表示します。但し直前のメッセージに - 指定されていないと消去されてしまうので追加表示にはなりません。<br/>
+- 記号はメッセージを進めた時、現在のメッセージを消去しません。<br/>
+&amp;a はメッセージ表示後にクリックを待たずに次に進みます。<br/>
+&amp;t=timeout ではタイムアウト時間（ミリ秒）を指定します。タイムアウト時間が指定されるとクリックしなくても時間が経過すると自動的に次に進みます。<br/>
+&amp;f=fadeout ではフェードアウト時間（ミリ秒）を指定します。フェードアウト時間が指定されると、クリック後のメッセージ消去時にフェードアウト効果を実施します。</div>
+
+<div class="param_name">text</div>
+<div class="param_desc">表示するメッセージ文字列。%(～) 形式でメッセージ中に式を含めることができます。<br/>
+メッセージ文字列の先頭文字が \ 記号か、スペース、又はタブ記号の場合、その文字は１文字削除されます。</div>
+
+<div class="param_name">voice-file</div>
+<div class="param_desc">再生するボイスファイル名（拡張子は省略可能（.mio））。</div>
+</div>
+<br/>
+
+<div class="normal">
+　メッセージを出力します。<br/>
+　メッセージ文は std_message_cmd.rs スクリプトによって文字単位の処理が行われるため、上記書式は文字単位であることに注意してください。<br/>
+<br/>
+　最も単純な以下のようなメッセージ文
+
+<div class="code_quote">
+ディレクティブでもユーザー定義コマンドでもない文はメッセージとして出力されます。
+</div>
+
+は、以下の @msg コマンド（後述）と同等です。<br/>
+
+<div class="code_quote">
+@msg "ディレクティブでもユーザー定義コマンドでもない文はメッセージとして出力されます。"
+</div>
+
+　キャラクターのセリフとして表示させる場合、キャラクター識別子を指定します。<br/>
+
+<div class="code_quote">
+elena 「今日はいい天気ですね」
+</div>
+
+　ここで elena は設定ファイルで定義された任意のキャラクター識別子とします。<br/>
+　キャラクター識別子とセリフは、\ 記号か、スペース、タブ１文字で区切ります。<br/>
+　キャラクター識別子は日本語でも問題ありませんので、例えば設定ファイルで "エレナ" と定義しておけば
+
+<div class="code_quote">
+エレナ 「今日はいい天気ですね」
+</div>
+
+でも問題ありません。但し、名前とセリフの区切り（スペース記号）は必須です。<br/>
+　より明示的に
+
+<div class="code_quote">
+エレナ\「今日はいい天気ですね」
+</div>
+
+と書けます。<br/>
+<br/>
+　名前の表示を設定ファイルのデフォルトの表示名から変更したい場合には / 記号で区切って指定できます。
+
+<div class="code_quote">
+エレナ/えれにゃ 「きょうふぁいいてんきでしゅねぇ～」
+</div>
+
+　フェイス画像を表示するシステムの場合、フェイス画像の差分名を指定できます。
+
+<div class="code_quote">
+エレナ,n0 「今日はいい天気ですね」
+</div>
+
+　設定ファイルで face_file_lead="f_elena_" になっている場合、上記で指定されるフェイス画像ファイルは f_elena_n0 となります。<br/>
+　もちろん表示名を指定した場合にも指定できます。
+
+<div class="code_quote">
+エレナ/えれにゃ,d1 「きょうふぁいいてんきでしゅねぇ～」
+</div>
+
+<br/>
+　メッセージの出力にオプション的なパラメータを指定したい場合には、メッセージ本文の前に +, - 記号、又は &amp; 記号でエスケープします。<br/>
+
+<div class="code_quote">
+エレナ-「今日はいい天気ですね～<br/>
+エレナ+、と思ったら降ってきました」
+</div>
+
+　オプションパラメータを指定する場合には必ずしもスペースや \ 記号を挿入する必要はありません（挿入しても構いません）。<br/>
+　しかし必ず必要な場合はあります。<br/>
+
+<div class="code_quote">
+-\ メッセージの先頭に半角スペースを入れたい場合…<br/>
++\&amp;、+-&amp;\ などの特定の文字の場合には必要です。<br/>
+</div>
+
+　これらの出力を行うと
+
+<div class="code_quote">
+&nbsp;メッセージの先頭に半角スペースを入れたい場合…&amp;、+-&amp;\ などの特定の文字の場合には必要です。
+</div>
+
+となります。<br/>
+　また、メッセージ文の先頭がキャラクタ識別子からはじまるモノローグは注意が必要です。<br/>
+　たまたまキャラクタ識別子の直後に半角スペースがある文があるとキャラクターのセリフとして識別されます。<br/>
+　モノローグは常にタブで始まるなどの取り決めをしておくと事故を防ぐことができます。<br/>
+<br/>
+　あるいは、設定ファイルの &lt;message&gt; タグ name_start_chars 属性、及び name_close_chars の属性を設定しておき、スクリプトでは常にその文字で名前を囲んで記述しておけばより確実にコンパイルすることができます。<br/>
+<br/>
+　例えば設定ファイルに
+
+<div class="code_quote">
+&lt;message<br/>
+&nbsp; &nbsp; name_start_chars="【"<br/>
+&nbsp; &nbsp; name_close_chars="】"/>
+</div>
+
+と記述しておくと、
+
+<div class="code_quote">
+【エレナ】「今日はいい天気ですね」
+</div>
+
+のように記述できます。この場合、名前とメッセージ本文間の区切り（\ 記号又はスペース）は省略しても構いません（但しメッセージ本文が半角スペースから始まる場合には余分にスペースを挿入する必要があります）。<br/>
+　表示名をデフォルトから変更する場合やフェイスを指定する場合も同様に
+
+<div class="code_quote">
+【エレナ/えれにゃ,d1】「きょうふぁいいてんきでしゅねぇ～」
+</div>
+
+と記述できます。<br/>
+<br/>
+　因みに、name_start_chars、name_close_chars を利用して記述する場合、設定ファイルで定義されていないキャラクタのセリフも記述できます。<br/>
+
+<div class="code_quote">
+【モブ】「私は定義されていないキャラです」
+</div>
+
+　但し、設定ファイルでキャラクタ識別子を空文字列で定義したキャラクタが存在する場合、名前を指定文字で囲まなくても記述することができます。<br/>
+
+<div class="code_quote">
+モブ 「私は character id="" で定義されたキャラです」
+</div>
+
+　尚、これら定義されていないキャラ、又は "" 識別子のキャラとして処理される場合、常に記述した名前が実行時に表示される名前となります。<br/>
+　常にスクリプトには常にキャラIDを記述し、もし記述誤りがあった場合にエラーメッセージを出力したい場合には、設定ファイルの &lt;character_definition&gt; タグに strict_char_id="1" 属性を記述してください。<br/>
+　また、設定ファイルの &lt;message&gt; タグに must_name_encloser="1" を指定すると、名前は常に指定文字で囲む（この例では【～】）ことを意味し、そうでない文はメッセージ本文として解釈されます。<br/>
+
+<br/>
+　メッセージ文にボイスファイル指定を記述する場合、文末に | 記号で区切って記述できます。<br/>
+
+<div class="code_quote">
+【エレナ】「今日はいい天気ですね」|v_elena_0001
+</div>
+
+　複数記述することもできます。
+
+<div class="code_quote">
+【エレナ】「今日はいい天気ですね」|v_elena_0001|v_elena_0002
+</div>
+
+<br/>
+　また実装依存ですが、標準の実装の場合、メッセージ本文にはタグで複雑な書式や処理を記述することができます。<br/>
+　例えば、
+
+<div class="code_quote">
+【エレナ】&lt;center&gt;&lt;font size="200%"&gt;「&lt;ruby reading="ヒッサツワザ"&gt;必殺技&lt;/ruby&gt;！！！」&lt;/font&gt;&lt;/center&gt;
+</div>
+
+のような記述が可能です。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLMessageProcessor_msg_tags"/>
+<div class="headline">メッセージテキスト書式</div>
+
+<div class="normal">
+　ここではメッセージ本文に記述できる書式として、EntisGLS4 の SGLSpriteMessage で利用できる書式を説明します。<br/>
+　書式は xml と同等のタグによって記述できます。<br/>
+　タグ（及びエスケープ）に使用する半角の &lt; &gt; &amp; 記号自体を記述したい場合には xml 同様にエスケープ表記（&amp;lt; &amp;gt; &amp;amp;）が必要になります。<br/>
+</div>
+<br/>
+
+<div class="usage">
+<bold>&lt;font size="</bold><italic>font-size</italic><bold>" face="</bold><italic>font-face</italic><bold>" italic="</bold><italic>italic</italic><bold>" bold="</bold><italic>bold</italic><bold>" align="</bold><italic>horz-align</italic><bold>" line_height="</bold><italic>line-height</italic><bold>" body_argb="</bold><italic>text-color</italic><bold>" border_argb="</bold><italic>border-color</italic><bold>" border_width="</bold><italic>border-width</italic><bold>" border2_argb="</bold><italic>border2-color</italic><bold>" border2_width="</bold><italic>border2-width</italic><bold>" shadow_argb="</bold><italic>shadow-color</italic><bold>"&gt;</bold> ～ <bold>&lt;/font&gt;</bold>
+</div>
+
+<div class="notes_parameter">
+<div class="param_name">font-size</div>
+<div class="param_desc">フォントサイズ（ピクセル単位）を指定します。<br/>
++xxx、-xxx 形式の場合には現在のサイズへの加算、減算、xxx% 形式の場合には現在のサイズへの比率を指定できます。<br/>
+尚、+xxx、-xxx、xxx% 形式のような現在の値を基準にした形式の場合、行間も自動的に変更されます。</div>
+
+<div class="param_name">font-face</div>
+<div class="param_desc">フォント名を指定します。</div>
+
+<div class="param_name">italic</div>
+<div class="param_desc">true の時斜体、false の時通常</div>
+
+<div class="param_name">bold</div>
+<div class="param_desc">true の時太字、false の時通常</div>
+
+<div class="param_name">horz-align</div>
+<div class="param_desc">left で左寄せ（デフォルト）、right で右寄せ、center で中央寄せ</div>
+
+<div class="param_name">line-height</div>
+<div class="param_desc">行間（ピクセル単位）を指定します。<br/>
++xxx、-xxx 形式の場合には現在の行間への加算、減算、xxx% 形式の場合には現在の行間への比率を指定できます。</div>
+
+<div class="param_name">text-color</div>
+<div class="param_desc">文字色を ARGB 形式の16進数で指定します。</div>
+
+<div class="param_name">border-color</div>
+<div class="param_desc">文字縁を ARGB 形式の16進数で指定します。黒は 000000 ではなく FF000000 であることに注意してください。000000 を指定した場合、透明になります。</div>
+
+<div class="param_name">border-width</div>
+<div class="param_desc">文字縁の太さ（ピクセル数）を指定します。</div>
+
+<div class="param_name">border2-color</div>
+<div class="param_desc">文字縁（外側）の色を ARGB 形式の16進数で指定します。</div>
+
+<div class="param_name">border2-width</div>
+<div class="param_desc">文字縁（外側）の太さ（ピクセル数）を指定します。</div>
+
+<div class="param_name">shadow-color</div>
+<div class="param_desc">文字陰の色を ARGB 形式の16進数で指定します。半透明（50％）の黒は 80000000、半透明の白は 80808080 となります。</div>
+
+</div>
+<br/>
+
+<div class="usage">
+<bold>&lt;style id="</bold><italic>style-id</italic><bold>"&gt;</bold> ～ <bold>&lt;/style&gt;</bold>
+</div>
+
+<div class="notes_parameter">
+<div class="param_name">style-id</div>
+<div class="param_desc">定義済みの書式スタイル識別子を指定します。</div>
+
+</div>
+<br/>
+
+<div class="usage">
+<bold>&lt;center&gt;</bold> ～ <bold>&lt;/center&gt;</bold>
+</div>
+
+<div class="notes_parameter">
+テキストを中央寄せします。
+</div>
+<br/>
+
+<div class="usage">
+<bold>&lt;right&gt;</bold> ～ <bold>&lt;/right&gt;</bold>
+</div>
+
+<div class="notes_parameter">
+テキストを右寄せします。
+</div>
+<br/>
+
+<div class="usage">
+<bold>&lt;left&gt;</bold> ～ <bold>&lt;/left&gt;</bold>
+</div>
+
+<div class="notes_parameter">
+テキストを左寄せします。
+</div>
+<br/>
+
+<div class="usage">
+<bold>&lt;phrase&gt;</bold> ～ <bold>&lt;/phrase&gt;</bold>
+</div>
+
+<div class="notes_parameter">
+途中でのワードラップを許可しません。<br/>
+もし途中で行末に到達し改行されてしまう場合には、&lt;phrase&gt; 開始位置で改行します。<br/>
+※尚、&lt;phrase&gt; を使用しないデフォルトで、アルファベットのみの単語のワードラップ処理は、短い単語は単語の先頭で改行、長い単語はハイフニング（-の挿入）処理が自動的に実施されます。
+</div>
+<br/>
+
+<div class="usage">
+<bold>&lt;br/&gt;</bold>
+</div>
+
+<div class="notes_parameter">
+改行します。
+</div>
+<br/>
+
+<div class="usage">
+<bold>&lt;ruby reading="</bold><italic>reading</italic><bold>"&gt;</bold> ～ <bold>&lt;/ruby&gt;</bold>
+</div>
+
+<div class="notes_parameter">
+<div class="param_name">reading</div>
+<div class="param_desc">ルビを指定します。</div>
+</div>
+<br/>
+
+<div class="usage">
+<bold>&lt;a href="</bold><italic>link-url</italic><bold>"&gt;</bold> ～ <bold>&lt;/a&gt;</bold>
+</div>
+
+<div class="notes_parameter">
+<div class="param_name">link-url</div>
+<div class="param_desc">クリックしたときに実行する URL を指定します。<br/>
+※デフォルトでは URL はシェルで開かれます。スクリプト自体が遷移するわけではありません。</div>
+</div>
+<br/>
+
+<div class="usage">
+<bold>&lt;xfont id="</bold><italic>extend-char-id</italic><bold>" pitch="</bold><italic>pitch</italic><bold>" offset_x="</bold><italic>offset-x</italic><bold>" offset_y="</bold><italic>offset-y</italic><bold>" /&gt;</bold>
+</div>
+
+<div class="notes_parameter">
+<div class="param_name">extend-char-id</div>
+<div class="param_desc">定義済みの外字（画像）識別子を指定します。</div>
+
+<div class="param_name">pitch</div>
+<div class="param_desc">次の文字までの文字間隔（ピクセル単位）を指定します。デフォルトでは画像サイズになります。</div>
+
+<div class="param_name">offset-x</div>
+<div class="param_desc">表示位置の水平調整オフセット（ピクセル単位）を指定します。</div>
+
+<div class="param_name">offset-y</div>
+<div class="param_desc">表示位置の垂直調整オフセット（ピクセル単位）を指定します。</div>
+
+</div>
+<br/>
+
+<div class="usage">
+<bold>&lt;speed ms_per_char="</bold><italic>ms-per-char</italic><bold>" fade="</bold><italic>fade-time</italic><bold>" &gt;</bold> ～ <bold>&lt;/speed&gt;</bold>
+</div>
+
+<div class="notes_parameter">
+<div class="param_name">ms-per-char</div>
+<div class="param_desc">メッセージを時間に伴う表示効果を伴って表示する場合、１文字辺りの進行速度（ミリ秒単位の時間）を指定します。<br/>
+実際の速度は設定によってスケールされます。<br/>
+設定に関わらず一瞬で表示する場合は 0 です。</div>
+
+<div class="param_name">fade-time</div>
+<div class="param_desc">文字ごとのフェードイン時間（ミリ秒）を指定します。<br/>
+実際のフェードイン時間は設定によってスケールされます。<br/>
+ms_per_char=0 が指定された場合、すべての文字が同時にフェードインします。</div>
+
+</div>
+<br/>
+
+<div class="usage">
+<bold>&lt;wait time="</bold><italic>time</italic><bold>" /&gt;</bold>
+</div>
+
+<div class="notes_parameter">
+<div class="param_name">time</div>
+<div class="param_desc">メッセージを時間に伴う表示効果を伴って表示する場合、指定時間（ミリ秒）表示開始を遅延させます。<br/>
+実際の遅延時間は設定によってスケールされます。</div>
+</div>
+<br/>
+
+<br/>
+
+
+<a name="AGLMessageProcessor_voice"/>
+<div class="headline">@voice コマンド</div>
+
+<div class="usage">
+<bold>@voice</bold> <italic>voice-file</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">voice-file</div>
+<div class="param_desc">ボイスファイル名（拡張子は省略可能（.mio））</div>
+</div>
+<br/>
+
+<div class="normal">
+　ボイスを再生します。<br/>
+　ボイスファイル名と同名で拡張子が .wmk のマーカーファイルが存在する場合、そのファイルも暗黙に読み込まれます。<br/>
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_voices"/>
+<div class="headline">@voices コマンド</div>
+
+<div class="usage">
+<bold>@voices</bold> <italic>voice1-file</italic> [ <italic>voice2-file</italic> [ <italic>voice3-file</italic> ... ]<sub><italic>opt</italic></sub> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="normal">
+　複数のボイスを同時に再生します。<br/>
+　ボイスファイル名と同名で拡張子が .wmk のマーカーファイルが存在する場合、そのファイルも暗黙に読み込まれます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_stopvoice"/>
+<div class="headline">@stopvoice コマンド</div>
+
+<div class="usage">
+<bold>@stopvoice</bold> <italic>fadeout-time</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">fadeout-time</div>
+<div class="param_desc">フェードアウト時間（ミリ秒）</div>
+</div>
+<br/>
+
+<div class="normal">
+　再生中のボイスを停止します。<br/>
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_voice_sync"/>
+<div class="headline">@voice_sync コマンド</div>
+
+<div class="usage">
+<bold>@voice_sync</bold> [ <italic>sync-id</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">sync-id</div>
+<div class="param_desc">再生位置のマーカーID</div>
+</div>
+<br/>
+
+<div class="normal">
+　再生中のボイスが sync-id 位置を通過するか、sync-id を省略した場合は再生が完了するまで待機します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_msg_window_id"/>
+<div class="headline">@msg_window_id コマンド</div>
+
+<div class="usage">
+<bold>@msg_window_id</bold> [ <italic>message-id</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">message-id</div>
+<div class="param_desc">出力するメッセージウィンドウのID</div>
+</div>
+<br/>
+
+<div class="normal">
+　（吹き出しなどで）メッセージウィンドウが複数存在する場合や、複数のタイプのメッセージウィンドウを切り替えて使用する場合、使用するメッセージウィンドウのタイプを指定します。<br/>
+　message-id を省略、又は "" を指定した時はデフォルトのメッセージウィンドウです。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_showmsg"/>
+<div class="headline">@showmsg コマンド</div>
+
+<div class="usage">
+<bold>@showmsg</bold> <italic>show</italic>&nbsp; [<italic>fade-time</italic>]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">show</div>
+<div class="param_desc">0 の時非表示、1 の時表示</div>
+
+<div class="param_name">fade-time</div>
+<div class="param_desc">表示切替の効果時間（ミリ秒）</div>
+</div>
+<br/>
+
+<div class="normal">
+　メッセージウィンドウを表示・非表示します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_msg_face"/>
+<div class="headline">@msg_face コマンド</div>
+
+<div class="usage">
+<bold>@msg_face</bold> <italic>face-file</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">face-file</div>
+<div class="param_desc">フェイス画像ファイル名（拡張子は省略可（但し実装に依存、デフォルトは .eri））</div>
+</div>
+<br/>
+
+<div class="normal">
+　フェイス画像を表示します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_clr_face"/>
+<div class="headline">@clr_face コマンド</div>
+
+<div class="usage">
+<bold>@clr_face</bold>
+</div>
+<br/>
+
+<div class="normal">
+　フェイス画像を消去します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_pause"/>
+<div class="headline">@pause コマンド</div>
+
+<div class="usage">
+<bold>@pause timeout=</bold><italic>timeout</italic>&nbsp; <bold>fadeout=</bold><italic>fadeout</italic>&nbsp; <bold>keep_msg=</bold><italic>keep-message</italic>&nbsp; <bold>keep_voice=</bold><italic>keep-voice</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">timeout</div>
+<div class="param_desc">タイムアウト時間（ミリ秒）。-1 の時（デフォルト）タイムアウトしない。</div>
+
+<div class="param_name">fadeout</div>
+<div class="param_desc">クリック後、メッセージのフェードアウト時間（ミリ秒）。</div>
+
+<div class="param_name">keep-message</div>
+<div class="param_desc">0 の時クリック後にメッセージを消去（デフォルト）、1 の時メッセージを保持。</div>
+
+<div class="param_name">keep-voice</div>
+<div class="param_desc">0 の時クリック後に再生中のボイスを停止、1 の時はボイスは停止しない。</div>
+</div>
+<br/>
+
+<div class="normal">
+　メッセージウィンドウのキー入力待ちアイコンを表示し、キー入力を待ちます。<br/>
+　すべてのパラメータは省略可能です。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_msg"/>
+<div class="headline">@msg コマンド</div>
+
+<div class="usage">
+<bold>@msg text=</bold><italic>text</italic>&nbsp; <bold>name=</bold><italic>name</italic>&nbsp; <bold>char=</bold><italic>char-id</italic>&nbsp; <bold>voices=</bold><italic>voice-file-list</italic>&nbsp; <bold>add_msg=</bold><italic>add-message</italic>&nbsp; <bold>async=</bold><italic>async</italic>&nbsp; <bold>timeout=</bold><italic>timeout</italic>&nbsp; <bold>fadeout=</bold><italic>fadeout</italic>&nbsp; <bold>keep_msg=</bold><italic>keep-message</italic>&nbsp; <bold>keep_voice=</bold><italic>keep-voice</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">text</div>
+<div class="param_desc">メッセージテキスト。文章中に %(～) 形式で囲んで式を含むことができます。</div>
+
+<div class="param_name">name</div>
+<div class="param_desc">名前表示用テキスト。テキストに %(～) 形式で囲んで式を含むことができます。<br/>
+char-id で指定されたキャラクターの、設定ファイルで定義されたキャラクター名をそのまま表示する場合には省略できます。</div>
+
+<div class="param_name">char-id</div>
+<div class="param_desc">キャラクター識別子。設定ファイル &lt;character_definition&gt;&lt;character &gt; タグ id 属性と同じものを指定します。<br/>
+name が同じく設定ファイルの登場人物名に一致する場合、あるいはキャラクタを識別しない場合には省略可能です。</div>
+
+<div class="param_name">voice-file-list</div>
+<div class="param_desc">ボイスファイル名を指定します（拡張子は省略可（.mio））。<br/>複数指定する場合には、| 記号で区切って記述します。</div>
+
+<div class="param_name">add-message</div>
+<div class="param_desc">0 の時（デフォルト）直前のメッセージを消去、1 の時、直前のメッセージに追加して出力。<br/>※直前のメッセージで keep_msg=1 を指定しないと、直後のメッセージで add_msg=1 を指定してもすでにメッセージは消去されているので追加はされません。</div>
+
+<div class="param_name">async</div>
+<div class="param_desc">0 の時（デフォルト）メッセージ出力後キー入力を待ちますが、1 の時にはキー入力待ちを行いません。</div>
+
+<div class="param_name">timeout</div>
+<div class="param_desc">タイムアウト時間（ミリ秒）。-1 の時（デフォルト）タイムアウトしない。</div>
+
+<div class="param_name">fadeout</div>
+<div class="param_desc">クリック後、メッセージのフェードアウト時間（ミリ秒）。</div>
+
+<div class="param_name">keep-message</div>
+<div class="param_desc">0 の時クリック後にメッセージを消去（デフォルト）、1 の時メッセージを保持。</div>
+
+<div class="param_name">keep-voice</div>
+<div class="param_desc">0 の時クリック後に再生中のボイスを停止、1 の時はボイスは停止しない。</div>
+</div>
+<br/>
+
+<div class="normal">
+　メッセージを出力し、キー入力を待ちます。<br/>
+　text 以外のすべてのパラメータは省略可能です。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_en"/>
+<div class="headline">@en コマンド</div>
+
+<div class="usage">
+<bold>@en text=</bold><italic>text</italic>&nbsp; <bold>name=</bold><italic>name</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">text</div>
+<div class="param_desc">英語用メッセージテキスト。文章中に %(～) 形式で囲んで式を含むことができます。</div>
+
+<div class="param_name">name</div>
+<div class="param_desc">英語用名前表示用テキスト。テキストに %(～) 形式で囲んで式を含むことができます。<br/>
+設定ファイルで定義された英語名をそのまま表示する場合には省略できます。</div>
+</div>
+<br/>
+
+<div class="normal">
+　直後の @msg コマンド、又はメッセージ文に英語用のテキストを設定します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLMessageProcessor_msg_sync"/>
+<div class="headline">@msg_sync コマンド</div>
+
+<div class="usage">
+<bold>@msg_sync</bold> [ <italic>timeout</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">timeout</div>
+<div class="param_desc">タイムアウト時間（ミリ秒）。-1 の時（デフォルト）タイムアウトしません。</div>
+</div>
+<br/><div class="normal">
+　メッセージ文字列の表示完了、かつボイスの再生完了まで待機します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLMessageProcessor_msg_clear"/>
+<div class="headline">@msg_clear コマンド</div>
+
+<div class="usage">
+<bold>@msg_clear</bold>
+</div>
+<br/>
+
+<div class="normal">
+　表示しているメッセージ文字列（発言者名含む）を消去します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLMessageProcessor_enable_skip"/>
+<div class="headline">@enable_skip コマンド</div>
+
+<div class="usage">
+<bold>@enable_skip sys=</bold><italic>sys-skip</italic>&nbsp; <bold>click=</bold><italic>click-skip</italic>&nbsp; <bold>button=</bold><italic>button-skip</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">sys-skip</div>
+<div class="param_desc">有効にするスキップ機能のフラグの組み合わせ（複数の場合は | 記号で結合）を指定します。<br/>
+　all : すべてスキップ可能にする<br/>
+　time : 時間待機をスキップ可能にする<br/>
+　message : メッセージ待ちをスキップ可能にする<br/>
+　effect : エフェクト進行時間をスキップ可能にする<br/>
+　event : イベント同期処理をスキップ可能にする<br/>
+　0 : いずれもスキップ可能にしない</div>
+
+<div class="param_name">click-skip</div>
+<div class="param_desc">クリックしたときに有効なスキップ機能のフラグの組み合わせを指定します（sys-skip と同様のフラグ）。</div>
+
+<div class="param_name">button-skip</div>
+<div class="param_desc">有効にするボタンの組み合わせを（複数の場合は | 記号で結合）指定します。<br/>
+　all : すべてのボタン<br/>
+　auto : オートモードボタン<br/>
+　skip : スキップモードボタン<br/>
+　fast_skip : 高速スキップボタン<br/>
+　key_skip : スキップ機能に割り当てられたハードウェアキー</div>
+</div>
+<br/>
+
+<div class="normal">
+　スキップ挙動や、ボタンの有効化を行います。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_disable_skip"/>
+<div class="headline">@disable_skip コマンド</div>
+
+<div class="usage">
+<bold>@disable_skip sys=</bold><italic>sys-skip</italic>&nbsp; <bold>click=</bold><italic>click-skip</italic>&nbsp; <bold>button=</bold><italic>button-skip</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">sys-skip</div>
+<div class="param_desc">無効にするスキップ機能のフラグの組み合わせを指定します。</div>
+
+<div class="param_name">click-skip</div>
+<div class="param_desc">無効にするクリック時のスキップ機能のフラグの組み合わせを指定します。</div>
+
+<div class="param_name">button-skip</div>
+<div class="param_desc">無効にするボタンの組み合わせを指定します。</div>
+</div>
+<br/>
+
+<div class="normal">
+　スキップ挙動や、ボタンの無効化を行います。<br/>
+　各パラメータのフラグは @enable_skip と同様です。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_keep_skip"/>
+<div class="headline">@keep_skip コマンド</div>
+
+<div class="usage">
+<bold>@keep_skip</bold> <italic>flags</italic></div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">flags</div>
+<div class="param_desc">スキップ機能のフラグの組み合わせを指定します。@enable_skip の click パラメータと同様のフラグです。</div>
+</div>
+<br/>
+
+<div class="normal">
+　クリック時にスキップ状態を維持するか設定します。<br/>
+　通常１クリックでは１つの待機状態（画面効果等コマンド）しかスキップしません。<br/>
+　しかし１クリックで複数のコマンドをスキップしたい場合などで、一連のコマンドの前に @keep_skip all などと記述しておき、スキップを終了したいところで @keep_skip 0 として停止させられます。
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_scene_skip"/>
+<div class="headline">@scene_skip コマンド</div>
+
+<div class="usage">
+<bold>@scene_skip</bold> <italic>jump-label</italic></div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">jump-label</div>
+<div class="param_desc">シーンスキップでのジャンプ先のラベル名を指定します。<br/>
+スクリプトファイルを超えてジャンプすることはできません。ラベルの先頭には # をつけずにラベル名を直接指定します。</div>
+</div>
+<br/>
+
+<div class="normal">
+　シーンジャンプ UI があるシステムで、シーンジャンプボタンを有効化し、ボタンが押されたときに指定のラベルにジャンプするように設定します。<br/>
+　ジャンプ先ラベルを省略（又は空文字列を指定）すると、シーンジャンプモードは解除され、シーンジャンプボタンは禁止状態（あるいは非表示：挙動は実装依存）になります。<br/>
+　シーンジャンプが有効な間、@dis_interrupt で割り込みを禁止状態にすると、シーンジャンプボタンを押してもジャンプは発生しません。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_selector"/>
+<div class="headline">@selector コマンド</div>
+
+<div class="usage">
+<bold>@selector</bold> <italic>result</italic>&nbsp; <italic>timeout</italic></div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">result</div>
+<div class="param_desc">選択結果を受け取る変数を指定します。</div>
+
+<div class="param_name">timeout</div>
+<div class="param_desc">時間制限がある選択肢の場合、制限時間（ミリ秒）を指定します。</div>
+</div>
+<br/>
+
+<div class="normal">
+　選択肢項目の設定を開始します。<br/>
+　すべてのパラメータは省略可能です。<br/>
+　@selector ～ @endsel コマンド間に @menu コマンドで選択し項目を記述します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_menu"/>
+<div class="headline">@menu コマンド</div>
+
+<div class="usage">
+<bold>@menu "</bold><italic>text</italic><bold>"</bold> [ <bold>jump</bold> <italic>jump-label</italic> ]<sub><italic>opt</italic></sub> [ <bold>if</bold> <italic>condition-expr</italic> ]<sub><italic>opt</italic></sub></div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">text</div>
+<div class="param_desc">選択肢と表示する文字列です。%(～) 形式で式を含めることができます。</div>
+
+<div class="param_name">jump-label</div>
+<div class="param_desc">選択肢が選択されたときに、ジャンプ先のラベル名を指定します。<br/>
+スクリプトファイルを超えてジャンプすることはできません。ラベルの先頭には # をつけずにラベル名を直接指定します。</div>
+
+<div class="param_name">condition-expr</div>
+<div class="param_desc">選択肢を表示する条件式を指定します。</div>
+
+</div>
+<br/>
+
+<div class="normal">
+　選択肢として表示する項目を追加します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLMessageProcessor_endsel"/>
+<div class="headline">@endsel コマンド</div>
+
+<div class="usage">
+<bold>@endsel</bold>
+</div>
+<br/>
+
+<div class="normal">
+　選択肢の設定を完了し、実際に画面に表示しユーザーの入力を待ちます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+
+
+<a name="chapter_AGLSoundProcessor"/>
+<div class="chapter">§AGLSoundProcessor</div>
+
+
+<a name="AGLSoundProcessor_summary"/>
+<div class="headline">概要</div>
+
+<div class="normal">
+　サウンド関係を処理する標準の EpicProcessor です。<br/>
+　コマンドセットは書式定義ファイル std_sound_cmd_ex.xml （基本コマンドのみは std_sound_cmd.xml）に定義されています。<br/>
+<br/>
+　サウンドインスタンスはチャネル番号毎に生成されます。<br/>
+　チャネル番号は 0 から始まる整数で、同じ番号にサウンドを読み込むと以前のデータはフェードアウトされ、置き換えられます。<br/>
+　異なるチャネル番号を指定すると任意数のサウンドを同時に再生できます。<br/>
+<br/>
+　再生する際にはボリュームラインを指定できます。<br/>
+　ボリュームラインはいわばサウンドの種類を指定するもので、ゲームの設定によってマスター音量を変更できます。<br/>
+　既定のボリュームラインは以下のものがあります。<br/>
+
+<div class="code_quote">
+	composition (動画等)<br/>
+	system &nbsp; &nbsp; &nbsp;(システムSE等)<br/>
+	music &nbsp; &nbsp; &nbsp; (BGM等)<br/>
+	sound &nbsp; &nbsp; &nbsp; (SE等)<br/>
+	voice &nbsp; &nbsp; &nbsp; (キャラクターボイス等)<br/>
+</div>
+
+　サウンドファイルには EntisGLS4 標準のフォーマットである mio 形式の他、wav 形式などが利用できます。拡張子に .wpl または .xml を指定した場合プレイリストファイルを再生することができます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLSoundProcessor_config"/>
+<div class="headline">設定ファイル</div>
+
+<div class="usage">
+<bold>
+&lt;sound&gt;<br/>
+&nbsp; &nbsp; &lt;volume_lines&gt;<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; </bold><italic>line-definition-list</italic><bold><br/>
+&nbsp; &nbsp; &lt;/volume_lines&gt;<br/>
+&lt;/sound&gt;<br/>
+</bold><br/>
+
+<italic>line-definition-list</italic>:<br/>
+<bold>&nbsp; &nbsp; &lt;line num="</bold><italic>user-line-index</italic><bold>" id="</bold><italic>user-line-id</italic><bold>"/&gt;</bold> [ <italic>line-definition-list</italic> ]<sub><italic>opt</italic></sub> <br/>
+
+</div>
+<br/>
+
+<div class="normal">
+　ユーザー定義のボリュームライン名の定義を行うことができます。<br/>
+　user-line-index には 0～15 の範囲の整数を、user-line-id には定義するボリュームライン名を指定します。<br/>
+　定義されたボリュームライン名は sound_play コマンドで line に指定できます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLSoundProcessor_sound_play"/>
+<div class="headline">@sound_play コマンド</div>
+
+<div class="usage">
+<bold>@sound_play</bold>&nbsp; <italic>channel&nbsp; sound-file&nbsp; line-id&nbsp; volume&nbsp; loop</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">channel</div>
+<div class="param_desc">チャネル番号</div>
+
+<div class="param_name">sound-file</div>
+<div class="param_desc">サウンドファイル名（拡張子は省略可能（.mio））<br/>
+文字列中に %(～) 形式で Rosetta 式を含むことができます。</div>
+
+<div class="param_name">line-id</div>
+<div class="param_desc">ボリュームライン名</div>
+
+<div class="param_name">volume</div>
+<div class="param_desc">0.0～1.0 の範囲の音量</div>
+
+<div class="param_name">loop</div>
+<div class="param_desc">1 の時強制ループ、0 の時ループ無し</div>
+</div>
+<br/>
+
+<div class="normal">
+　サウンドファイルを読み込み、再生を開始します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLSoundProcessor_sound_stop"/>
+<div class="headline">@sound_stop コマンド</div>
+
+<div class="usage">
+<bold>@sound_stop</bold>&nbsp; <italic>channel&nbsp; fadeout</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">channel</div>
+<div class="param_desc">チャネル番号</div>
+
+<div class="param_name">fadeout</div>
+<div class="param_desc">フェードアウト時間（ミリ秒）</div>
+</div>
+<br/>
+
+<div class="normal">
+　サウンドの再生を停止して破棄します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLSoundProcessor_sound_volume"/>
+<div class="headline">@sound_volume コマンド</div>
+
+<div class="usage">
+<bold>@sound_volume</bold>&nbsp; <italic>channel&nbsp; volume&nbsp; fade</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">channel</div>
+<div class="param_desc">チャネル番号</div>
+
+<div class="param_name">volume</div>
+<div class="param_desc">新しい音量 0.0～1.0</div>
+
+<div class="param_name">fade</div>
+<div class="param_desc">フェード時間（ミリ秒）</div>
+</div>
+<br/>
+
+<div class="normal">
+　サウンドの音量を変更します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLSoundProcessor_sound_wait"/>
+<div class="headline">@sound_wait コマンド</div>
+
+<div class="usage">
+<bold>@sound_wait</bold>&nbsp; <italic>channel</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">channel</div>
+<div class="param_desc">チャネル番号</div>
+</div>
+<br/>
+
+<div class="normal">
+　サウンドの再生が終了するまで待機します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLSoundProcessor_bgm"/>
+<div class="headline">@bgm コマンド</div>
+
+<div class="usage">
+<bold>@bgm</bold> <italic>sound-file loop=1 volume=1.0 line=music channel=0</italic>
+</div>
+<br/>
+
+<div class="normal">
+　BGM を再生します。<br/>
+　@sound_play の BGM 再生用糖衣構文です。<br/>
+※書式中パラメータの = は省略時のデフォルト値<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLSoundProcessor_se"/>
+<div class="headline">@se コマンド</div>
+
+<div class="usage">
+<bold>@se</bold> <italic>sound-file loop=0 volume=1.0 line=sound channel=1</italic>
+</div>
+<br/>
+
+<div class="normal">
+　SE を再生します。<br/>
+　@sound_play の SE 再生用糖衣構文です。<br/>
+※書式中パラメータの = は省略時のデフォルト値<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLSoundProcessor_stopbgm"/>
+<div class="headline">@stopbgm コマンド</div>
+
+<div class="usage">
+<bold>@stopbgm</bold> <italic>fadeout=1000 channel=0</italic>
+</div>
+<br/>
+
+<div class="normal">
+　BGM を停止します。<br/>
+　@sound_stop の BGM 停止用糖衣構文です。<br/>
+※書式中パラメータの = は省略時のデフォルト値<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLSoundProcessor_stopse"/>
+<div class="headline">@stopse コマンド</div>
+
+<div class="usage">
+<bold>@stopse</bold> <italic>fadeout=0 channel=1</italic>
+</div>
+<br/>
+
+<div class="normal">
+　SE を停止します。<br/>
+　@sound_stop の SE 停止用糖衣構文です。<br/>
+※書式中パラメータの = は省略時のデフォルト値<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLSoundProcessor_sound_volbgm"/>
+<div class="headline">@volbgm コマンド</div>
+
+<div class="usage">
+<bold>@volbgm</bold> <italic>volume fade=500 channel=0</italic>
+</div>
+<br/>
+
+<div class="normal">
+　BGM の音量を変更します。<br/>
+　@sound_volume の BGM 音量変更用糖衣構文です。<br/>
+※書式中パラメータの = は省略時のデフォルト値<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLSoundProcessor_sound_volse"/>
+<div class="headline">@volse コマンド</div>
+
+<div class="usage">
+<bold>@volse</bold> <italic>volume fade=500 channel=1</italic>
+</div>
+<br/>
+
+<div class="normal">
+　SE の音量を変更します。<br/>
+　@sound_volume の SE 音量変更用糖衣構文です。<br/>
+※書式中パラメータの = は省略時のデフォルト値<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLSoundProcessor_waitse"/>
+<div class="headline">@waitse コマンド</div>
+
+<div class="usage">
+<bold>@waitse</bold> <italic>channel=1</italic>
+</div>
+<br/>
+
+<div class="normal">
+　SE の再生が終了するまで待機します。<br/>
+　@sound_wait の SE 再生完了待機用糖衣構文です。<br/>
+※書式中パラメータの = は省略時のデフォルト値<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+
+
+<a name="chapter_AGLGraphicsProcessor"/>
+<div class="chapter">§AGLGraphicsProcessor</div>
+
+
+<a name="AGLGraphicsProcessor_summary"/>
+<div class="headline">概要</div>
+
+<div class="normal">
+　2Dグラフィック関係の処理を行う標準の EpicProcessor です。<br/>
+　コマンドセットは srd_graphics_cmd_ex.xml（基本コマンドのみは std_graphics_cmd.xml）に定義されています。<br/>
+（srd_graphics_cmd_ex.xml は、std_graphics_cmd.xml 定義ファイルと std_graphics_cmd_ex.txt マクロファイルを読み込みます）<br/>
+<br/>
+　実装のベースは EntisGLS4 の Sprite です。<br/>
+　AGLGraphicsProcessor では階層化された複数のレイヤーと、レイヤーのルートである複数のスクリーンを扱うことができます。<br/>
+<br/>
+　画像はレイヤーに読み込んで表示することができますが、キャラクターの立ち絵など、レイヤーにはスタイルを指定することができ、座標指定をわかりやすく記述することができます。<br/>
+<br/>
+　また、AGLGraphicsProcessor では、コマンドのほとんどの引数に、数値の場合には Rosetta での数式、また文字列引数には %(～) 形式で文字列中に数式の評価値を含むことができます。<br/>
+　座標などの定数を Rosetta で定義しておくと AGLGraphicsProcessor コマンドでも使用できます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_config"/>
+<div class="headline">設定ファイル</div>
+
+<div class="usage">
+<bold>&lt;graphics&gt;</bold><br/>
+&nbsp; &nbsp; <bold>&lt;styles</bold> <italic>style-parameters</italic> <bold>&gt;</bold><br/>
+&nbsp; &nbsp; &nbsp; &nbsp; <italic>style-definition-list</italic><br/>
+&nbsp; &nbsp; <bold>&lt;/styles&gt;</bold><br/>
+&nbsp; &nbsp; [ <bold>&lt;init_screen screen="</bold><italic>screen-index</italic><bold>" style="</bold><italic>style-id</italic><bold>" /&gt;</bold> ]<sub><italic>opt</italic></sub><br/>
+<bold>&lt;/graphics&gt;</bold><br/>
+<br/>
+<italic>style-definition-list</italic>:<br/>
+&nbsp; &nbsp; <bold>&lt;style id="</bold><italic>style-id</italic><bold>" ref="</bold><italic>ref-sryle-id</italic><bold>"</bold> <italic>style-parameters </italic> <bold>/&gt;</bold> [ <italic>style-definition-list</italic> ]<sub><italic>opt</italic></sub><br/>
+<br/>
+<italic>style-definition-list</italic>:<br/>
+&nbsp; &nbsp; <bold>layer_type="</bold><italic>layer-type</italic><bold>"</bold><br/>
+&nbsp; &nbsp; <bold>priority="</bold><italic>priority</italic><bold>"</bold><br/>
+&nbsp; &nbsp; <bold>layer_width="</bold><italic>layer-width</italic><bold>"</bold><br/>
+&nbsp; &nbsp; <bold>layer_height="</bold><italic>layer-height</italic><bold>"</bold><br/>
+&nbsp; &nbsp; <bold>offset_x="</bold><italic>offset-x</italic><bold>"</bold><br/>
+&nbsp; &nbsp; <bold>offset_y="</bold><italic>offset-y</italic><bold>"</bold><br/>
+&nbsp; &nbsp; <bold>pivot_x="</bold><italic>pivot-x</italic><bold>"</bold><br/>
+&nbsp; &nbsp; <bold>pivot_y="</bold><italic>pivot-y</italic><bold>"</bold><br/>
+<br/>
+<italic>layer-type</italic>:<br/>
+&nbsp; &nbsp; { <bold>layer</bold><br/>
+&nbsp; &nbsp; | <bold>buf_layer</bold><br/>
+&nbsp; &nbsp; | <bold>layer_set</bold><br/>
+&nbsp; &nbsp; | <bold>fb_vram</bold><br/>
+&nbsp; &nbsp; | <bold>fb_ram</bold><br/>
+&nbsp; &nbsp; | <bold>fb_cpu</bold> }<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="normal">
+　設定ファイルにはレイヤースタイルの定義と、InitializeGame 時に自動的に初期スクリーンを作成する場合には &lt;init_screen&gt; タグにスタイルを指定します。<br/>
+<br/>
+　&lt;styles&gt; タグに直接記述したレイヤースタイルは、デフォルトのレイヤースタイルです。空文字列のスタイルIDとして参照できます。<br/>
+　追加的なスタイルは &lt;style&gt; タグで行えますが、ref-style-id に参照スタイルIDを指定でき、その場合、先に定義したスタイルをベースに変更したいパラメータだけを記述できます。<br/>
+<br/>
+　layer-type にはレイヤーのバッファの処理方式を指定します。<br/>
+　単に画像を表示したいだけのレイヤーは layer を指定します。<br/>
+　スクリーンのスタイルには通常は fb_ram を指定します。<br/>
+　buf_layer, fb_vram, fb_ram, fb_cpu はフレームバッファを作成します。フレームバッファサイズは layer-width, layer-height になります。<br/>
+　buf_layer は画像を表示するためのレイヤーですが、新しい画像をそのレイヤーに読み込む場合、古い画像を自動的にクロスフェードして表示する出来る機能を持ったレイヤーです。<br/>
+　layer_set はフレームバッファを作成せずにサブレイヤーを作成できるレイヤーです。<br/>
+　サブレイヤーの表示位置（拡大・回転・透明度等含む）はその親レイヤーの影響を受けます。<br/>
+　fb_vram は VRAM 上にフレームバッファを作成します。<br/>
+　fb_ram は RAM と VRAM 上にフレームバッファを作成します。GPU での描画の後のフィルター処理を CPU でも行うことができます。fb_vram では一部のフィルターが動作しない可能性がありますが、fb_ram より高速です。<br/>
+　fb_cpu は RAM 上にフレームバッファを作成し、描画も CPU で行います。<br/>
+<br/>
+　priority にはデフォルトの表示優先度（整数）を指定します。<br/>
+　優先度は 0 が基準優先度で、大きな数のほうが奥に表示されます。<br/>
+　実装上の実際の Sprite の優先度は、AGLGraphicsProcessor に設定された基準優先度に加算されます。<br/>
+　スクリーンの優先度は、他の画面表示アイテムと干渉しない為に -100～+100 の範囲で使用すべきです。<br/>
+　レイヤーの優先度は自由な範囲で利用できます（しかし内部の優先度加算処理の結果を安全な範囲に保つため、30ビットで表現可能な程度の数値にすべきです）。<br/>
+<br/>
+　pivot-x, pivot-y にはソース画像（フレームバッファ）の中心座標を指定します。<br/>
+　この座標は拡大縮小や回転の中心座標になるほか、表示座標の位置を示すものにもなります。つまり、pivot 座標と同じ表示座標にレイヤーを表示したとき、画像の左上が 0, 0 になります。<br/>
+　但し、画像ファイルにはオフセット座標が格納されており（eri 形式の場合）、例えばキャンバスサイズが画面サイズに一致する PSD ファイルから透明でない部分のみを書き出した場合、ファイルの画像サイズは PSD のキャンバスサイズとは必ずしも一致しませんが、読み込んで 0,0 に表示した場合（pivot も 0,0 の場合）、PSD で表示した時と同じ位置に表示されます。<br/>
+　従って、pivot は画像ファイル上のローカル座標ではなく、PSD で表示したときに中心にしたい座標を設定することになります。<br/>
+<br/>
+　offset-x, offset-y には、実際に表示する座標をコマンド引数で指定した座標に加算する値を指定します。<br/>
+　pivot を設定した場合、offset を同じ座標にすることによって、スクリプトで指定する 0,0 が pivot の位置になります。<br/>
+
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_path"/>
+<div class="headline">レイヤーパス</div>
+
+<div class="usage">
+[ <italic>parent-layer-path</italic> <bold>.</bold> ] <italic>layer-id</italic>
+</div>
+<br/>
+
+<div class="normal">
+　@layer_～ 系コマンドには、layer パラメータにレイヤーパスを指定します。<br/>
+　レイヤーには個別に任意の ID を設定することができますが、これは大域的な ID ではなく、そのレイヤーセット内の局所的な ID です。<br/>
+　レイヤーパスは親レイヤーと子レイヤーを . （コンマ）記号で結合して記述します。<br/>
+　空文字列、又は . だけのレイヤーパスはルートレイヤー（スクリーン自体）を指定します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<a name="AGLGraphicsProcessor_screen_init"/>
+<div class="headline">@screen_init コマンド</div>
+
+<div class="usage">
+<bold>@screen_init &nbsp;screen=</bold><italic>screen</italic> &nbsp;<bold>priority=</bold><italic>priority</italic> &nbsp;<bold>visible=</bold><italic>visible</italic> &nbsp;<bold>style=</bold><italic>style</italic> &nbsp;<bold>layer_type=</bold><italic>layer-type</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">screen</div>
+<div class="param_desc">スクリーン番号</div>
+
+<div class="param_name">priority</div>
+<div class="param_desc">表示優先度</div>
+
+<div class="param_name">visible</div>
+<div class="param_desc">true で表示状態、false で非表示状態</div>
+
+<div class="param_name">style</div>
+<div class="param_desc">レイヤースタイルID</div>
+
+<div class="param_name">layer-type</div>
+<div class="param_desc">レイヤータイプ（設定ファイル参照）<br/>
+省略時はレイヤースタイルでの定義が使用されます。</div>
+</div>
+<br/>
+
+<div class="normal">
+　指定のスクリーン番号に新規スクリーンを作成します。<br/>
+　既にスクリーン作成済みの場合には何もしません。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_screen_clone"/>
+<div class="headline">@screen_clone コマンド</div>
+
+<div class="usage">
+<bold>@screen_clone &nbsp;</bold><italic>screen</italic> &nbsp;<italic>src-screen</italic> &nbsp;<italic>priority</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">screen</div>
+<div class="param_desc">新規スクリーン番号</div>
+
+<div class="param_name">src-screen</div>
+<div class="param_desc">複製元スクリーン番号</div>
+
+<div class="param_name">priority</div>
+<div class="param_desc">表示優先度</div>
+</div>
+<br/>
+
+<div class="normal">
+　指定のスクリーン番号に複製元スクリーンの複製を作成します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_screen_delete"/>
+<div class="headline">@screen_delete コマンド</div>
+
+<div class="usage">
+<bold>@screen_delete &nbsp;</bold><italic>screen</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">screen</div>
+<div class="param_desc">削除スクリーン番号</div>
+</div>
+<br/>
+
+<div class="normal">
+　指定のスクリーン番号のスクリーンを削除します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_screen_swap"/>
+<div class="headline">@screen_swap コマンド</div>
+
+<div class="usage">
+<bold>@screen_swap &nbsp;</bold><italic>screen</italic> &nbsp;<italic>src-screen</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">screen</div>
+<div class="param_desc">スクリーン番号１</div>
+
+<div class="param_name">src-screen</div>
+<div class="param_desc">スクリーン番号２</div>
+</div>
+<br/>
+
+<div class="normal">
+　二つの指定のスクリーンの番号を入れ替えます。<br/>
+　片方のスクリーン番号が削除（あるいは未作成）の番号でも有効です。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_screen_select"/>
+<div class="headline">@screen_select コマンド</div>
+
+<div class="usage">
+<bold>@screen_select &nbsp;</bold><italic>screen</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">screen</div>
+<div class="param_desc">選択スクリーン番号</div>
+</div>
+<br/>
+
+<div class="normal">
+　指定のスクリーン番号を選択します。<br/>
+　現在選択されているスクリーンは @layer～ 系コマンドの対象スクリーンとなります。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_create"/>
+<div class="headline">@layer_create コマンド</div>
+
+<div class="usage">
+<bold>@layer_create &nbsp;layer=</bold><italic>layer</italic> &nbsp;<bold>id=</bold><italic>id</italic> &nbsp;<bold>class=</bold><italic>class</italic> &nbsp;<bold>style=</bold><italic>style</italic> &nbsp;<bold>layer_type=</bold><italic>layer-type</italic> [ <italic>layer-parameters</italic> ]<sub><italic>opt</italic></sub><br/>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">親レイヤーパス<br/>
+現在のスクリーン直下に作成する場合には "" か . を指定します。</div>
+
+<div class="param_name">id</div>
+<div class="param_desc">作成レイヤーID</div>
+
+<div class="param_name">class</div>
+<div class="param_desc">作成レイヤークラス<br/>
+layer, image, movie 等</div>
+
+<div class="param_name">style</div>
+<div class="param_desc">レイヤースタイルID<br/>
+省略した場合はデフォルトスタイルが適用されます。</div>
+
+<div class="param_name">layer-type</div>
+<div class="param_desc">レイヤータイプ（設定ファイル参照）<br/>
+省略時はレイヤースタイルでの定義が使用されます。</div>
+
+<div class="param_name">layer-parameters</div>
+<div class="param_desc">レイヤーパラメータ（@layer_parameter 参照）</div>
+
+</div>
+<br/>
+
+<div class="normal">
+　レイヤーを作成します。<br/>
+　class 指定によってさまざまな種類のレイヤーを作成することができます。<br/>
+　追加の固有レイヤーを実装したい場合には、派生クラスで NewLayerItem 関数と OnInitLayerItem 関数をオーバーライドします。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<div class="usage">
+<bold>@layer_create &nbsp;class=image&nbsp; file=</bold><italic>image-file</italic>&nbsp; [ <italic>layer-create-parameters</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">image-file</div>
+<div class="param_desc">画像ファイル名<br/>
+拡張子を省略すると .eri が適用されます。</div>
+
+<div class="param_name">layer-create-parameters</div>
+<div class="param_desc">@layer_create のパラメータ</div>
+</div>
+<br/>
+
+<div class="normal">
+　レイヤーを作成し、画像を読み込みます。
+
+<br/>
+</div>
+<br/>
+
+
+<div class="usage">
+<bold>@layer_create &nbsp;class=movie&nbsp; file=</bold><italic>movie-file</italic>&nbsp; [ <italic>layer-create-parameters</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">movie-file</div>
+<div class="param_desc">動画ファイル名<br/>
+拡張子を省略すると .mei が適用されます。</div>
+
+<div class="param_name">layer-create-parameters</div>
+<div class="param_desc">@layer_create のパラメータ</div>
+</div>
+<br/>
+
+<div class="normal">
+　動画再生用レイヤーを作成し、動画ファイルを読み込みます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_image"/>
+<div class="headline">@layer_image コマンド</div>
+
+<div class="usage">
+<bold>@layer_image &nbsp;</bold><italic>layer</italic>&nbsp; <italic>image-file</italic>&nbsp; <italic>fade-time</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">対象レイヤーパス</div>
+
+<div class="param_name">image-file</div>
+<div class="param_desc">画像ファイル名<br/>
+拡張子を省略すると .eri が適用されます。</div>
+
+<div class="param_name">fade-time</div>
+<div class="param_desc">切り替えフェード時間 [ms]（デフォルトは 0）</div>
+</div>
+<br/>
+
+<div class="normal">
+　指定レイヤーに画像を読み込みます。<br/>
+　layer_style=buf_layer で作成されたレイヤーの場合、画像の切り替えをフェード表示させることができます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_delete"/>
+<div class="headline">@layer_delete コマンド</div>
+
+<div class="usage">
+<bold>@layer_delete &nbsp;</bold><italic>layer</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">対象レイヤーパス</div>
+</div>
+<br/>
+
+<div class="normal">
+　指定レイヤーを削除します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_exist"/>
+<div class="headline">@layer_exist コマンド</div>
+
+<div class="usage">
+<bold>@layer_exist &nbsp;</bold><italic>layer</italic>&nbsp; <italic>result-expr</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">対象レイヤーパス</div>
+
+<div class="param_name">result-expr</div>
+<div class="param_desc">結果を受け取る変数</div>
+</div>
+<br/>
+
+<div class="normal">
+　レイヤーが存在しているか調べ、result-expr に結果を設定します。<br/>
+　レイヤーが存在しているときには -1 が、存在しない場合には 0 が設定されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_parameter"/>
+<div class="headline">@layer_parameter コマンド</div>
+
+<div class="usage">
+<bold>@layer_parameter &nbsp;layer=</bold><italic>layer</italic>&nbsp; <italic>layer-parameters</italic><br/>
+<br/>
+<italic>layer-parameters</italic>:<br/>
+&nbsp; &nbsp; <bold>x=</bold><italic>coord-x</italic><br/>
+&nbsp; &nbsp; <bold>y=</bold><italic>coord-y</italic><br/>
+&nbsp; &nbsp; <bold>dx=</bold><italic>delta-x</italic><br/>
+&nbsp; &nbsp; <bold>dy=</bold><italic>delta-y</italic><br/>
+&nbsp; &nbsp; <bold>sx=</bold><italic>scale-x</italic><br/>
+&nbsp; &nbsp; <bold>sy=</bold><italic>scale-y</italic><br/>
+&nbsp; &nbsp; <bold>rz=</bold><italic>rotate-z</italic><br/>
+&nbsp; &nbsp; <bold>tr=</bold><italic>transparency</italic><br/>
+&nbsp; &nbsp; <bold>fp=</bold><italic>filter-param</italic><br/>
+&nbsp; &nbsp; <bold>fp2=</bold><italic>filter-param2</italic><br/>
+&nbsp; &nbsp; <bold>priority=</bold><italic>priority</italic><br/>
+&nbsp; &nbsp; <bold>visible=</bold><italic>visible</italic><br/>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">対象レイヤーパス</div>
+
+<div class="param_name">coord-x</div>
+<div class="param_desc">ｘ座標（デフォルトは 0）</div>
+
+<div class="param_name">coord-y</div>
+<div class="param_desc">ｙ座標（デフォルトは 0）</div>
+
+<div class="param_name">delta-x</div>
+<div class="param_desc">ｘ座標加算値（デフォルトは 0）</div>
+
+<div class="param_name">delta-y</div>
+<div class="param_desc">ｙ座標加算値（デフォルトは 0）</div>
+
+<div class="param_name">scale-x</div>
+<div class="param_desc">ｘ拡大率（デフォルトは 1.0）</div>
+
+<div class="param_name">scale-y</div>
+<div class="param_desc">ｙ拡大率（デフォルトは 1.0）</div>
+
+<div class="param_name">rotate-z</div>
+<div class="param_desc">回転角度 [deg]（デフォルトは 0）</div>
+
+<div class="param_name">transparency</div>
+<div class="param_desc">透明度（デフォルトは 0）<br/>
+0～256 の整数で、0 の時不透明、256 の時完全に透明になります。</div>
+
+<div class="param_name">filter-param</div>
+<div class="param_desc">フィルタパラメータ（デフォルトは 0）<br/>
+ほとんどのフィルタで、0 の時無効果、256 の時 100% 効果状態です。</div>
+
+<div class="param_name">filter-param2</div>
+<div class="param_desc">フィルタ第二パラメータ（デフォルトは 0）<br/>
+トランジッションフィルタなどで、トランジッションの進行度を 0～256 の範囲で指定します。</div>
+
+<div class="param_name">priority</div>
+<div class="param_desc">レイヤー表示優先度</div>
+
+<div class="param_name">visible</div>
+<div class="param_desc">true で表示状態、false で非表示状態</div>
+</div>
+<br/>
+
+<div class="normal">
+　指定レイヤーのパラメータを変更します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_pre_move"/>
+<div class="headline">@layer_pre_move コマンド</div>
+
+<div class="usage">
+<bold>@layer_pre_move &nbsp;</bold><italic>layer</italic>&nbsp; <italic>offset-mode</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">対象レイヤーパス</div>
+
+<div class="param_name">offset-mode</div>
+<div class="param_desc">true の時オフセットアニメーション、false の時絶対座標（ローカル座標）アニメーションとなります（デフォルトは false）</div>
+</div>
+<br/>
+
+<div class="normal">
+　パラメータアニメーションの準備を行います。<br/>
+　パラメータアニメーションは通常のレイヤー（class=layer や class=image）のみが対応した機能で、動画レイヤー等の特殊レイヤーは対応していません。<br/>
+　従って、特殊レイヤーでパラメータアニメーションを行いたい場合には、layer_set レイヤーを作成し、その子レイヤーとして動画などの特殊レイヤーを作成し、パラメータアニメーションは layer_set レイヤーに対して行う必要があります。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_add_move"/>
+<div class="headline">@layer_add_move コマンド</div>
+
+<div class="usage">
+<bold>@layer_add_move &nbsp;layer=</bold><italic>layer</italic>&nbsp; <bold>time=</bold><italic>move-time</italic>&nbsp; <bold>v0=</bold><italic>start-point-velocity</italic>&nbsp;&nbsp; <bold>v1=</bold><italic>end-point-velocity</italic>&nbsp; <italic>layer-parameters</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">対象レイヤーパス</div>
+
+<div class="param_name">time</div>
+<div class="param_desc">追加する区間に要する時間 [ms]</div>
+
+<div class="param_name">start-point-velocity</div>
+<div class="param_desc">追加した区間の開始地点の速度比（デフォルトは 1.0）</div>
+
+<div class="param_name">end-end-velocity</div>
+<div class="param_desc">追加した区間の終了地点の速度比（デフォルトは 1.0）</div>
+
+<div class="param_name">layer-parameters</div>
+<div class="param_desc">レイヤーパラメータ（@layer_parameter 参照）<br/>
+但し、visible, priority はアニメーション対象外です。</div>
+</div>
+<br/>
+
+<div class="normal">
+　アニメーションのパラメータを追加します。<br/>
+　start-point-velocity, end-end-velocity には 0.0, 0.0 の組み合わせなら静止→加速→減速→静止移動に、1.0, 1.0 なら等速運動、0.0, 2.0 なら静止→加速の等加速度運動、2.0, 0.0 なら減速→静止の等加速度運動となります。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_start_move"/>
+<div class="headline">@layer_start_move コマンド</div>
+
+<div class="usage">
+<bold>@layer_start_move &nbsp;</bold><italic>layer</italic>&nbsp; <italic>loop-type</italic>&nbsp; <italic>offset-mode</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">対象レイヤーパス</div>
+
+<div class="param_name">loop-type</div>
+<div class="param_desc">ループタイプ（デフォルトは once）<br/>
+ループしない場合は once、ループする場合は loop、反転ループする場合は turn を指定します。</div>
+
+<div class="param_name">offset-mode</div>
+<div class="param_desc">true の時オフセットアニメーション、false の時絶対座標（ローカル座標）アニメーションとなります（デフォルトは false）</div>
+</div>
+<br/>
+
+<div class="normal">
+　パラメータアニメーションを開始します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_wait_move"/>
+<div class="headline">@layer_wait_move コマンド</div>
+
+<div class="usage">
+<bold>@layer_wait_move &nbsp;</bold><italic>layer</italic>&nbsp; <italic>all-layers</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">対象レイヤーパス</div>
+
+<div class="param_name">all-layers</div>
+<div class="param_desc">true の時対象レイヤーの子レイヤーすべて、false の時対象レイヤーのみ</div>
+</div>
+<br/>
+
+<div class="normal">
+　レイヤーのパラメータアニメーションが完了するのを待機します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_flush_move"/>
+<div class="headline">@layer_flush_move コマンド</div>
+
+<div class="usage">
+<bold>@layer_flush_move &nbsp;</bold><italic>layer</italic>&nbsp; <italic>all-layers</italic>&nbsp; <italic>all-moving</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">対象レイヤーパス</div>
+
+<div class="param_name">all-layers</div>
+<div class="param_desc">true の時対象レイヤーの子レイヤーすべて、false の時対象レイヤーのみ</div>
+
+<div class="param_name">all-moving</div>
+<div class="param_desc">true の時ループを含む全アニメーション、false の非ループアニメーションのみ</div>
+</div>
+<br/>
+
+<div class="normal">
+　レイヤーのパラメータアニメーションを強制的に即時終了させます。<br/>
+　パラメータはアニメーション完了時の値になります。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_add_filter"/>
+<div class="headline">@layer_add_filter コマンド</div>
+
+<div class="usage">
+<bold>@layer_add_filter &nbsp;layer=</bold><italic>layer</italic>&nbsp; <bold>filter=</bold><italic>filter-class</italic>&nbsp; [ <italic>filter-parameters</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">対象レイヤーパス</div>
+
+<div class="param_name">filter-class</div>
+<div class="param_desc">フィルタークラス</div>
+
+<div class="param_name">filter-parameters</div>
+<div class="param_desc">フィルター固有パラメーター</div>
+</div>
+<br/>
+
+<div class="normal">
+　レイヤーにフィルターを設定します。<br/>
+　フィルターは複数設定することができますが、フレームバッファを所有するレイヤーでなければなりません。<br/>
+　固有のフィルターを追加実装したい場合には派生クラスで CreateSpriteFilter 関数をオーバーライドします。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<div class="usage">
+<bold>@layer_add_filter &nbsp;layer=</bold><italic>layer</italic>&nbsp; <bold>filter=transparency</bold>
+</div>
+<br/>
+
+<div class="normal">
+　透明度フィルターを設定します。<br/>
+　フィルタパラメータが透明度として扱われます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<div class="usage">
+<bold>@layer_add_filter &nbsp;layer=</bold><italic>layer</italic>&nbsp; <bold>filter=alpha_mask&nbsp; alpha_file=</bold><italic>alpha-file</italic>&nbsp; <bold>alpha_coef=</bold><italic>alpha-coef</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">alpha-file</div>
+<div class="param_desc">α画像ファイル<br/>
+拡張子を省略すると .eri が適用されます。</div>
+
+<div class="param_name">alpha-coef</div>
+<div class="param_desc">α係数（デフォルトは 256）</div>
+</div>
+<br/>
+
+<div class="normal">
+　α画像マスクフィルターを設定します。<br/>
+　alpha_coef=256 の時にフィルタパラメータに 128 を設定する（@layer_parameter fp=128）と、丁度α画像でマスクした表示状態になります。<br/>
+　このフィルタは、現在のバージョンでは CPU のみで動作します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<div class="usage">
+<bold>@layer_add_filter &nbsp;layer=</bold><italic>layer</italic>&nbsp; <bold>filter=tone_curve&nbsp; tone_file=</bold><italic>tone-curve-file</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">tone-curve-file</div>
+<div class="param_desc">トーンカーブファイル<br/>
+拡張子を省略すると .tcf が適用されます。</div>
+</div>
+<br/>
+
+<div class="normal">
+　トーンカーブフィルタを設定します。<br/>
+　フィルタパラメータに 256 を設定した時（@layer_parameter fp=256）、トーンカーブ適用度が 100% になります。<br/>
+　このフィルタは、現在のバージョンでは CPU のみで動作します。<br/>
+
+
+<br/>
+</div>
+<br/>
+
+
+<div class="usage">
+<bold>@layer_add_filter &nbsp;layer=</bold><italic>layer</italic>&nbsp; <bold>filter=shading_off&nbsp; transition=</bold><italic>transition</italic>&nbsp; <bold>over_color=</bold><italic>hex-over-color</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">transition</div>
+<div class="param_desc">true の時トランジッション動作、false の時フィルタのみの動作になります。<br/>
+トランジッション動作時にはフィルタ第二パラメータが透明度になります。</div>
+
+<div class="param_name">hex-over-color</div>
+<div class="param_desc">フィルタ処理の後に描画する色を ARGB 形式の16進数で指定します。<br/>
+00000000 の時には色効果はありません（デフォルト）。<br/>
+00FFFFFF の時にはフィルタパラメータに連動して徐々に白色発光（加算）するような効果が得られます。<br/>
+</div>
+</div>
+<br/>
+
+<div class="normal">
+　ぼかしフィルタを設定します。<br/>
+　CPU／GPU どちらでも動作しますが、CPU の場合重いので GPU での動作が推奨されます。<br/>
+
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_clear_filter"/>
+<div class="headline">@layer_clear_filter コマンド</div>
+
+<div class="usage">
+<bold>@layer_clear_filter</bold> &nbsp;<italic>layer</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">対象レイヤーパス</div>
+</div>
+<br/>
+
+<div class="normal">
+　レイヤーのフィルターをすべて解除します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_operate"/>
+<div class="headline">@layer_operate コマンド</div>
+
+<div class="usage">
+<bold>@layer_operate &nbsp;layer=</bold><italic>layer</italic>&nbsp; <bold>operate=</bold><italic>operate</italic>&nbsp; [ <italic>operate-parameters</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">対象レイヤーパス</div>
+
+<div class="param_name">operate</div>
+<div class="param_desc">レイヤー操作コマンド</div>
+
+<div class="param_name">operate-parameters</div>
+<div class="param_desc">操作パラメーター</div>
+</div>
+<br/>
+
+<div class="normal">
+　レイヤー固有の操作を行います。<br/>
+　追加の固有操作を追加したい場合には派生クラスで OperateLayer 関数をオーバーライドします。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<div class="usage">
+<bold>@layer_operate &nbsp;layer=</bold><italic>layer</italic>&nbsp; <bold>operate=movie_play</bold>&nbsp; <bold>loop=</bold><italic>loop-flag</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">loop-flag</div>
+<div class="param_desc">true の時ループ再生します。</div>
+</div>
+<br/>
+
+<div class="normal">
+　動画の再生を開始します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<div class="usage">
+<bold>@layer_operate &nbsp;layer=</bold><italic>layer</italic>&nbsp; <bold>operate=movie_stop</bold>
+</div>
+<br/>
+
+<div class="normal">
+　動画の再生を停止します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+<div class="usage">
+<bold>@layer_operate &nbsp;layer=</bold><italic>layer</italic>&nbsp; <bold>operate=movie_wait</bold>
+</div>
+<br/>
+
+<div class="normal">
+　動画の再生が完了するまで待機します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_freeze"/>
+<div class="headline">@layer_freeze コマンド</div>
+
+<div class="usage">
+<bold>@layer_freeze</bold> &nbsp;<italic>layer</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">対象レイヤーパス</div>
+</div>
+<br/>
+
+<div class="normal">
+　フレームバッファを所有するレイヤーの表示更新を停止します。<br/>
+　@layer_freeze を実行したのと同じ回数だけ @layer_defrost を実行すると表示の更新が再開されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_layer_defrost"/>
+<div class="headline">@layer_defrost コマンド</div>
+
+<div class="usage">
+<bold>@layer_defrost</bold> &nbsp;<italic>layer</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">layer</div>
+<div class="param_desc">対象レイヤーパス</div>
+</div>
+<br/>
+
+<div class="normal">
+　一時停止されたレイヤーの表示更新を再開します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_begin_trans"/>
+<div class="headline">@begin_trans コマンド</div>
+
+<div class="usage">
+<bold>@begin_trans &nbsp;time=</bold><italic>time</italic>&nbsp; <bold>filter=</bold><italic>filter-class</italic>&nbsp; [ <italic>filter-parameters</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">time</div>
+<div class="param_desc">トランジッション時間 [ms]</div>
+
+<div class="param_name">filter-class</div>
+<div class="param_desc">フィルタークラス（デフォルトは transparency）</div>
+
+<div class="param_name">filter-parameters</div>
+<div class="param_desc">フィルター固有パラメーター</div>
+</div>
+<br/>
+
+<div class="normal">
+　トランジッションの準備をします。<br/>
+　このコマンドではスクリーン 0 をスクリーン 1 に複製し、フィルタを設定します。<br/>
+　@begin_trans ～ @end_trans 間に新しい画面への変更処理を記述することによって簡易に画面切り替えを行います。
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_end_trans"/>
+<div class="headline">@end_trans コマンド</div>
+
+<div class="usage">
+<bold>@end_trans</bold>
+</div>
+<br/>
+
+<div class="normal">
+　画面を切り替えます。<br/>
+　スクリーン 1 は削除されます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_movie"/>
+<div class="headline">@movie コマンド</div>
+
+<div class="usage">
+<bold>@movie</bold>&nbsp; <bold>file=</bold><italic>movie-file</italic>&nbsp; <bold>x=</bold><italic>coord-x</italic>&nbsp; <bold>y=</bold><italic>coord-y</italic>&nbsp; <bold>sx=</bold><italic>scale-x</italic>&nbsp; <bold>sy=</bold><italic>scale-y</italic>
+</div>
+<br/>
+
+<div class="notes_parameter">
+<div class="param_name">movie-file</div>
+<div class="param_desc">動画ファイル名</div>
+</div>
+<br/>
+
+<div class="normal">
+　スクリーン 2 を表示優先度 99 で作成し、レイヤー ID = movie の動画レイヤーを作成して再生、終了するまで待機し、終了するとスクリーン 2 を削除します。<br/>
+　座標等のパラメータは省略可能です（@layer_parameter に指定できるパラメータは一通り指定可能です）。<br/>
+　スクリーン 2 を作成するスタイルとして movie_screen、movie レイヤーを作成するスタイルとして movie_layer が暗黙に指定されますので、設定ファイルで定義しておけば位置などの設定を行うことができます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_move"/>
+<div class="headline">@move マクロ</div>
+
+<div class="usage">
+<bold>@move</bold>&nbsp; <italic>layer</italic> <bold>,</bold> <italic>time</italic> <bold>,</bold> <italic>coord-x</italic> <bold>,</bold> <italic>coord-y</italic> <bold>,</bold> <italic>transparency</italic> <bold>,</bold> <italic>rotate-z</italic>
+</div>
+<br/>
+
+<div class="normal">
+　layer に指定したレイヤーを、移動（coord-x, coord-y）、回転（rotate-z [deg]）、透明度（transparency）に指定時間（time [ms]）だけかけて変化させます。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_clear"/>
+<div class="headline">@clear マクロ</div>
+
+<div class="usage">
+<bold>@clear</bold>&nbsp; <italic>layer</italic> <bold>,</bold> <italic>time</italic> <bold>,</bold> <italic>delta-x</italic> <bold>,</bold> <italic>delta-y</italic>
+</div>
+<br/>
+
+<div class="normal">
+　layer に指定したレイヤーフェードアウトさせてから削除します。<br/>
+　delta-x, delta-y を指定すると座標を移動させながらフェードアウトします。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_image"/>
+<div class="headline">@image マクロ</div>
+
+<div class="usage">
+<bold>@image</bold>&nbsp; <italic>layer</italic> <bold>,</bold> <italic>image-file</italic> <bold>,</bold> <italic>time</italic> <bold>,</bold> <italic>priority</italic> <bold>,</bold> <italic>coord-x</italic> <bold>,</bold> <italic>coord-y</italic> <bold>,</bold> <italic>transparency</italic> <bold>,</bold> <italic>rotate-z</italic> <bold>,</bold> <italic>layer-style</italic>
+</div>
+<br/>
+
+<div class="normal">
+　layer に指定したレイヤーに画像を読み込みます。<br/>
+　またレイヤーが既に存在する場合、指定座標（coord-x, coord-y）、透明度（transparency）、回転角（rotate-z）に移動アニメーションします。<br/>
+　またレイヤータイプが buf_layer の場合、画像はクロスフェードしながら切り替わります。<br/>
+<br/>
+　レイヤーが存在しない場合、新規にレイヤーを作成して画像を読み込み、フェードインします。<br/>
+　レイヤー作成時の layer-style は、省略すると image が参照されます。<br/>
+<br/>
+　このマクロはレイヤーが存在するかをテストするために f.@layer_exist フラグに @layer_exist コマンドの結果を受け取ります。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_bg"/>
+<div class="headline">@bg マクロ</div>
+
+<div class="usage">
+<bold>@bg</bold>&nbsp; <italic>image-file</italic> <bold>,</bold> <italic>time</italic>
+</div>
+<br/>
+
+<div class="normal">
+　レイヤー ID = bg、表示優先度 100、座標 (0,0)、デフォルトのレイヤースタイル bg でレイヤーに画像を読み込みます。<br/>
+　このマクロは @image マクロを呼び出します。<br/>
+
+<br/>
+</div>
+<br/>
+
+
+
+<a name="AGLGraphicsProcessor_char"/>
+<div class="headline">@char マクロ</div>
+
+<div class="usage">
+<bold>@char</bold>&nbsp; <italic>layer</italic> <bold>,</bold> <italic>image-file</italic> <bold>,</bold> <italic>time</italic> <bold>,</bold> <italic>coord-x</italic>
+</div>
+<br/>
+
+<div class="normal">
+　レイヤー ID = layer、表示優先度 50、座標 (coord-x,0)、デフォルトのレイヤースタイル char でレイヤーに画像を読み込みます。<br/>
+　このマクロは @image マクロを呼び出します。<br/>
+<br/>
+　y 座標は暗黙に 0 ですので、画像データの作成時、あるいはレイヤースタイルで y 座標が 0 で問題ないように設定します。<br/>
+
+
+<br/>
+</div>
+<br/>
+
+
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+</body>
+</html>
+

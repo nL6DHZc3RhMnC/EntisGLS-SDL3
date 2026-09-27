@@ -1,0 +1,1 @@
+ここの GLSL ソースを EntisGLS4 ソースへ反映させるには ..\Scripts\Tools\make_glsl_source.bat を実行してください。

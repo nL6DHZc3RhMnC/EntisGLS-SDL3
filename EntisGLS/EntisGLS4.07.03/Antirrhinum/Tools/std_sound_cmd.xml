@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<agl_usage_definition>
+	<command lead="@sound_play" cmd="sound_play" arg_type="array">
+		<arg_list>
+			<arg name="channel"/>
+			<arg name="src"/>
+			<arg name="line"/>
+			<arg name="volume"/>
+			<arg name="loop"/>
+		</arg_list>
+	</command>
+	<command lead="@sound_stop" cmd="sound_stop" arg_type="array">
+		<arg_list>
+			<arg name="channel"/>
+			<arg name="fadeout"/>
+		</arg_list>
+	</command>
+	<command lead="@sound_volume" cmd="sound_volume" arg_type="array">
+		<arg_list>
+			<arg name="channel"/>
+			<arg name="volume"/>
+			<arg name="fade"/>
+		</arg_list>
+	</command>
+	<command lead="@sound_wait" cmd="sound_wait" arg_type="array">
+		<arg_list>
+			<arg name="channel"/>
+		</arg_list>
+	</command>
+</agl_usage_definition>

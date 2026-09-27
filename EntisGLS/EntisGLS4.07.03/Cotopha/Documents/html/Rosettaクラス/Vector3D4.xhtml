@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>Vector3D4</title>
+</head>
+<body>
+<div class="chapter">Vector3D4</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　Vector3D4 は座標情報を格納する構造体です。
+<br/>
+　EntisGLS4 の S3DVector4 や S4DVector と同等です（EntisGLS4 では S3DVector4 と S4DVector は使い分けられていますが、Rosetta では共用されています）。
+<br/>
+　Vector3D から派生しており、w 要素が必ず使用されるわけではありません。absolute や normalize は3次元ベクトルの関数として機能することに注意してください。
+<br/>
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="Uint8Pointer.xhtml">Uint8Pointer</a>
+<div class="indent1"><a href="Structure.xhtml">Structure</a>
+<div class="indent1"><a href="Vector3D.xhtml">Vector3D</a>
+<div class="indent1"><a href="Vector3D4.xhtml">Vector3D4</a>
+</div></div></div></div></div><br/>
+
+<div class="headline">Members</div>
+<div class="indent2">
+	<a href="#member_x">x</a><br/>
+	<a href="#member_y">y</a><br/>
+	<a href="#member_z">z</a><br/>
+	<a href="#member_w">w</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_Vector3D4">Vector3D4</a><br/>
+	<a href="#virtual_add">add</a><br/>
+	<a href="#virtual_clone">clone</a><br/>
+	<a href="#virtual_copy">copy</a><br/>
+	<a href="#virtual_div">div</a><br/>
+	<a href="#virtual_mul">mul</a><br/>
+	<a href="#virtual_sub">sub</a><br/>
+</div><br/>
+
+
+<div class="chapter">Members</div>
+
+<a name="member_x"/>
+<div class="headline">x</div>
+<div class="usage">&#9;public float x</div>
+<br/>
+
+<a name="member_y"/>
+<div class="headline">y</div>
+<div class="usage">&#9;public float y</div>
+<br/>
+
+<a name="member_z"/>
+<div class="headline">z</div>
+<div class="usage">&#9;public float z</div>
+<br/>
+
+<a name="member_w"/>
+<div class="headline">w</div>
+<div class="usage">&#9;public float w</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_Vector3D4"/>
+<div class="headline">Vector3D4</div>
+<div class="usage">public void Vector3D4( double x, double y, double z, double w )</div>
+<br/>
+
+<a name="virtual_add"/>
+<div class="headline">add</div>
+<div class="usage">public Vector3D4 add( Vector3D4 v )</div>
+<br/>
+
+<a name="virtual_clone"/>
+<div class="headline">clone</div>
+<div class="usage">public const Vector3D4 clone(&#32; )</div>
+<br/>
+
+<a name="virtual_copy"/>
+<div class="headline">copy</div>
+<div class="usage">public Vector3D4 copy( Vector3D4 src )</div>
+<br/>
+
+<a name="virtual_div"/>
+<div class="headline">div</div>
+<div class="usage">public Vector3D4 div( double s )</div>
+<br/>
+
+<a name="virtual_mul"/>
+<div class="headline">mul</div>
+<div class="usage">public Vector3D4 mul( double s )</div>
+<br/>
+
+<a name="virtual_sub"/>
+<div class="headline">sub</div>
+<div class="usage">public Vector3D4 sub( Vector3D4 v )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

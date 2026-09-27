@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>RenderDevice</title>
+</head>
+<body>
+<div class="chapter">RenderDevice</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　RenderDevice は3Dレンダリングデバイスの抽象物です。<br/>
+　EntisGLS4 の S3DRenderDevice コンテナです。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="RenderDevice.xhtml">RenderDevice</a>
+</div></div></div><br/>
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="RenderDevice.BuildShaderException.xhtml">RenderDevice.BuildShaderException</a><br/>
+	<a href="RenderDevice.DefaultShaderId.xhtml">RenderDevice.DefaultShaderId</a><br/>
+	<a href="RenderDevice.ShaderDesc.xhtml">RenderDevice.ShaderDesc</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_procedureAsync">procedureAsync</a><br/>
+	<a href="#static_procedureDelayable">procedureDelayable</a><br/>
+	<a href="#static_procedureLater">procedureLater</a><br/>
+	<a href="#static_procedureNoRender">procedureNoRender</a><br/>
+	<a href="#static_procedureSync">procedureSync</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_buildCustomShader">buildCustomShader</a><br/>
+	<a href="#virtual_commitDeviceImage">commitDeviceImage</a><br/>
+	<a href="#virtual_commitDeviceVertexBuffer">commitDeviceVertexBuffer</a><br/>
+	<a href="#virtual_getCustomShaderAs">getCustomShaderAs</a><br/>
+	<a href="#virtual_isOnRenderThread">isOnRenderThread</a><br/>
+	<a href="#virtual_newRenderer">newRenderer</a><br/>
+	<a href="#virtual_procedure">procedure</a><br/>
+	<a href="#virtual_releaseDeviceImage">releaseDeviceImage</a><br/>
+	<a href="#virtual_releaseDeviceVertexBuffer">releaseDeviceVertexBuffer</a><br/>
+	<a href="#virtual_removeCustomShaderAs">removeCustomShaderAs</a><br/>
+	<a href="#virtual_waitUntilAsyncAllProcedures">waitUntilAsyncAllProcedures</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_procedureAsync"/>
+<div class="headline">procedureAsync</div>
+<div class="usage">public static const Integer procedureAsync = 0</div>
+<br/>
+
+<a name="static_procedureDelayable"/>
+<div class="headline">procedureDelayable</div>
+<div class="usage">public static const Integer procedureDelayable = 2</div>
+<br/>
+
+<a name="static_procedureLater"/>
+<div class="headline">procedureLater</div>
+<div class="usage">public static const Integer procedureLater = 3</div>
+<br/>
+
+<a name="static_procedureNoRender"/>
+<div class="headline">procedureNoRender</div>
+<div class="usage">public static const Integer procedureNoRender = 4</div>
+<br/>
+
+<a name="static_procedureSync"/>
+<div class="headline">procedureSync</div>
+<div class="usage">public static const Integer procedureSync = 1</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_buildCustomShader"/>
+<div class="headline">buildCustomShader</div>
+<div class="usage">public CustomShader buildCustomShader( String idShader, RenderDevice.ShaderDesc shddsc )</div>
+<br/>
+
+<a name="virtual_commitDeviceImage"/>
+<div class="headline">commitDeviceImage</div>
+<div class="usage">public boolean commitDeviceImage( Image img, long timeout = 0 )</div>
+<br/>
+
+<a name="virtual_commitDeviceVertexBuffer"/>
+<div class="headline">commitDeviceVertexBuffer</div>
+<div class="usage">public boolean commitDeviceVertexBuffer( VertexBuffer vb, long timeout = 0 )</div>
+<br/>
+
+<a name="virtual_getCustomShaderAs"/>
+<div class="headline">getCustomShaderAs</div>
+<div class="usage">public CustomShader getCustomShaderAs( String idShader )</div>
+<br/>
+
+<a name="virtual_isOnRenderThread"/>
+<div class="headline">isOnRenderThread</div>
+<div class="usage">public const boolean isOnRenderThread(&#32; )</div>
+<br/>
+
+<a name="virtual_newRenderer"/>
+<div class="headline">newRenderer</div>
+<div class="usage">public RenderContext newRenderer(&#32; )</div>
+<br/>
+
+<a name="virtual_procedure"/>
+<div class="headline">procedure</div>
+<div class="usage">public boolean procedure( Runnable proc, int priority )</div>
+<br/>
+
+<a name="virtual_releaseDeviceImage"/>
+<div class="headline">releaseDeviceImage</div>
+<div class="usage">public boolean releaseDeviceImage( Image img, long timeout = 0 )</div>
+<br/>
+
+<a name="virtual_releaseDeviceVertexBuffer"/>
+<div class="headline">releaseDeviceVertexBuffer</div>
+<div class="usage">public boolean releaseDeviceVertexBuffer( VertexBuffer vb, long timeout = 0 )</div>
+<br/>
+
+<a name="virtual_removeCustomShaderAs"/>
+<div class="headline">removeCustomShaderAs</div>
+<div class="usage">public void removeCustomShaderAs( String idShader )</div>
+<br/>
+
+<a name="virtual_waitUntilAsyncAllProcedures"/>
+<div class="headline">waitUntilAsyncAllProcedures</div>
+<div class="usage">public const boolean waitUntilAsyncAllProcedures( long timeout )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

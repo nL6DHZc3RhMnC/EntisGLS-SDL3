@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>String</title>
+</head>
+<body>
+<div class="chapter">String</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　String クラスは文字列オブジェクトを実装します。<br/>
+　setString メソッド以外はすべて const メソッドです。<br/>
+　文字コード配列は toCharArray()、又は encodeTo(String.encodingUTF16) で取得できます。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="String.xhtml">String</a>
+</div></div><br/>
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_encodingEUCJP">encodingEUCJP</a><br/>
+	<a href="#static_encodingISO2022JP">encodingISO2022JP</a><br/>
+	<a href="#static_encodingShiftJIS">encodingShiftJIS</a><br/>
+	<a href="#static_encodingUTF16">encodingUTF16</a><br/>
+	<a href="#static_encodingUTF8">encodingUTF8</a><br/>
+	<a href="#static_encodingUnknown">encodingUnknown</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Functions</div>
+<div class="indent2">
+	<a href="#static_analyzeEncoding">analyzeEncoding</a><br/>
+	<a href="#static_decode">decode</a><br/>
+	<a href="#static_encodeBase64">encodeBase64</a><br/>
+	<a href="#static_encodeHex">encodeHex</a><br/>
+	<a href="#static_format">format</a><br/>
+	<a href="#static_getEncodingName">getEncodingName</a><br/>
+	<a href="#static_getEncodingType">getEncodingType</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_String">String</a><br/>
+	<a href="#virtual_asInteger">asInteger</a><br/>
+	<a href="#virtual_asNumber">asNumber</a><br/>
+	<a href="#virtual_charAt">charAt</a><br/>
+	<a href="#virtual_charCodeAt">charCodeAt</a><br/>
+	<a href="#virtual_charLastCodeAt">charLastCodeAt</a><br/>
+	<a href="#virtual_chopRight">chopRight</a><br/>
+	<a href="#virtual_compareTo">compareTo</a><br/>
+	<a href="#virtual_compareToIgnoreCase">compareToIgnoreCase</a><br/>
+	<a href="#virtual_decodeBase64">decodeBase64</a><br/>
+	<a href="#virtual_decodeCLangString">decodeCLangString</a><br/>
+	<a href="#virtual_decodeCSVString">decodeCSVString</a><br/>
+	<a href="#virtual_decodeHex">decodeHex</a><br/>
+	<a href="#virtual_encodeCLangString">encodeCLangString</a><br/>
+	<a href="#virtual_encodeCSVString">encodeCSVString</a><br/>
+	<a href="#virtual_encodeTo">encodeTo</a><br/>
+	<a href="#virtual_getFileDirectoryPart">getFileDirectoryPart</a><br/>
+	<a href="#virtual_getFileDrivePart">getFileDrivePart</a><br/>
+	<a href="#virtual_getFileExtensionPart">getFileExtensionPart</a><br/>
+	<a href="#virtual_getFileNamePart">getFileNamePart</a><br/>
+	<a href="#virtual_getFileTitlePart">getFileTitlePart</a><br/>
+	<a href="#virtual_indexOf">indexOf</a><br/>
+	<a href="#virtual_length">length</a><br/>
+	<a href="#virtual_mappingFilter">mappingFilter</a><br/>
+	<a href="#virtual_normalizeFilePath">normalizeFilePath</a><br/>
+	<a href="#virtual_offsetFilePath">offsetFilePath</a><br/>
+	<a href="#virtual_parseInt">parseInt</a><br/>
+	<a href="#virtual_relativeFilePath">relativeFilePath</a><br/>
+	<a href="#virtual_replace">replace</a><br/>
+	<a href="#virtual_setString">setString</a><br/>
+	<a href="#virtual_substring">substring</a><br/>
+	<a href="#virtual_toCharArray">toCharArray</a><br/>
+	<a href="#virtual_toLowerCase">toLowerCase</a><br/>
+	<a href="#virtual_toUpperCase">toUpperCase</a><br/>
+	<a href="#virtual_trim">trim</a><br/>
+	<a href="#virtual_trimLeft">trimLeft</a><br/>
+	<a href="#virtual_trimRight">trimRight</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_encodingEUCJP"/>
+<div class="headline">encodingEUCJP</div>
+<div class="usage">public static const Integer encodingEUCJP = 3</div>
+<br/>
+
+<a name="static_encodingISO2022JP"/>
+<div class="headline">encodingISO2022JP</div>
+<div class="usage">public static const Integer encodingISO2022JP = 2</div>
+<br/>
+
+<a name="static_encodingShiftJIS"/>
+<div class="headline">encodingShiftJIS</div>
+<div class="usage">public static const Integer encodingShiftJIS = 0</div>
+<br/>
+
+<a name="static_encodingUTF16"/>
+<div class="headline">encodingUTF16</div>
+<div class="usage">public static const Integer encodingUTF16 = 4</div>
+<br/>
+
+<a name="static_encodingUTF8"/>
+<div class="headline">encodingUTF8</div>
+<div class="usage">public static const Integer encodingUTF8 = 1</div>
+<br/>
+
+<a name="static_encodingUnknown"/>
+<div class="headline">encodingUnknown</div>
+<div class="usage">public static const Integer encodingUnknown = -1</div>
+<br/>
+
+<div class="chapter">Static Functions</div>
+
+<a name="static_analyzeEncoding"/>
+<div class="headline">analyzeEncoding</div>
+<div class="usage">public static int analyzeEncoding( Uint8Pointer ptrSrc, int nLength = -1 )</div>
+<br/>
+
+<a name="static_decode"/>
+<div class="headline">decode</div>
+<div class="usage">public static String decode( int encoding, Uint8Pointer ptrSrc, int nLength = -1 )</div>
+<br/>
+
+<a name="static_encodeBase64"/>
+<div class="headline">encodeBase64</div>
+<div class="usage">public static String encodeBase64( Uint8Pointer ptrSrc, int nLength = -1 )</div>
+<br/>
+
+<a name="static_encodeHex"/>
+<div class="headline">encodeHex</div>
+<div class="usage">public static String encodeHex( Uint8Pointer ptrSrc, int nLength = -1 )</div>
+<br/>
+
+<a name="static_format"/>
+<div class="headline">format</div>
+<div class="usage">public static String format( String fmt, ... )</div>
+<br/>
+
+<a name="static_getEncodingName"/>
+<div class="headline">getEncodingName</div>
+<div class="usage">public static String getEncodingName( int encoding )</div>
+<br/>
+
+<a name="static_getEncodingType"/>
+<div class="headline">getEncodingType</div>
+<div class="usage">public static int getEncodingType( String encoding )</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_String"/>
+<div class="headline">String</div>
+<div class="usage">public void String( String value )</div>
+<br/>
+
+<div class="headline">String</div>
+<div class="usage">public void String( Uint16Pointer value )</div>
+<br/>
+
+<div class="headline">String</div>
+<div class="usage">public void String( Uint16Pointer value, int count )</div>
+<br/>
+
+<div class="headline">String</div>
+<div class="usage">public void String( char[] value )</div>
+<br/>
+
+<div class="headline">String</div>
+<div class="usage">public void String( char[] value, int offset, int count )</div>
+<br/>
+
+<a name="virtual_asInteger"/>
+<div class="headline">asInteger</div>
+<div class="usage">public const long asInteger(&#32; )</div>
+<br/>
+
+<a name="virtual_asNumber"/>
+<div class="headline">asNumber</div>
+<div class="usage">public const double asNumber(&#32; )</div>
+<br/>
+
+<a name="virtual_charAt"/>
+<div class="headline">charAt</div>
+<div class="usage">public const String charAt( int index )</div>
+<br/>
+
+<a name="virtual_charCodeAt"/>
+<div class="headline">charCodeAt</div>
+<div class="usage">public const char charCodeAt( int index )</div>
+<div class="normal">
+　文字コードを取得します。index が範囲外の場合 0 を返します。
+</div>
+<br/>
+
+<a name="virtual_charLastCodeAt"/>
+<div class="headline">charLastCodeAt</div>
+<div class="usage">public const char charLastCodeAt( int index )</div>
+<div class="normal">
+　文字コードを取得します。index が範囲外の場合 0 を返します。
+</div>
+<div class="notes_parameter">
+<div class="param_name">index</div>
+<div class="param_desc">
+文字終端を 0 として前方向への指標
+</div>
+</div>
+<br/>
+
+<a name="virtual_chopRight"/>
+<div class="headline">chopRight</div>
+<div class="usage">public const String chopRight( int count = 1 )</div>
+<br/>
+
+<a name="virtual_compareTo"/>
+<div class="headline">compareTo</div>
+<div class="usage">public const int compareTo( String str )</div>
+<br/>
+
+<a name="virtual_compareToIgnoreCase"/>
+<div class="headline">compareToIgnoreCase</div>
+<div class="usage">public const int compareToIgnoreCase( String str )</div>
+<br/>
+
+<a name="virtual_decodeBase64"/>
+<div class="headline">decodeBase64</div>
+<div class="usage">public const Uint8Pointer decodeBase64(&#32; )</div>
+<br/>
+
+<a name="virtual_decodeCLangString"/>
+<div class="headline">decodeCLangString</div>
+<div class="usage">public const String decodeCLangString(&#32; )</div>
+<br/>
+
+<a name="virtual_decodeCSVString"/>
+<div class="headline">decodeCSVString</div>
+<div class="usage">public const String decodeCSVString(&#32; )</div>
+<br/>
+
+<a name="virtual_decodeHex"/>
+<div class="headline">decodeHex</div>
+<div class="usage">public const Uint8Pointer decodeHex(&#32; )</div>
+<br/>
+
+<a name="virtual_encodeCLangString"/>
+<div class="headline">encodeCLangString</div>
+<div class="usage">public const String encodeCLangString(&#32; )</div>
+<br/>
+
+<a name="virtual_encodeCSVString"/>
+<div class="headline">encodeCSVString</div>
+<div class="usage">public const String encodeCSVString(&#32; )</div>
+<br/>
+
+<a name="virtual_encodeTo"/>
+<div class="headline">encodeTo</div>
+<div class="usage">public const Uint8Pointer encodeTo( int encoding )</div>
+<br/>
+
+<a name="virtual_getFileDirectoryPart"/>
+<div class="headline">getFileDirectoryPart</div>
+<div class="usage">public const String getFileDirectoryPart( char sep = 92 /* 0x005C */ )</div>
+<br/>
+
+<a name="virtual_getFileDrivePart"/>
+<div class="headline">getFileDrivePart</div>
+<div class="usage">public const String getFileDrivePart( char sep = 92 /* 0x005C */ )</div>
+<br/>
+
+<a name="virtual_getFileExtensionPart"/>
+<div class="headline">getFileExtensionPart</div>
+<div class="usage">public const String getFileExtensionPart( char sep = 92 /* 0x005C */ )</div>
+<br/>
+
+<a name="virtual_getFileNamePart"/>
+<div class="headline">getFileNamePart</div>
+<div class="usage">public const String getFileNamePart( char sep = 92 /* 0x005C */ )</div>
+<br/>
+
+<a name="virtual_getFileTitlePart"/>
+<div class="headline">getFileTitlePart</div>
+<div class="usage">public const String getFileTitlePart( char sep = 92 /* 0x005C */ )</div>
+<br/>
+
+<a name="virtual_indexOf"/>
+<div class="headline">indexOf</div>
+<div class="usage">public const int indexOf( String str, int first = 0 )</div>
+<br/>
+
+<a name="virtual_length"/>
+<div class="headline">length</div>
+<div class="usage">public const int length(&#32; )</div>
+<br/>
+
+<a name="virtual_mappingFilter"/>
+<div class="headline">mappingFilter</div>
+<div class="usage">public const String mappingFilter( HashMap map )</div>
+<br/>
+
+<a name="virtual_normalizeFilePath"/>
+<div class="headline">normalizeFilePath</div>
+<div class="usage">public const String normalizeFilePath( char sep = 92 /* 0x005C */ )</div>
+<br/>
+
+<a name="virtual_offsetFilePath"/>
+<div class="headline">offsetFilePath</div>
+<div class="usage">public const String offsetFilePath( String sOffsetPath, char sep = 92 /* 0x005C */ )</div>
+<br/>
+
+<a name="virtual_parseInt"/>
+<div class="headline">parseInt</div>
+<div class="usage">public const long parseInt( int radix = 10 )</div>
+<br/>
+
+<a name="virtual_relativeFilePath"/>
+<div class="headline">relativeFilePath</div>
+<div class="usage">public const String relativeFilePath( String sFullPath, int nAscendLimit = 5, char sep = 92 /* 0x005C */ )</div>
+<br/>
+
+<a name="virtual_replace"/>
+<div class="headline">replace</div>
+<div class="usage">public const String replace( String oldStr, String newStr )</div>
+<br/>
+
+<a name="virtual_setString"/>
+<div class="headline">setString</div>
+<div class="usage">public void setString( String str )</div>
+<br/>
+
+<a name="virtual_substring"/>
+<div class="headline">substring</div>
+<div class="usage">public const String substring( int begin )</div>
+<div class="normal">
+　begin から終端までの文字列を取得します。<br/>
+　begin が負数の場合先頭から、begin が文字列長を超えている場合空の文字列を返します。
+</div>
+<br/>
+
+<div class="headline">substring</div>
+<div class="usage">public const String substring( int begin, int end )</div>
+<div class="normal">
+　begin から end までの文字列を取得します。<br/>
+　end に指定された指標の文字は含みません。<br/>
+　end に負数が指定された場合、文字列終端までの文字列を返します。
+</div>
+<br/>
+
+<a name="virtual_toCharArray"/>
+<div class="headline">toCharArray</div>
+<div class="usage">public const char[] toCharArray(&#32; )</div>
+<br/>
+
+<a name="virtual_toLowerCase"/>
+<div class="headline">toLowerCase</div>
+<div class="usage">public const String toLowerCase(&#32; )</div>
+<br/>
+
+<a name="virtual_toUpperCase"/>
+<div class="headline">toUpperCase</div>
+<div class="usage">public const String toUpperCase(&#32; )</div>
+<br/>
+
+<a name="virtual_trim"/>
+<div class="headline">trim</div>
+<div class="usage">public const String trim(&#32; )</div>
+<br/>
+
+<a name="virtual_trimLeft"/>
+<div class="headline">trimLeft</div>
+<div class="usage">public const String trimLeft(&#32; )</div>
+<br/>
+
+<a name="virtual_trimRight"/>
+<div class="headline">trimRight</div>
+<div class="usage">public const String trimRight(&#32; )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

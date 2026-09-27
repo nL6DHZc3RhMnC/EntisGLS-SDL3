@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <PropertyPageSchema
+      Include="$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml" />
+    <AvailableItemName
+      Include="MASMforEntisGLS">
+      <Targets>_MASMforEntisGLS</Targets>
+    </AvailableItemName>
+  </ItemGroup>
+  <UsingTask
+    TaskName="MASMforEntisGLS"
+    TaskFactory="XamlTaskFactory"
+    AssemblyName="Microsoft.Build.Tasks.v4.0">
+    <Task>$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml</Task>
+  </UsingTask>
+  <Target
+    Name="_MASMforEntisGLS"
+    BeforeTargets="$(MASMforEntisGLSBeforeTargets)"
+    AfterTargets="$(MASMforEntisGLSAfterTargets)"
+    Condition="'@(MASMforEntisGLS)' != ''"
+    DependsOnTargets="$(MASMforEntisGLSDependsOn);ComputeMASMforEntisGLSOutput"
+    Outputs="%(MASMforEntisGLS.Outputs)"
+    Inputs="%(MASMforEntisGLS.Identity);%(MASMforEntisGLS.AdditionalDependencies);$(MSBuildProjectFile)">
+    <ItemGroup
+      Condition="'@(SelectedFiles)' != ''">
+      <MASMforEntisGLS
+        Remove="@(MASMforEntisGLS)"
+        Condition="'%(Identity)' != '@(SelectedFiles)'" />
+    </ItemGroup>
+    <ItemGroup>
+      <MASMforEntisGLS_tlog
+        Include="%(MASMforEntisGLS.Outputs)"
+        Condition="'%(MASMforEntisGLS.Outputs)' != '' and '%(MASMforEntisGLS.ExcludedFromBuild)' != 'true'">
+        <Source>@(MASMforEntisGLS, '|')</Source>
+      </MASMforEntisGLS_tlog>
+    </ItemGroup>
+    <Message
+      Importance="High"
+      Text="%(MASMforEntisGLS.ExecutionDescription)" />
+    <WriteLinesToFile
+      Condition="'@(MASMforEntisGLS_tlog)' != '' and '%(MASMforEntisGLS_tlog.ExcludedFromBuild)' != 'true'"
+      File="$(IntDir)$(ProjectName).write.1.tlog"
+      Lines="^%(MASMforEntisGLS_tlog.Source);@(MASMforEntisGLS_tlog-&gt;'%(Fullpath)')" />
+    <MASMforEntisGLS
+      Condition="'@(MASMforEntisGLS)' != '' and '%(MASMforEntisGLS.ExcludedFromBuild)' != 'true'"
+      CommandLineTemplate="%(MASMforEntisGLS.CommandLineTemplate)"
+      DebugMode="%(MASMforEntisGLS.DebugMode)"
+      PreprocessorDefinitions="%(MASMforEntisGLS.PreprocessorDefinitions)"
+      AssembledCodeListingFile="%(MASMforEntisGLS.AssembledCodeListingFile)"
+      IncludePaths="%(MASMforEntisGLS.IncludePaths)"
+      WarningLevel="%(MASMforEntisGLS.WarningLevel)"
+      AdditionalOptions="%(MASMforEntisGLS.AdditionalOptions)"
+      Inputs="%(MASMforEntisGLS.Identity)" />
+  </Target>
+  <PropertyGroup>
+    <ComputeLinkInputsTargets>
+            $(ComputeLinkInputsTargets);
+            ComputeMASMforEntisGLSOutput;
+          </ComputeLinkInputsTargets>
+    <ComputeLibInputsTargets>
+            $(ComputeLibInputsTargets);
+            ComputeMASMforEntisGLSOutput;
+          </ComputeLibInputsTargets>
+  </PropertyGroup>
+  <Target
+    Name="ComputeMASMforEntisGLSOutput"
+    Condition="'@(MASMforEntisGLS)' != ''">
+    <ItemGroup>
+      <MASMforEntisGLSDirsToMake
+        Condition="'@(MASMforEntisGLS)' != '' and '%(MASMforEntisGLS.ExcludedFromBuild)' != 'true'"
+        Include="%(MASMforEntisGLS.Outputs)" />
+      <Link
+        Include="%(MASMforEntisGLSDirsToMake.Identity)"
+        Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" />
+      <Lib
+        Include="%(MASMforEntisGLSDirsToMake.Identity)"
+        Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" />
+      <ImpLib
+        Include="%(MASMforEntisGLSDirsToMake.Identity)"
+        Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" />
+    </ItemGroup>
+    <MakeDir
+      Directories="@(MASMforEntisGLSDirsToMake-&gt;'%(RootDir)%(Directory)')" />
+  </Target>
+</Project>

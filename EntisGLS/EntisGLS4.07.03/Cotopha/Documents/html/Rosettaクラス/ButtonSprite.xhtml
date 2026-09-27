@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>ButtonSprite</title>
+</head>
+<body>
+<div class="chapter">ButtonSprite</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　ButtonSprite はボタンUIを供給します。<br/>
+　EntisGLS4 の SGLSpriteButton コンテナです。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="Sprite.xhtml">Sprite</a>
+<div class="indent1"><a href="ButtonSprite.xhtml">ButtonSprite</a>
+</div></div></div></div><br/>
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="ButtonSprite.ButtonStyle.xhtml">ButtonSprite.ButtonStyle</a><br/>
+	<a href="ButtonSprite.Listener.xhtml">ButtonSprite.Listener</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_flagActive">flagActive</a><br/>
+	<a href="#static_flagAllStatus">flagAllStatus</a><br/>
+	<a href="#static_flagDisabled">flagDisabled</a><br/>
+	<a href="#static_flagFocus">flagFocus</a><br/>
+	<a href="#static_flagNormal">flagNormal</a><br/>
+	<a href="#static_flagNormal4Buttons">flagNormal4Buttons</a><br/>
+	<a href="#static_flagPushDisabled">flagPushDisabled</a><br/>
+	<a href="#static_flagPushed">flagPushed</a><br/>
+	<a href="#static_flagPushedActive">flagPushedActive</a><br/>
+	<a href="#static_flagPushedFocus">flagPushedFocus</a><br/>
+	<a href="#static_statusActive">statusActive</a><br/>
+	<a href="#static_statusCount">statusCount</a><br/>
+	<a href="#static_statusDisabled">statusDisabled</a><br/>
+	<a href="#static_statusFocus">statusFocus</a><br/>
+	<a href="#static_statusInvalid">statusInvalid</a><br/>
+	<a href="#static_statusNormal">statusNormal</a><br/>
+	<a href="#static_statusPushDisabled">statusPushDisabled</a><br/>
+	<a href="#static_statusPushed">statusPushed</a><br/>
+	<a href="#static_statusPushedActive">statusPushedActive</a><br/>
+	<a href="#static_statusPushedFocus">statusPushedFocus</a><br/>
+	<a href="#static_typeCheck">typeCheck</a><br/>
+	<a href="#static_typeNormal">typeNormal</a><br/>
+	<a href="#static_typeRadio">typeRadio</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_ButtonSprite">ButtonSprite</a><br/>
+	<a href="#virtual_attachButtonListener">attachButtonListener</a><br/>
+	<a href="#virtual_attachSoundEffect">attachSoundEffect</a><br/>
+	<a href="#virtual_createSimpleButton">createSimpleButton</a><br/>
+	<a href="#virtual_createSimpleImageButton">createSimpleImageButton</a><br/>
+	<a href="#virtual_createSimpleRectButton">createSimpleRectButton</a><br/>
+	<a href="#virtual_createSimpleTextButton">createSimpleTextButton</a><br/>
+	<a href="#virtual_enableDrag">enableDrag</a><br/>
+	<a href="#virtual_getButtonStatus">getButtonStatus</a><br/>
+	<a href="#virtual_getButtonStyle">getButtonStyle</a><br/>
+	<a href="#virtual_newButtonImageReference">newButtonImageReference</a><br/>
+	<a href="#virtual_setButtonRepeat">setButtonRepeat</a><br/>
+	<a href="#virtual_setButtonSize">setButtonSize</a><br/>
+	<a href="#virtual_setButtonStatus">setButtonStatus</a><br/>
+	<a href="#virtual_setButtonStyle">setButtonStyle</a><br/>
+	<a href="#virtual_setRightClickNotify">setRightClickNotify</a><br/>
+	<a href="#virtual_setStatusNotification">setStatusNotification</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_flagActive"/>
+<div class="headline">flagActive</div>
+<div class="usage">public static const Integer flagActive = 16</div>
+<br/>
+
+<a name="static_flagAllStatus"/>
+<div class="headline">flagAllStatus</div>
+<div class="usage">public static const Integer flagAllStatus = 255 /* 0x00FF */</div>
+<br/>
+
+<a name="static_flagDisabled"/>
+<div class="headline">flagDisabled</div>
+<div class="usage">public static const Integer flagDisabled = 64 /* 0x0040 */</div>
+<br/>
+
+<a name="static_flagFocus"/>
+<div class="headline">flagFocus</div>
+<div class="usage">public static const Integer flagFocus = 2</div>
+<br/>
+
+<a name="static_flagNormal"/>
+<div class="headline">flagNormal</div>
+<div class="usage">public static const Integer flagNormal = 1</div>
+<br/>
+
+<a name="static_flagNormal4Buttons"/>
+<div class="headline">flagNormal4Buttons</div>
+<div class="usage">public static const Integer flagNormal4Buttons = 71 /* 0x0047 */</div>
+<br/>
+
+<a name="static_flagPushDisabled"/>
+<div class="headline">flagPushDisabled</div>
+<div class="usage">public static const Integer flagPushDisabled = 128 /* 0x0080 */</div>
+<br/>
+
+<a name="static_flagPushed"/>
+<div class="headline">flagPushed</div>
+<div class="usage">public static const Integer flagPushed = 4</div>
+<br/>
+
+<a name="static_flagPushedActive"/>
+<div class="headline">flagPushedActive</div>
+<div class="usage">public static const Integer flagPushedActive = 32 /* 0x0020 */</div>
+<br/>
+
+<a name="static_flagPushedFocus"/>
+<div class="headline">flagPushedFocus</div>
+<div class="usage">public static const Integer flagPushedFocus = 8</div>
+<br/>
+
+<a name="static_statusActive"/>
+<div class="headline">statusActive</div>
+<div class="usage">public static const Integer statusActive = 4</div>
+<br/>
+
+<a name="static_statusCount"/>
+<div class="headline">statusCount</div>
+<div class="usage">public static const Integer statusCount = 8</div>
+<br/>
+
+<a name="static_statusDisabled"/>
+<div class="headline">statusDisabled</div>
+<div class="usage">public static const Integer statusDisabled = 6</div>
+<br/>
+
+<a name="static_statusFocus"/>
+<div class="headline">statusFocus</div>
+<div class="usage">public static const Integer statusFocus = 1</div>
+<br/>
+
+<a name="static_statusInvalid"/>
+<div class="headline">statusInvalid</div>
+<div class="usage">public static const Integer statusInvalid = -1</div>
+<br/>
+
+<a name="static_statusNormal"/>
+<div class="headline">statusNormal</div>
+<div class="usage">public static const Integer statusNormal = 0</div>
+<br/>
+
+<a name="static_statusPushDisabled"/>
+<div class="headline">statusPushDisabled</div>
+<div class="usage">public static const Integer statusPushDisabled = 7</div>
+<br/>
+
+<a name="static_statusPushed"/>
+<div class="headline">statusPushed</div>
+<div class="usage">public static const Integer statusPushed = 2</div>
+<br/>
+
+<a name="static_statusPushedActive"/>
+<div class="headline">statusPushedActive</div>
+<div class="usage">public static const Integer statusPushedActive = 5</div>
+<br/>
+
+<a name="static_statusPushedFocus"/>
+<div class="headline">statusPushedFocus</div>
+<div class="usage">public static const Integer statusPushedFocus = 3</div>
+<br/>
+
+<a name="static_typeCheck"/>
+<div class="headline">typeCheck</div>
+<div class="usage">public static const Integer typeCheck = 1</div>
+<br/>
+
+<a name="static_typeNormal"/>
+<div class="headline">typeNormal</div>
+<div class="usage">public static const Integer typeNormal = 0</div>
+<br/>
+
+<a name="static_typeRadio"/>
+<div class="headline">typeRadio</div>
+<div class="usage">public static const Integer typeRadio = 2</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_ButtonSprite"/>
+<div class="headline">ButtonSprite</div>
+<div class="usage">public void ButtonSprite(&#32; )</div>
+<br/>
+
+<a name="virtual_attachButtonListener"/>
+<div class="headline">attachButtonListener</div>
+<div class="usage">public void attachButtonListener( ButtonSprite.Listener listener )</div>
+<br/>
+
+<a name="virtual_attachSoundEffect"/>
+<div class="headline">attachSoundEffect</div>
+<div class="usage">public void attachSoundEffect( AudioPlayer seFocus, AudioPlayer sePushed )</div>
+<br/>
+
+<a name="virtual_createSimpleButton"/>
+<div class="headline">createSimpleButton</div>
+<div class="usage">public boolean createSimpleButton( Image[] pImages, boolean flagHitRect, Image pHitMask, Size sizeButton, TextSprite.TextStyle textStyle, int[] pTextColors, int[] pBackColors, int maskStatus = 71 /* 0x0047 */, int typeButton = 0 )</div>
+<br/>
+
+<a name="virtual_createSimpleImageButton"/>
+<div class="headline">createSimpleImageButton</div>
+<div class="usage">public boolean createSimpleImageButton( Image[] pImages, boolean flagHitRect = false, Image pHitMask = null, int maskStatus = 71 /* 0x0047 */, int typeButton = 0 )</div>
+<br/>
+
+<a name="virtual_createSimpleRectButton"/>
+<div class="headline">createSimpleRectButton</div>
+<div class="usage">public boolean createSimpleRectButton( Size sizeRect, int[] pTextColors, int maskStatus = 71 /* 0x0047 */, int typeButton = 0 )</div>
+<br/>
+
+<a name="virtual_createSimpleTextButton"/>
+<div class="headline">createSimpleTextButton</div>
+<div class="usage">public boolean createSimpleTextButton( TextSprite.TextStyle textStyle, Size sizeTextExt, int[] pTextColors, int[] pBackColors, int maskStatus = 71 /* 0x0047 */, int typeButton = 0 )</div>
+<br/>
+
+<a name="virtual_enableDrag"/>
+<div class="headline">enableDrag</div>
+<div class="usage">public void enableDrag( boolean flagDraggable, int nThreshold = 8 )</div>
+<br/>
+
+<a name="virtual_getButtonStatus"/>
+<div class="headline">getButtonStatus</div>
+<div class="usage">public const int getButtonStatus(&#32; )</div>
+<br/>
+
+<a name="virtual_getButtonStyle"/>
+<div class="headline">getButtonStyle</div>
+<div class="usage">public const ButtonSprite.ButtonStyle getButtonStyle(&#32; )</div>
+<br/>
+
+<a name="virtual_newButtonImageReference"/>
+<div class="headline">newButtonImageReference</div>
+<div class="usage">public const Image newButtonImageReference( int status )</div>
+<br/>
+
+<a name="virtual_setButtonRepeat"/>
+<div class="headline">setButtonRepeat</div>
+<div class="usage">public void setButtonRepeat( boolean flagRepeat, int msecBefore, int msecInterval )</div>
+<br/>
+
+<a name="virtual_setButtonSize"/>
+<div class="headline">setButtonSize</div>
+<div class="usage">public void setButtonSize( int w, int h )</div>
+<br/>
+
+<a name="virtual_setButtonStatus"/>
+<div class="headline">setButtonStatus</div>
+<div class="usage">public void setButtonStatus( int status )</div>
+<br/>
+
+<a name="virtual_setButtonStyle"/>
+<div class="headline">setButtonStyle</div>
+<div class="usage">public void setButtonStyle( ButtonSprite.ButtonStyle style )</div>
+<br/>
+
+<a name="virtual_setRightClickNotify"/>
+<div class="headline">setRightClickNotify</div>
+<div class="usage">public void setRightClickNotify( boolean flagRightClick, long nRightClickParam )</div>
+<br/>
+
+<a name="virtual_setStatusNotification"/>
+<div class="headline">setStatusNotification</div>
+<div class="usage">public void setStatusNotification( boolean flagNotify, long nNotifyParam )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

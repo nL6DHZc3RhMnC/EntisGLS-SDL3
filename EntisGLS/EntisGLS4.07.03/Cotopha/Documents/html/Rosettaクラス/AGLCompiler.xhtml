@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>AGLCompiler</title>
+</head>
+<body>
+<div class="chapter">AGLCompiler</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+Antirrhinum スクリプト・コンパイラー
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="AGLCompiler.xhtml">AGLCompiler</a>
+</div></div><br/>
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="AGLCompiler.CmdDesc.xhtml">AGLCompiler.CmdDesc</a><br/>
+	<a href="AGLCompiler.CmdPrototype.xhtml">AGLCompiler.CmdPrototype</a><br/>
+	<a href="AGLCompiler.Listener.xhtml">AGLCompiler.Listener</a><br/>
+	<a href="AGLCompiler.MacroArg.xhtml">AGLCompiler.MacroArg</a><br/>
+	<a href="AGLCompiler.MacroDef.xhtml">AGLCompiler.MacroDef</a><br/>
+	<a href="AGLCompiler.ScriptLabel.xhtml">AGLCompiler.ScriptLabel</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_ARG_FLAG_VAR_NAMED">ARG_FLAG_VAR_NAMED</a><br/>
+	<a href="#static_ARG_TYPE_ARRAY">ARG_TYPE_ARRAY</a><br/>
+	<a href="#static_ARG_TYPE_NAMED_PARAM">ARG_TYPE_NAMED_PARAM</a><br/>
+	<a href="#static_ARG_TYPE_USAGE">ARG_TYPE_USAGE</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_AGLCompiler">AGLCompiler</a><br/>
+	<a href="#virtual_addCodeCommand">addCodeCommand</a><br/>
+	<a href="#virtual_addCommand">addCommand</a><br/>
+	<a href="#virtual_attachCompileListener">attachCompileListener</a><br/>
+	<a href="#virtual_compileSource">compileSource</a><br/>
+	<a href="#virtual_compileSourceLine">compileSourceLine</a><br/>
+	<a href="#virtual_findNest">findNest</a><br/>
+	<a href="#virtual_formatModuleFile">formatModuleFile</a><br/>
+	<a href="#virtual_getCompileListener">getCompileListener</a><br/>
+	<a href="#virtual_getConfig">getConfig</a><br/>
+	<a href="#virtual_getLastCodeCommand">getLastCodeCommand</a><br/>
+	<a href="#virtual_getParserContext">getParserContext</a><br/>
+	<a href="#virtual_importScript">importScript</a><br/>
+	<a href="#virtual_initialize">initialize</a><br/>
+	<a href="#virtual_loadConfigFile">loadConfigFile</a><br/>
+	<a href="#virtual_loadSourceFile">loadSourceFile</a><br/>
+	<a href="#virtual_loadUsageDefFile">loadUsageDefFile</a><br/>
+	<a href="#virtual_outputError">outputError</a><br/>
+	<a href="#virtual_parseCommandDef">parseCommandDef</a><br/>
+	<a href="#virtual_parseDirective">parseDirective</a><br/>
+	<a href="#virtual_parseLabel">parseLabel</a><br/>
+	<a href="#virtual_parseMessage">parseMessage</a><br/>
+	<a href="#virtual_parseMessageDef">parseMessageDef</a><br/>
+	<a href="#virtual_parseScriptLabel">parseScriptLabel</a><br/>
+	<a href="#virtual_parseStatement">parseStatement</a><br/>
+	<a href="#virtual_parseUserCommand">parseUserCommand</a><br/>
+	<a href="#virtual_parserCommandProto">parserCommandProto</a><br/>
+	<a href="#virtual_processMessageParam">processMessageParam</a><br/>
+	<a href="#virtual_release">release</a><br/>
+	<a href="#virtual_run">run</a><br/>
+	<a href="#virtual_saveModuleFile">saveModuleFile</a><br/>
+	<a href="#virtual_setMsgParser">setMsgParser</a><br/>
+	<a href="#virtual_setMsgProcessor">setMsgProcessor</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_ARG_FLAG_VAR_NAMED"/>
+<div class="headline">ARG_FLAG_VAR_NAMED</div>
+<div class="usage">public static const int ARG_FLAG_VAR_NAMED = 1</div>
+<div class="normal">
+自由記述名前付き配列
+</div>
+<br/>
+
+<a name="static_ARG_TYPE_ARRAY"/>
+<div class="headline">ARG_TYPE_ARRAY</div>
+<div class="usage">public static const int ARG_TYPE_ARRAY = 0</div>
+<div class="normal">
+配列タイプ引数
+</div>
+<br/>
+
+<a name="static_ARG_TYPE_NAMED_PARAM"/>
+<div class="headline">ARG_TYPE_NAMED_PARAM</div>
+<div class="usage">public static const int ARG_TYPE_NAMED_PARAM = 1</div>
+<div class="normal">
+名前付き配列タイプ引数
+</div>
+<br/>
+
+<a name="static_ARG_TYPE_USAGE"/>
+<div class="headline">ARG_TYPE_USAGE</div>
+<div class="usage">public static const int ARG_TYPE_USAGE = 2</div>
+<div class="normal">
+正規表現書式
+</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_AGLCompiler"/>
+<div class="headline">AGLCompiler</div>
+<div class="usage">public void AGLCompiler(&#32; )</div>
+<div class="normal">
+構築関数
+</div>
+<br/>
+
+<a name="virtual_addCodeCommand"/>
+<div class="headline">addCodeCommand</div>
+<div class="usage">public void addCodeCommand( XMLDocument xmlCmd )</div>
+<div class="normal">
+コードコマンド追加
+</div>
+<br/>
+
+<a name="virtual_addCommand"/>
+<div class="headline">addCommand</div>
+<div class="usage">public void addCommand( String strLead, String cmd, int argType, int argFlags, String argUsage, String[] argNames, String[] argDefault = null, AGLCompiler.CmdPrototype[] argPrototype = null, Function&lt;void,AGLCompiler,HashMap&gt; argProc = null )</div>
+<div class="normal">
+ユーザー定義コマンド書式追加
+</div>
+<br/>
+
+<a name="virtual_attachCompileListener"/>
+<div class="headline">attachCompileListener</div>
+<div class="usage">public void attachCompileListener( AGLCompiler.Listener listener )</div>
+<div class="normal">
+コンパイル・リスナ設定
+</div>
+<br/>
+
+<a name="virtual_compileSource"/>
+<div class="headline">compileSource</div>
+<div class="usage">public int compileSource( StringParser sparsSrc, String strPath, boolean flagNoSuccessReport = false )</div>
+<br/>
+
+<a name="virtual_compileSourceLine"/>
+<div class="headline">compileSourceLine</div>
+<div class="usage">public void compileSourceLine( StringParser sparsLine, String sLine )</div>
+<br/>
+
+<a name="virtual_findNest"/>
+<div class="headline">findNest</div>
+<div class="usage">public int findNest( String sTag )</div>
+<div class="normal">
+ネスト検索
+</div>
+<br/>
+
+<a name="virtual_formatModuleFile"/>
+<div class="headline">formatModuleFile</div>
+<div class="usage">public SmartBufferFile formatModuleFile(&#32; )</div>
+<br/>
+
+<a name="virtual_getCompileListener"/>
+<div class="headline">getCompileListener</div>
+<div class="usage">public AGLCompiler.Listener getCompileListener( Class cls )</div>
+<div class="normal">
+コンパイル・リスナ取得
+</div>
+<br/>
+
+<a name="virtual_getConfig"/>
+<div class="headline">getConfig</div>
+<div class="usage">public const XMLDocument getConfig(&#32; )</div>
+<div class="normal">
+コンフィグ取得
+</div>
+<br/>
+
+<a name="virtual_getLastCodeCommand"/>
+<div class="headline">getLastCodeCommand</div>
+<div class="usage">public const XMLDocument getLastCodeCommand(&#32; )</div>
+<div class="normal">
+直前のコードタグ取得
+</div>
+<br/>
+
+<a name="virtual_getParserContext"/>
+<div class="headline">getParserContext</div>
+<div class="usage">public const HashMap getParserContext(&#32; )</div>
+<div class="normal">
+パーサーコンテキスト取得
+</div>
+<br/>
+
+<a name="virtual_importScript"/>
+<div class="headline">importScript</div>
+<div class="usage">public void importScript( String strScriptFile, String strListenerClass, XMLDocument xmlTag )</div>
+<br/>
+
+<a name="virtual_initialize"/>
+<div class="headline">initialize</div>
+<div class="usage">public void initialize(&#32; )</div>
+<div class="normal">
+リソース破棄
+</div>
+<br/>
+
+<a name="virtual_loadConfigFile"/>
+<div class="headline">loadConfigFile</div>
+<div class="usage">public boolean loadConfigFile( String strCfgFile )</div>
+<div class="normal">
+コンフィグファイル読み込み
+</div>
+<br/>
+
+<a name="virtual_loadSourceFile"/>
+<div class="headline">loadSourceFile</div>
+<div class="usage">public int loadSourceFile( String strPath, boolean flagNoSuccessReport = false )</div>
+<div class="normal">
+ファイル処理・変換
+</div>
+<br/>
+
+<a name="virtual_loadUsageDefFile"/>
+<div class="headline">loadUsageDefFile</div>
+<div class="usage">public boolean loadUsageDefFile( String strFile )</div>
+<div class="normal">
+書式定義ファイル読み込み
+</div>
+<br/>
+
+<a name="virtual_outputError"/>
+<div class="headline">outputError</div>
+<div class="usage">public void outputError( String sErr )</div>
+<div class="normal">
+エラー出力
+</div>
+<br/>
+
+<a name="virtual_parseCommandDef"/>
+<div class="headline">parseCommandDef</div>
+<div class="usage">public boolean parseCommandDef( XMLDocument xmlCmdTag )</div>
+<br/>
+
+<a name="virtual_parseDirective"/>
+<div class="headline">parseDirective</div>
+<div class="usage">public void parseDirective( StringParser sparsLine )</div>
+<div class="normal">
+ディレクティブ処理
+</div>
+<br/>
+
+<a name="virtual_parseLabel"/>
+<div class="headline">parseLabel</div>
+<div class="usage">public void parseLabel( StringParser sparsLine )</div>
+<div class="normal">
+ラベル文処理
+</div>
+<br/>
+
+<a name="virtual_parseMessage"/>
+<div class="headline">parseMessage</div>
+<div class="usage">public void parseMessage( StringParser sparsLine )</div>
+<div class="normal">
+メッセージ文処理
+</div>
+<br/>
+
+<a name="virtual_parseMessageDef"/>
+<div class="headline">parseMessageDef</div>
+<div class="usage">public boolean parseMessageDef( XMLDocument xmlMsgTag )</div>
+<br/>
+
+<a name="virtual_parseScriptLabel"/>
+<div class="headline">parseScriptLabel</div>
+<div class="usage">public AGLCompiler.ScriptLabel parseScriptLabel( String sScriptLabel )</div>
+<div class="normal">
+script#label パラメータ書式解釈
+</div>
+<br/>
+
+<a name="virtual_parseStatement"/>
+<div class="headline">parseStatement</div>
+<div class="usage">public void parseStatement( StringParser sparsLine )</div>
+<div class="normal">
+rosetta 文処理
+</div>
+<br/>
+
+<a name="virtual_parseUserCommand"/>
+<div class="headline">parseUserCommand</div>
+<div class="usage">public void parseUserCommand( StringParser sparsLine, AGLCompiler.CmdDesc cmdDesc )</div>
+<div class="normal">
+ユーザー定義コマンド処理
+</div>
+<br/>
+
+<a name="virtual_parserCommandProto"/>
+<div class="headline">parserCommandProto</div>
+<div class="usage">public AGLCompiler.CmdPrototype parserCommandProto( XMLDocument xmlCmdProto )</div>
+<br/>
+
+<a name="virtual_processMessageParam"/>
+<div class="headline">processMessageParam</div>
+<div class="usage">public String processMessageParam( HashMap&lt;String&gt; mapParam )</div>
+<div class="normal">
+メッセージ処理
+</div>
+<br/>
+
+<a name="virtual_release"/>
+<div class="headline">release</div>
+<div class="usage">public void release(&#32; )</div>
+<div class="normal">
+設定等解放
+</div>
+<br/>
+
+<a name="virtual_run"/>
+<div class="headline">run</div>
+<div class="usage">public int run( String strSrcPath, String strDstPath )</div>
+<div class="normal">
+コンパイル実行
+</div>
+<br/>
+
+<a name="virtual_saveModuleFile"/>
+<div class="headline">saveModuleFile</div>
+<div class="usage">public boolean saveModuleFile( String strPath )</div>
+<div class="normal">
+ファイル書き出し
+</div>
+<br/>
+
+<a name="virtual_setMsgParser"/>
+<div class="headline">setMsgParser</div>
+<div class="usage">public void setMsgParser( String strUsage, String[] aArgNames, Function&lt;boolean,AGLCompiler,HashMap,StringParser&gt; pfnMsgParser )</div>
+<div class="normal">
+メッセージ文パーサー設定
+</div>
+<br/>
+
+<a name="virtual_setMsgProcessor"/>
+<div class="headline">setMsgProcessor</div>
+<div class="usage">public void setMsgProcessor( Function&lt;String,AGLCompiler,HashMap&gt; pfnMsgProc )</div>
+<div class="normal">
+メッセージ文処理関数設定
+</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

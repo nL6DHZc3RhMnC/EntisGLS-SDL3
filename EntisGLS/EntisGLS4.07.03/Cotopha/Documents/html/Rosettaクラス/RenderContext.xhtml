@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>RenderContext</title>
+</head>
+<body>
+<div class="chapter">RenderContext</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　RenderContext は3Dレンダリングコンテキスト抽象物です。<br/>
+　EntisGLS4 の S3DRenderContextInterface コンテナです。<br/>
+　PaintContext, RenderBuffer を継承しており、描画メソッドはそれらを利用できます。<br/>
+　RenderContext では主にレンダリング設定（カメラ・光源等）を行うメソッドが追加されています。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="PaintContext.xhtml">PaintContext</a>
+<div class="indent1"><a href="RenderContext.xhtml">RenderContext</a>
+</div></div></div></div><br/>
+
+<div class="headline">Implements</div>
+<div class="indent2">
+	<a href="RenderBuffer.xhtml">RenderBuffer</a><br/>
+</div><br/>
+
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="RenderContext.Light.xhtml">RenderContext.Light</a><br/>
+	<a href="RenderContext.ShadowMapInfo.xhtml">RenderContext.ShadowMapInfo</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_lightShadowMapping">lightShadowMapping</a><br/>
+	<a href="#static_lightTypeAmbient">lightTypeAmbient</a><br/>
+	<a href="#static_lightTypeAmbientMul">lightTypeAmbientMul</a><br/>
+	<a href="#static_lightTypeFog">lightTypeFog</a><br/>
+	<a href="#static_lightTypeMask">lightTypeMask</a><br/>
+	<a href="#static_lightTypePoint">lightTypePoint</a><br/>
+	<a href="#static_lightTypeSpot">lightTypeSpot</a><br/>
+	<a href="#static_lightTypeVector">lightTypeVector</a><br/>
+	<a href="#static_stereoViewAuto">stereoViewAuto</a><br/>
+	<a href="#static_stereoViewLeft">stereoViewLeft</a><br/>
+	<a href="#static_stereoViewRight">stereoViewRight</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_RenderContext">RenderContext</a><br/>
+	<a href="#virtual_addTemporaryObject">addTemporaryObject</a><br/>
+	<a href="#virtual_attachMultiTargetImages">attachMultiTargetImages</a><br/>
+	<a href="#virtual_begin3DRenderer">begin3DRenderer</a><br/>
+	<a href="#virtual_currentParallaxView">currentParallaxView</a><br/>
+	<a href="#virtual_enableFog">enableFog</a><br/>
+	<a href="#virtual_enablePerspectiveMatrix">enablePerspectiveMatrix</a><br/>
+	<a href="#virtual_end3DRenderer">end3DRenderer</a><br/>
+	<a href="#virtual_getCamera">getCamera</a><br/>
+	<a href="#virtual_getMultiTargetImages">getMultiTargetImages</a><br/>
+	<a href="#virtual_getParallax">getParallax</a><br/>
+	<a href="#virtual_getPerspectiveMatrix">getPerspectiveMatrix</a><br/>
+	<a href="#virtual_getProjectedPosition">getProjectedPosition</a><br/>
+	<a href="#virtual_getProjectionScreen">getProjectionScreen</a><br/>
+	<a href="#virtual_getRenderDevice">getRenderDevice</a><br/>
+	<a href="#virtual_isSphereIntoView">isSphereIntoView</a><br/>
+	<a href="#virtual_selectParallaxView">selectParallaxView</a><br/>
+	<a href="#virtual_setCamera">setCamera</a><br/>
+	<a href="#virtual_setFog">setFog</a><br/>
+	<a href="#virtual_setInverseCameraTransformation">setInverseCameraTransformation</a><br/>
+	<a href="#virtual_setLightEntries">setLightEntries</a><br/>
+	<a href="#virtual_setParallax">setParallax</a><br/>
+	<a href="#virtual_setPerspectiveMatrix">setPerspectiveMatrix</a><br/>
+	<a href="#virtual_setProjectionScreen">setProjectionScreen</a><br/>
+	<a href="#virtual_setShadowMap">setShadowMap</a><br/>
+	<a href="#virtual_setZClipRange">setZClipRange</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_lightShadowMapping"/>
+<div class="headline">lightShadowMapping</div>
+<div class="usage">public static const Integer lightShadowMapping = 2147483648 /* 0x80000000 */</div>
+<br/>
+
+<a name="static_lightTypeAmbient"/>
+<div class="headline">lightTypeAmbient</div>
+<div class="usage">public static const Integer lightTypeAmbient = 1</div>
+<br/>
+
+<a name="static_lightTypeAmbientMul"/>
+<div class="headline">lightTypeAmbientMul</div>
+<div class="usage">public static const Integer lightTypeAmbientMul = 9</div>
+<br/>
+
+<a name="static_lightTypeFog"/>
+<div class="headline">lightTypeFog</div>
+<div class="usage">public static const Integer lightTypeFog = 8</div>
+<br/>
+
+<a name="static_lightTypeMask"/>
+<div class="headline">lightTypeMask</div>
+<div class="usage">public static const Integer lightTypeMask = 255 /* 0x00FF */</div>
+<br/>
+
+<a name="static_lightTypePoint"/>
+<div class="headline">lightTypePoint</div>
+<div class="usage">public static const Integer lightTypePoint = 4</div>
+<br/>
+
+<a name="static_lightTypeSpot"/>
+<div class="headline">lightTypeSpot</div>
+<div class="usage">public static const Integer lightTypeSpot = 6</div>
+<br/>
+
+<a name="static_lightTypeVector"/>
+<div class="headline">lightTypeVector</div>
+<div class="usage">public static const Integer lightTypeVector = 2</div>
+<br/>
+
+<a name="static_stereoViewAuto"/>
+<div class="headline">stereoViewAuto</div>
+<div class="usage">public static const Integer stereoViewAuto = -1</div>
+<br/>
+
+<a name="static_stereoViewLeft"/>
+<div class="headline">stereoViewLeft</div>
+<div class="usage">public static const Integer stereoViewLeft = 1</div>
+<br/>
+
+<a name="static_stereoViewRight"/>
+<div class="headline">stereoViewRight</div>
+<div class="usage">public static const Integer stereoViewRight = 0</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_RenderContext"/>
+<div class="headline">RenderContext</div>
+<div class="usage">public void RenderContext(&#32; )</div>
+<br/>
+
+<a name="virtual_addTemporaryObject"/>
+<div class="headline">addTemporaryObject</div>
+<div class="usage">public void addTemporaryObject( NativeObject obj )</div>
+<br/>
+
+<a name="virtual_attachMultiTargetImages"/>
+<div class="headline">attachMultiTargetImages</div>
+<div class="usage">public boolean attachMultiTargetImages( Image[] targets )</div>
+<br/>
+
+<a name="virtual_begin3DRenderer"/>
+<div class="headline">begin3DRenderer</div>
+<div class="usage">public boolean begin3DRenderer( long flags = 0 )</div>
+<br/>
+
+<a name="virtual_currentParallaxView"/>
+<div class="headline">currentParallaxView</div>
+<div class="usage">public const int currentParallaxView(&#32; )</div>
+<br/>
+
+<a name="virtual_enableFog"/>
+<div class="headline">enableFog</div>
+<div class="usage">public void enableFog( boolean flagEnable )</div>
+<br/>
+
+<a name="virtual_enablePerspectiveMatrix"/>
+<div class="headline">enablePerspectiveMatrix</div>
+<div class="usage">public void enablePerspectiveMatrix( boolean flagPersMatrix )</div>
+<br/>
+
+<a name="virtual_end3DRenderer"/>
+<div class="headline">end3DRenderer</div>
+<div class="usage">public boolean end3DRenderer( long flags = 0 )</div>
+<br/>
+
+<a name="virtual_getCamera"/>
+<div class="headline">getCamera</div>
+<div class="usage">public const void getCamera( Matrix3D matCamera, Vector3D vCamera )</div>
+<br/>
+
+<a name="virtual_getMultiTargetImages"/>
+<div class="headline">getMultiTargetImages</div>
+<div class="usage">public const Image[] getMultiTargetImages(&#32; )</div>
+<br/>
+
+<a name="virtual_getParallax"/>
+<div class="headline">getParallax</div>
+<div class="usage">public const double getParallax(&#32; )</div>
+<br/>
+
+<a name="virtual_getPerspectiveMatrix"/>
+<div class="headline">getPerspectiveMatrix</div>
+<div class="usage">public const boolean getPerspectiveMatrix( Matrix4D matPers )</div>
+<br/>
+
+<a name="virtual_getProjectedPosition"/>
+<div class="headline">getProjectedPosition</div>
+<div class="usage">public const boolean getProjectedPosition( Vector2D vProjPos, Vector3D vLocalPos, double fpLimit = 100000. )</div>
+<br/>
+
+<a name="virtual_getProjectionScreen"/>
+<div class="headline">getProjectionScreen</div>
+<div class="usage">public const boolean getProjectionScreen( Vector3D vScreen, Float64Pointer zScale, Float64Pointer pixelAspect )</div>
+<br/>
+
+<a name="virtual_getRenderDevice"/>
+<div class="headline">getRenderDevice</div>
+<div class="usage">public RenderDevice getRenderDevice( long flags = 0 )</div>
+<br/>
+
+<a name="virtual_isSphereIntoView"/>
+<div class="headline">isSphereIntoView</div>
+<div class="usage">public const boolean isSphereIntoView( Vector3D vLocalPos, double radius )</div>
+<br/>
+
+<a name="virtual_selectParallaxView"/>
+<div class="headline">selectParallaxView</div>
+<div class="usage">public boolean selectParallaxView( int stereoViewIndex )</div>
+<br/>
+
+<a name="virtual_setCamera"/>
+<div class="headline">setCamera</div>
+<div class="usage">public void setCamera( Matrix3D matCamera, Vector3D vCamera )</div>
+<br/>
+
+<a name="virtual_setFog"/>
+<div class="headline">setFog</div>
+<div class="usage">public void setFog( int rgbFog, double zFogNear, double zFogFar )</div>
+<br/>
+
+<a name="virtual_setInverseCameraTransformation"/>
+<div class="headline">setInverseCameraTransformation</div>
+<div class="usage">public void setInverseCameraTransformation( Color3D color = null, int transparency = 0 )</div>
+<br/>
+
+<a name="virtual_setLightEntries"/>
+<div class="headline">setLightEntries</div>
+<div class="usage">public void setLightEntries( RenderContext.Light pLights, int countLights )</div>
+<br/>
+
+<a name="virtual_setParallax"/>
+<div class="headline">setParallax</div>
+<div class="usage">public void setParallax( double xParallax, double zFocusRate, double xScreenDelta )</div>
+<br/>
+
+<a name="virtual_setPerspectiveMatrix"/>
+<div class="headline">setPerspectiveMatrix</div>
+<div class="usage">public void setPerspectiveMatrix( int stereoViewIndex, Matrix4D matPers, boolean flagPersMatrix = true )</div>
+<br/>
+
+<a name="virtual_setProjectionScreen"/>
+<div class="headline">setProjectionScreen</div>
+<div class="usage">public boolean setProjectionScreen( Vector3D vScreen, double zScale = 1., double pixelAspect = 1. )</div>
+<br/>
+
+<a name="virtual_setShadowMap"/>
+<div class="headline">setShadowMap</div>
+<div class="usage">public void setShadowMap( int idLight, Image pShadowDepth, RenderContext.ShadowMapInfo infShadowMap )</div>
+<br/>
+
+<a name="virtual_setZClipRange"/>
+<div class="headline">setZClipRange</div>
+<div class="usage">public void setZClipRange( double zMin, double zMax )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

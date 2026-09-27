@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioToolFile Name="MASM for EntisGLS">
+   <Rules>
+      <CustomBuildRule
+         Name="MASMforEntisGLS"
+         DisplayName="MASM for EntisGLS"
+         CommandLine="$(MASM)\ml.exe /nologo /c /Cp /coff [AllOptions] [AdditionalOptions] /Fo&quot;$(IntDir)\$(InputName).obj&quot; /Ta [inputs]"
+         Outputs="$(IntDir)\$(InputName).obj"
+         FileExtensions="*.asm"
+         ExecutionDescription="Assembling..."
+         ShowOnlyRuleProperties="true">
+         <Properties>
+            <BooleanProperty
+               Name="DebugMode"
+               DisplayName="デバッグ出力"
+               PropertyPageName="一般"
+               Description="デバッグ用のコードを選択し、デバッグ情報を付加します (/Zd /Zf /Zi /D_DEBUG)"
+               Switch="/Zd /Zf /Zi /D_DEBUG"
+            />
+            <StringProperty
+               Name="PreprocessorDefinitions"
+               DisplayName="テキストマクロ定義"
+               PropertyPageName="一般"
+               Description="テキストマクロを定義します (/D[symbol])"
+               Switch="/D&quot;[value]&quot;"
+               Delimited="true"
+               Inheritable="true"
+            />
+            <StringProperty
+               Name="AssembledCodeListingFile"
+               DisplayName="リスティングファイル"
+               PropertyPageName="一般"
+               Description="リスティングファイルを生成します (/Fl[file])"
+               Switch="/Fl&quot;[value]&quot;"
+               Delimited="true"
+            />
+            <StringProperty
+               Name="IncludePaths"
+               DisplayName="インクルードパス"
+               PropertyPageName="一般"
+               Description="インクルードパスを指定します (/I [path])"
+               Switch="/I &quot;[value]&quot;"
+               Delimited="true"
+               Inheritable="true"
+            />
+            <EnumProperty
+               Name="WarningLevel"
+               DisplayName="警告レベル"
+               PropertyPageName="一般"
+               Description="警告レベルを設定します {0, 1, 2, 3} (/W0, /W1, /W2, /W3)"
+               >
+               <Values>
+                  <EnumValue
+                     Value="0"
+                     Switch="/W0"
+                     DisplayName="Warning Level 0 (/W0)"
+                  />
+                  <EnumValue
+                     Value="1"
+                     Switch="/W1"
+                     DisplayName="Warning Level 1 (/W1)"
+                  />
+                  <EnumValue
+                     Value="2"
+                     Switch="/W2"
+                     DisplayName="Warning Level 2 (/W2)"
+                  />
+                  <EnumValue
+                     Value="3"
+                     Switch="/W3"
+                     DisplayName="Warning Level 3 (/W3)"
+                  />
+               </Values>
+            </EnumProperty>
+         </Properties>
+      </CustomBuildRule>
+   </Rules>
+</VisualStudioToolFile>

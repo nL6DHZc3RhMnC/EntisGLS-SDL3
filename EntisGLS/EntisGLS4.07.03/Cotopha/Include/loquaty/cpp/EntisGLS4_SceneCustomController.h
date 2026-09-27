@@ -1,0 +1,9 @@
+
+
+DECL_LOQUATY_CONSTRUCTOR_N(EntisGLS4_SceneCustomController,1);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneCustomController_getBehaviorFlags);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneCustomController_modifyBehaviorFlags);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneCustomController_getRenderEventClasses);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneCustomController_modifyRenderEventClasses);
+
+

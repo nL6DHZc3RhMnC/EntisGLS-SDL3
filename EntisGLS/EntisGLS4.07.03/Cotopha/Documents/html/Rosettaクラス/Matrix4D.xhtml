@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>Matrix4D</title>
+</head>
+<body>
+<div class="chapter">Matrix4D</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　Matrix4D は4次元行列を格納する構造体です。<br/>
+　EntisGLS4 の S4DMatrix とほぼ同等です。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="Uint8Pointer.xhtml">Uint8Pointer</a>
+<div class="indent1"><a href="Structure.xhtml">Structure</a>
+<div class="indent1"><a href="Matrix4D.xhtml">Matrix4D</a>
+</div></div></div></div><br/>
+
+<div class="headline">Members</div>
+<div class="indent2">
+	<a href="#member_m">m</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_Matrix4D">Matrix4D</a><br/>
+	<a href="#virtual_add">add</a><br/>
+	<a href="#virtual_clone">clone</a><br/>
+	<a href="#virtual_copy">copy</a><br/>
+	<a href="#virtual_determinant">determinant</a><br/>
+	<a href="#virtual_equals">equals</a><br/>
+	<a href="#virtual_getMatrix3D">getMatrix3D</a><br/>
+	<a href="#virtual_getTranslation">getTranslation</a><br/>
+	<a href="#virtual_inverse">inverse</a><br/>
+	<a href="#virtual_mul">mul</a><br/>
+	<a href="#virtual_scale">scale</a><br/>
+	<a href="#virtual_setMatrix3D">setMatrix3D</a><br/>
+	<a href="#virtual_setTranslation">setTranslation</a><br/>
+	<a href="#virtual_sub">sub</a><br/>
+	<a href="#virtual_translate">translate</a><br/>
+	<a href="#virtual_transpose">transpose</a><br/>
+</div><br/>
+
+
+<div class="chapter">Members</div>
+
+<a name="member_m"/>
+<div class="headline">m</div>
+<div class="usage">&#9;public float m[16]</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_Matrix4D"/>
+<div class="headline">Matrix4D</div>
+<div class="usage">public void Matrix4D( double m11, double m12, double m13, double m14, double m21, double m22, double m23, double m24, double m31, double m32, double m33, double m34, double m41, double m42, double m43, double m44 )</div>
+<br/>
+
+<div class="headline">Matrix4D</div>
+<div class="usage">public void Matrix4D( Matrix3D m, Vector3D v )</div>
+<br/>
+
+<div class="headline">Matrix4D</div>
+<div class="usage">public void Matrix4D( Vector3D4 v0, Vector3D4 v1, Vector3D4 v2, Vector3D4 v3 )</div>
+<br/>
+
+<div class="headline">Matrix4D</div>
+<div class="usage">public void Matrix4D( Vector3D4 v )</div>
+<br/>
+
+<a name="virtual_add"/>
+<div class="headline">add</div>
+<div class="usage">public Matrix4D add( Matrix4D m )</div>
+<br/>
+
+<a name="virtual_clone"/>
+<div class="headline">clone</div>
+<div class="usage">public const Matrix4D clone(&#32; )</div>
+<br/>
+
+<a name="virtual_copy"/>
+<div class="headline">copy</div>
+<div class="usage">public Matrix4D copy( Matrix4D m )</div>
+<br/>
+
+<a name="virtual_determinant"/>
+<div class="headline">determinant</div>
+<div class="usage">public const double determinant(&#32; )</div>
+<br/>
+
+<a name="virtual_equals"/>
+<div class="headline">equals</div>
+<div class="usage">public const boolean equals( Matrix4D m )</div>
+<br/>
+
+<a name="virtual_getMatrix3D"/>
+<div class="headline">getMatrix3D</div>
+<div class="usage">public const Matrix4D getMatrix3D( Matrix3D m = null )</div>
+<br/>
+
+<a name="virtual_getTranslation"/>
+<div class="headline">getTranslation</div>
+<div class="usage">public const Vector3D getTranslation( Vector3D v = null )</div>
+<br/>
+
+<a name="virtual_inverse"/>
+<div class="headline">inverse</div>
+<div class="usage">public Matrix4D inverse(&#32; )</div>
+<br/>
+
+<a name="virtual_mul"/>
+<div class="headline">mul</div>
+<div class="usage">public Matrix4D mul( Matrix4D m )</div>
+<br/>
+
+<div class="headline">mul</div>
+<div class="usage">public const Vector3D4 mul( Vector3D4 v )</div>
+<br/>
+
+<div class="headline">mul</div>
+<div class="usage">public Matrix4D mul( double s )</div>
+<br/>
+
+<a name="virtual_scale"/>
+<div class="headline">scale</div>
+<div class="usage">public Matrix4D scale( double x, double y, double z )</div>
+<br/>
+
+<a name="virtual_setMatrix3D"/>
+<div class="headline">setMatrix3D</div>
+<div class="usage">public Matrix4D setMatrix3D( Matrix3D m )</div>
+<br/>
+
+<a name="virtual_setTranslation"/>
+<div class="headline">setTranslation</div>
+<div class="usage">public Matrix4D setTranslation( Vector3D v )</div>
+<br/>
+
+<a name="virtual_sub"/>
+<div class="headline">sub</div>
+<div class="usage">public Matrix4D sub( Matrix4D m )</div>
+<br/>
+
+<a name="virtual_translate"/>
+<div class="headline">translate</div>
+<div class="usage">public Matrix4D translate( double x, double y, double z )</div>
+<br/>
+
+<a name="virtual_transpose"/>
+<div class="headline">transpose</div>
+<div class="usage">public Matrix4D transpose(&#32; )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

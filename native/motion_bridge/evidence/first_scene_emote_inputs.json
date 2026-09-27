@@ -1,0 +1,167 @@
+{
+  "haz_h": {
+    "sha256": "c93c140ec94a3522616a95b3917e91ab021ed3818f5efc90ef45954e542b2a0a",
+    "required_timelines": {
+      "03": true,
+      "08": true,
+      "30": true,
+      "01": true,
+      "14": true,
+      "00": true,
+      "50": true
+    },
+    "eye": [
+      {
+        "beginFrame": 0,
+        "blinkEnabled": 1,
+        "blinkFrameCount": 16,
+        "blinkIntervalMax": 180,
+        "blinkIntervalMin": 30,
+        "comment": "",
+        "edge": [
+          [
+            -10,
+            20
+          ],
+          [
+            30,
+            30
+          ],
+          [
+            32,
+            32
+          ],
+          [
+            34,
+            34
+          ],
+          [
+            36,
+            36
+          ],
+          [
+            38,
+            38
+          ],
+          [
+            40,
+            40
+          ]
+        ],
+        "enabled": 1,
+        "endFrame": 10,
+        "label": "face_eye_open",
+        "node": [
+          [
+            10,
+            30,
+            32,
+            34,
+            36,
+            38,
+            40,
+            0
+          ]
+        ],
+        "parameter": "標準"
+      }
+    ],
+    "mouth": [
+      {
+        "beginFrame": 0,
+        "comment": "",
+        "enabled": 1,
+        "label": "face_mouth",
+        "talkLabel": "face_talk"
+      }
+    ]
+  },
+  "nak_d": {
+    "sha256": "685f39a3975b95d3b9d7f48531cb4c076c776a5895af9070d4fa945bc999bfe8",
+    "required_timelines": {
+      "02": true,
+      "01": true,
+      "29": true,
+      "53": true
+    },
+    "eye": [
+      {
+        "beginFrame": 0,
+        "blinkEnabled": 1,
+        "blinkFrameCount": 16,
+        "blinkIntervalMax": 180,
+        "blinkIntervalMin": 30,
+        "comment": "",
+        "edge": [
+          [
+            -10,
+            20
+          ],
+          [
+            30,
+            30
+          ],
+          [
+            32,
+            32
+          ],
+          [
+            34,
+            34
+          ],
+          [
+            36,
+            36
+          ],
+          [
+            38,
+            38
+          ],
+          [
+            40,
+            40
+          ]
+        ],
+        "enabled": 1,
+        "endFrame": 10,
+        "label": "face_eye_open",
+        "node": [
+          [
+            10,
+            30,
+            32,
+            34,
+            36,
+            38,
+            40,
+            0
+          ]
+        ],
+        "parameter": "標準"
+      }
+    ],
+    "mouth": [
+      {
+        "beginFrame": 0,
+        "comment": "",
+        "enabled": 1,
+        "label": "face_mouth",
+        "talkLabel": "face_talk"
+      }
+    ]
+  },
+  "haz00000": {
+    "sha256": "e6b49c3b350e049446bc97f3e46d09020abc0aa72d512536a22fbf32ba35bfb2",
+    "channels": 1,
+    "frequency": 44100,
+    "samples": 141738,
+    "bits": 16
+  },
+  "nak00000": {
+    "sha256": "9f20d8195631ed0410afa2dbc0474ecdec1872b2a7208124e94a3de2e7df7fa4",
+    "channels": 1,
+    "frequency": 44100,
+    "samples": 312472,
+    "bits": 16
+  }
+}

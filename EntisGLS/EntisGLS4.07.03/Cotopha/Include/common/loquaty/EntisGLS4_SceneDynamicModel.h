@@ -1,0 +1,15 @@
+﻿
+
+DECL_LOQUATY_CONSTRUCTOR(EntisGLS4_SceneDynamicModel);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneDynamicModel_attachModelRef);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneDynamicModel_setModelID);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneDynamicModel_getModelID);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneDynamicModel_attachCollisionModel);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneDynamicModel_setCollisionID);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneDynamicModel_getCollisionID);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneDynamicModel_isDynamicCollision);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneDynamicModel_setDynamicCollisionFlag);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneDynamicModel_setVariantDrawTaregt);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneDynamicModel_getVariantDrawTarget);
+
+

@@ -1,0 +1,8 @@
+
+
+DECL_LOQUATY_CONSTRUCTOR(EntisGLS4_SpriteFilterBlendAlpha);
+DECL_LOQUATY_FUNC(EntisGLS4_SpriteFilterBlendAlpha_loadAlphaImage);
+DECL_LOQUATY_FUNC(EntisGLS4_SpriteFilterBlendAlpha_attachAlphaImage);
+DECL_LOQUATY_FUNC(EntisGLS4_SpriteFilterBlendAlpha_setAlphaParameter);
+
+

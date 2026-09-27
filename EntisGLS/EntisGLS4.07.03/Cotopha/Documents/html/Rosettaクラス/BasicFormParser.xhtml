@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>BasicFormParser</title>
+</head>
+<body>
+<div class="chapter">BasicFormParser</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　BasicFormParser クラスは EntisGLS4 の簡易 UI 外観定義データを読み込み／保持します。<br/>
+　EntisGLS4 の SGLBasicFormParser と同等です。<br/>
+　EntisGLS3 互換の UI データを扱う SkinManager より GPU 描画の最適化に適しています。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="BasicFormParser.xhtml">BasicFormParser</a>
+</div></div></div><br/>
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_BasicFormParser">BasicFormParser</a><br/>
+	<a href="#virtual_buildImageAtlas">buildImageAtlas</a><br/>
+	<a href="#virtual_closePackage">closePackage</a><br/>
+	<a href="#virtual_createFormedSprite">createFormedSprite</a><br/>
+	<a href="#virtual_getImageAs">getImageAs</a><br/>
+	<a href="#virtual_loadForm">loadForm</a><br/>
+	<a href="#virtual_openPackage">openPackage</a><br/>
+</div><br/>
+
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_BasicFormParser"/>
+<div class="headline">BasicFormParser</div>
+<div class="usage">public void BasicFormParser(&#32; )</div>
+<br/>
+
+<a name="virtual_buildImageAtlas"/>
+<div class="headline">buildImageAtlas</div>
+<div class="usage">public int buildImageAtlas( int nMaxAtlasSize = 2048 /* 0x0800 */, int nReqBatchCount = 3 )</div>
+<br/>
+
+<a name="virtual_closePackage"/>
+<div class="headline">closePackage</div>
+<div class="usage">public void closePackage(&#32; )</div>
+<br/>
+
+<a name="virtual_createFormedSprite"/>
+<div class="headline">createFormedSprite</div>
+<div class="usage">public const Sprite createFormedSprite( String id, boolean fBuffered = false, long nBufFlags = 0 )</div>
+<br/>
+
+<a name="virtual_getImageAs"/>
+<div class="headline">getImageAs</div>
+<div class="usage">public const Image getImageAs( String id )</div>
+<br/>
+
+<a name="virtual_loadForm"/>
+<div class="headline">loadForm</div>
+<div class="usage">public boolean loadForm( String file )</div>
+<br/>
+
+<a name="virtual_openPackage"/>
+<div class="headline">openPackage</div>
+<div class="usage">public boolean openPackage( String file )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

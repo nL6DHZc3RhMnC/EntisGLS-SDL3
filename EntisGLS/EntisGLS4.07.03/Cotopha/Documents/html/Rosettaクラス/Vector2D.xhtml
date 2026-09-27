@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>Vector2D</title>
+</head>
+<body>
+<div class="chapter">Vector2D</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　Vector2D は座標情報を格納する構造体です。
+<br/>
+　EntisGLS4 の S2DVector と同等です。
+<br/>
+　add, sub, mul, div, normalize は const 関数ではないことに注意してください。
+<br/>
+　副作用なく、(a + b - c) の結果を d に受け取る場合には clone 関数を使い以下のように記述します。
+<br/>
+<div class="code_quote">Vector2D d = a.clone().add(b).sub(c) ;</div>
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="Uint8Pointer.xhtml">Uint8Pointer</a>
+<div class="indent1"><a href="Structure.xhtml">Structure</a>
+<div class="indent1"><a href="Vector2D.xhtml">Vector2D</a>
+</div></div></div></div><br/>
+
+<div class="headline">Members</div>
+<div class="indent2">
+	<a href="#member_x">x</a><br/>
+	<a href="#member_y">y</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_Vector2D">Vector2D</a><br/>
+	<a href="#virtual_absolute">absolute</a><br/>
+	<a href="#virtual_add">add</a><br/>
+	<a href="#virtual_clone">clone</a><br/>
+	<a href="#virtual_copy">copy</a><br/>
+	<a href="#virtual_div">div</a><br/>
+	<a href="#virtual_equals">equals</a><br/>
+	<a href="#virtual_innerProduct">innerProduct</a><br/>
+	<a href="#virtual_mul">mul</a><br/>
+	<a href="#virtual_normalize">normalize</a><br/>
+	<a href="#virtual_sub">sub</a><br/>
+</div><br/>
+
+
+<div class="chapter">Members</div>
+
+<a name="member_x"/>
+<div class="headline">x</div>
+<div class="usage">&#9;public float x</div>
+<br/>
+
+<a name="member_y"/>
+<div class="headline">y</div>
+<div class="usage">&#9;public float y</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_Vector2D"/>
+<div class="headline">Vector2D</div>
+<div class="usage">public void Vector2D( double x, double y )</div>
+<br/>
+
+<a name="virtual_absolute"/>
+<div class="headline">absolute</div>
+<div class="usage">public const double absolute(&#32; )</div>
+<br/>
+
+<a name="virtual_add"/>
+<div class="headline">add</div>
+<div class="usage">public Vector2D add( Vector2D v )</div>
+<br/>
+
+<a name="virtual_clone"/>
+<div class="headline">clone</div>
+<div class="usage">public const Vector2D clone(&#32; )</div>
+<br/>
+
+<a name="virtual_copy"/>
+<div class="headline">copy</div>
+<div class="usage">public Vector2D copy( Vector2D src )</div>
+<br/>
+
+<a name="virtual_div"/>
+<div class="headline">div</div>
+<div class="usage">public Vector2D div( double s )</div>
+<br/>
+
+<a name="virtual_equals"/>
+<div class="headline">equals</div>
+<div class="usage">public const boolean equals( Vector2D v )</div>
+<br/>
+
+<a name="virtual_innerProduct"/>
+<div class="headline">innerProduct</div>
+<div class="usage">public const double innerProduct( Vector2D v )</div>
+<br/>
+
+<a name="virtual_mul"/>
+<div class="headline">mul</div>
+<div class="usage">public Vector2D mul( double s )</div>
+<br/>
+
+<a name="virtual_normalize"/>
+<div class="headline">normalize</div>
+<div class="usage">public Vector2D normalize(&#32; )</div>
+<br/>
+
+<a name="virtual_sub"/>
+<div class="headline">sub</div>
+<div class="usage">public Vector2D sub( Vector2D v )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

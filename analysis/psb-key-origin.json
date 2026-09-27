@@ -1,0 +1,377 @@
+{
+  "originalDll": "StudySteadyR18/emotedriver.dll",
+  "sha256": "40d2e510106fc8a79e0fd07e5c0d4839d75503089d6fc9de0f0904f0ab73bd4d",
+  "keyString": {
+    "text": "851083516",
+    "fileOffset": "0x8a568",
+    "virtualAddress": "0x1008b768",
+    "section": ".rdata"
+  },
+  "binaryCopyVerifiedIdentical": true,
+  "decompiled": [
+    {
+      "addr": "0x10001f20",
+      "code": "IEmotePlayer *__thiscall sub_10001F20(char ***this, char *Block, int a3, void *a4, int a5)\n{\n  IEmotePlayer *v5; // ebx\n  char ***v6; // esi\n  char **v7; // eax\n  _DWORD *v8; // ecx\n  char *v9; // edi\n  char **p_Block; // ecx\n  int v11; // edi\n  char *v12; // eax\n  bool v13; // zf\n  int v14; // eax\n  char *v15; // edi\n  char **v16; // eax\n  int v17; // ebx\n  char **v18; // eax\n  _DWORD *v19; // esi\n  _DWORD v21[7]; // [esp+10h] [ebp-2Ch] BYREF\n  IEmotePlayer *v22; // [esp+2Ch] [ebp-10h]\n  int v23; // [esp+38h] [ebp-4h]\n\n  v5 = (IEmotePlayer *)this; /*0x10001f48*/\n  v22 = (IEmotePlayer *)this; /*0x10001f4a*/\n  v23 = 0; /*0x10001f4d*/\n  v6 = this + 6; /*0x10001f54*/\n  v7 = (char **)Block; /*0x10001f57*/\n  *this = (char **)&PEmotePlayer::`vftable'; /*0x10001f5a*/\n  *(this + 1) = (char **)1; /*0x10001f60*/\n  *(this + 2) = v7; /*0x10001f67*/\n  *(this + 6) = nullptr; /*0x10001f6a*/\n  *(this + 7) = nullptr; /*0x10001f70*/\n  *(this + 8) = nullptr; /*0x10001f77*/\n  LOBYTE(v23) = 1; /*0x10001f7e*/\n  v8 = *(this + 2); /*0x10001f82*/\n  if ( (void **)*v8 == &PEmoteDevice::`vftable' ) /*0x10001f8c*/\n    ++v8[1]; /*0x10001f8e*/\n  else\n    (*(void (**)(void))(*v8 + 4))(); /*0x10001f93*/\n  v9 = (char *)off_101064C8(Size: 0x58u); /*0x10001f9e*/\n  Block = v9; /*0x10001fa3*/\n  LOBYTE(v23) = 2; /*0x10001fa6*/\n  if ( v9 != nullptr ) /*0x10001fac*/\n  {\n    sub_10005000(a1: *(_DWORD *)(*((_DWORD *)v5 + 2) + 8)); /*0x10001fb6*/\n    *(_DWORD *)v9 = &AMotionResource::`vftable'; /*0x10001fbb*/\n    *((_DWORD *)v9 + 21) = 1; /*0x10001fc1*/\n  }\n  else\n  {\n    v9 = nullptr; /*0x10001fca*/\n  }\n  *((_DWORD *)v5 + 3) = v9; /*0x10001fd2*/\n  Block = (char *)off_101064C8(Size: 0x48u); /*0x10001fde*/\n  LOBYTE(v23) = 3; /*0x10001fe1*/\n  if ( Block != nullptr ) /*0x10001fe7*/\n  {\n    v11 = *((_DWORD *)v5 + 3); /*0x10001fe9*/\n    sub_10005320(a1: v11); /*0x10001fef*/\n    v12 = Block; /*0x10001ff4*/\n    *(_DWORD *)Block = &AMotionRenderer::`vftable'; /*0x10001ff7*/\n    *((_DWORD *)v12 + 16) = v11; /*0x10001ffd*/\n    *((_DWORD *)v12 + 17) = 1; /*0x10002000*/\n    ++*(_DWORD *)(v11 + 84); /*0x10002007*/\n  }\n  else\n  {\n    v12 = nullptr; /*0x1000200c*/\n  }\n  v13 = a3 == 0; /*0x1000200e*/\n  LOBYTE(v23) = 1; /*0x10002012*/\n  *((_DWORD *)v5 + 4) = v12; /*0x10002016*/\n  if ( !v13 ) /*0x10002019*/\n  {\n    a5 -= (int)a4; /*0x10002025*/\n    do /*0x10002163*/\n    {\n      v14 = unknown_libname_7(a1: (int)p_Block, a2: (int)\"851083516\"); /*0x10002035*/\n      v21[0] = &StructCryptFilter::`vftable'; /*0x1000203a*/\n      v21[1] = 123456789; /*0x10002041*/\n      v21[2] = 362436069; /*0x10002048*/\n      v21[3] = 521288629; /*0x1000204f*/\n      v21[4] = v14; /*0x10002056*/\n      v21[5] = 0; /*0x10002059*/\n      v21[6] = 0; /*0x10002060*/\n      LOBYTE(v23) = 4; /*0x10002069*/\n      v15 = (char *)off_101064C8(Size: 0x6Cu); /*0x10002073*/\n      Block = v15; /*0x10002078*/\n      LOBYTE(v23) = 5; /*0x1000207b*/\n      if ( v15 != nullptr ) /*0x10002081*/\n      {\n        sub_10058450(a1: *(_DWORD *)a4, a2: *(_DWORD *)((char *)a4 + a5), a3: 4, a4: v21); /*0x10002096*/\n        *(_DWORD *)v15 = &APSBObject::`vftable'; /*0x1000209b*/\n        *((_DWORD *)v15 + 26) = 1; /*0x100020a1*/\n      }\n      else\n      {\n        v15 = nullptr; /*0x100020aa*/\n      }\n      LOBYTE(v23) = 4; /*0x100020ac*/\n      Block = v15; /*0x100020b4*/\n      sub_10031860(a1: v15); /*0x100020b7*/\n      v16 = v6[1]; /*0x100020bc*/\n      p_Block = &Block; /*0x100020bf*/\n      if ( &Block >= v16 || (p_Block = *v6, *v6 > &Block) ) /*0x100020cd*/\n      {\n        if ( v16 == v6[2] ) /*0x100020f9*/\n          sub_10004390(a1: p_Block); /*0x100020fe*/\n        v18 = v6[1]; /*0x10002103*/\n        if ( v18 != nullptr ) /*0x10002108*/\n          *v18 = v15; /*0x1000210a*/\n      }\n      else\n      {\n        v17 = &Block - p_Block; /*0x100020d3*/\n        if ( v16 == v6[2] ) /*0x100020d9*/\n          sub_10004390(a1: *v6); /*0x100020de*/\n        p_Block = v6[1]; /*0x100020e3*/\n        if ( p_Block != nullptr ) /*0x100020ea*/\n          *p_Block = (*v6)[v17]; /*0x100020ef*/\n        v5 = v22; /*0x100020f1*/\n      }\n      ++v6[1]; /*0x1000210c*/\n      if ( *((_DWORD *)v15 + 6) == 3 ) /*0x10002114*/\n      {\n        Block = *((char **)v15 + 15); /*0x10002119*/\n        if ( Block != nullptr ) /*0x1000211e*/\n        {\n          j_j__free(Block: &Block[-(*(unsigned __int8 *)(*((_DWORD *)v15 + 3) + 32) /*0x10002148*/\n                                  | ((*(unsigned __int8 *)(*((_DWORD *)v15 + 3) + 33)\n                                    | (*(unsigned __int16 *)(*((_DWORD *)v15 + 3) + 34) << 8)) << 8))]);\n          *((_DWORD *)v15 + 15) = 0; /*0x10002150*/\n        }\n      }\n      LOBYTE(v23) = 1; /*0x10002157*/\n      a4 = (char *)a4 + 4; /*0x1000215b*/\n      --a3; /*0x1000215f*/\n    }\n    while ( a3 != 0 ); /*0x10002163*/\n  }\n  v19 = off_101064C8(Size: 0x208u); /*0x10002174*/\n  a4 = v19; /*0x10002179*/\n  LOBYTE(v23) = 6; /*0x1000217c*/\n  if ( v19 != nullptr ) /*0x10002182*/\n  {\n    sub_10007640( /*0x10002193*/\n      a1: *((_DWORD *)v5 + 3),\n      a2: *((_DWORD *)v5 + 4),\n      a3: *(_DWORD *)(*((_DWORD *)v5 + 7) - 4),\n      a4: *((_DWORD *)v5 + 7));\n    *v19 = &AEmotePlayer::`vftable'; /*0x10002198*/\n    *((_DWORD *)v5 + 5) = v19; /*0x1000219e*/\n  }\n  else\n  {\n    *((_DWORD *)v5 + 5) = 0; /*0x100021a3*/\n  }\n  return v5; /*0x100021ac*/\n}",
+      "refs": [
+        {
+          "addr": "0x1008ba88",
+          "name": "??_7PEmotePlayer@@6B@"
+        },
+        {
+          "addr": "0x1008bc08",
+          "name": "??_7PEmoteDevice@@6B@"
+        },
+        {
+          "addr": "0x101064c8",
+          "name": "off_101064C8"
+        },
+        {
+          "addr": "0x10005000",
+          "name": "sub_10005000"
+        },
+        {
+          "addr": "0x1008b848",
+          "name": "??_7AMotionResource@@6B@"
+        },
+        {
+          "addr": "0x10005320",
+          "name": "sub_10005320"
+        },
+        {
+          "addr": "0x1008b88c",
+          "name": "??_7AMotionRenderer@@6B@"
+        },
+        {
+          "addr": "0x1006a546",
+          "name": "unknown_libname_7"
+        },
+        {
+          "addr": "0x1008b768",
+          "name": "a851083516",
+          "string": "851083516"
+        },
+        {
+          "addr": "0x1008b874",
+          "name": "??_7StructCryptFilter@@6B@"
+        },
+        {
+          "addr": "0x10058450",
+          "name": "sub_10058450"
+        },
+        {
+          "addr": "0x1008ba80",
+          "name": "??_7APSBObject@@6B@"
+        },
+        {
+          "addr": "0x10031860",
+          "name": "sub_10031860"
+        },
+        {
+          "addr": "0x10004390",
+          "name": "sub_10004390"
+        },
+        {
+          "addr": "0x10066b73",
+          "name": "j_j__free"
+        },
+        {
+          "addr": "0x10007640",
+          "name": "sub_10007640"
+        },
+        {
+          "addr": "0x1008bc88",
+          "name": "??_7AEmotePlayer@@6B@"
+        }
+      ]
+    },
+    {
+      "addr": "0x10003ed0",
+      "code": "char __cdecl EmoteCheckValidObject(const unsigned __int8 *Src, size_t Size)\n{\n  void *v2; // esi\n  int v3; // ecx\n  _DWORD *v5; // edi\n  void *v6; // eax\n  int v7; // ecx\n  int v8; // ecx\n  const char *v9; // esi\n  _DWORD *v10; // eax\n  const char *v11; // eax\n  int v12; // ecx\n  bool v13; // cf\n  int v14; // eax\n  _BYTE **v15; // eax\n  int v16; // ecx\n  _BYTE **v17; // eax\n  _DWORD *v18; // eax\n  int v19; // eax\n  char v20; // bl\n  int v21; // [esp-4h] [ebp-84h]\n  _DWORD v22[7]; // [esp+10h] [ebp-70h] BYREF\n  _BYTE v23[8]; // [esp+2Ch] [ebp-54h] BYREF\n  _BYTE v24[8]; // [esp+34h] [ebp-4Ch] BYREF\n  _BYTE v25[8]; // [esp+3Ch] [ebp-44h] BYREF\n  _BYTE v26[8]; // [esp+44h] [ebp-3Ch] BYREF\n  _BYTE v27[8]; // [esp+4Ch] [ebp-34h] BYREF\n  _BYTE v28[8]; // [esp+54h] [ebp-2Ch] BYREF\n  _BYTE v29[8]; // [esp+5Ch] [ebp-24h] BYREF\n  _BYTE *v30[2]; // [esp+64h] [ebp-1Ch] BYREF\n  _DWORD *v31; // [esp+6Ch] [ebp-14h] BYREF\n  void *Block; // [esp+70h] [ebp-10h]\n  int v33; // [esp+7Ch] [ebp-4h]\n\n  v2 = (void *)unknown_libname_3(a1: Size); /*0x10003f05*/\n  memmove_0(a1: v2, Src, Size); /*0x10003f08*/\n  v22[0] = &StructCryptFilter::`vftable'; /*0x10003f17*/\n  v22[1] = 123456789; /*0x10003f1e*/\n  v22[2] = 362436069; /*0x10003f25*/\n  v22[3] = 521288629; /*0x10003f2c*/\n  v22[4] = unknown_libname_7(a1: v3, a2: (int)\"851083516\"); /*0x10003f33*/\n  v22[5] = 0; /*0x10003f36*/\n  v22[6] = 0; /*0x10003f3d*/\n  v33 = 0; /*0x10003f47*/\n  if ( sub_10058680(a1: (int)v2, a2: Size, a3: v22) != 0 )\n  {\n    v5 = operator new(Size: 0x68u); /*0x10003f85*/\n    Block = v5; /*0x10003f8a*/\n    *v5 = &PSBObject::`vftable'; /*0x10003f8d*/\n    v5[23] = 0; /*0x10003f93*/\n    v5[24] = 0; /*0x10003f9a*/\n    v5[25] = 0; /*0x10003fa1*/\n    LOBYTE(v33) = 2; /*0x10003fa8*/\n    v5[1] = 0; /*0x10003fb0*/\n    v5[2] = 0; /*0x10003fb7*/\n    v5[6] = 2; /*0x10003fbe*/\n    v5[5] = Size; /*0x10003fc5*/\n    v5[3] = v2; /*0x10003fc8*/\n    sub_10058870(a1: 0); /*0x10003fcb*/\n    LOBYTE(v33) = 0; /*0x10003fd0*/\n    v6 = (void *)v5[19]; /*0x10003fd4*/\n    v31 = v5; /*0x10003fe0*/\n    Block = v6; /*0x10003fe3*/\n    if ( (unsigned __int8)sub_100581D0(a1: \"id\", a2: v7) == 0 ) /*0x10003fed*/\n      goto LABEL_23; /*0x10003fed*/\n    v30[0] = nullptr; /*0x10003ff7*/\n    v30[1] = nullptr; /*0x10004007*/\n    if ( sub_100581F0(this: &v31, a2: (int)\"id\", a3: v30, a4: v8) == 0 )\n    {\n      sub_100574C0(a1: \"psb: undefined object key '%s' is referenced.\", \"id\");\n      abort(); /*0x10004029*/\n    }\n    if ( sub_10057B00(this: v30) != 4 ) /*0x10004039*/\n      goto LABEL_23; /*0x10004039*/\n    v9 = \"motion\"; /*0x10004047*/\n    v10 = (_DWORD *)sub_100583D0(a1: v29, a2: \"id\"); /*0x10004050*/\n    v11 = (const char *)sub_10057E10(this: v10); /*0x10004057*/\n    while ( 1 ) /*0x10004060*/\n    {\n      LOBYTE(v12) = *v11; /*0x10004060*/\n      v13 = *v11 < (unsigned int)*v9; /*0x10004062*/\n      if ( *v11 != *v9 ) /*0x10004064*/\n        break; /*0x10004064*/\n      if ( (_BYTE)v12 == 0 ) /*0x10004068*/\n        goto LABEL_12; /*0x10004068*/\n      LOBYTE(v12) = v11[1]; /*0x1000406a*/\n      v13 = (unsigned __int8)v12 < (unsigned int)v9[1]; /*0x1000406d*/\n      if ( (_BYTE)v12 != v9[1] ) /*0x10004070*/\n        break; /*0x10004070*/\n      v11 += 2; /*0x10004072*/\n      v9 += 2; /*0x10004075*/\n      if ( (_BYTE)v12 == 0 ) /*0x1000407a*/\n      {\nLABEL_12:\n        v14 = 0; /*0x1000407c*/\n        goto LABEL_14; /*0x1000407e*/\n      }\n    }\n    v14 = v13 ? -1 : 1;\nLABEL_14:\n    if ( v14 != 0 ) /*0x10004087*/\n      goto LABEL_23; /*0x10004087*/\n    if ( (unsigned __int8)sub_100581D0(a1: \"metadata\", a2: v12) == 0 ) /*0x1000409d*/\n      goto LABEL_23; /*0x1000409d*/\n    v15 = (_BYTE **)sub_100583D0(a1: v28, a2: \"metadata\"); /*0x100040af*/\n    if ( sub_10057B00(this: v15) != 7 ) /*0x100040be*/\n      goto LABEL_23; /*0x100040be*/\n    v21 = v16; /*0x100040c4*/\n    sub_100583D0(a1: v27, a2: \"metadata\"); /*0x100040d6*/\n    if ( (unsigned __int8)sub_100581D0(a1: \"format\", a2: v21) == 0 ) /*0x100040e4*/\n      goto LABEL_23; /*0x100040e4*/\n    sub_100583D0(a1: v25, a2: \"metadata\"); /*0x100040ff*/\n    v17 = (_BYTE **)sub_100583D0(a1: v26, a2: \"format\"); /*0x10004106*/\n    if ( sub_10057B00(this: v17) != 4 ) /*0x10004115*/\n      goto LABEL_23; /*0x10004115*/\n    sub_100583D0(a1: v23, a2: \"metadata\"); /*0x10004131*/\n    v18 = (_DWORD *)sub_100583D0(a1: v24, a2: \"format\"); /*0x10004138*/\n    v19 = strcmp((const char *)sub_10057E10(this: v18), \"emote\"); /*0x10004148*/\n    if ( v19 != 0 )\n      v19 = v19 < 0 ? -1 : 1;\n    if ( v19 == 0 ) /*0x1000416b*/\n      v20 = 1; /*0x1000416d*/\n    else\nLABEL_23:\n      v20 = 0; /*0x10004171*/\n    (*(void (__thiscall **)(_DWORD *, int))*v5)(a1: v5, a2: 1); /*0x10004179*/\n    return v20; /*0x1000417b*/\n  }\n  else\n  {\n    j_j__free(Block: v2); /*0x10003f60*/\n    return 0; /*0x10003f6a*/\n  }\n}",
+      "refs": [
+        {
+          "addr": "0x10066cb3",
+          "name": "unknown_libname_3"
+        },
+        {
+          "addr": "0x1007c1d0",
+          "name": "_memmove_0"
+        },
+        {
+          "addr": "0x1008b874",
+          "name": "??_7StructCryptFilter@@6B@"
+        },
+        {
+          "addr": "0x1006a546",
+          "name": "unknown_libname_7"
+        },
+        {
+          "addr": "0x1008b768",
+          "name": "a851083516",
+          "string": "851083516"
+        },
+        {
+          "addr": "0x10066b86",
+          "name": "??2@YAPAXI@Z"
+        },
+        {
+          "addr": "0x1008db08",
+          "name": "??_7PSBObject@@6B@"
+        },
+        {
+          "addr": "0x10058870",
+          "name": "sub_10058870"
+        },
+        {
+          "addr": "0x100581d0",
+          "name": "sub_100581D0"
+        },
+        {
+          "addr": "0x1008b7e0",
+          "name": "aId",
+          "string": "id"
+        },
+        {
+          "addr": "0x100574c0",
+          "name": "sub_100574C0"
+        },
+        {
+          "addr": "0x1008dab0",
+          "name": "aPsbUndefinedOb",
+          "string": "psb: undefined object key '%s' is referenced."
+        },
+        {
+          "addr": "0x10071418",
+          "name": "_abort"
+        },
+        {
+          "addr": "0x100581f0",
+          "name": "sub_100581F0"
+        },
+        {
+          "addr": "0x10057b00",
+          "name": "sub_10057B00"
+        },
+        {
+          "addr": "0x1008b7e4",
+          "name": "aMotion",
+          "string": "motion"
+        },
+        {
+          "addr": "0x100583d0",
+          "name": "sub_100583D0"
+        },
+        {
+          "addr": "0x10057e10",
+          "name": "sub_10057E10"
+        },
+        {
+          "addr": "0x1008b7ec",
+          "name": "aMetadata",
+          "string": "metadata"
+        },
+        {
+          "addr": "0x1008b7f8",
+          "name": "aFormat",
+          "string": "format"
+        },
+        {
+          "addr": "0x1008b800",
+          "name": "aEmote",
+          "string": "emote"
+        },
+        {
+          "addr": "0x10066b73",
+          "name": "j_j__free"
+        },
+        {
+          "addr": "0x10058680",
+          "name": "sub_10058680"
+        }
+      ]
+    },
+    {
+      "addr": "0x100018e0",
+      "code": "char __thiscall sub_100018E0(_DWORD *this, _BYTE *a2, int a3)\n{\n  int i; // ebx\n  int v5; // esi\n  unsigned int v6; // eax\n  unsigned int v7; // edx\n  char result; // al\n\n  for ( i = a3; i != 0; --i ) /*0x100018e7*/\n  {\n    if ( *(this + 5) == 0 ) /*0x100018f4*/\n    {\n      v5 = *(this + 1) ^ (*(this + 1) << 11); /*0x100018ff*/\n      *(this + 1) = *(this + 2); /*0x10001902*/\n      *(this + 2) = *(this + 3); /*0x10001908*/\n      v6 = *(this + 4); /*0x1000190b*/\n      *(this + 3) = v6; /*0x10001915*/\n      v7 = v5 ^ v6 ^ ((v5 ^ (v6 >> 11)) >> 8); /*0x1000191d*/\n      *(this + 4) = v7; /*0x1000191f*/\n      *(this + 5) = v7; /*0x10001922*/\n      *(this + 6) = 4; /*0x10001925*/\n    }\n    result = *((_BYTE *)this + 20); /*0x1000192c*/\n    *a2++ ^= result; /*0x1000192f*/\n    *(this + 5) >>= 8; /*0x10001932*/\n    --*(this + 6); /*0x10001936*/\n  }\n  return result; /*0x10001940*/\n}"
+    },
+    {
+      "addr": "0x1006a546",
+      "code": "// Microsoft VisualC universal runtime\nint __cdecl unknown_libname_7(int a1)\n{\n  return __crt_strtox::parse_integer<unsigned long,__crt_strtox::c_string_character_source<char>>( /*0x1006a569*/\n           a1: nullptr,\n           a2: a1,\n           a3: 0,\n           a4: 10,\n           a5: 1);\n}",
+      "refs": [
+        {
+          "addr": "0x10069f6f",
+          "name": "??$parse_integer@KV?$c_string_character_source@D@__crt_strtox@@@__crt_strtox@@YAKQAU__crt_locale_pointers@@V?$c_string_character_source@D@0@H_N@Z"
+        }
+      ]
+    },
+    {
+      "addr": "0x10058450",
+      "code": "_DWORD *__thiscall sub_10058450(_DWORD *this, int a2, int a3, int a4, _DWORD *a5)\n{\n  *this = &PSBObject::`vftable'; /*0x1005847a*/\n  *(this + 23) = 0; /*0x10058480*/\n  *(this + 24) = 0; /*0x10058487*/\n  *(this + 25) = 0; /*0x1005848e*/\n  *(this + 5) = a3; /*0x100584a8*/\n  *(this + 6) = a4; /*0x100584ae*/\n  *(this + 1) = 0; /*0x100584b3*/\n  *(this + 2) = 0; /*0x100584ba*/\n  *(this + 3) = a2; /*0x100584c1*/\n  if ( a4 == 4 ) /*0x100584c5*/\n  {\n    *(this + 6) = 2; /*0x100584ce*/\n    sub_10058870(a1: a5); /*0x100584d5*/\n    sub_10058610(a1: this); /*0x100584dc*/\n    *(this + 6) = 4; /*0x100584e1*/\n  }\n  else\n  {\n    sub_10058870(a1: a5); /*0x100584c7*/\n  }\n  if ( a5 != nullptr && (*(_BYTE *)(this + 8) & 2) != 0 ) /*0x100584f0*/\n    sub_100018E0(this: a5, a2: (_BYTE *)*(this + 20), a3: *(this + 21) - *(this + 20)); /*0x100584fe*/\n  return this; /*0x10058505*/\n}",
+      "refs": [
+        {
+          "addr": "0x1008db08",
+          "name": "??_7PSBObject@@6B@"
+        },
+        {
+          "addr": "0x10058870",
+          "name": "sub_10058870"
+        },
+        {
+          "addr": "0x10058610",
+          "name": "sub_10058610"
+        },
+        {
+          "addr": "0x100018e0",
+          "name": "sub_100018E0"
+        }
+      ]
+    },
+    {
+      "addr": "0x10058870",
+      "code": "int __thiscall sub_10058870(_DWORD *this, _DWORD *a2)\n{\n  _DWORD *v2; // esi\n  unsigned __int16 *v3; // ebx\n  unsigned int v4; // ecx\n  size_t v5; // edi\n  bool v6; // cf\n  void *v7; // eax\n  unsigned int v8; // ecx\n  unsigned int v9; // edi\n  int v10; // ebx\n  int i; // ebp\n  int v12; // eax\n  unsigned int v13; // ecx\n  unsigned int v14; // edi\n  unsigned int v15; // ecx\n  unsigned int v16; // edi\n  unsigned int v17; // ecx\n  unsigned int v18; // edi\n\n  v2 = this; /*0x10058873*/\n  v3 = (unsigned __int16 *)*(this + 3); /*0x1005887a*/\n  v4 = v3[2]; /*0x10058888*/\n  *(this + 7) = v4; /*0x1005888a*/\n  if ( v4 > 2 )\n  {\n    v6 = v2[7] > 3u; /*0x100588b2*/\n    v2[8] = v3[3]; /*0x100588b5*/\n    v5 = v6 ? 56 : 44;\n  }\n  else\n  {\n    v2[8] = 2; /*0x10058892*/\n    v5 = 40; /*0x10058899*/\n  }\n  v7 = (void *)unknown_libname_3(a1: v5); /*0x100588c1*/\n  v2[4] = v7; /*0x100588c9*/\n  memmove_0(a1: v7, Src: v3, Size: v5); /*0x100588cc*/\n  if ( a2 != nullptr && (v2[8] & 1) != 0 ) /*0x100588e0*/\n  {\n    sub_100018E0(this: a2, a2: (_BYTE *)(v2[4] + 8), a3: 36); /*0x100588ed*/\n    if ( v2[7] >= 4u ) /*0x100588f6*/\n      sub_100018E0(this: a2, a2: (_BYTE *)(v2[4] + 44), a3: 12); /*0x10058903*/\n  }\n  if ( v2[7] >= 3u ) /*0x1005890c*/\n  {\n    v8 = 1; /*0x10058911*/\n    v9 = 0; /*0x10058917*/\n    v10 = v2[4] + 9; /*0x1005891e*/\n    for ( i = 8; i != 0; --i ) /*0x10058921*/\n    {\n      v12 = *(unsigned __int8 *)(v10 - 1); /*0x10058924*/\n      v10 += 4; /*0x10058928*/\n      v13 = (v8 + v12) % 0xFFF1; /*0x10058931*/\n      v14 = (v13 + v9) % 0xFFF1; /*0x10058940*/\n      v15 = (v13 + *(unsigned __int8 *)(v10 - 4)) % 0xFFF1; /*0x10058946*/\n      v16 = (v15 + v14) % 0xFFF1; /*0x10058953*/\n      v17 = (v15 + *(unsigned __int8 *)(v10 - 3)) % 0xFFF1; /*0x1005895b*/\n      v18 = (v17 + v16) % 0xFFF1; /*0x10058968*/\n      v8 = (v17 + *(unsigned __int8 *)(v10 - 2)) % 0xFFF1; /*0x10058970*/\n      v9 = (v8 + v18) % 0xFFF1; /*0x10058979*/\n    }\n    v2 = this; /*0x10058980*/\n  }\n  return sub_100589A0(a1: v2); /*0x1005898c*/\n}",
+      "refs": [
+        {
+          "addr": "0x10066cb3",
+          "name": "unknown_libname_3"
+        },
+        {
+          "addr": "0x1007c1d0",
+          "name": "_memmove_0"
+        },
+        {
+          "addr": "0x100018e0",
+          "name": "sub_100018E0"
+        },
+        {
+          "addr": "0x100589a0",
+          "name": "sub_100589A0"
+        }
+      ]
+    }
+  ],
+  "keyXrefs": {
+    "result": [
+      {
+        "target": "0x1008b768",
+        "resolved_addr": "0x1008b768",
+        "direction": "to",
+        "xref_type": "any",
+        "data": [
+          {
+            "direction": "to",
+            "addr": "0x10002030",
+            "from": "0x10002030",
+            "to": "0x1008b768",
+            "type": "data",
+            "fn": {
+              "addr": "0x10001f20",
+              "name": "sub_10001F20",
+              "size": "0x2a0"
+            }
+          },
+          {
+            "direction": "to",
+            "addr": "0x10003959",
+            "from": "0x10003959",
+            "to": "0x1008b768",
+            "type": "data",
+            "fn": {
+              "addr": "0x10003920",
+              "name": "?EmoteFilterTexture@@YAXPAEKP6AX0K@Z@Z",
+              "size": "0x5a2"
+            }
+          },
+          {
+            "direction": "to",
+            "addr": "0x10003f0d",
+            "from": "0x10003f0d",
+            "to": "0x1008b768",
+            "type": "data",
+            "fn": {
+              "addr": "0x10003ed0",
+              "name": "?EmoteCheckValidObject@@YA_NPBEK@Z",
+              "size": "0x2bf"
+            }
+          }
+        ],
+        "next_offset": null,
+        "total": 3,
+        "error": null
+      },
+      {
+        "target": "0x10058680",
+        "resolved_addr": "0x10058680",
+        "direction": "to",
+        "xref_type": "any",
+        "data": [
+          {
+            "direction": "to",
+            "addr": "0x10003f53",
+            "from": "0x10003f53",
+            "to": "0x10058680",
+            "type": "code",
+            "fn": {
+              "addr": "0x10003ed0",
+              "name": "?EmoteCheckValidObject@@YA_NPBEK@Z",
+              "size": "0x2bf"
+            }
+          }
+        ],
+        "next_offset": null,
+        "total": 1,
+        "error": null
+      }
+    ]
+  },
+  "exeImports": {
+    "result": [
+      {
+        "data": [
+          {
+            "addr": "0x8cb78c",
+            "imported_name": "?EmoteCreate@@YAPAVIEmoteDevice@@ABUInitParam@1@@Z",
+            "module": "emotedriver"
+          }
+        ],
+        "next_offset": null
+      }
+    ]
+  },
+  "exeDeviceInitialize": {
+    "addr": "0x82db20",
+    "code": "int __thiscall sub_82DB20(_DWORD *this, int a2, int a3)\n{\n  int v5; // ebx\n  int v6; // eax\n  unsigned int v7; // eax\n  int v8; // esi\n  struct IEmoteDevice *v9; // eax\n  __int64 v10; // [esp+8h] [ebp-20h] BYREF\n  int v11; // [esp+10h] [ebp-18h]\n  struct tagRECT Rect; // [esp+14h] [ebp-14h] BYREF\n\n  sub_4016A0(a1: a2, a2: a3, a3: 0, a4: -1, a5: 0, a6: 0, a7: 0); /*0x82db49*/\n  if ( a2 == 0 ) /*0x82db50*/\n    return 1; /*0x82db53*/\n  v5 = sub_4FD460(a1: a2); /*0x82db6f*/\n  if ( v5 == 0 ) /*0x82db73*/\n    return 1; /*0x82db73*/\n  sub_82ED00(a1: this); /*0x82db7b*/\n  v6 = *(_DWORD *)(v5 + 972); /*0x82db80*/\n  *(this + 40) = v6; /*0x82db86*/\n  if ( v6 == 0 ) /*0x82db8e*/\n    return 1; /*0x82db8e*/\n  v7 = *(_DWORD *)(v6 + 104); /*0x82db90*/\n  if ( v7 == 0 ) /*0x82db95*/\n  {\n    v8 = sub_4FD450(a1: a2); /*0x82db9e*/\n    sub_42ABB0(lpRect: &Rect); /*0x82dba6*/\n    sub_4DD0F0(a1: *(_DWORD *)(v8 + 4), a2: Rect.right - Rect.left, a3: Rect.bottom - Rect.top, a4: 0, a5: 0); /*0x82dbc6*/\n    v7 = *(_DWORD *)(*(this + 40) + 104); /*0x82dbd1*/\n    if ( v7 == 0 ) /*0x82dbd6*/\n      return 1; /*0x82dbd6*/\n  }\n  v10 = v7; /*0x82dbe0*/\n  v11 = 0; /*0x82dbe7*/\n  v9 = EmoteCreate(a1: (const struct IEmoteDevice::InitParam *)&v10); /*0x82dbee*/\n  *(this + 41) = v9; /*0x82dbf9*/\n  if ( v9 == nullptr ) /*0x82dc01*/\n    return 1; /*0x82dc05*/\n  (*(void (__thiscall **)(struct IEmoteDevice *, int))(*(_DWORD *)v9 + 56))(a1: v9, a2: 1); /*0x82dc1f*/\n  sub_4DE320(a1: this + 10); /*0x82dc2c*/\n  return 0; /*0x82db52*/\n}",
+    "refs": [
+      {
+        "addr": "0x4016a0",
+        "name": "sub_4016A0"
+      },
+      {
+        "addr": "0x4fd460",
+        "name": "sub_4FD460"
+      },
+      {
+        "addr": "0x82ed00",
+        "name": "sub_82ED00"
+      },
+      {
+        "addr": "0x4fd450",
+        "name": "sub_4FD450"
+      },
+      {
+        "addr": "0x42abb0",
+        "name": "sub_42ABB0"
+      },
+      {
+        "addr": "0x4dd0f0",
+        "name": "sub_4DD0F0"
+      },
+      {
+        "addr": "0x8cb78c",
+        "name": "?EmoteCreate@@YAPAVIEmoteDevice@@ABUInitParam@1@@Z"
+      },
+      {
+        "addr": "0x4de320",
+        "name": "sub_4DE320"
+      }
+    ]
+  }
+}

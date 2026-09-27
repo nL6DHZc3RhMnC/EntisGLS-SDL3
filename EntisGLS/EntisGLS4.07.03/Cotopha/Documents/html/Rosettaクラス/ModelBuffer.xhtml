@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>ModelBuffer</title>
+</head>
+<body>
+<div class="chapter">ModelBuffer</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　ModelBuffer は3Dグラフィックス処理で扱うモデルファイルを扱います。<br/>
+　EntisGLS4 の S3DModelBuffer コンテナです。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="RenderBuffer.xhtml">RenderBuffer</a>
+<div class="indent1"><a href="VertexBuffer.xhtml">VertexBuffer</a>
+<div class="indent1"><a href="ModelBuffer.xhtml">ModelBuffer</a>
+</div></div></div></div></div><br/>
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_ModelBuffer">ModelBuffer</a><br/>
+	<a href="#virtual_getMaterialLibrary">getMaterialLibrary</a><br/>
+	<a href="#virtual_getPoseLibrary">getPoseLibrary</a><br/>
+	<a href="#virtual_getTextureLibrary">getTextureLibrary</a><br/>
+	<a href="#virtual_loadModel">loadModel</a><br/>
+	<a href="#virtual_readModel">readModel</a><br/>
+	<a href="#virtual_saveModel">saveModel</a><br/>
+	<a href="#virtual_writeModel">writeModel</a><br/>
+</div><br/>
+
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_ModelBuffer"/>
+<div class="headline">ModelBuffer</div>
+<div class="usage">public void ModelBuffer(&#32; )</div>
+<br/>
+
+<a name="virtual_getMaterialLibrary"/>
+<div class="headline">getMaterialLibrary</div>
+<div class="usage">public const MaterialLibrary getMaterialLibrary(&#32; )</div>
+<br/>
+
+<a name="virtual_getPoseLibrary"/>
+<div class="headline">getPoseLibrary</div>
+<div class="usage">public const ModelPoseLibrary getPoseLibrary(&#32; )</div>
+<br/>
+
+<a name="virtual_getTextureLibrary"/>
+<div class="headline">getTextureLibrary</div>
+<div class="usage">public const TextureLibrary getTextureLibrary(&#32; )</div>
+<br/>
+
+<a name="virtual_loadModel"/>
+<div class="headline">loadModel</div>
+<div class="usage">public boolean loadModel( String file, String mime = null )</div>
+<br/>
+
+<a name="virtual_readModel"/>
+<div class="headline">readModel</div>
+<div class="usage">public boolean readModel( InputStream is, String mime = null )</div>
+<br/>
+
+<div class="headline">readModel</div>
+<div class="usage">public boolean readModel( RandomAccessFile file, String mime = null )</div>
+<br/>
+
+<a name="virtual_saveModel"/>
+<div class="headline">saveModel</div>
+<div class="usage">public const boolean saveModel( String file, String mime = null, String mimeImage = null )</div>
+<br/>
+
+<a name="virtual_writeModel"/>
+<div class="headline">writeModel</div>
+<div class="usage">public const boolean writeModel( RandomAccessFile file, String mime = null, String mimeImage = null )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

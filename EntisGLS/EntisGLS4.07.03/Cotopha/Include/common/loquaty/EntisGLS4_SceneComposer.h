@@ -1,0 +1,15 @@
+﻿
+
+DECL_LOQUATY_CONSTRUCTOR(EntisGLS4_SceneComposer);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneComposer_loadComposeFile);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneComposer_getAssetModelAs);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneComposer_getAssetAudioAs);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneComposer_getTextureLibrary);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneComposer_getMaterialLibrary);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneComposer_getModelPoseLibrary);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneComposer_createController);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneComposer_createItemeChildOf);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneComposer_createComposition);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneComposer_outputLog);
+
+

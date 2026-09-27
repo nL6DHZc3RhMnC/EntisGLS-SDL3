@@ -1,0 +1,17 @@
+
+
+DECL_LOQUATY_FUNC(EntisGLS4_ModelBone_calcBoneTransformation);
+DECL_LOQUATY_FUNC(EntisGLS4_ModelBone_calcBoneBasePosition);
+DECL_LOQUATY_FUNC(EntisGLS4_ModelBone_calcBoneNormalizedPosition);
+DECL_LOQUATY_FUNC(EntisGLS4_ModelBone_calcGlobalTransformation);
+DECL_LOQUATY_FUNC(EntisGLS4_ModelBone_calcGlobalPosition);
+DECL_LOQUATY_FUNC(EntisGLS4_ModelBone_getParentBone);
+DECL_LOQUATY_FUNC(EntisGLS4_ModelBone_getBoneFlags);
+DECL_LOQUATY_FUNC(EntisGLS4_ModelBone_setTransformation);
+DECL_LOQUATY_FUNC(EntisGLS4_ModelBone_applyTransformation);
+DECL_LOQUATY_FUNC(EntisGLS4_ModelBone_getBoneOffset);
+DECL_LOQUATY_FUNC(EntisGLS4_ModelBone_setBoneOffset);
+DECL_LOQUATY_FUNC(EntisGLS4_ModelBone_getBoneHandle);
+DECL_LOQUATY_FUNC(EntisGLS4_ModelBone_operateInverseKinematics);
+
+

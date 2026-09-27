@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>VertexBuffer</title>
+</head>
+<body>
+<div class="chapter">VertexBuffer</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　VertexBuffer は3Dグラフィックス処理で扱う頂点バッファ抽象物です。<br/>
+　EntisGLS4 の S3DVertexBufferInterface コンテナです。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="RenderBuffer.xhtml">RenderBuffer</a>
+<div class="indent1"><a href="VertexBuffer.xhtml">VertexBuffer</a>
+</div></div></div></div><br/>
+
+<div class="headline">Implements</div>
+<div class="indent2">
+	<a href="VertexVariantBuffer.xhtml">VertexVariantBuffer</a><br/>
+</div><br/>
+
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="VertexBuffer.MeshInfo.xhtml">VertexBuffer.MeshInfo</a><br/>
+	<a href="VertexBuffer.PrimitiveBuffer.xhtml">VertexBuffer.PrimitiveBuffer</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_bufferAutoMerge">bufferAutoMerge</a><br/>
+	<a href="#static_bufferKeepDeviceBuffer">bufferKeepDeviceBuffer</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_VertexBuffer">VertexBuffer</a><br/>
+	<a href="#virtual_addInstanceVariant">addInstanceVariant</a><br/>
+	<a href="#virtual_addPrimitiveBuffer">addPrimitiveBuffer</a><br/>
+	<a href="#virtual_allocateMorphing">allocateMorphing</a><br/>
+	<a href="#virtual_allocatePrimitiveBuffer">allocatePrimitiveBuffer</a><br/>
+	<a href="#virtual_attachDefaultMaterial">attachDefaultMaterial</a><br/>
+	<a href="#virtual_clearAllInstance">clearAllInstance</a><br/>
+	<a href="#virtual_clearBuffer">clearBuffer</a><br/>
+	<a href="#virtual_countOfTotalPolygons">countOfTotalPolygons</a><br/>
+	<a href="#virtual_countOfTotalVertices">countOfTotalVertices</a><br/>
+	<a href="#virtual_createVariantBuffer">createVariantBuffer</a><br/>
+	<a href="#virtual_enableMultiInstancingMode">enableMultiInstancingMode</a><br/>
+	<a href="#virtual_freePrimitiveBuffer">freePrimitiveBuffer</a><br/>
+	<a href="#virtual_getBufferControlFlags">getBufferControlFlags</a><br/>
+	<a href="#virtual_getCircumscribedParallelepiped">getCircumscribedParallelepiped</a><br/>
+	<a href="#virtual_getDefaultMaterial">getDefaultMaterial</a><br/>
+	<a href="#virtual_getMeshCount">getMeshCount</a><br/>
+	<a href="#virtual_getMeshInfoAt">getMeshInfoAt</a><br/>
+	<a href="#virtual_isMultiInstancingMode">isMultiInstancingMode</a><br/>
+	<a href="#virtual_newReferenceVariantBuffer">newReferenceVariantBuffer</a><br/>
+	<a href="#virtual_setBoneJointMap">setBoneJointMap</a><br/>
+	<a href="#virtual_setBoneWeightMap">setBoneWeightMap</a><br/>
+	<a href="#virtual_setBufferControlFlags">setBufferControlFlags</a><br/>
+	<a href="#virtual_setMorphingTargetMesh">setMorphingTargetMesh</a><br/>
+	<a href="#virtual_setMorphingTargetWeight">setMorphingTargetWeight</a><br/>
+	<a href="#virtual_updatePrimitiveList">updatePrimitiveList</a><br/>
+	<a href="#virtual_updateVertexVariant">updateVertexVariant</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_bufferAutoMerge"/>
+<div class="headline">bufferAutoMerge</div>
+<div class="usage">public static const Integer bufferAutoMerge = 1</div>
+<br/>
+
+<a name="static_bufferKeepDeviceBuffer"/>
+<div class="headline">bufferKeepDeviceBuffer</div>
+<div class="usage">public static const Integer bufferKeepDeviceBuffer = 2</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_VertexBuffer"/>
+<div class="headline">VertexBuffer</div>
+<div class="usage">public void VertexBuffer(&#32; )</div>
+<br/>
+
+<a name="virtual_addInstanceVariant"/>
+<div class="headline">addInstanceVariant</div>
+<div class="usage">public boolean addInstanceVariant( VertexVariantBuffer vvb, Matrix4D matrix, Color3D color )</div>
+<br/>
+
+<a name="virtual_addPrimitiveBuffer"/>
+<div class="headline">addPrimitiveBuffer</div>
+<div class="usage">public boolean addPrimitiveBuffer( Material material, int nFlags, int typePrimitive, VertexBuffer.PrimitiveBuffer prmbuf, int countIndex, int countVertex )</div>
+<br/>
+
+<a name="virtual_allocateMorphing"/>
+<div class="headline">allocateMorphing</div>
+<div class="usage">public boolean allocateMorphing( int iMesh, int nTargetCount )</div>
+<br/>
+
+<a name="virtual_allocatePrimitiveBuffer"/>
+<div class="headline">allocatePrimitiveBuffer</div>
+<div class="usage">public boolean allocatePrimitiveBuffer( VertexBuffer.PrimitiveBuffer prmbuf, int typePrimitive, int countIndex, int countVertex )</div>
+<br/>
+
+<a name="virtual_attachDefaultMaterial"/>
+<div class="headline">attachDefaultMaterial</div>
+<div class="usage">public void attachDefaultMaterial( Material material )</div>
+<br/>
+
+<a name="virtual_clearAllInstance"/>
+<div class="headline">clearAllInstance</div>
+<div class="usage">public boolean clearAllInstance(&#32; )</div>
+<br/>
+
+<a name="virtual_clearBuffer"/>
+<div class="headline">clearBuffer</div>
+<div class="usage">public void clearBuffer(&#32; )</div>
+<br/>
+
+<a name="virtual_countOfTotalPolygons"/>
+<div class="headline">countOfTotalPolygons</div>
+<div class="usage">public const int countOfTotalPolygons(&#32; )</div>
+<br/>
+
+<a name="virtual_countOfTotalVertices"/>
+<div class="headline">countOfTotalVertices</div>
+<div class="usage">public const int countOfTotalVertices(&#32; )</div>
+<br/>
+
+<a name="virtual_createVariantBuffer"/>
+<div class="headline">createVariantBuffer</div>
+<div class="usage">public VertexVariantBuffer createVariantBuffer(&#32; )</div>
+<br/>
+
+<a name="virtual_enableMultiInstancingMode"/>
+<div class="headline">enableMultiInstancingMode</div>
+<div class="usage">public boolean enableMultiInstancingMode( boolean flagEnable )</div>
+<br/>
+
+<a name="virtual_freePrimitiveBuffer"/>
+<div class="headline">freePrimitiveBuffer</div>
+<div class="usage">public boolean freePrimitiveBuffer( VertexBuffer.PrimitiveBuffer prmbuf )</div>
+<br/>
+
+<a name="virtual_getBufferControlFlags"/>
+<div class="headline">getBufferControlFlags</div>
+<div class="usage">public const int getBufferControlFlags(&#32; )</div>
+<br/>
+
+<a name="virtual_getCircumscribedParallelepiped"/>
+<div class="headline">getCircumscribedParallelepiped</div>
+<div class="usage">public const boolean getCircumscribedParallelepiped( Vector3D vMin, Vector3D vMax )</div>
+<br/>
+
+<a name="virtual_getDefaultMaterial"/>
+<div class="headline">getDefaultMaterial</div>
+<div class="usage">public const Material getDefaultMaterial(&#32; )</div>
+<br/>
+
+<a name="virtual_getMeshCount"/>
+<div class="headline">getMeshCount</div>
+<div class="usage">public const int getMeshCount(&#32; )</div>
+<br/>
+
+<a name="virtual_getMeshInfoAt"/>
+<div class="headline">getMeshInfoAt</div>
+<div class="usage">public const boolean getMeshInfoAt( VertexBuffer.MeshInfo info, int iMesh, int nCopyVerteics )</div>
+<br/>
+
+<a name="virtual_isMultiInstancingMode"/>
+<div class="headline">isMultiInstancingMode</div>
+<div class="usage">public const boolean isMultiInstancingMode(&#32; )</div>
+<br/>
+
+<a name="virtual_newReferenceVariantBuffer"/>
+<div class="headline">newReferenceVariantBuffer</div>
+<div class="usage">public VertexVariantBuffer newReferenceVariantBuffer(&#32; )</div>
+<br/>
+
+<a name="virtual_setBoneJointMap"/>
+<div class="headline">setBoneJointMap</div>
+<div class="usage">public boolean setBoneJointMap( int iMesh, int nBoneCount, int nJointCount, Uint32Pointer pJointMaps )</div>
+<br/>
+
+<a name="virtual_setBoneWeightMap"/>
+<div class="headline">setBoneWeightMap</div>
+<div class="usage">public boolean setBoneWeightMap( int iMesh, int nCount, Float32Pointer pWeightMaps )</div>
+<br/>
+
+<a name="virtual_setBufferControlFlags"/>
+<div class="headline">setBufferControlFlags</div>
+<div class="usage">public void setBufferControlFlags( int nFlags )</div>
+<br/>
+
+<a name="virtual_setMorphingTargetMesh"/>
+<div class="headline">setMorphingTargetMesh</div>
+<div class="usage">public boolean setMorphingTargetMesh( int iMesh, int iMorphTarget, int countVertex, Vector3D4 vVertex, Vector3D4 vNormal, Vector2D vUVMap, Color3D pColor )</div>
+<br/>
+
+<a name="virtual_setMorphingTargetWeight"/>
+<div class="headline">setMorphingTargetWeight</div>
+<div class="usage">public boolean setMorphingTargetWeight( int iMesh, int iMorphTarget, int countVertex, Float32Pointer pWeight )</div>
+<br/>
+
+<a name="virtual_updatePrimitiveList"/>
+<div class="headline">updatePrimitiveList</div>
+<div class="usage">public boolean updatePrimitiveList( int iMesh, int nFlags, int countIndex, int countVertex, Vector3D4 vVertex, Vector3D4 vNormal, Vector2D vUVMap, Color3D pColor, Uint32Pointer pIndex )</div>
+<br/>
+
+<a name="virtual_updateVertexVariant"/>
+<div class="headline">updateVertexVariant</div>
+<div class="usage">public boolean updateVertexVariant( VertexVariantBuffer vvb, int iFirst = 0, int iEnd = -1 )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

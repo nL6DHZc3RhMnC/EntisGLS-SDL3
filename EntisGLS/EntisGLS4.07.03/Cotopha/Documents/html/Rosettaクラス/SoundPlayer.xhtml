@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>SoundPlayer</title>
+</head>
+<body>
+<div class="chapter">SoundPlayer</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　SoundPlayer は音声出力機能を供給します。<br/>
+　EntisGLS4 の SGLSoundPlayer コンテナです。<br/>
+　SoundPlayer.Format クラスは SGLSoundFormat 構造体に、SoundPlayer.Listener クラスは SGLSoundPlayerListener クラスに相当します。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="SoundPlayer.xhtml">SoundPlayer</a>
+</div></div></div><br/>
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="SoundPlayer.Format.xhtml">SoundPlayer.Format</a><br/>
+	<a href="SoundPlayer.Listener.xhtml">SoundPlayer.Listener</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_formatSoundLinearPCM">formatSoundLinearPCM</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_SoundPlayer">SoundPlayer</a><br/>
+	<a href="#virtual_close">close</a><br/>
+	<a href="#virtual_getPlayingPosition">getPlayingPosition</a><br/>
+	<a href="#virtual_getVolume">getVolume</a><br/>
+	<a href="#virtual_isPaused">isPaused</a><br/>
+	<a href="#virtual_isPlaying">isPlaying</a><br/>
+	<a href="#virtual_open">open</a><br/>
+	<a href="#virtual_pause">pause</a><br/>
+	<a href="#virtual_play">play</a><br/>
+	<a href="#virtual_prepareStream">prepareStream</a><br/>
+	<a href="#virtual_restart">restart</a><br/>
+	<a href="#virtual_seekPosition">seekPosition</a><br/>
+	<a href="#virtual_setListener">setListener</a><br/>
+	<a href="#virtual_setVolume">setVolume</a><br/>
+	<a href="#virtual_stop">stop</a><br/>
+	<a href="#virtual_write">write</a><br/>
+	<a href="#virtual_writeStatic">writeStatic</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_formatSoundLinearPCM"/>
+<div class="headline">formatSoundLinearPCM</div>
+<div class="usage">public static const Integer formatSoundLinearPCM = 0</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_SoundPlayer"/>
+<div class="headline">SoundPlayer</div>
+<div class="usage">public void SoundPlayer(&#32; )</div>
+<br/>
+
+<a name="virtual_close"/>
+<div class="headline">close</div>
+<div class="usage">public boolean close(&#32; )</div>
+<br/>
+
+<a name="virtual_getPlayingPosition"/>
+<div class="headline">getPlayingPosition</div>
+<div class="usage">public const long getPlayingPosition(&#32; )</div>
+<br/>
+
+<a name="virtual_getVolume"/>
+<div class="headline">getVolume</div>
+<div class="usage">public const boolean getVolume( float[] volumes, int nChannels )</div>
+<br/>
+
+<a name="virtual_isPaused"/>
+<div class="headline">isPaused</div>
+<div class="usage">public const boolean isPaused(&#32; )</div>
+<br/>
+
+<a name="virtual_isPlaying"/>
+<div class="headline">isPlaying</div>
+<div class="usage">public const boolean isPlaying(&#32; )</div>
+<br/>
+
+<a name="virtual_open"/>
+<div class="headline">open</div>
+<div class="usage">public boolean open( SoundPlayer.Format fmt )</div>
+<br/>
+
+<a name="virtual_pause"/>
+<div class="headline">pause</div>
+<div class="usage">public boolean pause(&#32; )</div>
+<br/>
+
+<a name="virtual_play"/>
+<div class="headline">play</div>
+<div class="usage">public boolean play( long nFlags = 0 )</div>
+<br/>
+
+<a name="virtual_prepareStream"/>
+<div class="headline">prepareStream</div>
+<div class="usage">public boolean prepareStream( int nBytes = 0 )</div>
+<br/>
+
+<a name="virtual_restart"/>
+<div class="headline">restart</div>
+<div class="usage">public boolean restart(&#32; )</div>
+<br/>
+
+<a name="virtual_seekPosition"/>
+<div class="headline">seekPosition</div>
+<div class="usage">public boolean seekPosition( long nPos )</div>
+<br/>
+
+<a name="virtual_setListener"/>
+<div class="headline">setListener</div>
+<div class="usage">public void setListener( SoundPlayer.Listener listener )</div>
+<br/>
+
+<a name="virtual_setVolume"/>
+<div class="headline">setVolume</div>
+<div class="usage">public boolean setVolume( float[] volumes, int nChannels )</div>
+<br/>
+
+<a name="virtual_stop"/>
+<div class="headline">stop</div>
+<div class="usage">public boolean stop(&#32; )</div>
+<br/>
+
+<a name="virtual_write"/>
+<div class="headline">write</div>
+<div class="usage">public int write( Uint8Pointer ptrSound, int nBytes )</div>
+<br/>
+
+<a name="virtual_writeStatic"/>
+<div class="headline">writeStatic</div>
+<div class="usage">public boolean writeStatic( Uint8Pointer ptrSound, int nBytes )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

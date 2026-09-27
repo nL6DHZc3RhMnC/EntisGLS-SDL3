@@ -1,0 +1,8 @@
+This software is based in part on the work of the FreeType Team.
+Portions of this software are copyright © 2026 The FreeType Project
+(https://freetype.org). All rights reserved.
+FreeType 2.14.3 is used under the FreeType License (FTL).
+See FreeType-FTL.txt and FreeType-LICENSE.txt.
+
+Noto Serif CJK TC Bold is bundled unchanged under SIL Open Font License 1.1.
+See NotoSerifCJKtc-OFL.txt and ../fonts/provenance.json.

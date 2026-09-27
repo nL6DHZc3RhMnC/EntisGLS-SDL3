@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>SceneParameter</title>
+</head>
+<body>
+<div class="chapter">SceneParameter</div>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="SceneParameter.xhtml">SceneParameter</a>
+</div></div></div><br/>
+
+<div class="headline">Static Functions</div>
+<div class="indent2">
+	<a href="#static_colorFromVector">colorFromVector</a><br/>
+	<a href="#static_vectorFromColor">vectorFromColor</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_getBinaryParameter">getBinaryParameter</a><br/>
+	<a href="#virtual_getBooleanParameter">getBooleanParameter</a><br/>
+	<a href="#virtual_getCommandParameter">getCommandParameter</a><br/>
+	<a href="#virtual_getIntegerParameter">getIntegerParameter</a><br/>
+	<a href="#virtual_getMatrix4DParameter">getMatrix4DParameter</a><br/>
+	<a href="#virtual_getMatrixParameter">getMatrixParameter</a><br/>
+	<a href="#virtual_getScalarParameter">getScalarParameter</a><br/>
+	<a href="#virtual_getVector2DParameter">getVector2DParameter</a><br/>
+	<a href="#virtual_getVector4DParameter">getVector4DParameter</a><br/>
+	<a href="#virtual_getVectorParameter">getVectorParameter</a><br/>
+	<a href="#virtual_setBinaryParameter">setBinaryParameter</a><br/>
+	<a href="#virtual_setBooleanParameter">setBooleanParameter</a><br/>
+	<a href="#virtual_setCommandParameter">setCommandParameter</a><br/>
+	<a href="#virtual_setIntegerParameter">setIntegerParameter</a><br/>
+	<a href="#virtual_setMatrix4DParameter">setMatrix4DParameter</a><br/>
+	<a href="#virtual_setMatrixParameter">setMatrixParameter</a><br/>
+	<a href="#virtual_setScalarParameter">setScalarParameter</a><br/>
+	<a href="#virtual_setVector2DParameter">setVector2DParameter</a><br/>
+	<a href="#virtual_setVector4DParameter">setVector4DParameter</a><br/>
+	<a href="#virtual_setVectorParameter">setVectorParameter</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Functions</div>
+
+<a name="static_colorFromVector"/>
+<div class="headline">colorFromVector</div>
+<div class="usage">public static int colorFromVector( Vector3D vec )</div>
+<br/>
+
+<a name="static_vectorFromColor"/>
+<div class="headline">vectorFromColor</div>
+<div class="usage">public static Vector3D vectorFromColor( int rgb )</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_getBinaryParameter"/>
+<div class="headline">getBinaryParameter</div>
+<div class="usage">public const int getBinaryParameter( Uint8Pointer pDst, int nBufBytes, int i )</div>
+<br/>
+
+<a name="virtual_getBooleanParameter"/>
+<div class="headline">getBooleanParameter</div>
+<div class="usage">public const boolean getBooleanParameter( int i )</div>
+<br/>
+
+<a name="virtual_getCommandParameter"/>
+<div class="headline">getCommandParameter</div>
+<div class="usage">public const String getCommandParameter( int i )</div>
+<br/>
+
+<a name="virtual_getIntegerParameter"/>
+<div class="headline">getIntegerParameter</div>
+<div class="usage">public const int getIntegerParameter( int i )</div>
+<br/>
+
+<a name="virtual_getMatrix4DParameter"/>
+<div class="headline">getMatrix4DParameter</div>
+<div class="usage">public const Matrix4D getMatrix4DParameter( int i )</div>
+<br/>
+
+<a name="virtual_getMatrixParameter"/>
+<div class="headline">getMatrixParameter</div>
+<div class="usage">public const Matrix3D getMatrixParameter( int i )</div>
+<br/>
+
+<a name="virtual_getScalarParameter"/>
+<div class="headline">getScalarParameter</div>
+<div class="usage">public const double getScalarParameter( int i )</div>
+<br/>
+
+<a name="virtual_getVector2DParameter"/>
+<div class="headline">getVector2DParameter</div>
+<div class="usage">public const Vector2D getVector2DParameter( int i )</div>
+<br/>
+
+<a name="virtual_getVector4DParameter"/>
+<div class="headline">getVector4DParameter</div>
+<div class="usage">public const Vector3D4 getVector4DParameter( int i )</div>
+<br/>
+
+<a name="virtual_getVectorParameter"/>
+<div class="headline">getVectorParameter</div>
+<div class="usage">public const Vector3D getVectorParameter( int i )</div>
+<br/>
+
+<a name="virtual_setBinaryParameter"/>
+<div class="headline">setBinaryParameter</div>
+<div class="usage">public void setBinaryParameter( int i, Uint8Pointer pSrc, int nBufBytes )</div>
+<br/>
+
+<a name="virtual_setBooleanParameter"/>
+<div class="headline">setBooleanParameter</div>
+<div class="usage">public void setBooleanParameter( int i, boolean b )</div>
+<br/>
+
+<a name="virtual_setCommandParameter"/>
+<div class="headline">setCommandParameter</div>
+<div class="usage">public void setCommandParameter( int i, String str )</div>
+<br/>
+
+<a name="virtual_setIntegerParameter"/>
+<div class="headline">setIntegerParameter</div>
+<div class="usage">public void setIntegerParameter( int i, int n )</div>
+<br/>
+
+<a name="virtual_setMatrix4DParameter"/>
+<div class="headline">setMatrix4DParameter</div>
+<div class="usage">public void setMatrix4DParameter( int i, Matrix4D mat )</div>
+<br/>
+
+<a name="virtual_setMatrixParameter"/>
+<div class="headline">setMatrixParameter</div>
+<div class="usage">public void setMatrixParameter( int i, Matrix3D mat )</div>
+<br/>
+
+<a name="virtual_setScalarParameter"/>
+<div class="headline">setScalarParameter</div>
+<div class="usage">public void setScalarParameter( int i, double s )</div>
+<br/>
+
+<a name="virtual_setVector2DParameter"/>
+<div class="headline">setVector2DParameter</div>
+<div class="usage">public void setVector2DParameter( int i, Vector2D vec )</div>
+<br/>
+
+<a name="virtual_setVector4DParameter"/>
+<div class="headline">setVector4DParameter</div>
+<div class="usage">public void setVector4DParameter( int i, Vector3D4 vec )</div>
+<br/>
+
+<a name="virtual_setVectorParameter"/>
+<div class="headline">setVectorParameter</div>
+<div class="usage">public void setVectorParameter( int i, Vector3D vec )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

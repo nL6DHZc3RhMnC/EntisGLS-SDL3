@@ -1,0 +1,20 @@
+{
+  "family": "Noto Serif CJK TC",
+  "style": "Bold",
+  "version": "1.001",
+  "format": "OpenType/CFF",
+  "file": "assets/fonts/NotoSerifCJKtc-Bold.otf",
+  "sha256": "d6bc09d324004b38207898f86deb298cc4eb0527bc40916f25ba9d3ba07226f9",
+  "size_bytes": 24684480,
+  "source": "StudySteadyR18/SETUP_ZHTW/NotoSerifCJKtc-Bold.otf",
+  "source_description": "Exact font supplied with the user's game; copied unchanged; no host font installation",
+  "modifications": [],
+  "license": "OFL-1.1",
+  "license_file": "assets/licenses/NotoSerifCJKtc-OFL.txt",
+  "copyright": "Copyright © 2017 Adobe Systems Incorporated (http://www.adobe.com/).",
+  "license_source": "https://raw.githubusercontent.com/notofonts/noto-cjk/f8d157532fbfaeda587e826d4cd5b21a49186f7c/Serif/LICENSE",
+  "license_source_commit": "f8d157532fbfaeda587e826d4cd5b21a49186f7c",
+  "license_source_sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+  "packaged_license_sha256": "8d8505e12dcd7ae560ac5e7b6a500f43091cb722b80d7c0809bb2e4b2fe3cf4f",
+  "verification": "python3 tools/setup_sdl_fonts.py --verify"
+}

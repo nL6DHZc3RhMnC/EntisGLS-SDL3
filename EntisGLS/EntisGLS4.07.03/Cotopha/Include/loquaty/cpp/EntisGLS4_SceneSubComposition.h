@@ -1,0 +1,9 @@
+
+
+DECL_LOQUATY_CONSTRUCTOR(EntisGLS4_SceneSubComposition);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneSubComposition_createInstance);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneSubComposition_releaseInstance);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneSubComposition_delayReleaseInstance);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneSubComposition_isValidInstance);
+
+

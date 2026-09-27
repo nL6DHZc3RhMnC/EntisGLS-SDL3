@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<agl_usage_definition>
+	<command lead="@screen_init" cmd="screen_init" arg_type="named">
+		<arg_list>
+			<arg name="screen"/>
+			<arg name="priority"/>
+			<arg name="visible"/>
+			<arg name="style"/>
+			<arg name="layer_type"/>
+		</arg_list>
+	</command>
+	<command lead="@screen_clone" cmd="screen_clone" arg_type="array">
+		<arg_list>
+			<arg name="screen"/>
+			<arg name="src_screen"/>
+			<arg name="priority"/>
+		</arg_list>
+	</command>
+	<command lead="@screen_delete" cmd="screen_delete" arg_type="array">
+		<arg_list>
+			<arg name="screen"/>
+		</arg_list>
+	</command>
+	<command lead="@screen_swap" cmd="screen_swap" arg_type="array">
+		<arg_list>
+			<arg name="screen"/>
+			<arg name="src_screen"/>
+		</arg_list>
+	</command>
+	<command lead="@screen_select" cmd="screen_select" arg_type="array">
+		<arg_list>
+			<arg name="screen"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_create" cmd="layer_create" arg_type="var_named">
+		<arg_list>
+			<arg name="layer"/>
+			<arg name="id"/>
+			<arg name="class"/>
+			<arg name="style"/>
+			<arg name="layer_type"/>
+			<arg name="x" default="0"/>
+			<arg name="y" default="0"/>
+			<arg name="sx" default="1"/>
+			<arg name="sy" default="1"/>
+			<arg name="rz" default="0"/>
+			<arg name="tr" default="0"/>
+			<arg name="fp" default="0"/>
+			<arg name="fp2" default="0"/>
+			<arg name="priority" default="0"/>
+			<arg name="visible" default="true"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_image" cmd="layer_image" arg_type="array">
+		<arg_list>
+			<arg name="layer"/>
+			<arg name="file"/>
+			<arg name="fade" default="0"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_delete" cmd="layer_delete" arg_type="array">
+		<arg_list>
+			<arg name="layer"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_exist" cmd="layer_exist" arg_type="array">
+		<arg_list>
+			<arg name="layer"/>
+			<arg name="result"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_parameter" cmd="layer_parameter" arg_type="var_named">
+		<arg_list>
+			<arg name="layer"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_pre_move" cmd="layer_pre_move" arg_type="array">
+		<arg_list>
+			<arg name="layer"/>
+			<arg name="offset" default="false"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_add_move" cmd="layer_add_move" arg_type="var_named">
+		<arg_list>
+			<arg name="layer"/>
+			<arg name="time"/>
+			<arg name="v0"/>
+			<arg name="v1"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_start_move" cmd="layer_start_move" arg_type="array">
+		<arg_list>
+			<arg name="layer"/>
+			<arg name="loop" default="once"/>
+			<arg name="offset" default="false"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_wait_move" cmd="layer_wait_move" arg_type="array">
+		<arg_list>
+			<arg name="layer"/>
+			<arg name="all_layer" default="false"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_flush_move" cmd="layer_flush_move" arg_type="array">
+		<arg_list>
+			<arg name="layer"/>
+			<arg name="all_layer" default="false"/>
+			<arg name="all_move" default="false"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_add_filter" cmd="layer_add_filter" arg_type="var_named">
+		<arg_list>
+			<arg name="layer"/>
+			<arg name="filter"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_clear_filter" cmd="layer_clear_filter" arg_type="array">
+		<arg_list>
+			<arg name="layer"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_operate" cmd="layer_operate" arg_type="var_named">
+		<arg_list>
+			<arg name="layer"/>
+			<arg name="operate"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_freeze" cmd="layer_freeze" arg_type="array">
+		<arg_list>
+			<arg name="layer"/>
+		</arg_list>
+	</command>
+	<command lead="@layer_defrost" cmd="layer_defrost" arg_type="array">
+		<arg_list>
+			<arg name="layer"/>
+		</arg_list>
+	</command>
+</agl_usage_definition>

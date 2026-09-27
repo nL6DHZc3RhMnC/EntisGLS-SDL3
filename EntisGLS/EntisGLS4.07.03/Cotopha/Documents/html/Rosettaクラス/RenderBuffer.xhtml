@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>RenderBuffer</title>
+</head>
+<body>
+<div class="chapter">RenderBuffer</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　RenderBuffer は3Dグラフィックス処理のレンダリングの抽象対象物を表現します。<br/>
+　EntisGLS4 の S3DRenderBufferInterface コンテナです。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="RenderBuffer.xhtml">RenderBuffer</a>
+</div></div></div><br/>
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="RenderBuffer.EnvMappingParam.xhtml">RenderBuffer.EnvMappingParam</a><br/>
+	<a href="RenderBuffer.OffsetBorderParam.xhtml">RenderBuffer.OffsetBorderParam</a><br/>
+	<a href="RenderBuffer.OptionalContextSet.xhtml">RenderBuffer.OptionalContextSet</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_blendAdd">blendAdd</a><br/>
+	<a href="#static_blendCopy">blendCopy</a><br/>
+	<a href="#static_blendDefault">blendDefault</a><br/>
+	<a href="#static_blendDstMasked">blendDstMasked</a><br/>
+	<a href="#static_blendMulColor">blendMulColor</a><br/>
+	<a href="#static_blendProductedSrc">blendProductedSrc</a><br/>
+	<a href="#static_blendUnproductedSrc">blendUnproductedSrc</a><br/>
+	<a href="#static_depthMaskDefault">depthMaskDefault</a><br/>
+	<a href="#static_depthMaskEnable">depthMaskEnable</a><br/>
+	<a href="#static_depthMaskNoTest">depthMaskNoTest</a><br/>
+	<a href="#static_depthMaskNoWrite">depthMaskNoWrite</a><br/>
+	<a href="#static_depthMaskNoWriteGT">depthMaskNoWriteGT</a><br/>
+	<a href="#static_envMappingCube">envMappingCube</a><br/>
+	<a href="#static_envMappingHemisphere">envMappingHemisphere</a><br/>
+	<a href="#static_envMappingRefraction">envMappingRefraction</a><br/>
+	<a href="#static_envMappingSphere">envMappingSphere</a><br/>
+	<a href="#static_envMappingTypeMask">envMappingTypeMask</a><br/>
+	<a href="#static_envMappingViewport">envMappingViewport</a><br/>
+	<a href="#static_faceCullingBack">faceCullingBack</a><br/>
+	<a href="#static_faceCullingDefault">faceCullingDefault</a><br/>
+	<a href="#static_faceCullingFront">faceCullingFront</a><br/>
+	<a href="#static_faceCullingNo">faceCullingNo</a><br/>
+	<a href="#static_featureContextSet">featureContextSet</a><br/>
+	<a href="#static_featureDepthMask">featureDepthMask</a><br/>
+	<a href="#static_featureEnvMap">featureEnvMap</a><br/>
+	<a href="#static_featureFaceCulling">featureFaceCulling</a><br/>
+	<a href="#static_featureOffsetBorder">featureOffsetBorder</a><br/>
+	<a href="#static_featureOrderPriority">featureOrderPriority</a><br/>
+	<a href="#static_featureSRGB">featureSRGB</a><br/>
+	<a href="#static_optionBorderParam">optionBorderParam</a><br/>
+	<a href="#static_optionContextAll">optionContextAll</a><br/>
+	<a href="#static_optionCustomShader">optionCustomShader</a><br/>
+	<a href="#static_optionDepthMask">optionDepthMask</a><br/>
+	<a href="#static_optionFaceCulling">optionFaceCulling</a><br/>
+	<a href="#static_optionShadingFlag">optionShadingFlag</a><br/>
+	<a href="#static_primitiveLine">primitiveLine</a><br/>
+	<a href="#static_primitiveLineStrip">primitiveLineStrip</a><br/>
+	<a href="#static_primitivePoint">primitivePoint</a><br/>
+	<a href="#static_primitiveTriangle">primitiveTriangle</a><br/>
+	<a href="#static_primitiveTriangleStrip">primitiveTriangleStrip</a><br/>
+	<a href="#static_renderAutoColor">renderAutoColor</a><br/>
+	<a href="#static_renderAutoNormal">renderAutoNormal</a><br/>
+	<a href="#static_renderAutoTexAxis">renderAutoTexAxis</a><br/>
+	<a href="#static_renderFenceOrder">renderFenceOrder</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_RenderBuffer">RenderBuffer</a><br/>
+	<a href="#virtual_addPrimitiveList">addPrimitiveList</a><br/>
+	<a href="#virtual_addVertexBuffer">addVertexBuffer</a><br/>
+	<a href="#virtual_appendMatrixTransformation">appendMatrixTransformation</a><br/>
+	<a href="#virtual_attachCustomShader">attachCustomShader</a><br/>
+	<a href="#virtual_flush">flush</a><br/>
+	<a href="#virtual_getCustomShader">getCustomShader</a><br/>
+	<a href="#virtual_getMatrixTransformation">getMatrixTransformation</a><br/>
+	<a href="#virtual_getOptionalFeature">getOptionalFeature</a><br/>
+	<a href="#virtual_getShadingFlag">getShadingFlag</a><br/>
+	<a href="#virtual_popTransformation">popTransformation</a><br/>
+	<a href="#virtual_pushTransformation">pushTransformation</a><br/>
+	<a href="#virtual_resetCustomShaderUniform">resetCustomShaderUniform</a><br/>
+	<a href="#virtual_resetTransformation">resetTransformation</a><br/>
+	<a href="#virtual_setCustomShaderUniform">setCustomShaderUniform</a><br/>
+	<a href="#virtual_setMatrixTransformation">setMatrixTransformation</a><br/>
+	<a href="#virtual_setOptionalFeature">setOptionalFeature</a><br/>
+	<a href="#virtual_setShadingFlag">setShadingFlag</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_blendAdd"/>
+<div class="headline">blendAdd</div>
+<div class="usage">public static const Integer blendAdd = 2</div>
+<br/>
+
+<a name="static_blendCopy"/>
+<div class="headline">blendCopy</div>
+<div class="usage">public static const Integer blendCopy = 4</div>
+<br/>
+
+<a name="static_blendDefault"/>
+<div class="headline">blendDefault</div>
+<div class="usage">public static const Integer blendDefault = 0</div>
+<br/>
+
+<a name="static_blendDstMasked"/>
+<div class="headline">blendDstMasked</div>
+<div class="usage">public static const Integer blendDstMasked = 5</div>
+<br/>
+
+<a name="static_blendMulColor"/>
+<div class="headline">blendMulColor</div>
+<div class="usage">public static const Integer blendMulColor = 6</div>
+<br/>
+
+<a name="static_blendProductedSrc"/>
+<div class="headline">blendProductedSrc</div>
+<div class="usage">public static const Integer blendProductedSrc = 1</div>
+<br/>
+
+<a name="static_blendUnproductedSrc"/>
+<div class="headline">blendUnproductedSrc</div>
+<div class="usage">public static const Integer blendUnproductedSrc = 3</div>
+<br/>
+
+<a name="static_depthMaskDefault"/>
+<div class="headline">depthMaskDefault</div>
+<div class="usage">public static const Integer depthMaskDefault = 0</div>
+<br/>
+
+<a name="static_depthMaskEnable"/>
+<div class="headline">depthMaskEnable</div>
+<div class="usage">public static const Integer depthMaskEnable = 1</div>
+<br/>
+
+<a name="static_depthMaskNoTest"/>
+<div class="headline">depthMaskNoTest</div>
+<div class="usage">public static const Integer depthMaskNoTest = 4</div>
+<br/>
+
+<a name="static_depthMaskNoWrite"/>
+<div class="headline">depthMaskNoWrite</div>
+<div class="usage">public static const Integer depthMaskNoWrite = 2</div>
+<br/>
+
+<a name="static_depthMaskNoWriteGT"/>
+<div class="headline">depthMaskNoWriteGT</div>
+<div class="usage">public static const Integer depthMaskNoWriteGT = 3</div>
+<br/>
+
+<a name="static_envMappingCube"/>
+<div class="headline">envMappingCube</div>
+<div class="usage">public static const Integer envMappingCube = 2</div>
+<br/>
+
+<a name="static_envMappingHemisphere"/>
+<div class="headline">envMappingHemisphere</div>
+<div class="usage">public static const Integer envMappingHemisphere = 0</div>
+<br/>
+
+<a name="static_envMappingRefraction"/>
+<div class="headline">envMappingRefraction</div>
+<div class="usage">public static const Integer envMappingRefraction = 256 /* 0x0100 */</div>
+<br/>
+
+<a name="static_envMappingSphere"/>
+<div class="headline">envMappingSphere</div>
+<div class="usage">public static const Integer envMappingSphere = 1</div>
+<br/>
+
+<a name="static_envMappingTypeMask"/>
+<div class="headline">envMappingTypeMask</div>
+<div class="usage">public static const Integer envMappingTypeMask = 255 /* 0x00FF */</div>
+<br/>
+
+<a name="static_envMappingViewport"/>
+<div class="headline">envMappingViewport</div>
+<div class="usage">public static const Integer envMappingViewport = 3</div>
+<br/>
+
+<a name="static_faceCullingBack"/>
+<div class="headline">faceCullingBack</div>
+<div class="usage">public static const Integer faceCullingBack = 1</div>
+<br/>
+
+<a name="static_faceCullingDefault"/>
+<div class="headline">faceCullingDefault</div>
+<div class="usage">public static const Integer faceCullingDefault = 0</div>
+<br/>
+
+<a name="static_faceCullingFront"/>
+<div class="headline">faceCullingFront</div>
+<div class="usage">public static const Integer faceCullingFront = 2</div>
+<br/>
+
+<a name="static_faceCullingNo"/>
+<div class="headline">faceCullingNo</div>
+<div class="usage">public static const Integer faceCullingNo = 3</div>
+<br/>
+
+<a name="static_featureContextSet"/>
+<div class="headline">featureContextSet</div>
+<div class="usage">public static const Integer featureContextSet = 6</div>
+<br/>
+
+<a name="static_featureDepthMask"/>
+<div class="headline">featureDepthMask</div>
+<div class="usage">public static const Integer featureDepthMask = 4</div>
+<br/>
+
+<a name="static_featureEnvMap"/>
+<div class="headline">featureEnvMap</div>
+<div class="usage">public static const Integer featureEnvMap = 1</div>
+<br/>
+
+<a name="static_featureFaceCulling"/>
+<div class="headline">featureFaceCulling</div>
+<div class="usage">public static const Integer featureFaceCulling = 3</div>
+<br/>
+
+<a name="static_featureOffsetBorder"/>
+<div class="headline">featureOffsetBorder</div>
+<div class="usage">public static const Integer featureOffsetBorder = 2</div>
+<br/>
+
+<a name="static_featureOrderPriority"/>
+<div class="headline">featureOrderPriority</div>
+<div class="usage">public static const Integer featureOrderPriority = 7</div>
+<br/>
+
+<a name="static_featureSRGB"/>
+<div class="headline">featureSRGB</div>
+<div class="usage">public static const Integer featureSRGB = 0</div>
+<br/>
+
+<a name="static_optionBorderParam"/>
+<div class="headline">optionBorderParam</div>
+<div class="usage">public static const Integer optionBorderParam = 4</div>
+<br/>
+
+<a name="static_optionContextAll"/>
+<div class="headline">optionContextAll</div>
+<div class="usage">public static const Integer optionContextAll = 255 /* 0x00FF */</div>
+<br/>
+
+<a name="static_optionCustomShader"/>
+<div class="headline">optionCustomShader</div>
+<div class="usage">public static const Integer optionCustomShader = 2</div>
+<br/>
+
+<a name="static_optionDepthMask"/>
+<div class="headline">optionDepthMask</div>
+<div class="usage">public static const Integer optionDepthMask = 16</div>
+<br/>
+
+<a name="static_optionFaceCulling"/>
+<div class="headline">optionFaceCulling</div>
+<div class="usage">public static const Integer optionFaceCulling = 8</div>
+<br/>
+
+<a name="static_optionShadingFlag"/>
+<div class="headline">optionShadingFlag</div>
+<div class="usage">public static const Integer optionShadingFlag = 1</div>
+<br/>
+
+<a name="static_primitiveLine"/>
+<div class="headline">primitiveLine</div>
+<div class="usage">public static const Integer primitiveLine = 2</div>
+<br/>
+
+<a name="static_primitiveLineStrip"/>
+<div class="headline">primitiveLineStrip</div>
+<div class="usage">public static const Integer primitiveLineStrip = 3</div>
+<br/>
+
+<a name="static_primitivePoint"/>
+<div class="headline">primitivePoint</div>
+<div class="usage">public static const Integer primitivePoint = 0</div>
+<br/>
+
+<a name="static_primitiveTriangle"/>
+<div class="headline">primitiveTriangle</div>
+<div class="usage">public static const Integer primitiveTriangle = 4</div>
+<br/>
+
+<a name="static_primitiveTriangleStrip"/>
+<div class="headline">primitiveTriangleStrip</div>
+<div class="usage">public static const Integer primitiveTriangleStrip = 5</div>
+<br/>
+
+<a name="static_renderAutoColor"/>
+<div class="headline">renderAutoColor</div>
+<div class="usage">public static const Integer renderAutoColor = 512 /* 0x0200 */</div>
+<br/>
+
+<a name="static_renderAutoNormal"/>
+<div class="headline">renderAutoNormal</div>
+<div class="usage">public static const Integer renderAutoNormal = 256 /* 0x0100 */</div>
+<br/>
+
+<a name="static_renderAutoTexAxis"/>
+<div class="headline">renderAutoTexAxis</div>
+<div class="usage">public static const Integer renderAutoTexAxis = 1024 /* 0x0400 */</div>
+<br/>
+
+<a name="static_renderFenceOrder"/>
+<div class="headline">renderFenceOrder</div>
+<div class="usage">public static const Integer renderFenceOrder = 1</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_RenderBuffer"/>
+<div class="headline">RenderBuffer</div>
+<div class="usage">public void RenderBuffer(&#32; )</div>
+<br/>
+
+<a name="virtual_addPrimitiveList"/>
+<div class="headline">addPrimitiveList</div>
+<div class="usage">public boolean addPrimitiveList( Material material, int nFlags, int typePrimitive, int countIndex, int countVertex, Vector3D4 vVertex, Vector3D4 vNormal, Vector2D vUV, Color3D color, Uint32Pointer pIndex )</div>
+<br/>
+
+<a name="virtual_addVertexBuffer"/>
+<div class="headline">addVertexBuffer</div>
+<div class="usage">public boolean addVertexBuffer( int nFlags, VertexBuffer vb, int iFirst = 0, int iEnd = -1, int nInstancing = 0, Matrix4D pMatrixInstance = null, Color3D pColorInstance = null )</div>
+<br/>
+
+<a name="virtual_appendMatrixTransformation"/>
+<div class="headline">appendMatrixTransformation</div>
+<div class="usage">public void appendMatrixTransformation( Matrix3D mat, Vector3D pos, Color3D color = null, int transparency = 0 )</div>
+<br/>
+
+<a name="virtual_attachCustomShader"/>
+<div class="headline">attachCustomShader</div>
+<div class="usage">public boolean attachCustomShader( CustomShader shader )</div>
+<br/>
+
+<a name="virtual_flush"/>
+<div class="headline">flush</div>
+<div class="usage">public void flush(&#32; )</div>
+<br/>
+
+<a name="virtual_getCustomShader"/>
+<div class="headline">getCustomShader</div>
+<div class="usage">public const CustomShader getCustomShader(&#32; )</div>
+<br/>
+
+<a name="virtual_getMatrixTransformation"/>
+<div class="headline">getMatrixTransformation</div>
+<div class="usage">public const void getMatrixTransformation( Matrix3D mat, Vector3D pos, Color3D color, Uint32Pointer transparency )</div>
+<br/>
+
+<a name="virtual_getOptionalFeature"/>
+<div class="headline">getOptionalFeature</div>
+<div class="usage">public const boolean getOptionalFeature( int feature, int param1, Uint8Pointer pParam2, int sizeOfParam2 )</div>
+<br/>
+
+<a name="virtual_getShadingFlag"/>
+<div class="headline">getShadingFlag</div>
+<div class="usage">public const long getShadingFlag(&#32; )</div>
+<br/>
+
+<a name="virtual_popTransformation"/>
+<div class="headline">popTransformation</div>
+<div class="usage">public void popTransformation(&#32; )</div>
+<br/>
+
+<a name="virtual_pushTransformation"/>
+<div class="headline">pushTransformation</div>
+<div class="usage">public void pushTransformation(&#32; )</div>
+<br/>
+
+<a name="virtual_resetCustomShaderUniform"/>
+<div class="headline">resetCustomShaderUniform</div>
+<div class="usage">public boolean resetCustomShaderUniform(&#32; )</div>
+<br/>
+
+<a name="virtual_resetTransformation"/>
+<div class="headline">resetTransformation</div>
+<div class="usage">public void resetTransformation(&#32; )</div>
+<br/>
+
+<a name="virtual_setCustomShaderUniform"/>
+<div class="headline">setCustomShaderUniform</div>
+<div class="usage">public boolean setCustomShaderUniform( String idUniform, int type, Uint8Pointer pData, int count )</div>
+<br/>
+
+<a name="virtual_setMatrixTransformation"/>
+<div class="headline">setMatrixTransformation</div>
+<div class="usage">public void setMatrixTransformation( Matrix3D mat, Vector3D pos, Color3D color = null, int transparency = 0 )</div>
+<br/>
+
+<a name="virtual_setOptionalFeature"/>
+<div class="headline">setOptionalFeature</div>
+<div class="usage">public boolean setOptionalFeature( int feature, int param1, Uint8Pointer pParam2, int sizeOfParam2 )</div>
+<br/>
+
+<a name="virtual_setShadingFlag"/>
+<div class="headline">setShadingFlag</div>
+<div class="usage">public void setShadingFlag( long nShadingMethod )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>Quaternion</title>
+</head>
+<body>
+<div class="chapter">Quaternion</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　Quaternion は四元数を格納する構造体です。
+<br/>
+　EntisGLS4 の S3DQuaternion と同等です。
+<br/>
+　add, sub, mul, div, normalize 等の関数は const 関数ではないことに注意してください。
+<br/>
+　副作用なく、normalize(a + b - c) の結果を d に受け取る場合には clone 関数を使い以下のように記述します。
+<br/>
+<div class="code_quote">Quaternion d = a.clone().add(b).sub(c).normalize() ;</div>
+　Matrix3D からは fromMatrix、Matrix3D への変換は toMatrix 関数で行えます。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="Uint8Pointer.xhtml">Uint8Pointer</a>
+<div class="indent1"><a href="Structure.xhtml">Structure</a>
+<div class="indent1"><a href="Quaternion.xhtml">Quaternion</a>
+</div></div></div></div><br/>
+
+<div class="headline">Members</div>
+<div class="indent2">
+	<a href="#member_q0">q0</a><br/>
+	<a href="#member_q1">q1</a><br/>
+	<a href="#member_q2">q2</a><br/>
+	<a href="#member_q3">q3</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_Quaternion">Quaternion</a><br/>
+	<a href="#virtual_add">add</a><br/>
+	<a href="#virtual_clone">clone</a><br/>
+	<a href="#virtual_copy">copy</a><br/>
+	<a href="#virtual_div">div</a><br/>
+	<a href="#virtual_equals">equals</a><br/>
+	<a href="#virtual_fromMatrix">fromMatrix</a><br/>
+	<a href="#virtual_getRodriguesRotaion">getRodriguesRotaion</a><br/>
+	<a href="#virtual_innerProduct">innerProduct</a><br/>
+	<a href="#virtual_inverse">inverse</a><br/>
+	<a href="#virtual_lerp">lerp</a><br/>
+	<a href="#virtual_mul">mul</a><br/>
+	<a href="#virtual_norm">norm</a><br/>
+	<a href="#virtual_normalize">normalize</a><br/>
+	<a href="#virtual_setRodriguesRotaion">setRodriguesRotaion</a><br/>
+	<a href="#virtual_slerp">slerp</a><br/>
+	<a href="#virtual_sub">sub</a><br/>
+	<a href="#virtual_toMatrix">toMatrix</a><br/>
+</div><br/>
+
+
+<div class="chapter">Members</div>
+
+<a name="member_q0"/>
+<div class="headline">q0</div>
+<div class="usage">&#9;public float q0</div>
+<br/>
+
+<a name="member_q1"/>
+<div class="headline">q1</div>
+<div class="usage">&#9;public float q1</div>
+<br/>
+
+<a name="member_q2"/>
+<div class="headline">q2</div>
+<div class="usage">&#9;public float q2</div>
+<br/>
+
+<a name="member_q3"/>
+<div class="headline">q3</div>
+<div class="usage">&#9;public float q3</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_Quaternion"/>
+<div class="headline">Quaternion</div>
+<div class="usage">public void Quaternion( double q0, double q1, double a2, double q3 )</div>
+<br/>
+
+<div class="headline">Quaternion</div>
+<div class="usage">public void Quaternion( Quaternion q )</div>
+<br/>
+
+<div class="headline">Quaternion</div>
+<div class="usage">public void Quaternion( Matrix3D mat3 )</div>
+<br/>
+
+<a name="virtual_add"/>
+<div class="headline">add</div>
+<div class="usage">public Quaternion add( Quaternion q )</div>
+<br/>
+
+<a name="virtual_clone"/>
+<div class="headline">clone</div>
+<div class="usage">public const Quaternion clone(&#32; )</div>
+<br/>
+
+<a name="virtual_copy"/>
+<div class="headline">copy</div>
+<div class="usage">public Quaternion copy( Quaternion q )</div>
+<br/>
+
+<a name="virtual_div"/>
+<div class="headline">div</div>
+<div class="usage">public Quaternion div( double s )</div>
+<br/>
+
+<a name="virtual_equals"/>
+<div class="headline">equals</div>
+<div class="usage">public const boolean equals( Quaternion q )</div>
+<br/>
+
+<a name="virtual_fromMatrix"/>
+<div class="headline">fromMatrix</div>
+<div class="usage">public Quaternion fromMatrix( Matrix3D mat3 )</div>
+<br/>
+
+<a name="virtual_getRodriguesRotaion"/>
+<div class="headline">getRodriguesRotaion</div>
+<div class="usage">public const double getRodriguesRotaion( Vector3D v )</div>
+<br/>
+
+<a name="virtual_innerProduct"/>
+<div class="headline">innerProduct</div>
+<div class="usage">public const double innerProduct( Quaternion q )</div>
+<br/>
+
+<a name="virtual_inverse"/>
+<div class="headline">inverse</div>
+<div class="usage">public const Quaternion inverse(&#32; )</div>
+<br/>
+
+<a name="virtual_lerp"/>
+<div class="headline">lerp</div>
+<div class="usage">public Quaternion lerp( Quaternion q0, Quaternion q1, double t )</div>
+<br/>
+
+<a name="virtual_mul"/>
+<div class="headline">mul</div>
+<div class="usage">public Quaternion mul( Quaternion q )</div>
+<br/>
+
+<div class="headline">mul</div>
+<div class="usage">public Quaternion mul( double s )</div>
+<br/>
+
+<a name="virtual_norm"/>
+<div class="headline">norm</div>
+<div class="usage">public const double norm(&#32; )</div>
+<br/>
+
+<a name="virtual_normalize"/>
+<div class="headline">normalize</div>
+<div class="usage">public Quaternion normalize(&#32; )</div>
+<br/>
+
+<a name="virtual_setRodriguesRotaion"/>
+<div class="headline">setRodriguesRotaion</div>
+<div class="usage">public Quaternion setRodriguesRotaion( Vector3D v, double rad )</div>
+<br/>
+
+<a name="virtual_slerp"/>
+<div class="headline">slerp</div>
+<div class="usage">public Quaternion slerp( Quaternion q0, Quaternion q1, double t )</div>
+<br/>
+
+<a name="virtual_sub"/>
+<div class="headline">sub</div>
+<div class="usage">public Quaternion sub( Quaternion q )</div>
+<br/>
+
+<a name="virtual_toMatrix"/>
+<div class="headline">toMatrix</div>
+<div class="usage">public const Matrix3D toMatrix( Matrix3D mat3 )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

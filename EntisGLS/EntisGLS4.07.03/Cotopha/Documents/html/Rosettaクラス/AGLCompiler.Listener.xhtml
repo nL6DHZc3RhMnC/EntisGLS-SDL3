@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>AGLCompiler.Listener</title>
+</head>
+<body>
+<div class="chapter">AGLCompiler.Listener</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+リスナ
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="AGLCompiler.Listener.xhtml">AGLCompiler.Listener</a>
+</div></div><br/>
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_beforeAddCommand">beforeAddCommand</a><br/>
+	<a href="#virtual_initialize">initialize</a><br/>
+	<a href="#virtual_isExtendCommand">isExtendCommand</a><br/>
+	<a href="#virtual_onBeginCompile">onBeginCompile</a><br/>
+	<a href="#virtual_onBlankLine">onBlankLine</a><br/>
+	<a href="#virtual_onEndCompile">onEndCompile</a><br/>
+</div><br/>
+
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_beforeAddCommand"/>
+<div class="headline">beforeAddCommand</div>
+<div class="usage">public abstract void beforeAddCommand( AGLCompiler compiler, XMLDocument cmd )</div>
+<br/>
+
+<a name="virtual_initialize"/>
+<div class="headline">initialize</div>
+<div class="usage">public abstract void initialize( AGLCompiler compiler, XMLDocument xmlTag )</div>
+<br/>
+
+<a name="virtual_isExtendCommand"/>
+<div class="headline">isExtendCommand</div>
+<div class="usage">public abstract boolean isExtendCommand( AGLCompiler compiler, StringParser line )</div>
+<br/>
+
+<a name="virtual_onBeginCompile"/>
+<div class="headline">onBeginCompile</div>
+<div class="usage">public abstract void onBeginCompile( AGLCompiler compiler, String strScriptFile )</div>
+<br/>
+
+<a name="virtual_onBlankLine"/>
+<div class="headline">onBlankLine</div>
+<div class="usage">public abstract void onBlankLine( AGLCompiler compiler )</div>
+<br/>
+
+<a name="virtual_onEndCompile"/>
+<div class="headline">onEndCompile</div>
+<div class="usage">public abstract void onEndCompile( AGLCompiler compiler )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

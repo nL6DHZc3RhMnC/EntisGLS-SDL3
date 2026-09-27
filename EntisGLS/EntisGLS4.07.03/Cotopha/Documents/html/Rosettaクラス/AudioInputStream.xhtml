@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>AudioInputStream</title>
+</head>
+<body>
+<div class="chapter">AudioInputStream</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　AudioInputStream はオーディオファイルのデコーダーインターフェースを供給します。<br/>
+　EntisGLS4 の SGLAudioInputStream コンテナです。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="AudioInputStream.xhtml">AudioInputStream</a>
+</div></div></div><br/>
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_getAudioFormat">getAudioFormat</a><br/>
+	<a href="#virtual_getAudioLength">getAudioLength</a><br/>
+	<a href="#virtual_getAudioOptinalInfo">getAudioOptinalInfo</a><br/>
+	<a href="#virtual_readAudio">readAudio</a><br/>
+	<a href="#virtual_seekAudio">seekAudio</a><br/>
+</div><br/>
+
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_getAudioFormat"/>
+<div class="headline">getAudioFormat</div>
+<div class="usage">public boolean getAudioFormat( SoundPlayer.Format fmt )</div>
+<br/>
+
+<a name="virtual_getAudioLength"/>
+<div class="headline">getAudioLength</div>
+<div class="usage">public const long getAudioLength(&#32; )</div>
+<br/>
+
+<a name="virtual_getAudioOptinalInfo"/>
+<div class="headline">getAudioOptinalInfo</div>
+<div class="usage">public boolean getAudioOptinalInfo( MediaOptionalInfo optinf )</div>
+<br/>
+
+<a name="virtual_readAudio"/>
+<div class="headline">readAudio</div>
+<div class="usage">public int readAudio( Uint8Pointer buf, int nSamples )</div>
+<br/>
+
+<a name="virtual_seekAudio"/>
+<div class="headline">seekAudio</div>
+<div class="usage">public boolean seekAudio( long nSamples )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

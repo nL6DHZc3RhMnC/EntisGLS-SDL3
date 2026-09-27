@@ -1,0 +1,24 @@
+[
+  {
+    "name": "loquaty",
+    "repository": "https://github.com/leshade/loquaty",
+    "tag": "Loquaty_1.02",
+    "commit": "37fe2440bf2c1661e197535ed8c0a7609ffa528f",
+    "archive_url": "https://codeload.github.com/leshade/loquaty/tar.gz/37fe2440bf2c1661e197535ed8c0a7609ffa528f",
+    "archive_sha256": "5ff004dfbca728c9165dbf43309764071974b1db89793392d5b595da76529f2a",
+    "directory": "vendor/official-loquaty",
+    "source_file_count": 446,
+    "source_tree_sha256": "fbb50fd3293dc9df320721c0d77b40e7385dd18364f19a891a73961c9b66b2e7"
+  },
+  {
+    "name": "tinygltf",
+    "repository": "https://github.com/syoyo/tinygltf",
+    "tag": "v2.9.7",
+    "commit": "488a70a3df62a4df1a736e9e56fb8836580c4888",
+    "archive_url": "https://codeload.github.com/syoyo/tinygltf/tar.gz/488a70a3df62a4df1a736e9e56fb8836580c4888",
+    "archive_sha256": "16093ac815dc216d9a43abc9a4eabff8df1a7472da2abc79e97ca65d4b7f2565",
+    "directory": "vendor/official-tinygltf",
+    "source_file_count": 1344,
+    "source_tree_sha256": "60576691be9b72c9fcd799a8919865baf934ac2507afec29b2778ce67339674a"
+  }
+]

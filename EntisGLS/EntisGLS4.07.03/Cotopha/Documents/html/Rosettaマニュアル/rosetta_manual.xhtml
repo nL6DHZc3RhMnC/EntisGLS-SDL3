@@ -1,0 +1,2472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="article.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>Rosetta スクリプト・マニュアル</title>
+</head>
+<body>
+
+<div class="title0">Rosetta スクリプト・マニュアル</div>
+<br/>
+
+<div class="headline">目次</div>
+
+<div class="indent1">
+<a href="#chapter_abstract">§概略</a><br/>
+	<div class="indent2">
+	<a href="#abstract_summary">概要</a><br/>
+	<a href="#abstract_first">はじめに</a><br/>
+	<a href="#abstract_basic_type">基本型</a><br/>
+	<a href="#abstract_boolean_type">boolean 型</a><br/>
+	<a href="#abstract_Integer_type">Integer 型</a><br/>
+	<a href="#abstract_Number_type">Number 型</a><br/>
+	<a href="#abstract_String_type">String 型</a><br/>
+	<a href="#abstract_Array_type">Array 型</a><br/>
+	<a href="#abstract_HashMap_type">HashMap 型</a><br/>
+	<a href="#abstract_Function_type">Function 型</a><br/>
+	<a href="#abstract_Object_type">Object 型</a><br/>
+	<a href="#abstract_Class">クラス</a><br/>
+	<a href="#abstract_Pointer_type">ポインタ型</a><br/>
+	<a href="#abstract_Structure">構造体</a><br/>
+	<a href="#abstract_reserved_literal">定義済みリテラル</a><br/>
+	<a href="#abstract_void_type">void 型</a><br/>
+	<a href="#abstract_this">this と super</a><br/>
+	<a href="#abstract_operator">演算子</a><br/>
+	<a href="#abstract_thread">スレッドと同期</a><br/>
+	</div>
+<br/>
+<a href="#chapter_usage">§構文</a><br/>
+	<div class="indent2">
+	<a href="#usage_format">書式記法</a><br/>
+	<a href="#usage_comment">コメント</a><br/>
+	<a href="#usage_directive_if">#if, #elif, #elseif, #else, #endif ディレクティブ</a><br/>
+	<a href="#usage_directive_define">#define ディレクティブ</a><br/>
+	<a href="#usage_multi_statement">複文</a><br/>
+	<a href="#usage_expression">式文</a><br/>
+	<a href="#usage_variable">変数定義文</a><br/>
+	<a href="#usage_function">関数定義文</a><br/>
+	<a href="#usage_import">import 文</a><br/>
+	<a href="#usage_class">class 文</a><br/>
+	<a href="#usage_struct">struct 文</a><br/>
+	<a href="#usage_for">for 文</a><br/>
+	<a href="#usage_while">while 文</a><br/>
+	<a href="#usage_do_while">do～while 文</a><br/>
+	<a href="#usage_if">if 文</a><br/>
+	<a href="#usage_switch">switch 文</a><br/>
+	<a href="#usage_break">break 文</a><br/>
+	<a href="#usage_continue">continue 文</a><br/>
+	<a href="#usage_try">try 文</a><br/>
+	<a href="#usage_throw">throw 文</a><br/>
+	<a href="#usage_return">return 文</a><br/>
+	<a href="#usage_with">with 文</a><br/>
+	<a href="#usage_synchronized">synchronized 文</a><br/>
+	</div>
+<br/>
+<a href="#chapter_JIT_compiler">§ JIT コンパイルと最適化</a><br/>
+	<div class="indent2">
+	<a href="#jit_compile_and_run">コンパイルと実行</a><br/>
+	<a href="#jit_compile_function">コンパイルされる関数とされない関数</a><br/>
+	<a href="#jit_compile_array_or_pointer">高速化：配列ではなくポインタを使う</a><br/>
+	<a href="#jit_compile_class_or_struct">高速化：クラスではなく構造体を使う</a><br/>
+	<a href="#jit_compile_clear_constant">高速化：自明な定数とシステム関数</a><br/>
+	<a href="#jit_compile_struct_pointer">高速化：構造体ポインタ</a><br/>
+	</div>
+<br/>
+<a href="#chapter_ClassIndex">§ 主要クラス一覧</a><br/>
+	<div class="indent2">
+	<a href="#class_index_basic_type">基本的なクラス</a><br/>
+	<a href="#class_index_system">システム関係</a><br/>
+	<a href="#class_index_system">算術</a><br/>
+	<a href="#class_index_parser">字句解析</a><br/>
+	<a href="#class_index_fileio">ファイルIO</a><br/>
+	<a href="#class_index_sprite">画面表示UI</a><br/>
+	<a href="#class_index_media">サウンド・メディア処理</a><br/>
+	<a href="#class_index_rendering">画像描画処理</a><br/>
+	</div>
+<br/>
+
+</div>
+
+
+
+
+<a name="chapter_abstract"/>
+<div class="chapter">§概略</div>
+
+
+
+
+<a name="abstract_summary"/>
+<div class="headline">概要</div>
+<div class="normal">
+　Rosetta スクリプトは EntisGLS4 で提供されるスクリプト言語で、ゲーム中のスクリプト処理の他、テキスト、画像、音声、動画などのデータを簡易に処理することを目的としたインタプリタです。<br/>
+<br/>
+　基本的な言語仕様は JavaScript との互換性をある程度備えています。<br/>
+　しかしながら、JavaScript は型記述の面で曖昧であり、コードの読みづらさがあるほか、クラスを言語がサポートしていないため、オブジェクト指向プログラミングにおけるコーディングの煩雑性などの欠点があります。Rosetta ではこれを解決するための拡張を行い、Java ライクな記述が可能になっています。<br/>
+　実行速度は、詞葉 objected モードとほぼ同程度の速度となります。<br/>
+<br/>
+　EntisGLS3 での詞葉スクリプトに対する、EntisGLS4 での Rosetta スクリプトという位置づけの言語ですが、詞葉とは異なり実行中の状態を保存する機能などは提供されませんので、セーブ・ロード処理が必要な場合には、スクリプト上で実装する必要があります。
+</div>
+<br/>
+
+<a name="abstract_first"/>
+<div class="headline">はじめに</div>
+
+<div class="normal">
+
+　Rosetta は以下のような JavaScript ライクなコードを実行できます。
+
+<div class="code_quote">
+// JavaScript ライクなクラス<br/>
+function MyClass()<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.a = 1 ;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.b = 2 ;<br/>
+}<br/>
+<br/>
+// メンバの定義（※文末のセミコロン必須）<br/>
+MyClass.prototype.hoge = function( c )<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;return this.a * c + this.b ;<br/>
+} ;<br/>
+<br/>
+var foo = new MyClass() ;<br/>
+foo.hoge( 3 ) ;<br/>
+</div>
+
+　また、同様に以下の Java ライクなコードを実行できます。
+
+<div class="code_quote">
+// Java ライクなクラス<br/>
+class MyClass<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;public int m_a = 1 ;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;public int m_b = 2 ;<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;public int hoge( int c )<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return m_a * c + m_b ;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+}<br/>
+<br/>
+MyClass foo = new MyClass() ;<br/>
+foo.hoge( 3 ) ;<br/>
+</div>
+
+<br/>
+　Rosetta は JavaScript ライクなコードを実行できますが、JavaScript と完全な互換性を有しているわけではありません。<br/>
+　提供されるクラスの違いの他に、特に以下の点については注意が必要です。<br/>
+<br/>
+<div class="indent1">
+1. 文末には常にセミコロンが必要<br/>
+2. Integer 型が存在し、整数同士の除算は整数となる<br/>
+3. シングルクォーテーションは文字列ではなく文字コードを表現する<br/>
+4. ローカル変数空間は関数単位ではなく、波括弧 { } 範囲内<br/>
+</div>
+<br/>
+　また、Java に対して特に以下の点が異なるので注意が必要です。<br/>
+<br/>
+<div class="indent1">
+1. 整数・数値型間で暗黙の型変換が行われる<br/>
+2. final 修飾子は存在しない<br/>
+3. 派生クラスで親クラスのメンバ変数と同名の変数を定義できない<br/>
+4. 配列リテラルは [ ] 角括弧で囲んで記述する<br/>
+</div>
+
+</div>
+<br/>
+
+
+
+<!-- 基本型 -->
+<a name="abstract_basic_type"/>
+<div class="headline">基本型</div>
+
+<div class="normal">
+　Rosetta には以下の基本型が提供されています。<br/>
+<br/>
+<div class="indent1">
+Integer &nbsp; Number &nbsp; String &nbsp; Array &nbsp; HashMap &nbsp; Function &nbsp; Object<br/>
+boolean &nbsp; byte &nbsp; short &nbsp; char &nbsp; int &nbsp; long &nbsp; float &nbsp; double<br/>
+Uint8Pointer &nbsp; Int8Pointer &nbsp; Uint16Pointer &nbsp; Int16Pointer<br/>
+Uint32Pointer &nbsp; Int32Pointer &nbsp; Int64Pointer<br/>
+Float32Pointer &nbsp; Float64Pointer<br/>
+</div>
+<br/>
+　byte, short, char, int, long, float, double は Java コードと一定の互換性を持たせるために提供されている型で、実体は Integer, Number オブジェクトです。<br/>
+　一連の <italic>Xxx</italic>Pointer 型はポインタを表現する型で、JavaScript の型付き配列型に似ています。<br/>
+　<br/>
+　Rosetta では <italic>Type</italic>[] のように Java と同様の記法で配列を表現できますが、これは Array で実装されており、Java とは異なります。Java の配列に近いのはポインタ型となります。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- boolean 型 -->
+<a name="abstract_boolean_type"/>
+<div class="headline">boolean 型</div>
+
+<div class="normal">
+
+　boolean 型はブール値型を提供します。<br/>
+　boolean 型のリテラルには true, false があります。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- Integer 型 -->
+<a name="abstract_Integer_type"/>
+<div class="headline">Integer 型</div>
+
+<div class="normal">
+
+　Integer 型は64ビットの符号あり整数を表現します。<br/>
+　byte, short, char, int, long も Integer オブジェクトによって実装されます。<br/>
+　Integer は64ビット整数値の他に、有効ビット数と符号の有無を保持しており、型キャストの際には、有効数ビットと符号ビットによって再構成されます。<br/>
+　例えば、
+<div class="code_quote">
+	(byte) 0xff
+</div>
+は、-1 と評価され、
+<div class="code_quote">
+	(byte) 0xffffffffffffff7f
+</div>
+は、127 と評価されます。<br/>
+　byte は符号あり8ビット整数ですので、下位7ビットと、符号ビットの組み合わせられた値がキャストされた値となります。<br/>
+<br/>
+　リテラルの表現は、C 言語や Java と同様です。<br/>
+　シングルクォーテーションで囲んだ文字は、文字コードを表現する数値となります。<br/>
+　以下のリテラルはすべて同じ値です。
+
+<div class="code_quote">
+	97<br/>
+	0141<br/>
+	0x61<br/>
+	'a'<br/>
+</div>
+
+</div>
+<br/>
+
+
+
+<!-- Number 型 -->
+<a name="abstract_Number_type"/>
+<div class="headline">Number 型</div>
+
+<div class="normal">
+
+　Number 型は64ビット浮動小数点、または32ビット符号あり整数を表現します。<br/>
+　float, double も Number オブジェクトによって実装され、64ビット浮動小数点となります。（ArrayBuffer 上の float メモリ表現（構造体等）は32ビットとなります）<br/>
+<br/>
+　リテラルの表現は、C 言語や Java と同様です。<br/>
+
+<div class="code_quote">
+	123.<br/>
+	0.123<br/>
+	123.456<br/>
+	123E-2<br/>
+	1.23e+2<br/>
+</div>
+
+</div>
+<br/>
+
+
+
+<!-- String 型 -->
+<a name="abstract_String_type"/>
+<div class="headline">String 型</div>
+
+<div class="normal">
+
+　String 型は文字列を表現します。<br/>
+<br/>
+　リテラルの表現は Java と同様に、ダブルクォーテーションで囲んで記述します。<br/>
+　文字列中のバックスラッシュや引用符記号などはバックスラッシュを伴って記述します。<br/>
+<br/>
+<div class="indent1">
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080">
+<thead>
+<tr>
+	<td>表記</td><td>16進</td><td>内容</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td>\a</td><td>07H</td><td>ベル（BEL）</td>
+</tr>
+<tr>
+	<td>\b</td><td>08H</td><td>後進（BS）</td>
+</tr>
+<tr>
+	<td>\t</td><td>09H</td><td>水平タブ（HT）</td>
+</tr>
+<tr>
+	<td>\n</td><td>0AH</td><td>改行（LF）</td>
+</tr>
+<tr>
+	<td>\v</td><td>0BH</td><td>垂直タブ（VT）</td>
+</tr>
+<tr>
+	<td>\f</td><td>0CH</td><td>書式送り（FF）</td>
+</tr>
+<tr>
+	<td>\r</td><td>0DH</td><td>行復帰（CR）</td>
+</tr>
+<tr>
+	<td>\?</td><td>3FH</td><td>? 記号</td>
+</tr>
+<tr>
+	<td>\\</td><td>5CH</td><td>バックスラッシュ（日本語環境では半角円記号）</td>
+</tr>
+<tr>
+	<td>\"</td><td>22H</td><td>ダブルクォーテーション</td>
+</tr>
+<tr>
+	<td>\'</td><td>27H</td><td>シングルクォーテーション</td>
+</tr>
+<tr>
+	<td>\x###</td><td>###</td><td>文字コード指定（16進表記）</td>
+</tr>
+<tr>
+	<td>\###</td><td>###</td><td>文字コード指定（8進表記）</td>
+</tr>
+</tbody></table>
+</div>
+
+<br/>
+　String 型は JavaScript や Java の String と似ていますが、setString メソッドによって内容を変更できるため、関数の引数に渡して文字列を受け取ることが出来ます。<br/>
+<div class="code_quote">
+	void foo( String s )<br/>
+	{<br/>
+	&nbsp; &nbsp; s.setString( "foo" ) ;<br/>
+	}<br/>
+	<br/>
+	String str = "hoge" ;<br/>
+	foo( str ) ;<br/>
+	System.console().printf( "%s\n", str ) ; // foo
+</div>
+　また比較演算はポインタの比較ではなく、内容文字列の比較となります。（JavaScript と同等）
+<div class="code_quote">
+	String str1 = "hoge" ;<br/>
+	String str2 = "ho" + "ge" ;<br/>
+	if ( str1 == str2 )<br/>
+	{<br/>
+	&nbsp; &nbsp; System.console().printf( "equals\n" ) ;<br/>
+	}<br/>
+</div>
+</div>
+
+<br/>
+
+
+
+<!-- Array 型 -->
+<a name="abstract_Array_type"/>
+<div class="headline">Array 型</div>
+
+<div class="normal">
+
+　Array 型は配列を提供します。<br/>
+　Java 同様に <italic>Type</italic>[] のように記述することによって型付きの配列型を表現できます。<br/>
+<br/>
+　リテラルの表現は、JavaScript 同様、角括弧 [] 内にコンマで区切って要素を列挙します。<br/>
+　整数配列リテラルを型付き配列型へ代入する場合には、要素の型を明示する必要があります。<br/>
+
+<div class="code_quote">
+	Integer[] a = [ 1, 2, 3 ] ; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // OK<br/>
+	int[] b = (int[]) [ 1, 2, 3 ] ; &nbsp; &nbsp; &nbsp; &nbsp; // 要キャスト<br/>
+	int[] c = [ (int) 1, (int) 2, (int) 3 ] ;
+</div>
+
+　多重配列も同様に記述できます。
+
+<div class="code_quote">
+	Integer[][] a = [ [ 1 ], [ 2, 3 ], [ 4, 5, 6 ] ] ;<br/>
+	int[][] b = (int[][]) [ [ 1 ], [ 2, 3 ], [ 4, 5, 6 ] ] ;<br/>
+</div>
+
+　Java のように new <italic>Type</italic>[] によって配列オブジェクトを生成できます。
+
+<div class="code_quote">
+	String[] a = new String[] ;
+</div>
+
+　配列長（制限値）を指定して生成することも出来ます。
+
+<div class="code_quote">
+	String[] a = new String[100] ;
+</div>
+
+　配列長を指定した場合でも、配列の初期サイズは 0 です。<br/>
+　配列は自動的に伸長されますが、制限値を超えた場合にはエラーとなります。
+
+<div class="code_quote">
+	String[] a = new String[100] ;<br/>
+	System.console().printf( "%d\n", a.length() ) ;  // 0<br/>
+	a[9] = "abc" ;<br/>
+	System.console().printf( "%d\n", a.length() ) ;  // 10<br/>
+	a[100] = "xyz" ; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// Error<br/>
+</div>
+
+
+</div>
+<br/>
+
+
+
+<!-- HashMap 型 -->
+<a name="abstract_HashMap_type"/>
+<div class="headline">HashMap 型</div>
+
+<div class="normal">
+
+　HashMap 型は、Java の HashMap とほぼ同等のクラスで、JavaScript の Object に似ています。<br/>
+<br/>
+　リテラルの表現は、JavaScript 同様、波括弧 { } 内にコンマで区切って要素を列挙します。各要素は、コロンで区切って左辺に要素名、右辺に値を記述します。<br/>
+
+<div class="code_quote">
+	HashMap a = { name : "abc", value : 1000 } ;
+</div>
+
+　また、HashMap のコンストラクタは要素型 class を受け取ることができ、要素への代入時に型チェック／変換を行うことができます。<br/>
+
+<div class="code_quote">
+	class Foo {}<br/>
+	class Hoge extends Foo {}<br/>
+	<br/>
+	HashMap a = new HashMap( Foo ) ;<br/>
+	a.abc = new Hoge() ; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // OK<br/>
+	a.def = new String() ; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Error<br/>
+	a["ghi"] = new Foo() ; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // OK<br/>
+</div>
+
+　要素型を指定した型として記述することもできます。<br/>
+
+<div class="code_quote">
+	HashMap&lt;Foo&gt; a = new HashMap&lt;Foo&gt;() ;<br/>
+</div>
+
+</div>
+<br/>
+
+
+
+<!-- Function 型 -->
+<a name="abstract_Function_type"/>
+<div class="headline">Function 型</div>
+
+<div class="normal">
+
+　Function 型は HashMap の派生型として定義されており、記述上は無名関数を受け取る変数の型として使用されます。
+
+<div class="code_quote">
+	Function f = function( int a, int b ) : int<br/>
+	{<br/>
+	&nbsp; &nbsp; return a * b ;<br/>
+	} ;
+</div>
+
+　関数は、f(a,b) のように記述することにより呼び出すことが出来ます。<br/>
+　また、.* 演算子を用い C++ ライクにメンバ関数として呼び出すことが出来ます。<br/>
+
+<div class="code_quote">
+	class Foo<br/>
+	{<br/>
+	&nbsp; &nbsp; public int m_a = 3 ;<br/>
+	&nbsp; &nbsp; public int m_b = 5 ;<br/>
+	}<br/>
+	Function func = function( int a, int b )<br/>
+	{<br/>
+	&nbsp; &nbsp; return <bold>m_a</bold> * a + <bold>m_b</bold> * b ;<br/>
+	} ;<br/>
+	Foo	foo = new Foo() ;<br/>
+	(<bold>foo .* func</bold>)( 7, 11 ) ;
+</div>
+
+<br/>
+　無名関数内部から、その関数を生成した時の名前空間を参照できます。<br/>
+
+<div class="code_quote">
+	Function getFunc( int x )<br/>
+	{<br/>
+	&nbsp; &nbsp; int <bold>a</bold> = 123 + x ;<br/>
+	&nbsp; &nbsp; return function( int b ) { return <bold>a</bold> * b ; } ;<br/>
+	}<br/>
+	Function foo = getFunc( 456 ) ;<br/>
+	System.console().printf( "%d\n", foo( 2 ) ) ; // 1158
+</div>
+
+　その為、以下のように関数内のローカル変数で、生成した関数を保持していると循環参照となり永遠に解放されないため注意が必要です。
+
+<div class="code_quote">
+	Function getFunc( int x )<br/>
+	{<br/>
+	&nbsp; &nbsp; int a = 123 + x ;<br/>
+	&nbsp; &nbsp; Function <bold>f</bold> = function( int b ) { return a * b ; } ;<br/>
+	&nbsp; &nbsp; return f ;<br/>
+	}<br/>
+</div>
+
+　可能であれば、関数を保持しているローカル変数は、必要でなくなったら null を代入し、解放可能にすることが推奨されます。<br/>
+<br/>
+
+　また以下のような構文でプロトタイプ型付きの関数型を記述できます。
+
+<div class="code_quote">
+	Function&lt;double,MyClass,String,int&gt;<br/>
+	&nbsp; &nbsp; f = function( String s, int i ) : double -&gt; MyClass<br/>
+	{<br/>
+	&nbsp; &nbsp; return m_memberOfMyClass ;<br/>
+	} ;<br/>
+</div>
+
+　Function 型の1つ目の引数は関数の返り値型で、voidを指定することも出来ます。function 式では、引数の後に「:」記号に続けて記述します。<br/>
+　2つ目の引数は関数のメンバとなるクラスを指定します。function 式は返り値型の後に「-&gt;」に続けて記述します。省略した場合には Object となります。<br/>
+　3つ目以降は関数の引数の型となります。<br/>
+　プロトタイプ型付きの Function 変数には、プロトタイプの一致する関数しか代入できません。<br/>
+<br/>
+　なお、文末には必ずセミコロンが必要ですので、function 式の文末にセミコロンを忘れないように注意が必要です。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- Object 型 -->
+<a name="abstract_Object_type"/>
+<div class="headline">Object 型</div>
+
+<div class="normal">
+
+　Object は Java の Object とほぼ同等のクラスで、すべてのオブジェクトの基底クラスです。<br/>
+<br/>
+　すべてのオブジェクトは Object にキャストして受け取ることが可能です。<br/>
+　変数宣言時の Object は var と同じ意味です。
+
+<div class="code_quote">
+var obj = new Foo() ;<br/>
+Object obj = new Foo() ;
+</div>
+
+　しかし、var の使用は推奨されません。
+
+</div>
+<br/>
+
+
+
+<!-- クラス -->
+<a name="abstract_Class"/>
+<div class="headline">クラス</div>
+
+<div class="normal">
+
+　Rosetta のクラス定義は Java と似ています。<br/>
+
+<div class="code_quote">
+	class Foo<br/>
+	{<br/>
+	&nbsp; &nbsp; public int m_a = 3 ;<br/>
+	&nbsp; &nbsp; public int m_b = 5 ;<br/>
+	}<br/>
+</div>
+
+　クラスの派生も定義出来ます。
+
+<div class="code_quote">
+	class Bar extends Foo<br/>
+	{<br/>
+	&nbsp; &nbsp; public int m_c ;<br/>
+	<br/>
+	&nbsp; &nbsp; public Bar( int c )<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; super() ;<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; m_c = c ;<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+</div>
+
+　Rosetta の構築関数では、明示的に super() を記述しなければ親クラスの構築関数は呼び出されないので注意が必要です。（但し、構築関数が呼び出される前に、メンバ変数は定義された初期値で初期化されます）<br/>
+<br/>
+<div class="indent1">
+※インスタンス生成のメカニズムは Java より JavaScript に似ています。<br/>
+　インスタンスの生成プロセスでは、まずプロトタイプが複製されます。<br/>
+　プロトタイプとはメンバ変数の定義で記述された初期値で構成されたインスタンスです。初期値はメンバ定義時の評価値で、インスタンス生成時に式が都度評価されるわけではありません。<br/>
+　次に構築関数が呼び出されます。この時、親クラスの構築関数は明示しない限り呼び出されません。但し派生クラスで構築関数をオーバーロードしていない場合、親クラスの構築関数が呼び出されます。<br/>
+　将来のバージョンでは暗黙に親クラスの構築関数が呼び出されるよう変更されるかもしれません。互換性のため、必要であれば親クラスの構築関数の呼び出しを明示することが推奨されます。
+</div>
+<br/>
+　また、Java の interface に相当するクラスを多重派生することも出来ます。<br/>
+
+<div class="code_quote">
+	class Hoge<br/>
+	{<br/>
+	&nbsp; &nbsp; public abstract void hoge() ;<br/>
+	}<br/>
+	<br/>
+	class Bar extends Foo implements Hoge<br/>
+	{<br/>
+	&nbsp; &nbsp; public void hoge()<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; System.console().printf( "Bar.hoge\n" ) ;<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+</div>
+
+
+</div>
+
+
+
+<!-- Pointer 型 -->
+<a name="abstract_Pointer_type"/>
+<div class="headline">ポインタ型</div>
+
+<div class="normal">
+
+　Rosetta のポインタ型は、JavaScript の型付配列と似ています。<br/>
+　基本的な使用法は、ArrayBuffer で確保されたメモリへ関連付け、配列の要素としてメモリを参照します。
+
+<div class="code_quote">
+ArrayBuffer buf = new ArrayBuffer( 100 * 4 ) ;<br/>
+Int32Pointer p = new Int32Pointer( buf ) ;<br/>
+<br/>
+p[i] = foo( i ) ;
+</div>
+
+　以下のようにコンストラクタに配列長を指定すると、自動的にメモリが確保されます。
+<div class="code_quote">
+Int32Pointer p = new Int32Pointer( 100 ) ;<br/>
+</div>
+
+　ポインタが JavaScript の型付配列と異なるのは、ポインタを加減算できる点です。<br/>
+　配列長 <italic>n</italic> のポインタには、0～<italic>n</italic> の値を加算できます。ただし、(p+n)[0] は p[n] 同様、範囲外指標エラーとなります。<br/>
+　p-- や p+=n+1 は加減算の時点でエラーとなります。（範囲外の値となったポインタは null と評価されます）<br/>
+　ループでポインタを変化させながら使用する際には注意が必要です。（p+=n の後の p-- は問題ありません）<br/>
+<br/>
+　またポインタ型は代入の際、ポインタオブジェクトへのポインタではなく、ポインタ値そのものが複製されます。<br/>
+
+<div class="code_quote">
+	Int32Pointer p1 = new Int32Pointer( 3 ) ;<br/>
+	p1[0] = 100 ;<br/>
+	p1[1] = 200 ;<br/>
+	p1[2] = 300 ;<br/>
+	Int32Pointer p2 = p1 ;<br/>
+	Int32Pointer p3 = p1 + 2 ;<br/>
+	p2 += 1 ;<br/>
+	System.console().printf( "%d,%d,%d\n", p1[0], p2[0], p3[0] ) ;  // 100,200,300
+</div>
+
+　すべてのポインタ型は Uint8Pointer へ変換できます。<br/>
+
+<div class="code_quote">
+	Int32Pointer p1 = new Int32Pointer( 100 ) ;<br/>
+	Uint8Pointer p2 = p1 ;
+</div>
+
+　しかしそれ以外のポインタへの変換はできませんので、コンストラクタを呼び出す必要があります。<br/>
+（※ポインタの型変換のみのコンストラクタは、コンパイルされた場合には単にポインタ値がコピーされるだけです）<br/>
+
+<div class="code_quote">
+	Int16Pointer &nbsp;p1 = new Int16Pointer( 100 ) ;<br/>
+	Uint32Pointer p2 = new Uint32Pointer( p1 ) ;
+</div>
+
+　ポインタに半端なアドレスを指定するとアライメントエラーとなり例外がスローされます。<br/>
+
+<div class="code_quote">
+	Uint8Pointer &nbsp;p1 = new Uint8Pointer( 10 ) ;<br/>
+	Uint32Pointer	p2 = new Uint32Pointer( p1 + 1 ) ; // Error!<br/>
+</div>
+
+　整数ポインタが指すメモリへ数値を書き込むとき、数値は最近値の整数へ丸められ、整数は有効なビット数だけ下位ビットが書き込まれます。<br/>
+　尚、書き込み数値のエンディアンは実行環境に依存します。<br/>
+
+<div class="code_quote">
+	Int8Pointer &nbsp;p1 = new Int8Pointer( 10 ) ;<br/>
+	Uint8Pointer p2 = new Uint8Pointer( 10 ) ;<br/>
+	p1[0] = 128 ;<br/>
+	p1[1] = 255 ;<br/>
+	p2[0] = -1 ;<br/>
+	p2[1] = 257 ;<br/>
+	System.console().printf( "%d,%d,%d,%d\n", p1[0], p1[1], p2[0], p2[1] ) ;  // -128, -1, 255, 1<br/>
+</div>
+
+</div>
+<br/>
+
+
+
+<!-- 構造体 -->
+<a name="abstract_Structure"/>
+<div class="headline">構造体</div>
+
+<div class="normal">
+
+　Rosetta では C/C++ 言語と同じような構造体が利用できます。<br/>
+　構造体はクラスとは異なり、ArrayBuffer 上のメモリの構造を直接記述します。
+
+<div class="code_quote">
+	struct Hoge<br/>
+	{<br/>
+	&nbsp; &nbsp; public int&nbsp; &nbsp;a = 1 ;<br/>
+	&nbsp; &nbsp; public short	b, c ;<br/>
+	}
+</div>
+
+　構造体変数はポインタ型変数とよく似ており、ArrayBuffer で確保されたメモリへ関連付けて使用することが出来ます。
+
+<div class="code_quote">
+	ArrayBuffer buf = new ArrayBuffer( Structure.sizeof(Hoge) ) ;<br/>
+	Hoge p = new Hoge( buf ) ;<br/>
+</div>
+
+　以下のように配列長を指定すると、自動的にメモリが確保されます。<br/>
+　配列長を省略した場合には、長さ１の配列が確保されます。
+
+<div class="code_quote">
+	Hoge p = new Hoge( 100 ) ;<br/>
+	Hoge q = new Hoge() ;<br/>
+</div>
+
+　ポインタ型同様、加減算することが出来ます。<br/>
+　加減算と [] 括弧での要素参照はよく似ていますが、[] 括弧の場合、有効長が１に制限されている点、加減算の場合の有効範囲は 0～n に対し、[] 括弧の場合 0～(n-1) などの違いがあります。<br/>
+　またポインタ型同様、代入の際には構造体ポインタ値そのものが複製されます。
+
+<div class="code_quote">
+	Hoge p1 = new Hoge( 3 ) ;<br/>
+	p1.a = 100 ;<br/>
+	p1[1].b = 200 ;<br/>
+	p1[2].c = 300 ;<br/>
+	Hoge p2 = p1[1] ;<br/>
+	Hoge p3 = p1 + 2 ;<br/>
+	System.console().printf( "%d,%d,%d\n", p1.a, p2.b, p3.c ) ;  // 100,200,300<br/>
+	<br/>
+	Hoge p4 = p1[1] ;<br/>
+	Hoge p5 = p1 + 1 ;<br/>
+	p4[0].a = 110 ;&nbsp; &nbsp; &nbsp; &nbsp;    // OK<br/>
+	p4[1].a = 120 ;&nbsp; &nbsp; &nbsp; &nbsp;    // 指標範囲外エラー！<br/>
+	p5[1].a = 120 ;&nbsp; &nbsp; &nbsp; &nbsp;    // OK<br/>
+</div>
+
+　構造体のメンバには配列を定義することが出来ます。<br/>
+　配列メンバはポインタ型（構造体の場合は構造体の型）として評価されます。<br/>
+　また、ポインタの有効長はメンバの配列長に制限されます。<br/>
+
+<div class="code_quote">
+	struct Hoge<br/>
+	{<br/>
+	&nbsp; &nbsp; public int&nbsp; &nbsp;a ;<br/>
+	&nbsp; &nbsp; public char&nbsp; b[10] ;<br/>
+	&nbsp; &nbsp; public short c ;<br/>
+	}<br/>
+	<br/>
+	Hoge hoge = new Hoge() ;<br/>
+	Uint16Pointer s = hoge.b ;<br/>
+	s[5] = 'a' ; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; // OK<br/>
+	s[10] = 'b' ;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  // 指標範囲外エラー！<br/>
+</div>
+
+　ポインタ型同様、Uint8Pointer へ変換できますが、それ以外の変換はコンストラクタを呼び出す必要があります。<br/>
+
+<div class="code_quote">
+	Hoge hoge = new Hoge() ;<br/>
+	Uint8Pointer p1 = hoge ;<br/>
+	Uint32Pointer p2 = new Uint32Pointer( hoge ) ;<br/>
+</div>
+
+　構造体は派生することが出来、派生のメカニズムは C++ とよく似ています。<br/>
+
+<div class="code_quote">
+	struct Foo<br/>
+	{<br/>
+	&nbsp; &nbsp; public int a, b ;<br/>
+	}<br/>
+	struct Bar<br/>
+	{<br/>
+	&nbsp; &nbsp; public int c, d ;<br/>
+	}<br/>
+	struct Hoge extends Foo, Bar<br/>
+	{<br/>
+	&nbsp; &nbsp; public int e ;<br/>
+	}<br/>
+	Hoge hoge = new Hoge() ;<br/>
+	Foo foo = hoge ;<br/>
+	Bar bar = hoge ;<br/>
+	foo.a = 1 ;<br/>
+	bar.c = 2 ;<br/>
+	hoge.e = 3 ;<br/>
+	Int32Pointer p = new Int32Pointer( hoge ) ;<br/>
+	System.console().printf( "%d,%d,%d\n", p[0], p[2] p[4] ) ; // 1,2,3
+</div>
+
+　構造体のメンバ関数は仮想関数ではありません。
+
+<div class="code_quote">
+	struct Foo<br/>
+	{<br/>
+	&nbsp; &nbsp; public void put( void )<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; System.console().printf( "foo\n" ) ;<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+	struct Bar extends Foo<br/>
+	{<br/>
+	&nbsp; &nbsp; public void put( void )<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; System.console().printf( "bar\n" ) ;<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+	Bar bar = new Bar() ;<br/>
+	Foo foo = bar ;<br/>
+	bar.put() ; &nbsp; &nbsp;  // bar<br/>
+	foo.put() ; &nbsp; &nbsp;  // foo
+</div>
+
+　構造体の構築関数の記述には注意が必要です。<br/>
+　構造体変数はポインタ変数であり、構築関数が明示的にメモリ確保を行う必要があります。
+
+<div class="code_quote">
+	struct Point3D<br/>
+	{<br/>
+	&nbsp; &nbsp; public int x, y, z ;<br/>
+	<br/>
+	&nbsp; &nbsp; public Point3D( int x, int y, int z )<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; super( 1 ) ; &nbsp; &nbsp;  // 配列長 1 のメモリを確保<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; this.x = x ;<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; this.y = y ;<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; this.z = z ;<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+</div>
+
+　なお、構築関数から super() が呼び出された場合、構造体の情報は保持されているので、派生クラスでも有効です。<br/>
+
+<div class="code_quote">
+	struct Point4D extends Point3D<br/>
+	{<br/>
+	&nbsp; &nbsp; public int w ;<br/>
+	<br/>
+	&nbsp; &nbsp; public Point4D( int x, int y, int z, int w )<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; super( x, y, z ) ;<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; this.w = w ; &nbsp; &nbsp;  // このメモリまで確保されている<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+</div>
+
+　また、構造体の消滅関数（finalize）は無効です。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- 定義済みリテラル 型 -->
+<a name="abstract_reserved_literal"/>
+<div class="headline">定義済みリテラル</div>
+
+<div class="normal">
+　Rosetta には JavaScript と同様に以下のリテラルが定義されています。<br/>
+<br/>
+
+<div class="term_name">undefined</div>
+<div class="indent1">
+未定義データを表現します。<br/>
+Rosetta の undefined は JavaScript ほど厳密ではなく（またグローバルオブジェクトではなく値の表現であり）、x === undefined の代わりに、x === null を使用してもかまいません。<br/>
+しかし、(String) キャストでは "undefined" に変換されます。
+</div>
+<br/>
+
+<div class="term_name">null</div>
+<div class="indent1">
+Object の null ポインタを表現します。
+</div>
+<br/>
+
+<div class="term_name">true</div>
+<div class="indent1">
+boolean の true 値を表現します。
+</div>
+<br/>
+
+<div class="term_name">false</div>
+<div class="indent1">
+boolean の false 値を表現します。
+</div>
+<br/>
+
+</div>
+<br/>
+
+
+
+<!-- void -->
+<a name="abstract_void_type"/>
+<div class="headline">void 型</div>
+
+<div class="normal">
+
+　C++ 同様 Rosetta では void を関数の返り値型や、引数として指定できます。<br/>
+　関数の返り値の場合、返り値が存在しないことを、引数の場合、引数が存在しないことを意味します。<br/>
+
+<div class="code_quote">
+	void foo( void )<br/>
+	{<br/>
+	&nbsp; &nbsp; // 返り値も引数も無い関数<br/>
+	}
+</div>
+
+</div>
+<br/>
+
+
+
+<!-- this と super -->
+<a name="abstract_this"/>
+<div class="headline">this と super</div>
+
+<div class="normal">
+
+　Rosetta では Java 同様 this や super を使用できます。<br/>
+　this は文字通りその関数が属しているクラスのオブジェクトを示します。<br/>
+　super は this のコンストラクタから親クラスのコンストラクタを呼び出したり、this メンバ関数内から親クラスの関数を呼び出すのに使用します。<br/>
+※Rosetta では親クラスのコンストラクタは super で明示しない限り呼び出されません。<br/>
+
+<div class="code_quote">
+	class Foo extends Hoge<br/>
+	{<br/>
+	&nbsp; &nbsp; public Foo()<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; super( 1, 2, 3 ) ; &nbsp; // Hoge のコンストラクタを呼び出す<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; this.m_value = 100 ; // Foo か Hoge かその親クラスのメンバ変数<br/>
+	&nbsp; &nbsp; }<br/>
+	&nbsp; &nbsp; public int getHoge()<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; return super.getHoge() * 2 ; // Hoge の getHoge 関数を呼び出す<br/>
+	&nbsp; &nbsp; }<br/>
+	}
+</div>
+
+</div>
+<br/>
+
+
+
+<!-- 演算子 -->
+<a name="abstract_operator"/>
+<div class="headline">演算子</div>
+
+<div class="normal">
+　Rosetta では以下の演算子が利用可能です。<br/>
+</div>
+
+<br/>
+
+<div class="indent1">
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><bold>(</bold> <italic>expr</italic> <bold>)</bold></td>
+	<td align="left" width="60%">式の評価</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>(</bold> <italic>arg-list</italic> <bold>)</bold></td>
+	<td align="left" width="60%">関数呼び出し</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>[]</bold></td>
+	<td align="left">配列型</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>[ <italic>expr</italic> ]</bold></td>
+	<td align="left">配列要素、又はメンバ参照</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>type-expr</italic> <bold>::</bold> <italic>member</italic></td>
+	<td align="left" width="60%">メンバ、又はクラスの static メンバ参照</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>.</bold> <italic>member</italic></td>
+	<td align="left" width="60%">メンバ参照</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>.*</bold> <italic>expr</italic></td>
+	<td align="left" width="60%">メンバ関数間接呼び出し</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>++</bold></td>
+	<td align="left" width="60%">インクリメント</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>--</bold></td>
+	<td align="left">デクリメント</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><bold>new</bold> <italic>type-expr</italic> <bold>(</bold> <italic>arg-list</italic> <bold>)</bold></td>
+	<td align="left" width="60%">オブジェクトインスタンス生成</td>
+</tr>
+<tr>
+	<td width="40%"><italic>type-expr</italic> <bold>(</bold> <italic>arg-list</italic> <bold>)</bold></td>
+	<td align="left" width="60%">オブジェクトインスタンス生成（非推奨）</td>
+</tr>
+<tr>
+	<td width="40%"><bold>function</bold> <bold>(</bold> <italic>arg-list</italic> <bold>)</bold> [<bold>:</bold> <italic>type-expr</italic> ]<small><italic>opt</italic></small> [<bold>-&gt;</bold> <italic>class-name</italic> ]<small><italic>opt</italic></small> <bold>{</bold> <italic>statement-list</italic> <bold>}</bold></td>
+	<td align="left" width="60%">無名関数生成</td>
+</tr>
+<tr>
+	<td><bold>++</bold> <italic>expr</italic></td>
+	<td align="left">インクリメント</td>
+</tr>
+<tr>
+	<td><bold>--</bold> <italic>expr</italic></td>
+	<td align="left">デクリメント</td>
+</tr>
+<tr>
+	<td><bold>(</bold> <italic>type-expr</italic> <bold>)</bold> <italic>expr</italic></td>
+	<td align="left">型変換</td>
+</tr>
+<tr>
+	<td><bold>+</bold> <italic>expr</italic></td>
+	<td align="left">単項プラス</td>
+</tr>
+<tr>
+	<td><bold>-</bold> <italic>expr</italic></td>
+	<td align="left">算術否定（マイナス）</td>
+</tr>
+<tr>
+	<td><bold>~</bold> <italic>expr</italic></td>
+	<td align="left">論理否定（ビット毎の1の補数）</td>
+</tr>
+<tr>
+	<td><bold>!</bold> <italic>expr</italic></td>
+	<td align="left">論理否定</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>*</bold> <italic>expr</italic></td>
+	<td align="left" width="60%">乗算</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>/</bold> <italic>expr</italic></td>
+	<td align="left">除算</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>%</bold> <italic>expr</italic></td>
+	<td align="left">剰余</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>+</bold> <italic>expr</italic></td>
+	<td align="left" width="60%">加算</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>-</bold> <italic>expr</italic></td>
+	<td align="left">減算</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>&amp;</bold> <italic>expr</italic></td>
+	<td align="left" width="60%">論理積（ビット毎の論理積）</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>|</bold> <italic>expr</italic></td>
+	<td align="left" width="60%">論理和（ビット毎の論理和）</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>^</bold> <italic>expr</italic></td>
+	<td align="left" width="60%">排他的論理和（ビット毎の排他的論理和）</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>&gt;&gt;&gt;</bold> <italic>expr</italic></td>
+	<td align="left" width="60%">論理右シフト</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>&lt;&lt;</bold> <italic>expr</italic></td>
+	<td align="left">算術左シフト</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>&gt;&gt;</bold> <italic>expr</italic></td>
+	<td align="left">算術右シフト</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>==</bold> <italic>expr</italic></td>
+	<td align="left" width="60%">同値判定</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>!=</bold> <italic>expr</italic></td>
+	<td align="left">非同値判定</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>&lt;=</bold> <italic>expr</italic></td>
+	<td align="left">同値又は劣勢値判定</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>&lt;</bold> <italic>expr</italic></td>
+	<td align="left">劣勢値判定</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>&gt;=</bold> <italic>expr</italic></td>
+	<td align="left">同値又は優勢値判定</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>&gt;</bold> <italic>expr</italic></td>
+	<td align="left">優勢値判定</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>===</bold> <italic>expr</italic></td>
+	<td align="left">実体オブジェクトの一致判定（ポインタ同値判定）</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>!==</bold> <italic>expr</italic></td>
+	<td align="left">実体オブジェクトの不一致判定（ポインタ非同値判定）</td>
+</tr>
+<tr>
+	<td><italic>expr</italic> <bold>instanceof</bold> <italic>type-expr</italic></td>
+	<td align="left">左辺オブジェクトの型適合判定</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>&amp;&amp;</bold> <italic>expr</italic></td>
+	<td align="left" width="60%">論理積</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>||</bold> <italic>expr</italic></td>
+	<td align="left" width="60%">論理和</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>?</bold> <italic>expr</italic> <bold>:</bold> <italic>expr</italic></td>
+	<td align="left" width="60%">値の選択</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>lvalue</italic> <bold>=</bold> <italic>expr</italic></td>
+	<td align="left" width="60%">代入</td>
+</tr>
+<tr>
+	<td><italic>lvalue</italic> <bold>*=</bold> <italic>expr</italic></td>
+	<td align="left">乗算代入</td>
+</tr>
+<tr>
+	<td><italic>lvalue</italic> <bold>/=</bold> <italic>expr</italic></td>
+	<td align="left">除算代入</td>
+</tr>
+<tr>
+	<td><italic>lvalue</italic> <bold>%=</bold> <italic>expr</italic></td>
+	<td align="left">剰余代入</td>
+</tr>
+<tr>
+	<td><italic>lvalue</italic> <bold>+=</bold> <italic>expr</italic></td>
+	<td align="left">加算代入</td>
+</tr>
+<tr>
+	<td><italic>lvalue</italic> <bold>-=</bold> <italic>expr</italic></td>
+	<td align="left">減算代入</td>
+</tr>
+<tr>
+	<td><italic>lvalue</italic> <bold>&amp;=</bold> <italic>expr</italic></td>
+	<td align="left">論理積代入</td>
+</tr>
+<tr>
+	<td><italic>lvalue</italic> <bold>|=</bold> <italic>expr</italic></td>
+	<td align="left">論理和代入</td>
+</tr>
+<tr>
+	<td><italic>lvalue</italic> <bold>^=</bold> <italic>expr</italic></td>
+	<td align="left">排他的論理和代入</td>
+</tr>
+<tr>
+	<td><italic>lvalue</italic> <bold>&gt;&gt;&gt;=</bold> <italic>expr</italic></td>
+	<td align="left">論理右シフト代入</td>
+</tr>
+<tr>
+	<td><italic>lvalue</italic> <bold>&lt;&lt;=</bold> <italic>expr</italic></td>
+	<td align="left">算術左シフト代入</td>
+</tr>
+<tr>
+	<td><italic>lvalue</italic> <bold>&gt;&gt;=</bold> <italic>expr</italic></td>
+	<td align="left">算術右シフト代入</td>
+</tr>
+</thead>
+</table>
+
+<table border="1" cellspacing="1" cellpadding="4" bordercolor="#808080" width="90%" style="table-layout: fixed;">
+<thead>
+<tr>
+	<td width="40%"><italic>expr</italic> <bold>,</bold> <italic>expr</italic></td>
+	<td align="left" width="60%">列挙（右の項を評価）</td>
+</tr>
+</thead>
+</table>
+
+
+<br/>
+　表の上の行のほうが優先度が高く、縦罫線が繋がっている行は同じ優先度です。<br/>
+　<italic>expr</italic> は任意の式を、<italic>type-expr</italic> は任意の型を表現する式を、<italic>arg-list</italic> は関数引数リストを、<italic>lvalue</italic> は左辺式を、<italic>member</italic> はメンバ名を表します。<br/>
+　JavaScript や Java と異なる演算子があることに注意してください。<br/>
+　function 演算子の [～]<small><italic>opt</italic></small> は省略可能を意味します。<br/>
+　またインスタンスを生成する new 演算子は省略可能ですが非推奨です。これは将来構文を拡張した際に互換性を保証しないためです（new の省略を正式な仕様とするかは未定です）。<br/>
+<br/>
+
+</div>
+<br/>
+
+<a name="abstract_thread"/>
+<div class="headline">スレッドと同期</div>
+
+<div class="normal">
+
+　Rosetta のスレッドと同期処理は Java のそれとほぼ同等です。<br/>
+
+<div class="code_quote">
+	class MyRunnable extends Runnable<br/>
+	{<br/>
+	&nbsp; &nbsp; public void run()<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; System.console().printf( "run\n" ) ;<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+	<br/>
+	Thread	thread = new Thread( new MyRunnable() ) ;<br/>
+	thread.start() ;<br/>
+	thread.join() ;<br/>
+</div>
+<br/>
+
+　Object クラスには Java 同様 notify, notifyAll, wait 関数が定義されており、また synchronized 構文と組み合わせて使用することにより同期を取ることが可能です。<br/>
+
+<div class="code_quote">
+	// 通知<br/>
+	<bold>synchronized( obj )</bold><br/>
+	{<br/>
+	&nbsp; &nbsp; obj.postFoo() ; &nbsp; &nbsp; // 何らかの処理<br/>
+	&nbsp; &nbsp; <bold>obj.notify</bold>() ; &nbsp; &nbsp; // 他スレッドの wait へ<br/>
+	}<br/>
+	<br/>
+	// 待機<br/>
+	try<br/>
+	{<br/>
+	&nbsp; &nbsp; <bold>synchronized( obj )</bold><br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; <bold>obj.wait</bold>() ; &nbsp; &nbsp; &nbsp; // obj.notify が呼び出されるのを待つ<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; obj.receiveFoo() ; &nbsp;// 何らかの処理<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+	catch ( Exception e )<br/>
+	{<br/>
+	}<br/>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<a name="chapter_usage"/>
+<div class="chapter">§構文</div>
+
+
+
+
+<!-- 書式記法 -->
+<a name="usage_format"/>
+<div class="headline">書式記法</div>
+
+<div class="normal">
+
+　構文の書式は以下のように表記します。<br/>
+<br/>
+
+<div class="usage">
+<bold>abc</bold>
+</div>
+<br/>
+<div class="indent1">
+　装飾されていない（あるいは読みやすさのため太字強調されている）文字や記号はそのまま記述します。<br/>
+</div>
+<br/>
+<br/>
+
+<div class="usage">
+<italic>abc</italic>
+</div>
+<br/>
+<div class="indent1">
+　斜体部分は任意の名前や式を記述します。<br/>
+</div>
+<br/>
+<br/>
+
+<div class="usage">
+<italic>abc</italic><br/>
+<br/>
+<italic>abc</italic>:<br/>
+&nbsp; &nbsp; <italic>def</italic>
+</div>
+<br/>
+<div class="indent1">
+　任意書式 <italic>abc</italic> の詳細が、行をあけ : 記号以降に定義されています。<br/>
+　上の例は、任意の <italic>def</italic> を記述することを意味します。<br/>
+</div>
+<br/>
+<br/>
+
+<div class="usage">
+[ <bold>abc</bold> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+<div class="indent1">
+　[ ]<sub><italic>opt</italic></sub> で囲まれた部分は省略可能であることを意味します。単に [ abc ] と表記した場合には、角括弧を含めそのままの表記を意味することに注意してください。<br/>
+</div>
+<br/>
+<br/>
+
+<div class="usage">
+{ <bold>a</bold> | <bold>b</bold> | <bold>c</bold> }<sub><italic>opt</italic></sub>
+</div>
+<br/>
+<div class="indent1">
+　{ }<sub><italic>opt</italic></sub> で囲まれた部分は書式が選択的であることを意味します。 | 記号で区切られた範囲が選択可能な一つの書式となります。つまり、上の例は a 又は b 又は c の何れかを記述することを意味します。<br/>
+</div>
+
+</div>
+<br/>
+<br/>
+
+
+
+<!-- コメント -->
+<a name="usage_comment"/>
+<div class="headline">コメント</div>
+
+<div class="normal">
+
+　コメントは C++ と同様です。<br/>
+
+<div class="code_quote">
+// 行末までのコメント<br/>
+/*<br/>
+　任意のコメント<br/>
+*/
+</div>
+
+</div>
+<br/>
+
+
+<!-- #if ディレクティブ -->
+<a name="usage_directive_if"/>
+<div class="headline">#if, #elif, #elseif, #else, #endif ディレクティブ</div>
+
+<div class="usage">
+<bold>#if</bold> <italic>expr</italic><br/>
+</div>
+<div class="usage">
+<bold>#elif</bold> <italic>expr</italic><br/>
+</div>
+<div class="usage">
+<bold>#elseif</bold> <italic>expr</italic><br/>
+</div>
+<div class="usage">
+<bold>#else</bold><br/>
+</div>
+<div class="usage">
+<bold>#endif</bold><br/>
+</div>
+<br/>
+
+<div class="normal">
+
+　Rosetta では C++ のような #if ディレクティブを使用できます。<br/>
+　#elseif は #elif と同じ意味です。<br/>
+　条件式には #define で定義した変数を使用することが出来ます。<br/>
+　C++ とは異なり、defined 演算子は使用できません。<br/>
+　条件が成立したブロックのみがパーサーの処理対象になります。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- #define ディレクティブ -->
+<a name="usage_directive_define"/>
+<div class="headline">#define ディレクティブ</div>
+
+<div class="usage">
+<bold>#define</bold> <italic>var-name</italic> <italic>expr</italic>
+</div>
+<br/>
+
+<div class="normal">
+
+　#if 文の条件式に使用できるマクロ変数を定義します。<br/>
+　Rosetta のマクロは、テキストマクロではなく、<italic>expr</italic> の評価値をマクロ変数として保持します。<br/>
+　マクロ変数は、#if, #elif, #elseif, #define 文でのみ参照できます。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- 複文 -->
+<a name="usage_multi_statement"/>
+<div class="headline">複文</div>
+
+<div class="usage">
+{ <italic>statement</italic><br/>
+| <bold>{</bold> <italic>statement-list</italic> <bold>}</bold> }<sub><italic>opt</italic></sub><br/>
+<br/>
+<italic>statement-list</italic>:<br/>
+&nbsp; &nbsp; <italic>statement</italic> [ <italic>statement-list</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="normal">
+
+　文は単一の文の他、{ } 括弧に複数の文を囲んで記述出来ます。<br/>
+　但し Rosetta で { } 括弧は HashMap オブジェクトを構築するため、C++ のように任意の文として記述できません。<br/>
+　if 文や try 文などの中で、1文を記述する代わりに複数の文を記述するためにのみ用いることが出来ます。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- 式文 -->
+<a name="usage_expression"/>
+<div class="headline">式文</div>
+
+<div class="usage">
+<italic>expr</italic> <bold>;</bold>
+</div>
+<br/>
+
+<div class="normal">
+
+　式を評価します。<br/>
+　ほとんどの文は式文です。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- 変数定義文 -->
+<a name="usage_variable"/>
+<div class="headline">変数定義文</div>
+
+<div class="usage">
+[ <italic>modifier-list</italic> ]<sub><italic>opt</italic></sub>&nbsp; <italic>type-expr</italic> <italic>var-name</italic> [ <bold>[</bold> <italic>array-size-expr</italic> <bold>]</bold> ]<sub><italic>opt</italic></sub> [ <bold>=</bold> <italic>init-expr</italic> ]<sub><italic>opt</italic></sub> ;<br/>
+<br/>
+<italic>modifier-list</italic>:<br/>
+&nbsp; &nbsp; { <bold>static</bold><br/>
+&nbsp; &nbsp; | <bold>const</bold><br/>
+&nbsp; &nbsp; | <bold>public</bold><br/>
+&nbsp; &nbsp; | <bold>protected</bold><br/>
+&nbsp; &nbsp; | <bold>private</bold> }<sub><italic>opt</italic></sub> [ <italic>modifier-list</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="normal">
+
+　その名前空間に <italic>type-expr</italic> 型の新しい変数 <italic>var-name</italic> を作成し、<italic>init-expr</italic> で初期化します。<br/>
+　また、構造体メンバの整数型や数値型に限り、<italic>array-size-expr</italic> に配列長を指定することが出来ます。<br/>
+<br/>
+　<italic>modifier-list</italic> に指定できる修飾子のうち、private, protected は記述できますが、期待通りの動作となるとは限りません。現在の仕様上、private と protected の挙動に明確な違いはありません。これは実行時に判定していることと関係しており、実行時にオブジェクトのメンバが、そのクラス自身のメンバか、親クラスのメンバであるかの情報を持っていないためです。<br/>
+　const 修飾子は C 言語と似ています。しかし、Rosetta では const 修飾されたオブジェクトを const 修飾されていない変数へ代入してもエラーとなりません。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- 関数定義文 -->
+<a name="usage_function"/>
+<div class="headline">関数定義文</div>
+
+<div class="usage">
+[ <italic>modifier-list</italic> ]<sub><italic>opt</italic></sub> [ <bold>function</bold> ]<sub><italic>opt</italic></sub> [ <italic>type-expr</italic> ]<sub><italic>opt</italic></sub> <italic>func-name</italic> ( <italic>arg-list</italic> ) { <italic>statement-list</italic> }<br/>
+<br/>
+<italic>modifier-list</italic>:<br/>
+&nbsp; &nbsp; { <bold>static</bold><br/>
+&nbsp; &nbsp; | <bold>abstract</bold><br/>
+&nbsp; &nbsp; | <bold>native</bold><br/>
+&nbsp; &nbsp; | <bold>const</bold><br/>
+&nbsp; &nbsp; | <bold>synchronized</bold><br/>
+&nbsp; &nbsp; | <bold>public</bold><br/>
+&nbsp; &nbsp; | <bold>protected</bold><br/>
+&nbsp; &nbsp; | <bold>private</bold> }<sub><italic>opt</italic></sub> [ <italic>modifier-list</italic> ]<sub><italic>opt</italic></sub><br/>
+<br/>
+<italic>arg-list</italic>:<br/>
+&nbsp; &nbsp; { [ <bold>void</bold> ]<sub><italic>opt</italic></sub><br/>
+&nbsp; &nbsp; | <italic>argument</italic> [ , <italic>argument</italic> ]<sub><italic>opt</italic></sub> }<sub><italic>opt</italic></sub><br/>
+<br/>
+<italic>argument</italic>:<br/>
+&nbsp; &nbsp; [ <italic>arg-type-expr</italic> ]<sub><italic>opt</italic></sub> <italic>arg-name</italic> [ = <italic>default-expr</italic> ]<sub><italic>opt</italic></sub><br/>
+
+</div>
+<br/>
+
+<div class="normal">
+
+　その名前空間に <italic>type-expr</italic> 型の返り値を返す関数 <italic>func-name</italic> を定義します。<br/>
+　JavaScript とは異なり、同名の関数は、引数が競合しなければ複数定義できます。<br/>
+　また、関数の引数は JavaScript 同様に型を省略できるほか、C++ のようにデフォルト値を指定できます。デフォルト値はその関数定義が記述された名前空間で評価されます。<br/>
+　関数の返り値は、function 予約語から始まっている場合、あるいはクラスのコンストラクタの場合省略できます。<br/>
+<br/>
+　<italic>modifier-list</italic> に指定できる修飾子のうち、private, protected は記述できますが、期待通りの動作となるとは限りません。現在の仕様上、private と protected の挙動に明確な違いはありません。これは実行時に判定していることと関係しており、実行時にオブジェクトのメンバが、そのクラス自身のメンバか、親クラスのメンバであるかの情報を持っていないためです。<br/>
+　const 指定は C++ 言語と似ていますが、関数の前に記述する点が異なります。（C++ の場合、返り値型の修飾となるためです）<br/>
+
+</div>
+<br/>
+
+
+
+<!-- import 文 -->
+<a name="usage_import"/>
+<div class="headline">import 文</div>
+
+<div class="usage">
+<bold>import</bold> <italic>script-file-expr</italic>
+</div>
+<br/>
+
+<div class="normal">
+
+　import 文はスクリプトを読み込み追加します。<br/>
+　ファイル名は式で与えられます。従って通常はファイル名はダブルクォーテーションで囲んで記述します。バックスラッシュには注意が必要です。<br/>
+　この文はディレクティブではありませんので、パース時に処理されず、実行時に処理されます。従って例えばループ文の内側にあると、何度も実行されることになりますが推奨されません。<br/>
+　同じスクリプトを再び追加しようとしても無視されます。従って、ディレクティブを利用したメタコーディングには利用できません。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- class 文 -->
+<a name="usage_class"/>
+<div class="headline">class 文</div>
+
+<div class="usage">
+<bold>class</bold> <italic>class-name</italic> [ <bold>extends</bold> <italic>super-class</italic> ]<sub><italic>opt</italic></sub> [ <bold>implements</bold> <italic>super-class-list</italic> ]<sub><italic>opt</italic></sub> <bold>{</bold> <italic>statement-list</italic> <bold>}</bold><br/>
+<br/>
+<italic>super-class-list</italic>:<br/>
+&nbsp; &nbsp; <italic>super-class</italic> [ , <italic>super-class-list</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<div class="usage">
+<bold>class</bold> <italic>class-expr</italic> <bold>;</bold><br/>
+<br/>
+<italic>class-expr</italic>:<br/>
+&nbsp; &nbsp; <italic>class-name</italic> [ :: <italic>class-expr</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="normal">
+
+　クラスを定義します。<br/>
+　Java と同じような書式ですが、Rosetta に interface は存在せず、implements は多重派生を実現します。但し、implements は static でないメンバ変数が存在しないクラスに限定されます（Java の interface 相当）。<br/>
+　また、Rosetta のクラスは、Java での static クラスに相当します。クラス内のローカルクラスを定義した場合には、暗黙に static クラスとなりますので注意してください。<br/>
+<br/>
+　尚、C++ と同じようにクラスの宣言のみを行うことも出来ます。<br/>
+　更に、クラスのローカルクラスの宣言を行うことも出来ます。
+
+<div class="code_quote">
+class Foo ;<br/>
+class Foo::Bar  ;
+</div>
+
+※ Rosetta は Java とは異なり記述された順にクラスが解釈されます。
+
+</div>
+<br/>
+
+
+
+<!-- struct 文 -->
+<a name="usage_struct"/>
+<div class="headline">struct 文</div>
+
+<div class="usage">
+<bold>struct</bold> <italic>struct-name</italic> [ <bold>extends</bold> <italic>super-struct-list</italic> ]<sub><italic>opt</italic></sub> <bold>{</bold> <italic>statement-list</italic> <bold>}</bold><br/>
+<br/>
+<italic>super-struct-list</italic>:<br/>
+&nbsp; &nbsp; <italic>super-struct</italic> [ , <italic>super-struct-list</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<div class="usage">
+<bold>struct</bold> <italic>struct-expr</italic> <bold>;</bold><br/>
+<br/>
+<italic>struct-expr</italic>:<br/>
+&nbsp; &nbsp; <italic>struct-name</italic> [ :: <italic>struct-expr</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="normal">
+
+　構造体を定義します。<br/>
+　Rosetta の構造体は C++ 言語と似ており、Java のクラスとは大きく異なります。<br/>
+　static でないメンバ変数は ArrayBuffer 上の構造を記述します。（static なメンバ変数はクラスと同じです）<br/>
+　メンバ関数はクラスとほぼ同様ですが、クラスのメンバ関数は暗黙に仮想関数であるのに対し、構造体のメンバ関数は仮想関数ではありません。<br/>
+　構造体は派生することは出来ますが、クラスから構造体を派生したり、構造体からクラスを派生したりすることは出来ません。<br/>
+　複数の構造体から派生することが出来、派生のメカニズムは C++ と同様です。<br/>
+<br/>
+
+</div>
+<br/>
+
+
+
+<!-- for 文 -->
+<a name="usage_for"/>
+<div class="headline">for 文</div>
+
+<div class="usage">
+<bold>for (</bold> [ <italic>init-expr</italic> ]<sub><italic>opt</italic></sub> <bold>;</bold> [ <italic>cond-expr</italic> ]<sub><italic>opt</italic></sub> <bold>;</bold> [ <italic>step-expr</italic> ]<sub><italic>opt</italic></sub> <bold>) {</bold> <italic>statement-list</italic> <bold>}</bold> <br/>
+</div>
+<div class="usage">
+<bold>for (</bold> <italic>decl-var-statement</italic>&nbsp; [ <italic>cond-expr</italic> ]<sub><italic>opt</italic></sub> <bold>;</bold> [ <italic>step-expr</italic> ]<sub><italic>opt</italic></sub> <bold>) {</bold> <italic>statement-list</italic> <bold>}</bold> <br/>
+</div>
+<div class="usage">
+<bold>for (</bold> <italic>iter-var-name</italic> <bold>in</bold> <italic>expr</italic> <bold>) {</bold> <italic>statement-list</italic> <bold>}</bold> <br/>
+</div>
+<br/>
+
+<div class="normal">
+
+　1つ目と2つ目の書式は C++ とよく似ています。<br/>
+　<italic>init-expr</italic> は初期化式で、<italic>decl-var-statement</italic> は変数定義文です。（変数定義文の終端はセミコロンとなることに注意してください）<br/>
+　<italic>cond-expr</italic> は反復条件で、省略すると永遠に繰り返します。<br/>
+　<italic>step-expr</italic> は１回の反復処理が終わったときに評価されます。<br/>
+<br/>
+　3つ目の書式は JavaScript と似ています。<br/>
+　ループ内のローカル変数として <italic>iter-var-name</italic> に指定された名前の String 変数が自動的に定義され、<italic>expr</italic> で評価されるオブジェクトのメンバ名が順次設定されます。<br/>
+<br/>
+　但し C++ とは異なり、何れの書式でもループ処理を { } 括弧で囲むことが必須となります。<br/>
+</div>
+<br/>
+
+
+
+<!-- while 文 -->
+<a name="usage_while"/>
+<div class="headline">while 文</div>
+
+<div class="usage">
+<bold>while (</bold> <italic>expr</italic> <bold>) {</bold> <italic>statement-list</italic> <bold>}</bold>
+</div>
+<br/>
+
+<div class="normal">
+
+　<italic>expr</italic> が真の間、<italic>statement-list</italic> を繰り返し実行します。<br/>
+<br/>
+　C++ とは異なり、ループ処理を { } 括弧で囲むことが必須となります。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- do～while 文 -->
+<a name="usage_do_while"/>
+<div class="headline">do～while 文</div>
+
+<div class="usage">
+<bold>do {</bold> <italic>statement-list</italic> <bold>} while (</bold> <italic>expr</italic> <bold>) ;</bold>
+</div>
+<br/>
+
+<div class="normal">
+
+　<italic>expr</italic> が真の間、<italic>statement-list</italic> を繰り返し実行します。<br/>
+　但し <italic>statement-list</italic> が実行された後に <italic>expr</italic> が評価されます。<br/>
+　C++ とは異なり、ループ処理を { } 括弧で囲むことが必須となります。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- if 文 -->
+<a name="usage_if"/>
+<div class="headline">if 文</div>
+
+<div class="usage">
+<bold>if (</bold> <italic>expr</italic> <bold>)</bold> <italic>if-statement</italic> [ <bold>else</bold> <italic>else-statement</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="normal">
+
+　<italic>expr</italic> が真の時 <italic>if-statement</italic>、そうでない場合 <italic>else-statement</italic> を実行します。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- switch 文 -->
+<a name="usage_switch"/>
+<div class="headline">switch 文</div>
+
+<div class="usage">
+<bold>switch (</bold> <italic>expr</italic> <bold>) {</bold> <italic>statement-list</italic> <bold>}</bold>
+</div>
+<div class="usage">
+<bold>case</bold> <italic>case-expr</italic> <bold>:</bold>
+</div>
+<div class="usage">
+<bold>default:</bold>
+</div>
+<br/>
+
+<div class="normal">
+
+　<italic>expr</italic> が <italic>case-expr</italic> に一致する case ラベルにジャンプします。<br/>
+　一致するラベルが存在しない場合、default ラベルへジャンプします。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- break 文 -->
+<a name="usage_break"/>
+<div class="headline">break 文</div>
+
+<div class="usage">
+<bold>break ;</bold>
+</div>
+<br/>
+
+<div class="normal">
+
+　最も内側のループ、あるいは switch ブロックから脱出します。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- continue 文 -->
+<a name="usage_continue"/>
+<div class="headline">continue 文</div>
+
+<div class="usage">
+<bold>continue ;</bold>
+</div>
+<br/>
+
+<div class="normal">
+
+　最も内側のループの先頭に戻ります。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- try 文 -->
+<a name="usage_try"/>
+<div class="headline">try 文</div>
+
+<div class="usage">
+<bold>try</bold> <italic>try-statement</italic>&nbsp; [ <italic>catch-list</italic>  ]<sub><italic>opt</italic></sub>&nbsp;  [ <bold>finally</bold> <italic>finally-statement</italic> ]<sub><italic>opt</italic></sub> <br/>
+<br/>
+<italic>catch-list</italic>:<br/>
+&nbsp; &nbsp; <bold>catch (</bold> [ <italic>type-expr</italic> ]<sub><italic>opt</italic></sub> <italic>var-name</italic> <bold>)</bold> <italic>catch-statement</italic>&nbsp; [ <italic>catch-list</italic> ]<sub><italic>opt</italic></sub>
+</div>
+<br/>
+
+<div class="normal">
+
+　<italic>try-statement</italic> を実行します。<br/>
+　例外がスローされると、スローされたオブジェクトの型が <italic>type-expr</italic> に一致する catch 文の <italic>catch-statement</italic> が実行されます。<br/>
+　<italic>type-expr</italic> を省略した場合には常に例外を受け取ります。<br/>
+　finally 句を記述すると、<italic>try-statement</italic>、また catch した <italic>catch-statement</italic> を実行した後、必ず <italic>finally-statement</italic> が実行されます。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- throw 文 -->
+<a name="usage_throw"/>
+<div class="headline">throw 文</div>
+
+<div class="usage">
+<bold>throw</bold> <italic>expr</italic> <bold>;</bold>
+</div>
+<br/>
+
+<div class="normal">
+
+　例外をスローします。
+
+</div>
+<br/>
+
+
+
+<!-- return 文 -->
+<a name="usage_return"/>
+<div class="headline">return 文</div>
+
+<div class="usage">
+<bold>return</bold> [ <italic>expr</italic> ]<sub><italic>opt</italic></sub> <bold>;</bold>
+</div>
+<br/>
+
+<div class="normal">
+
+　関数から復帰します。
+
+</div>
+<br/>
+
+
+
+<!-- with 文 -->
+<a name="usage_with"/>
+<div class="headline">with 文</div>
+
+<div class="usage">
+<bold>with (</bold> <italic>expr</italic> <bold>)</bold> <italic>statement</italic>
+</div>
+<br/>
+
+<div class="normal">
+
+　<italic>expr</italic> で評価されるオブジェクトを名前空間チェーンに追加し <italic>statement</italic> を実行します。<br/>
+
+</div>
+<br/>
+
+
+
+<!-- synchronized 文 -->
+<a name="usage_synchronized"/>
+<div class="headline">synchronized 文</div>
+
+<div class="usage">
+<bold>synchronized (</bold> <italic>expr</italic> <bold>)</bold> <italic>statement</italic>
+</div>
+<br/>
+
+<div class="normal">
+
+　<italic>expr</italic> で評価されるオブジェクトに対する同期状態で <italic>statement</italic> を実行します。<br/>
+
+</div>
+<br/>
+
+
+
+
+
+<a name="chapter_JIT_compiler"/>
+<div class="chapter">§ JIT コンパイルと最適化</div>
+
+
+<!-- コンパイルと実行 -->
+<a name="jit_compile_and_run"/>
+<div class="headline">コンパイルと実行</div>
+
+<div class="normal">
+
+　Rosetta はスクリプトが読み込まれると、まずグローバル空間に対してスクリプトが「実行」されます。<br/>
+　Rosetta では、import 文や class 文、struct 文は「実行」されることにより、スクリプトを追加したり、クラスや構造体の定義が行われます。<br/>
+　将来のバージョンでは、グローバル空間での実行の前に、import 文や class 文をコンパイルするように変更されるかもしれませんが、現在の Rosetta では、import 文や class 文は「実行」されるため、記述の順序は重要です。<br/>
+<br/>
+　JIT コンパイラが有効に設定されている場合、グローバル空間での実行の後に、コンパイルが実行されます。<br/>
+　コンパイルは関数単位で実行され、グローバル関数やクラスのメンバ関数がコンパイルされます。無名関数はコンパイルされません。<br/>
+　現在のバージョンのコンパイラでは、一旦 Sakura2 仮想マシン用のバイナリが出力されます。<br/>
+　更に、実行 CPU が Sakura2 の JIT コンパイラに対応した CPU の場合、ネイティブなバイナリに変換されます。<br/>
+　現在のバージョンの Sakura2 仮想マシンは、x86 系 CPU（32ビット）と、ARM 系（32ビット）へのネイティブコードへの変換をサポートしています。<br/>
+　直接ネイティブコードに変換する場合より実行速度は劣りますが（特にオブジェクト操作関係はほとんど高速化されません）、実装の簡略化のため現在のバージョンでは Sakura2 仮想マシンを利用しています。<br/>
+
+</div>
+<br/>
+
+
+<!-- コンパイルされる関数とされない関数 -->
+<a name="jit_compile_function"/>
+<div class="headline">コンパイルされる関数とされない関数</div>
+
+<div class="normal">
+
+　スクリプトをコンパイルする利点は大別して２つあり、１つは高速化です。<br/>
+<br/>
+　整数や数値型、またポインタ型変数操作が特に高速化されます。一方でオブジェクト操作はほとんど高速化しません。<br/>
+　関数内に、以下の構文が含まれているとその関数はコンパイルされません。<br/>
+<br/>
+<div class="indent1">
+・import 文<br/>
+・class 文<br/>
+・struct 文<br/>
+・function 文<br/>
+・try 文<br/>
+・throw 文<br/>
+・with 文<br/>
+・synchronized 文<br/>
+・for ( ... in ... ) 文<br/>
+・var 文や、型が不明なオブジェクトの操作<br/>
+・配列リテラル<br/>
+・自明でないオブジェクト参照<br/>
+</div>
+<br/>
+　これらの構文はオブジェクト操作を中心としたものであり、コンパイルする利点が小さいためコンパイル対象から除外されます。<br/>
+<br/>
+　もう一つのコンパイルの利点は、実行されないコードの型チェックが実施される点です。<br/>
+　コンパイル時に自明でない型の変数は、オブジェクトとして処理されるか、関数自体がコンパイル対象外になる可能性があります。<br/>
+
+</div>
+<br/>
+
+
+<!-- 高速化：配列ではなくポインタを使う -->
+<a name="jit_compile_array_or_pointer"/>
+<div class="headline">高速化：配列ではなくポインタを使う</div>
+
+<div class="normal">
+
+　既述の通りコンパイルされると高速に動作しますが、オブジェクト操作は高速化されません。<br/>
+　以下のコードはコンパイルされたとしても、ほとんど高速化しません。<br/>
+
+<div class="code_quote">
+	int[]	a = new int[count] ;<br/>
+	for ( int i = 0; i &lt; count; i ++ )<br/>
+	{<br/>
+	&nbsp; &nbsp; a[i] = i ;<br/>
+	}<br/>
+</div>
+
+　変数 a は Array 型オブジェクト変数ですので、配列操作はすべてオブジェクト扱いとなります。<br/>
+　オブジェクト操作はポリモーフィズムに行われるため呼び出しジャンプの際の予測ミスペナルティが発生しやすいことや、オブジェクトの管理コストが発生するためそもそも高速ではありません。<br/>
+　付け加え、オブジェクト操作は Sakura2 仮想マシン上のシステムコールへ変換されるため、直接ネイティブコードへ変換した場合よりも多くのオーバーヘッドを伴います。<br/>
+　以下のようにバッファとポインタを利用するコードの場合、この部分に限定すれば、数十倍の高速化を期待できます。<br/>
+
+<div class="code_quote">
+	Int32Pointer	a = new Int32Pointer( count ) ;<br/>
+	for ( int i = 0; i &lt; count; i ++ )<br/>
+	{<br/>
+	&nbsp; &nbsp; a[i] = i ;<br/>
+	}<br/>
+</div>
+
+</div>
+<br/>
+
+
+<!-- 高速化：クラスではなく構造体を使う -->
+<a name="jit_compile_class_or_struct"/>
+<div class="headline">高速化：クラスではなく構造体を使う</div>
+
+<div class="normal">
+
+　ユーザー定義 class の変数は常にオブジェクトです。<br/>
+　高速化の面では、可能であれば struct の使用が推奨されます。<br/>
+　また、class のメンバ変数も常にオブジェクト扱いなので注意が必要です。<br/>
+　以下のようなコードは見た目ほど高速化されません。<br/>
+
+<div class="code_quote">
+	class Foo<br/>
+	{<br/>
+	&nbsp; &nbsp; protected Uint8Pointer m_buf ;<br/>
+	&nbsp; &nbsp; protected int m_length ;<br/>
+	&nbsp; &nbsp; <br/>
+	&nbsp; &nbsp; public void foo( void )<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; for ( int i = 0; i &lt; m_length; i ++ )<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_buf[i] = i ;<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; }<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+</div>
+
+　ループの内側でメンバ変数 m_buf や m_length を参照していますが、class の場合その度にオブジェクト操作が必要となります。<br/>
+　以下のようにすることでループの内側でオブジェクト操作がなくなるため、飛躍的に高速化されます。
+
+<div class="code_quote">
+	class Foo<br/>
+	{<br/>
+	&nbsp; &nbsp; protected Uint8Pointer m_buf ;<br/>
+	&nbsp; &nbsp; protected int m_length ;<br/>
+	&nbsp; &nbsp; <br/>
+	&nbsp; &nbsp; public void foo( void )<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; Uint8Pointer buf = m_buf ;<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; const int length = m_length ;<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; for ( int i = 0; i &lt; length; i ++ )<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; buf[i] = i ;<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; }<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+</div>
+
+　一方、構造体のメンバには、整数や数値型変数しか定義できませんが、参照にはオブジェクト操作は必要ないため高速です。<br/>
+　但し、static なメンバ変数は class 同様オブジェクトですので注意が必要です。<br/>
+
+<div class="code_quote">
+	struct Foo<br/>
+	{<br/>
+	&nbsp; &nbsp; protected static int m_fill ;<br/>
+	&nbsp; &nbsp; protected int m_length ;<br/>
+	&nbsp; &nbsp; <br/>
+	&nbsp; &nbsp; public void foo( Uint8Pointer buf )<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; for ( int i = 0; i &lt; m_length; i ++ )<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; buf[i] = Foo.m_fill ;<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; }<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+</div>
+
+　上記の m_fill はオブジェクト参照となるため、注意が必要です。<br/>
+
+</div>
+<br/>
+
+
+<!-- 高速化：自明な定数とシステム関数 -->
+<a name="jit_compile_clear_constant"/>
+<div class="headline">高速化：自明な定数とシステム関数</div>
+
+<div class="normal">
+
+　クラスや構造体の static なメンバ変数はオブジェクトですが、const な整数や数値変数は自明な定数として即値になります。<br/>
+
+<div class="code_quote">
+	public void foo( Float32Pointer buf, int length )<br/>
+	{<br/>
+	&nbsp; &nbsp; for ( int i = 0; i &lt; length; i ++ )<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; buf[i] = Math.sin( i * (2.0 * Math.PI) / length ) ;<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+</div>
+
+　上の Math.PI は Math クラスの static なメンバ変数ですが、const 修飾で定義されているため、即値となります。<br/>
+　この例では、(2.0 * Math.PI) が即値となります。<br/>
+　const 修飾されていない場合、実行時のオブジェクトのメンバ参照となるため非常に重くなります。<br/>
+　また、Math.sin 関数は直接 Sakura2 仮想マシンの sin 命令に変換されます。（Math クラスの static メンバ関数はすべて直接 Sakura2 仮想マシンの浮動小数点命令に変換されます）<br/>
+　従って、この例のループは非常に高速に実行されます。<br/>
+　もし関数呼び出しが一般的な関数の場合には、非常に大きなオーバーヘッドを伴います。<br/>
+　このループ処理をより高速化するには、ループ前で (2.0 * Math.PI) / length の計算結果をローカル変数に括り出します。<br/>
+
+</div>
+<br/>
+
+
+<!-- 高速化：構造体ポインタ -->
+<a name="jit_compile_struct_pointer"/>
+<div class="headline">高速化：構造体ポインタ</div>
+
+<div class="normal">
+
+　ポインタによるメモリ参照の際のバウンダリチェックは Sakura2 仮想マシンのバウンダリチェックが利用されます。<br/>
+　構造体配列の要素参照や、構造体の配列メンバの参照の際、ポインタから参照可能な領域が変化します。この際、Sakura2 仮想マシン上に新たなメモリエイリアスを確保するため、処理上のコストとなります。（もしコンパイラが直接ネイティブバイナリを出力するよう改良されるとこのコストは省略されます）<br/>
+
+<div class="code_quote">
+	public void foo( Vector3D v, int length )<br/>
+	{<br/>
+	&nbsp; &nbsp; for ( int i = 0; i &lt; length; i ++ )<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; v[i].x = 0 ;<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; v[i].y = 0 ;<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; v[i].z = 0 ;<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+</div>
+
+　この v[i] の度にメモリエイリアスの確保が行われるため、パフォーマンスの低下を引き起こします。<br/>
+　これを解決するには、v[i] の代わりに (v + i) を使用するか、以下のようにします。<br/>
+
+<div class="code_quote">
+	public void foo( Vector3D v, int length )<br/>
+	{<br/>
+	&nbsp; &nbsp; for ( int i = 0; i &lt; length; i ++ )<br/>
+	&nbsp; &nbsp; {<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; v.x = 0 ;<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; v.y = 0 ;<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; v.z = 0 ;<br/>
+	&nbsp; &nbsp; &nbsp; &nbsp; v ++ ;<br/>
+	&nbsp; &nbsp; }<br/>
+	}<br/>
+</div>
+
+　又は、Rosetta の実行オプションとして、フラットポインタを指定します。フラットポインタモードでコンパイルされると、ポインタの有効領域は変更されません。（その場合でもバウンダリチェックは行われますが、ArrayBuffer 内の構造は無視されます）<br/>
+
+</div>
+<br/>
+
+
+
+
+
+<a name="chapter_ClassIndex"/>
+<div class="chapter">§ 主要クラス一覧</div>
+
+<a name="class_index_basic_type"/>
+<div class="headline">基本的なクラス</div>
+
+<div class="normal">
+　すべてのクラスは Object クラスから派生しています。<br/>
+　すべてのポインタ型クラスは Uint8Pointer クラスから派生しており、更にすべての構造体は Structure クラスから派生しています。<br/>
+　またネイティブなオブジェクトのコンテナは NativeObject クラスから派生しています。<br/>
+<br/>
+
+<div class="indent2">
+	<a href="https://www.entis.jp/soft/rosetta/classes/Object.xhtml">Object</a><br/>
+	<div class="indent1">
+		<a href="https://www.entis.jp/soft/rosetta/classes/Integer.xhtml">Integer</a><br/>
+		<a href="https://www.entis.jp/soft/rosetta/classes/Number.xhtml">Number</a><br/>
+		<a href="https://www.entis.jp/soft/rosetta/classes/String.xhtml">String</a><br/>
+		<a href="https://www.entis.jp/soft/rosetta/classes/Array.xhtml">Array</a><br/>
+		<a href="https://www.entis.jp/soft/rosetta/classes/HashMap.xhtml">HashMap</a><br/>
+		<a href="https://www.entis.jp/soft/rosetta/classes/Function.xhtml">Function</a><br/>
+		<a href="https://www.entis.jp/soft/rosetta/classes/Uint8Pointer.xhtml">Uint8Pointer</a><br/>
+		<div class="indent1">
+			<a href="https://www.entis.jp/soft/rosetta/classes/Int8Pointer.xhtml">Int8Pointer</a><br/>
+			<a href="https://www.entis.jp/soft/rosetta/classes/Uint16Pointer.xhtml">Uint16Pointer</a><br/>
+			<a href="https://www.entis.jp/soft/rosetta/classes/Int16Pointer.xhtml">Int16Pointer</a><br/>
+			<a href="https://www.entis.jp/soft/rosetta/classes/Uint32Pointer.xhtml">Uint32Pointer</a><br/>
+			<a href="https://www.entis.jp/soft/rosetta/classes/Int32Pointer.xhtml">Int32Pointer</a><br/>
+			<a href="https://www.entis.jp/soft/rosetta/classes/Int64Pointer.xhtml">Int64Pointer</a><br/>
+			<a href="https://www.entis.jp/soft/rosetta/classes/Float32Pointer.xhtml">Float32Pointer</a><br/>
+			<a href="https://www.entis.jp/soft/rosetta/classes/Float64Pointer.xhtml">Float64Pointer</a><br/>
+			<a href="https://www.entis.jp/soft/rosetta/classes/Structure.xhtml">Structure</a><br/>
+		</div>
+		<a href="https://www.entis.jp/soft/rosetta/classes/NativeObject.xhtml">NativeObject</a><br/>
+	</div>
+</div>
+
+</div>
+<br/>
+
+
+
+<a name="class_index_system"/>
+<div class="headline">システム関係</div>
+
+<div class="normal">
+　スレッドは Thread クラスにより提供されます。<br/>
+　System クラスは OS や EntisGLS4 が提供するシステム的な機能が提供されます。<br/>
+<br/>
+
+<div class="indent2">
+	<a href="https://www.entis.jp/soft/rosetta/classes/Thread.xhtml">Thread</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/Runnable.xhtml">Runnable</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/Exception.xhtml">Exception</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/System.xhtml">System</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/Console.xhtml">Console</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/Date.xhtml">Date</a><br/>
+</div>
+
+</div>
+<br/>
+
+
+
+<a name="class_index_math"/>
+<div class="headline">算術</div>
+
+<div class="normal">
+　Math は基本的な算術関数が提供され、また JIT コンパイルの際には直接算術命令にコンパイルされます。<br/>
+　Randomizer は疑似乱数、他 CRC32、MD5 ダイジェストの計算機能が提供されています。<br/>
+<br/>
+
+<div class="indent2">
+	<a href="https://www.entis.jp/soft/rosetta/classes/Math.xhtml">Math</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/Randomizer.xhtml">Randomizer</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/CRC32Context.xhtml">CRC32Context</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/MD5DigestContext.xhtml">MD5DigestContext</a><br/>
+
+</div>
+
+</div>
+<br/>
+
+
+
+<a name="class_index_parser"/>
+<div class="headline">字句解析</div>
+
+<div class="normal">
+　StringParser は EntisGLS4 の低水準な字句解析クラスの機能を提供します。<br/>
+　UsageMatcher は EntisGLS4 の正規表現機能を提供します。<br/>
+　XMLDocument は XML の解釈、保存、データの取得・変更・追加が可能な簡易な XML 解析クラスです。このクラスはネイティブではなく xml_document.rs によって実装されています。<br/>
+<br/>
+
+<div class="indent2">
+	<a href="https://www.entis.jp/soft/rosetta/classes/StringParser.xhtml">StringParser</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/UsageMatcher.xhtml">UsageMatcher</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/XMLDocument.xhtml">XMLDocument</a><br/>
+
+</div>
+
+</div>
+<br/>
+
+
+
+<a name="class_index_fileio"/>
+<div class="headline">ファイルIO</div>
+
+<div class="normal">
+　ファイルシステム、及びファイルの入出力機能が提供されます。<br/>
+　ファイルシステムは EntisGLS4 による疑似的なファイルシステム層の上に構築されています。この疑似層を通過することによって Windows でも Android でも全く同じコード（ファイルパス）を走らせることが可能になります。<br/>
+　SmartBufferFile は実際のファイルシステムを介さずに、メモリ上だけでファイル入出力インターフェースをプログラムに供給します。<br/>
+<br/>
+
+<div class="indent2">
+	<a href="https://www.entis.jp/soft/rosetta/classes/File.xhtml">File</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/InputStream.xhtml">InputStream</a><br/>
+	<div class="indent1">
+		<a href="https://www.entis.jp/soft/rosetta/classes/HttpInputStream.xhtml">HttpInputStream</a><br/>
+	</div>
+	<a href="https://www.entis.jp/soft/rosetta/classes/OutputStream.xhtml">OutputStream</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/RandomAccessFile.xhtml">RandomAccessFile</a><br/>
+	<div class="indent1">
+		<a href="https://www.entis.jp/soft/rosetta/classes/SmartBufferFile.xhtml">SmartBufferFile</a><br/>
+		<a href="https://www.entis.jp/soft/rosetta/classes/NoaFileArchiver.xhtml">NoaFileArchiver</a><br/>
+	</div>
+</div>
+
+</div>
+<br/>
+
+
+
+<a name="class_index_sprite"/>
+<div class="headline">画面表示UI</div>
+
+<div class="normal">
+　画面表示と入出力インターフェースは Sprite によって提供されます。<br/>
+　これは EntisGLS4 の SGLSprite のコンテナとして Rosetta に提供されています。Rosetta スクリプトで入出力を直接記述する場合には SpriteKeyListener や SpriteMouseListener、また RenderableSprite を派生して記述します。<br/>
+　Window クラスはウィンドウの抽象的なクラスです。<br/>
+　画面表示を実際に行う場合には Dialog や WindowSprite を利用します（これらは Windows / Android 関係なく利用できます）。<br/>
+　Sprite 上でグラフィカルな UI を簡易に利用するには SkinManager や BasicFormParser を利用できます。これは PSD ファイルなどからスクリプトで変換したフォームデータを読み込んで Sprite に表示することができるものです。<br/>
+　VirtualInput はキーボードやゲームパッド、あるいはソフトウェア・ゲームパッドなどの入力を仮想化します。また二種類の入力キューを持っており、仮想キーや、コマンド（GUI（Sprite 等）上のボタン押下）の入力を取得することができます。<br/>
+<br/>
+
+<div class="indent2">
+	<a href="https://www.entis.jp/soft/rosetta/classes/Window.xhtml">Window</a><br/>
+	<div class="indent1">
+		<a href="https://www.entis.jp/soft/rosetta/classes/Dialog.xhtml">Dialog</a><br/>
+	</div>
+	<a href="https://www.entis.jp/soft/rosetta/classes/Sprite.xhtml">Sprite</a><br/>
+	<div class="indent1">
+		<a href="https://www.entis.jp/soft/rosetta/classes/RectangleSprite.xhtml">RectangleSprite</a><br/>
+		<a href="https://www.entis.jp/soft/rosetta/classes/ButtonSprite.xhtml">ButtonSprite</a><br/>
+		<a href="https://www.entis.jp/soft/rosetta/classes/TextSprite.xhtml">TextSprite</a><br/>
+		<a href="https://www.entis.jp/soft/rosetta/classes/MessageSprite.xhtml">MessageSprite</a><br/>
+		<a href="https://www.entis.jp/soft/rosetta/classes/MovieSprite.xhtml">MovieSprite</a><br/>
+		<a href="https://www.entis.jp/soft/rosetta/classes/RenderableSprite.xhtml">RenderableSprite</a><br/>
+		<a href="https://www.entis.jp/soft/rosetta/classes/WindowSprite.xhtml">WindowSprite</a><br/>
+	</div>
+	<a href="https://www.entis.jp/soft/rosetta/classes/SpriteAction.xhtml">SpriteAction</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/SpriteKeyListener.xhtml">SpriteKeyListener</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/SpriteMouseListener.xhtml">SpriteMouseListener</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/SpriteTimer.xhtml">SpriteTimer</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/SkinManager.xhtml">SkinManager</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/BasicFormParser.xhtml">BasicFormParser</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/VirtualInput.xhtml">VirtualInput</a><br/>
+</div>
+
+</div>
+<br/>
+
+
+
+<a name="class_index_media"/>
+<div class="headline">サウンド・メディア処理</div>
+
+<div class="normal">
+　SoundPlayer は生 PCM データを直接 Rosetta スクリプトから出力してサウンドを再生するクラスです。<br/>
+　AudioPlayer はオーディオファイルを再生する機能を提供します。<br/>
+　AudioInputStream, AudioOutputStream, VideoInputStream, VideoOutputStream はオーディオやビデオファイルを Rosetta スクリプトで処理するためのインターフェースクラスです。<br/>
+<br/>
+
+<div class="indent2">
+	<a href="https://www.entis.jp/soft/rosetta/classes/SoundPlayer.xhtml">SoundPlayer</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/AudioPlayer.xhtml">AudioPlayer</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/AudioInputStream.xhtml">AudioInputStream</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/AudioOutputStream.xhtml">AudioOutputStream</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/VideoInputStream.xhtml">VideoInputStream</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/VideoOutputStream.xhtml">VideoOutputStream</a><br/>
+</div>
+
+
+</div>
+<br/>
+
+
+
+<a name="class_index_rendering"/>
+<div class="headline">画像描画処理</div>
+
+<div class="normal">
+　Image は画像を保持します。画像はそのままテクスチャとして描画することもできます。<br/>
+　PaintContext は 2D 描画を行うための機能を提供します。PaintContext を直接構築した場合には CPU による描画を行う PaintContext オブジェクトが生成されます。<br/>
+　RenderContext は 2D 描画に加え 3D 描画を行う機能を提供します。RenderContext はRenderBuffer からも派生しており、3D 描画関数インターフェースは RenderBuffer で定義されています。従って、RenderBuffer を引数（描画対象）にする描画処理は、直接描画と VertexBuffer の構築で共通化されます。<br/>
+　RenderContext を直接構築した場合にはどのような RenderContext が構築されるかわかりません。多くの場合、2D 描画を CPU で行い 3D 描画は GPU で行う RenderContext が生成されます。<br/>
+　2D 描画も 3D 描画も GPU で行いたい場合には RenderDevice の newRenderer 関数で生成します（但し RenderDevice が CPU によるソフトウェアレンダリングデバイスの場合には CPU レンダリングになります）。<br/>
+　RenderContext はいくつでも生成でき、またスレッドの制約は受けません（但し複数のスレッドから同一の RenderContext へ描画関数を呼び出す場合には同期的に呼び出す必要があります）。<br/>
+　RenderDevice は Window の getRenderDevice 関数で取得できます（通常は WindowSprite から取得します）。<br/>
+<br/>
+
+<div class="indent2">
+	<a href="https://www.entis.jp/soft/rosetta/classes/Image.xhtml">Image</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/ImageComposition.xhtml">ImageComposition</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/PaintContext.xhtml">PaintContext</a><br/>
+	<div class="indent1">
+		<a href="https://www.entis.jp/soft/rosetta/classes/RenderContext.xhtml">RenderContext</a><br/>
+	</div>
+	<a href="https://www.entis.jp/soft/rosetta/classes/RenderBuffer.xhtml">RenderBuffer</a><br/>
+	<div class="indent1">
+		<a href="https://www.entis.jp/soft/rosetta/classes/VertexBuffer.xhtml">VertexBuffer</a><br/>
+		<div class="indent1">
+			<a href="https://www.entis.jp/soft/rosetta/classes/ModelBuffer.xhtml">ModelBuffer</a><br/>
+		</div>
+	</div>
+	<a href="https://www.entis.jp/soft/rosetta/classes/VertexVariantBuffer.xhtml">VertexVariantBuffer</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/RenderDevice.xhtml">RenderDevice</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/CustomShader.xhtml">CustomShader</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/Material.xhtml">Material</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/ModelPose.xhtml">ModelPose</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/TextureLibrary.xhtml">TextureLibrary</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/MaterialLibrary.xhtml">MaterialLibrary</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/ModelPoseLibrary.xhtml">ModelPoseLibrary</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/Scene.xhtml">Scene</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/SceneManager.xhtml">SceneManager</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/SceneComposer.xhtml">SceneComposer</a><br/>
+	<a href="https://www.entis.jp/soft/rosetta/classes/SceneParameter.xhtml">SceneParameter</a><br/>
+	<div class="indent1">
+		<a href="https://www.entis.jp/soft/rosetta/classes/SceneProperty.xhtml">SceneProperty</a><br/>
+		<div class="indent1">
+			<a href="https://www.entis.jp/soft/rosetta/classes/SceneItem.xhtml">SceneItem</a><br/>
+			<div class="indent1">
+				<a href="https://www.entis.jp/soft/rosetta/classes/SceneComposition.xhtml">SceneComposition</a><br/>
+			</div>
+			<a href="https://www.entis.jp/soft/rosetta/classes/SceneController.xhtml">SceneController</a><br/>
+		</div>
+	</div>
+</div>
+
+
+</div>
+<br/>
+
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+</body>
+</html>
+

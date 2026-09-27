@@ -1,0 +1,95 @@
+{
+  "binary": "build/analysis/ststeady.exe",
+  "sha256": "9750f67ae51ba158cda4f756ccbd0875fb837ddd15e84db713be53f8573d91b3",
+  "vtable": "0x940034",
+  "save": {
+    "addr": "0x54f890",
+    "code": "int __thiscall sub_54F890(_DWORD *this, int *a2, unsigned int a3)\n{\n  unsigned int v3; // edi\n  int result; // eax\n  int v6; // eax\n  unsigned int v7; // eax\n  int v8; // edi\n  _DWORD *v9; // esi\n\n  v3 = a3; /*0x54f89a*/\n  result = sub_44F880(a1: a2, a2: a3); /*0x54f8a4*/\n  if ( result == 0 ) /*0x54f8ab*/\n  {\n    v6 = *a2; /*0x54f8b1*/\n    a3 = 132; /*0x54f8bb*/\n    (*(void (__thiscall **)(int *, unsigned int *, int))(v6 + 28))(a1: a2, a2: &a3, a3: 4); /*0x54f8c2*/\n    v7 = (*(int (__thiscall **)(int *, _DWORD *, unsigned int))(*a2 + 28))(a1: a2, a2: this + 542, a3); /*0x54f8d3*/\n    if ( v7 >= a3 ) /*0x54f8d9*/\n    {\n      result = (*(int (__thiscall **)(_DWORD *, int *, unsigned int))(*(this + 617) + 176))(a1: this + 617, a2, a3: v3); /*0x54f8f7*/\n      if ( result == 0 ) /*0x54f8ff*/\n      {\n        if ( *(this + 542) == 9 ) /*0x54f908*/\n        {\n          v8 = *(this + 587) * *(this + 588); /*0x54f910*/\n          (*(void (__thiscall **)(int *, _DWORD *, int))(*a2 + 28))(a1: a2, a2: this + 587, a3: 8); /*0x54f924*/\n          v9 = this + 601; /*0x54f92b*/\n          (*(void (__thiscall **)(int *, _DWORD *, int))(*a2 + 28))(a1: a2, a2: v9, a3: 4); /*0x54f934*/\n          (*(void (__thiscall **)(int *, _DWORD, int))(*a2 + 28))(a1: a2, a2: *(this + 591), a3: 8 * v8); /*0x54f94c*/\n          (*(void (__thiscall **)(int *, _DWORD, int))(*a2 + 28))(a1: a2, a2: *(this + 602), a3: 8 * v8 * *v9); /*0x54f965*/\n        }\n        return 0; /*0x54f968*/\n      }\n    }\n    else\n    {\n      return 1; /*0x54f8dd*/\n    }\n  }\n  return result; /*0x54f8db*/\n}",
+    "refs": [
+      {
+        "addr": "0x44f880",
+        "name": "sub_44F880"
+      }
+    ]
+  },
+  "load": {
+    "addr": "0x54f980",
+    "code": "int __thiscall sub_54F980(_DWORD *this, int a2, int a3)\n{\n  int result; // eax\n  int v5; // eax\n  _DWORD *v6; // esi\n  _DWORD *v7; // ebx\n  int v8; // eax\n  int v9; // eax\n  int v10; // edx\n  unsigned int v11; // [esp+8h] [ebp-8h] BYREF\n  _DWORD *v12; // [esp+Ch] [ebp-4h]\n  int v13; // [esp+1Ch] [ebp+Ch]\n\n  v12 = this; /*0x54f991*/\n  result = sub_44FF30(a1: a2, a2: a3); /*0x54f994*/\n  if ( result == 0 ) /*0x54f99b*/\n  {\n    if ( (*(int (__thiscall **)(int, unsigned int *, int))(*(_DWORD *)a2 + 24))(a1: a2, a2: &v11, a3: 4) == 4 /*0x54f9c7*/\n      && v11 <= 0x84 )\n    {\n      sub_89A280(a1: this + 542, a2: 0, a3: 132); /*0x54f9d8*/\n      v5 = (*(int (__thiscall **)(int, _DWORD *, unsigned int))(*(_DWORD *)a2 + 24))(a1: a2, a2: this + 542, a3: v11); /*0x54f9e8*/\n      if ( v5 == v11 ) /*0x54f9ee*/\n      {\n        result = (*(int (__thiscall **)(_DWORD *, int, int))(*(this + 617) + 180))(a1: this + 617, a2, a3); /*0x54fa0e*/\n        if ( result == 0 ) /*0x54fa16*/\n        {\n          if ( *(this + 542) == 9 ) /*0x54fa1f*/\n          {\n            (*(void (__thiscall **)(int, _DWORD *, int))(*(_DWORD *)a2 + 24))(a1: a2, a2: this + 587, a3: 8); /*0x54fa32*/\n            v6 = v12; /*0x54fa3e*/\n            v7 = v12 + 601; /*0x54fa48*/\n            v13 = *(this + 587) * *(this + 588); /*0x54fa4f*/\n            (*(void (__thiscall **)(int, _DWORD *, int))(*(_DWORD *)a2 + 24))(a1: a2, a2: v12 + 601, a3: 4); /*0x54fa52*/\n            sub_413370(a1: v6 + 592); /*0x54fa5b*/\n            v8 = sub_4135A0(a1: 8 * v13); /*0x54fa6a*/\n            v6[591] = v8; /*0x54fa74*/\n            (*(void (__thiscall **)(int, int, int))(*(_DWORD *)a2 + 24))(a1: a2, a2: v8, a3: 8 * v13); /*0x54fa80*/\n            v9 = eslHeapReallocate(a1: 0, a2: v12[602], a3: 8 * v13 * *v7, a4: 0); /*0x54fa9a*/\n            v10 = 8 * v13 * *v7; /*0x54faab*/\n            v12[602] = v9; /*0x54faae*/\n            (*(void (__thiscall **)(int, int, int))(*(_DWORD *)a2 + 24))(a1: a2, a2: v9, a3: v10); /*0x54fabb*/\n          }\n          return 0; /*0x54fabe*/\n        }\n      }\n      else\n      {\n        return 1; /*0x54f9f2*/\n      }\n    }\n    else\n    {\n      return 1; /*0x54f9b4*/\n    }\n  }\n  return result; /*0x54f9b3*/\n}",
+    "refs": [
+      {
+        "addr": "0x44ff30",
+        "name": "sub_44FF30"
+      },
+      {
+        "addr": "0x89a280",
+        "name": "sub_89A280"
+      },
+      {
+        "addr": "0x413370",
+        "name": "sub_413370"
+      },
+      {
+        "addr": "0x4135a0",
+        "name": "sub_4135A0"
+      },
+      {
+        "addr": "0x40d670",
+        "name": "eslHeapReallocate"
+      }
+    ]
+  },
+  "commit": {
+    "addr": "0x54f640",
+    "code": "int __thiscall sub_54F640(_DWORD *this, int a2)\n{\n  int v3; // eax\n  int v4; // eax\n  int v5; // eax\n  int v6; // eax\n  int v7; // ecx\n  int v8; // eax\n  int v9; // esi\n  int v10; // eax\n  int v11; // ecx\n  int v12; // edi\n  int v13; // eax\n  int v14; // edx\n  int v15; // ecx\n  int v16; // esi\n  _DWORD *v17; // eax\n  int v19; // [esp-8h] [ebp-ECh]\n  int v20; // [esp-8h] [ebp-ECh]\n  int v21; // [esp+10h] [ebp-D4h]\n  _DWORD v22[2]; // [esp+14h] [ebp-D0h] BYREF\n  _DWORD *v23; // [esp+1Ch] [ebp-C8h]\n  int v24; // [esp+20h] [ebp-C4h]\n  _DWORD v25[2]; // [esp+24h] [ebp-C0h] BYREF\n  _DWORD *v26; // [esp+2Ch] [ebp-B8h]\n  int v27; // [esp+30h] [ebp-B4h]\n  _DWORD v28[2]; // [esp+34h] [ebp-B0h] BYREF\n  _BYTE v29[8]; // [esp+3Ch] [ebp-A8h] BYREF\n  _BYTE v30[8]; // [esp+44h] [ebp-A0h] BYREF\n  _DWORD v31[38]; // [esp+4Ch] [ebp-98h] BYREF\n\n  sub_44F140(a1: a2); /*0x54f678*/\n  v21 = (*(int (__thiscall **)(_DWORD *, int))(*(this + 617) + 172))(a1: this + 617, a2); /*0x54f696*/\n  v3 = sub_40B8C0(a1: *(this + 627)); /*0x54f69a*/\n  if ( v3 != 0 ) /*0x54f6a6*/\n  {\n    sub_4016A0(a1: v3, a2, a3: 0, a4: -1, a5: 0, a6: 0, a7: 0); /*0x54f6ba*/\n    v4 = sub_40B620(); /*0x54f6c2*/\n    if ( v4 != 0 ) /*0x54f6c9*/\n    {\n      v5 = *(_DWORD *)(v4 + 4); /*0x54f6cb*/\n    }\n    else\n    {\n      v6 = sub_40BB60(); /*0x54f6d2*/\n      if ( v6 == 0 ) /*0x54f6d9*/\n        goto LABEL_7; /*0x54f6d9*/\n      v5 = *(_DWORD *)(v6 + 300); /*0x54f6db*/\n    }\n    *(this + 554) = v5; /*0x54f6e1*/\n  }\nLABEL_7:\n  if ( *(this + 542) == 9 ) /*0x54f6f4*/\n  {\n    v7 = *(this + 588); /*0x54f712*/\n    v8 = *(this + 587); /*0x54f718*/\n    v9 = 8 * v8 * v7; /*0x54f723*/\n    v22[0] = &EStreamBuffer::`vftable'; /*0x54f726*/\n    v22[1] = 0; /*0x54f72e*/\n    v23 = nullptr; /*0x54f736*/\n    v24 = 0; /*0x54f73e*/\n    v31[37] = 1; /*0x54f746*/\n    v25[0] = &EStreamBuffer::`vftable'; /*0x54f751*/\n    v25[1] = 0; /*0x54f759*/\n    v26 = nullptr; /*0x54f761*/\n    v27 = 0; /*0x54f769*/\n    v19 = *(this + 591); /*0x54f77a*/\n    v28[1] = v7 - 1; /*0x54f782*/\n    v28[0] = v8 - 1; /*0x54f78b*/\n    v10 = sub_4135A0(a1: v9); /*0x54f78f*/\n    sub_89A346(a1: v10, a2: v19, a3: v9); /*0x54f795*/\n    v11 = v9; /*0x54f7ab*/\n    if ( (unsigned int)(v9 + MEMORY[0xC] + MEMORY[8]) > MEMORY[0x10] ) /*0x54f7b0*/\n      v11 = v26[4] - v26[2] - MEMORY[0xC]; /*0x54f7b8*/\n    v27 += v9; /*0x54f7ba*/\n    v26[3] = MEMORY[0xC] + v11; /*0x54f7c1*/\n    v12 = v9 * *(this + 601); /*0x54f7ca*/\n    v20 = *(this + 602); /*0x54f7ce*/\n    v13 = sub_4135A0(a1: v12); /*0x54f7d9*/\n    sub_89A346(a1: v13, a2: v20, a3: v12); /*0x54f7df*/\n    v14 = v23[3]; /*0x54f7eb*/\n    v15 = v12; /*0x54f7f5*/\n    if ( (unsigned int)(v12 + v14 + v23[2]) > v23[4] ) /*0x54f7fa*/\n      v15 = v23[4] - v23[2] - v14; /*0x54f802*/\n    v24 += v12; /*0x54f804*/\n    v23[3] = v14 + v15; /*0x54f80b*/\n    v16 = *(_DWORD *)sub_4133D0(a1: v30, a2: 0); /*0x54f81e*/\n    v17 = (_DWORD *)sub_4133D0(a1: v29, a2: 0); /*0x54f82b*/\n    sub_54D080(a1: *v17, a2: *(this + 601), a3: v28, a4: v16); /*0x54f840*/\n    v25[0] = &EStreamBuffer::`vftable'; /*0x54f849*/\n    sub_413370(a1: v25); /*0x54f851*/\n    v22[0] = &EStreamBuffer::`vftable'; /*0x54f85a*/\n    sub_413370(a1: v22); /*0x54f862*/\n  }\n  else\n  {\n    qmemcpy(v31, this + 542, 0x84u); /*0x54f703*/\n    sub_54CE20(a1: v31); /*0x54f708*/\n  }\n  return v21; /*0x54f86b*/\n}",
+    "refs": [
+      {
+        "addr": "0x44f140",
+        "name": "sub_44F140"
+      },
+      {
+        "addr": "0x40b8c0",
+        "name": "sub_40B8C0"
+      },
+      {
+        "addr": "0x4016a0",
+        "name": "sub_4016A0"
+      },
+      {
+        "addr": "0x40b620",
+        "name": "sub_40B620"
+      },
+      {
+        "addr": "0x40bb60",
+        "name": "sub_40BB60"
+      },
+      {
+        "addr": "0x91d200",
+        "name": "??_7EStreamBuffer@@6B@"
+      },
+      {
+        "addr": "0x4135a0",
+        "name": "sub_4135A0"
+      },
+      {
+        "addr": "0x89a346",
+        "name": "sub_89A346"
+      },
+      {
+        "addr": "0x4133d0",
+        "name": "sub_4133D0"
+      },
+      {
+        "addr": "0x54d080",
+        "name": "sub_54D080"
+      },
+      {
+        "addr": "0x413370",
+        "name": "sub_413370"
+      },
+      {
+        "addr": "0x54ce20",
+        "name": "sub_54CE20"
+      }
+    ]
+  }
+}

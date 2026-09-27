@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<script src="script.csx" profile="study-steady-r18">
+    <save_dir path="local://savedata"/>
+    <archive path="storage://game/patch2.noa"/>
+    <archive path="storage://game/patch1.noa"/>
+    <archive path="storage://game/script.noa"/>
+    <archive path="storage://game/voice2.noa"/>
+    <archive path="storage://game/bg.noa"/>
+    <archive path="storage://game/bgm.noa"/>
+    <archive path="storage://game/se.noa"/>
+    <archive path="storage://game/ev.noa"/>
+    <archive path="storage://game/psb.noa"/>
+    <archive path="storage://game/system.noa"/>
+    <archive path="storage://game/ststsys.noa"/>
+    <archive path="storage://game/movie.noa"/>
+    <archive path="storage://game/title.noa"/>
+    <archive path="storage://game/ending.noa"/>
+    <file path="storage://game/test"/>
+    <file path="storage://game"/>
+    <file path="storage://game/image"/>
+    <file path="storage://game/script"/>
+    <file path="storage://game/compiler"/>
+    <fonts>
+        <file name="MsgFont" path="msgfont_h.bmf"/>
+        <file name="@MsgFont" path="msgfont_v.bmf"/>
+    </fonts>
+    <display caption="StudySteady" width="1920" height="1080" depth="32"
+        frequency="60" CooperationLevel="window" change_mode="false"/>
+</script>

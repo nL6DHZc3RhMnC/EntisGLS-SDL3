@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>WindowSprite</title>
+</head>
+<body>
+<div class="chapter">WindowSprite</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　WindowSprite はウィンドウ表示インターフェースを Sprite に供給します。<br/>
+　EntisGLS4 の SGLWindowSprite コンテナです。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="Sprite.xhtml">Sprite</a>
+<div class="indent1"><a href="WindowSprite.xhtml">WindowSprite</a>
+</div></div></div></div><br/>
+
+<div class="headline">Implements</div>
+<div class="indent2">
+	<a href="Window.xhtml">Window</a><br/>
+</div><br/>
+
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="WindowSprite.Stereo3D.xhtml">WindowSprite.Stereo3D</a><br/>
+	<a href="WindowSprite.UpdateParameter.xhtml">WindowSprite.UpdateParameter</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_exteriorFillColor">exteriorFillColor</a><br/>
+	<a href="#static_exteriorStretch">exteriorStretch</a><br/>
+	<a href="#static_flagAllowClose">flagAllowClose</a><br/>
+	<a href="#static_flagAllowMaximize">flagAllowMaximize</a><br/>
+	<a href="#static_flagAllowMinimize">flagAllowMinimize</a><br/>
+	<a href="#static_flagBlackBack">flagBlackBack</a><br/>
+	<a href="#static_flagChildWindow">flagChildWindow</a><br/>
+	<a href="#static_flagDoMaximize">flagDoMaximize</a><br/>
+	<a href="#static_flagDoMinimize">flagDoMinimize</a><br/>
+	<a href="#static_flagDoNormalize">flagDoNormalize</a><br/>
+	<a href="#static_flagEnableIME">flagEnableIME</a><br/>
+	<a href="#static_flagGrantMonitorSave">flagGrantMonitorSave</a><br/>
+	<a href="#static_flagGrantPowerSuspend">flagGrantPowerSuspend</a><br/>
+	<a href="#static_flagGrantScreenSave">flagGrantScreenSave</a><br/>
+	<a href="#static_flagInvisibleWindow">flagInvisibleWindow</a><br/>
+	<a href="#static_flagLayeredWindow">flagLayeredWindow</a><br/>
+	<a href="#static_flagOpenIME">flagOpenIME</a><br/>
+	<a href="#static_flagPopupWindow">flagPopupWindow</a><br/>
+	<a href="#static_flagUseDblClick">flagUseDblClick</a><br/>
+	<a href="#static_flagVariableWindowSize">flagVariableWindowSize</a><br/>
+	<a href="#static_layoutAlignAccording">layoutAlignAccording</a><br/>
+	<a href="#static_layoutAlignBottom">layoutAlignBottom</a><br/>
+	<a href="#static_layoutAlignCenter">layoutAlignCenter</a><br/>
+	<a href="#static_layoutAlignLeft">layoutAlignLeft</a><br/>
+	<a href="#static_layoutAlignMask">layoutAlignMask</a><br/>
+	<a href="#static_layoutAlignRight">layoutAlignRight</a><br/>
+	<a href="#static_layoutAlignTop">layoutAlignTop</a><br/>
+	<a href="#static_layoutDockingLeft">layoutDockingLeft</a><br/>
+	<a href="#static_layoutDockingMask">layoutDockingMask</a><br/>
+	<a href="#static_layoutDockingRight">layoutDockingRight</a><br/>
+	<a href="#static_layoutDockingUnder">layoutDockingUnder</a><br/>
+	<a href="#static_layoutDockingUpper">layoutDockingUpper</a><br/>
+	<a href="#static_layoutNothing">layoutNothing</a><br/>
+	<a href="#static_layoutOffsetClient">layoutOffsetClient</a><br/>
+	<a href="#static_layoutTypeClient">layoutTypeClient</a><br/>
+	<a href="#static_layoutTypeWindow">layoutTypeWindow</a><br/>
+	<a href="#static_modeExclusive">modeExclusive</a><br/>
+	<a href="#static_modeFullScreen">modeFullScreen</a><br/>
+	<a href="#static_modeNormal">modeNormal</a><br/>
+	<a href="#static_modeWindow">modeWindow</a><br/>
+	<a href="#static_postAsyncNoRender">postAsyncNoRender</a><br/>
+	<a href="#static_postDelay">postDelay</a><br/>
+	<a href="#static_postNormal">postNormal</a><br/>
+	<a href="#static_updateVSync">updateVSync</a><br/>
+	<a href="#static_updateWaitFrames">updateWaitFrames</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_WindowSprite">WindowSprite</a><br/>
+	<a href="#virtual_changeCooperationLevel">changeCooperationLevel</a><br/>
+	<a href="#virtual_changeDisplaySize">changeDisplaySize</a><br/>
+	<a href="#virtual_changeWindowSize">changeWindowSize</a><br/>
+	<a href="#virtual_clientPositionFromScreen">clientPositionFromScreen</a><br/>
+	<a href="#virtual_closeDisplay">closeDisplay</a><br/>
+	<a href="#virtual_closeWindow">closeWindow</a><br/>
+	<a href="#virtual_createDisplay">createDisplay</a><br/>
+	<a href="#virtual_createWindow">createWindow</a><br/>
+	<a href="#virtual_enableChangePhysicalMode">enableChangePhysicalMode</a><br/>
+	<a href="#virtual_enableZBuffer">enableZBuffer</a><br/>
+	<a href="#virtual_getCursorPosition">getCursorPosition</a><br/>
+	<a href="#virtual_getDisplaySize">getDisplaySize</a><br/>
+	<a href="#virtual_getInternalDisplayPosition">getInternalDisplayPosition</a><br/>
+	<a href="#virtual_getMonitorFrequency">getMonitorFrequency</a><br/>
+	<a href="#virtual_getNormalWindowPosition">getNormalWindowPosition</a><br/>
+	<a href="#virtual_getOptionalFlags">getOptionalFlags</a><br/>
+	<a href="#virtual_getWindowClientRect">getWindowClientRect</a><br/>
+	<a href="#virtual_initWindowPosition">initWindowPosition</a><br/>
+	<a href="#virtual_isShowCursor">isShowCursor</a><br/>
+	<a href="#virtual_isSupportedStereoDisplayMode">isSupportedStereoDisplayMode</a><br/>
+	<a href="#virtual_isWindowActive">isWindowActive</a><br/>
+	<a href="#virtual_lock">lock</a><br/>
+	<a href="#virtual_moveCursorPosition">moveCursorPosition</a><br/>
+	<a href="#virtual_postRenderingThread">postRenderingThread</a><br/>
+	<a href="#virtual_postUIThread">postUIThread</a><br/>
+	<a href="#virtual_postUpdate">postUpdate</a><br/>
+	<a href="#virtual_processUserInput">processUserInput</a><br/>
+	<a href="#virtual_screenPositionFromClient">screenPositionFromClient</a><br/>
+	<a href="#virtual_setCursor">setCursor</a><br/>
+	<a href="#virtual_setExteriorBackgroundFrame">setExteriorBackgroundFrame</a><br/>
+	<a href="#virtual_setOptionalFlags">setOptionalFlags</a><br/>
+	<a href="#virtual_setStereoDisplayMode">setStereoDisplayMode</a><br/>
+	<a href="#virtual_setWindowCaption">setWindowCaption</a><br/>
+	<a href="#virtual_setWindowLayout">setWindowLayout</a><br/>
+	<a href="#virtual_showCursor">showCursor</a><br/>
+	<a href="#virtual_testLocked">testLocked</a><br/>
+	<a href="#virtual_unlock">unlock</a><br/>
+	<a href="#virtual_updateWindow">updateWindow</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_exteriorFillColor"/>
+<div class="headline">exteriorFillColor</div>
+<div class="usage">public static const Integer exteriorFillColor = 1</div>
+<br/>
+
+<a name="static_exteriorStretch"/>
+<div class="headline">exteriorStretch</div>
+<div class="usage">public static const Integer exteriorStretch = 2</div>
+<br/>
+
+<a name="static_flagAllowClose"/>
+<div class="headline">flagAllowClose</div>
+<div class="usage">public static const Integer flagAllowClose = 2</div>
+<br/>
+
+<a name="static_flagAllowMaximize"/>
+<div class="headline">flagAllowMaximize</div>
+<div class="usage">public static const Integer flagAllowMaximize = 512 /* 0x0200 */</div>
+<br/>
+
+<a name="static_flagAllowMinimize"/>
+<div class="headline">flagAllowMinimize</div>
+<div class="usage">public static const Integer flagAllowMinimize = 16</div>
+<br/>
+
+<a name="static_flagBlackBack"/>
+<div class="headline">flagBlackBack</div>
+<div class="usage">public static const Integer flagBlackBack = 4</div>
+<br/>
+
+<a name="static_flagChildWindow"/>
+<div class="headline">flagChildWindow</div>
+<div class="usage">public static const Integer flagChildWindow = 4096 /* 0x1000 */</div>
+<br/>
+
+<a name="static_flagDoMaximize"/>
+<div class="headline">flagDoMaximize</div>
+<div class="usage">public static const Integer flagDoMaximize = 262144 /* 0x00040000 */</div>
+<br/>
+
+<a name="static_flagDoMinimize"/>
+<div class="headline">flagDoMinimize</div>
+<div class="usage">public static const Integer flagDoMinimize = 131072 /* 0x00020000 */</div>
+<br/>
+
+<a name="static_flagDoNormalize"/>
+<div class="headline">flagDoNormalize</div>
+<div class="usage">public static const Integer flagDoNormalize = 524288 /* 0x00080000 */</div>
+<br/>
+
+<a name="static_flagEnableIME"/>
+<div class="headline">flagEnableIME</div>
+<div class="usage">public static const Integer flagEnableIME = 8</div>
+<br/>
+
+<a name="static_flagGrantMonitorSave"/>
+<div class="headline">flagGrantMonitorSave</div>
+<div class="usage">public static const Integer flagGrantMonitorSave = 64 /* 0x0040 */</div>
+<br/>
+
+<a name="static_flagGrantPowerSuspend"/>
+<div class="headline">flagGrantPowerSuspend</div>
+<div class="usage">public static const Integer flagGrantPowerSuspend = 128 /* 0x0080 */</div>
+<br/>
+
+<a name="static_flagGrantScreenSave"/>
+<div class="headline">flagGrantScreenSave</div>
+<div class="usage">public static const Integer flagGrantScreenSave = 32 /* 0x0020 */</div>
+<br/>
+
+<a name="static_flagInvisibleWindow"/>
+<div class="headline">flagInvisibleWindow</div>
+<div class="usage">public static const Integer flagInvisibleWindow = 16384 /* 0x4000 */</div>
+<br/>
+
+<a name="static_flagLayeredWindow"/>
+<div class="headline">flagLayeredWindow</div>
+<div class="usage">public static const Integer flagLayeredWindow = 1</div>
+<br/>
+
+<a name="static_flagOpenIME"/>
+<div class="headline">flagOpenIME</div>
+<div class="usage">public static const Integer flagOpenIME = 65536 /* 0x00010000 */</div>
+<br/>
+
+<a name="static_flagPopupWindow"/>
+<div class="headline">flagPopupWindow</div>
+<div class="usage">public static const Integer flagPopupWindow = 8192 /* 0x2000 */</div>
+<br/>
+
+<a name="static_flagUseDblClick"/>
+<div class="headline">flagUseDblClick</div>
+<div class="usage">public static const Integer flagUseDblClick = 1</div>
+<br/>
+
+<a name="static_flagVariableWindowSize"/>
+<div class="headline">flagVariableWindowSize</div>
+<div class="usage">public static const Integer flagVariableWindowSize = 256 /* 0x0100 */</div>
+<br/>
+
+<a name="static_layoutAlignAccording"/>
+<div class="headline">layoutAlignAccording</div>
+<div class="usage">public static const Integer layoutAlignAccording = 48 /* 0x0030 */</div>
+<br/>
+
+<a name="static_layoutAlignBottom"/>
+<div class="headline">layoutAlignBottom</div>
+<div class="usage">public static const Integer layoutAlignBottom = 32 /* 0x0020 */</div>
+<br/>
+
+<a name="static_layoutAlignCenter"/>
+<div class="headline">layoutAlignCenter</div>
+<div class="usage">public static const Integer layoutAlignCenter = 16</div>
+<br/>
+
+<a name="static_layoutAlignLeft"/>
+<div class="headline">layoutAlignLeft</div>
+<div class="usage">public static const Integer layoutAlignLeft = 0</div>
+<br/>
+
+<a name="static_layoutAlignMask"/>
+<div class="headline">layoutAlignMask</div>
+<div class="usage">public static const Integer layoutAlignMask = 48 /* 0x0030 */</div>
+<br/>
+
+<a name="static_layoutAlignRight"/>
+<div class="headline">layoutAlignRight</div>
+<div class="usage">public static const Integer layoutAlignRight = 32 /* 0x0020 */</div>
+<br/>
+
+<a name="static_layoutAlignTop"/>
+<div class="headline">layoutAlignTop</div>
+<div class="usage">public static const Integer layoutAlignTop = 0</div>
+<br/>
+
+<a name="static_layoutDockingLeft"/>
+<div class="headline">layoutDockingLeft</div>
+<div class="usage">public static const Integer layoutDockingLeft = 2</div>
+<br/>
+
+<a name="static_layoutDockingMask"/>
+<div class="headline">layoutDockingMask</div>
+<div class="usage">public static const Integer layoutDockingMask = 15</div>
+<br/>
+
+<a name="static_layoutDockingRight"/>
+<div class="headline">layoutDockingRight</div>
+<div class="usage">public static const Integer layoutDockingRight = 3</div>
+<br/>
+
+<a name="static_layoutDockingUnder"/>
+<div class="headline">layoutDockingUnder</div>
+<div class="usage">public static const Integer layoutDockingUnder = 5</div>
+<br/>
+
+<a name="static_layoutDockingUpper"/>
+<div class="headline">layoutDockingUpper</div>
+<div class="usage">public static const Integer layoutDockingUpper = 4</div>
+<br/>
+
+<a name="static_layoutNothing"/>
+<div class="headline">layoutNothing</div>
+<div class="usage">public static const Integer layoutNothing = 0</div>
+<br/>
+
+<a name="static_layoutOffsetClient"/>
+<div class="headline">layoutOffsetClient</div>
+<div class="usage">public static const Integer layoutOffsetClient = 1</div>
+<br/>
+
+<a name="static_layoutTypeClient"/>
+<div class="headline">layoutTypeClient</div>
+<div class="usage">public static const Integer layoutTypeClient = 0</div>
+<br/>
+
+<a name="static_layoutTypeWindow"/>
+<div class="headline">layoutTypeWindow</div>
+<div class="usage">public static const Integer layoutTypeWindow = 64 /* 0x0040 */</div>
+<br/>
+
+<a name="static_modeExclusive"/>
+<div class="headline">modeExclusive</div>
+<div class="usage">public static const Integer modeExclusive = 7</div>
+<br/>
+
+<a name="static_modeFullScreen"/>
+<div class="headline">modeFullScreen</div>
+<div class="usage">public static const Integer modeFullScreen = 3</div>
+<br/>
+
+<a name="static_modeNormal"/>
+<div class="headline">modeNormal</div>
+<div class="usage">public static const Integer modeNormal = 1</div>
+<br/>
+
+<a name="static_modeWindow"/>
+<div class="headline">modeWindow</div>
+<div class="usage">public static const Integer modeWindow = 0</div>
+<br/>
+
+<a name="static_postAsyncNoRender"/>
+<div class="headline">postAsyncNoRender</div>
+<div class="usage">public static const Integer postAsyncNoRender = 2</div>
+<br/>
+
+<a name="static_postDelay"/>
+<div class="headline">postDelay</div>
+<div class="usage">public static const Integer postDelay = 1</div>
+<br/>
+
+<a name="static_postNormal"/>
+<div class="headline">postNormal</div>
+<div class="usage">public static const Integer postNormal = 0</div>
+<br/>
+
+<a name="static_updateVSync"/>
+<div class="headline">updateVSync</div>
+<div class="usage">public static const Integer updateVSync = 1</div>
+<br/>
+
+<a name="static_updateWaitFrames"/>
+<div class="headline">updateWaitFrames</div>
+<div class="usage">public static const Integer updateWaitFrames = 2</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_WindowSprite"/>
+<div class="headline">WindowSprite</div>
+<div class="usage">public void WindowSprite(&#32; )</div>
+<br/>
+
+<a name="virtual_changeCooperationLevel"/>
+<div class="headline">changeCooperationLevel</div>
+<div class="usage">public boolean changeCooperationLevel( int mode )</div>
+<br/>
+
+<a name="virtual_changeDisplaySize"/>
+<div class="headline">changeDisplaySize</div>
+<div class="usage">public boolean changeDisplaySize( int width, int height, int bpp = 0, int frequency = 0 )</div>
+<br/>
+
+<a name="virtual_changeWindowSize"/>
+<div class="headline">changeWindowSize</div>
+<div class="usage">public boolean changeWindowSize( int width, int height )</div>
+<br/>
+
+<a name="virtual_clientPositionFromScreen"/>
+<div class="headline">clientPositionFromScreen</div>
+<div class="usage">public Vector2D clientPositionFromScreen( Vector2D vScreen )</div>
+<br/>
+
+<a name="virtual_closeDisplay"/>
+<div class="headline">closeDisplay</div>
+<div class="usage">public boolean closeDisplay(&#32; )</div>
+<br/>
+
+<a name="virtual_closeWindow"/>
+<div class="headline">closeWindow</div>
+<div class="usage">public boolean closeWindow(&#32; )</div>
+<br/>
+
+<a name="virtual_createDisplay"/>
+<div class="headline">createDisplay</div>
+<div class="usage">public boolean createDisplay( String name, int mode, int width, int height, int bpp = 0, int frequency = 0 )</div>
+<br/>
+
+<a name="virtual_createWindow"/>
+<div class="headline">createWindow</div>
+<div class="usage">public boolean createWindow( String name, int width, int height, int flags, WindowSprite parent = null )</div>
+<br/>
+
+<a name="virtual_enableChangePhysicalMode"/>
+<div class="headline">enableChangePhysicalMode</div>
+<div class="usage">public boolean enableChangePhysicalMode( boolean flagEnable )</div>
+<br/>
+
+<a name="virtual_enableZBuffer"/>
+<div class="headline">enableZBuffer</div>
+<div class="usage">public boolean enableZBuffer( boolean flagZBuffer )</div>
+<br/>
+
+<a name="virtual_getCursorPosition"/>
+<div class="headline">getCursorPosition</div>
+<div class="usage">public boolean getCursorPosition( Point ptCursor, int idMouse = 0 )</div>
+<br/>
+
+<a name="virtual_getDisplaySize"/>
+<div class="headline">getDisplaySize</div>
+<div class="usage">public boolean getDisplaySize( Size sizeDisplay )</div>
+<br/>
+
+<a name="virtual_getInternalDisplayPosition"/>
+<div class="headline">getInternalDisplayPosition</div>
+<div class="usage">public boolean getInternalDisplayPosition( Rect rectRender, Rect rectDisplay )</div>
+<br/>
+
+<a name="virtual_getMonitorFrequency"/>
+<div class="headline">getMonitorFrequency</div>
+<div class="usage">public int getMonitorFrequency(&#32; )</div>
+<br/>
+
+<a name="virtual_getNormalWindowPosition"/>
+<div class="headline">getNormalWindowPosition</div>
+<div class="usage">public boolean getNormalWindowPosition( Point ptWindow, Size sizeWindow = null )</div>
+<br/>
+
+<a name="virtual_getOptionalFlags"/>
+<div class="headline">getOptionalFlags</div>
+<div class="usage">public const long getOptionalFlags(&#32; )</div>
+<br/>
+
+<a name="virtual_getWindowClientRect"/>
+<div class="headline">getWindowClientRect</div>
+<div class="usage">public boolean getWindowClientRect( Rect rectClient )</div>
+<br/>
+
+<a name="virtual_initWindowPosition"/>
+<div class="headline">initWindowPosition</div>
+<div class="usage">public boolean initWindowPosition( int xPos, int yPos, Size pInitExSize = null )</div>
+<br/>
+
+<a name="virtual_isShowCursor"/>
+<div class="headline">isShowCursor</div>
+<div class="usage">public boolean isShowCursor(&#32; )</div>
+<br/>
+
+<a name="virtual_isSupportedStereoDisplayMode"/>
+<div class="headline">isSupportedStereoDisplayMode</div>
+<div class="usage">public boolean isSupportedStereoDisplayMode( String sMethodID )</div>
+<br/>
+
+<a name="virtual_isWindowActive"/>
+<div class="headline">isWindowActive</div>
+<div class="usage">public boolean isWindowActive(&#32; )</div>
+<br/>
+
+<a name="virtual_lock"/>
+<div class="headline">lock</div>
+<div class="usage">public void lock(&#32; )</div>
+<br/>
+
+<a name="virtual_moveCursorPosition"/>
+<div class="headline">moveCursorPosition</div>
+<div class="usage">public boolean moveCursorPosition( int xPos, int yPos, int idMouse = 0 )</div>
+<br/>
+
+<a name="virtual_postRenderingThread"/>
+<div class="headline">postRenderingThread</div>
+<div class="usage">public boolean postRenderingThread( Runnable proc, int postType = 0 )</div>
+<br/>
+
+<a name="virtual_postUIThread"/>
+<div class="headline">postUIThread</div>
+<div class="usage">public boolean postUIThread( Runnable proc )</div>
+<br/>
+
+<a name="virtual_postUpdate"/>
+<div class="headline">postUpdate</div>
+<div class="usage">public void postUpdate( Rect pUpdate = null )</div>
+<br/>
+
+<a name="virtual_processUserInput"/>
+<div class="headline">processUserInput</div>
+<div class="usage">public boolean processUserInput( long msecTimeout = 1 )</div>
+<br/>
+
+<a name="virtual_screenPositionFromClient"/>
+<div class="headline">screenPositionFromClient</div>
+<div class="usage">public Vector2D screenPositionFromClient( Vector2D vClient )</div>
+<br/>
+
+<a name="virtual_setCursor"/>
+<div class="headline">setCursor</div>
+<div class="usage">public boolean setCursor( String sCursorID )</div>
+<br/>
+
+<a name="virtual_setExteriorBackgroundFrame"/>
+<div class="headline">setExteriorBackgroundFrame</div>
+<div class="usage">public boolean setExteriorBackgroundFrame( int nFlags, int rgbColor, Image pTile, Image pLeft = null, Image pRight = null, Image pUpper = null, Image pUnder = null )</div>
+<br/>
+
+<a name="virtual_setOptionalFlags"/>
+<div class="headline">setOptionalFlags</div>
+<div class="usage">public void setOptionalFlags( long nFlags )</div>
+<br/>
+
+<a name="virtual_setStereoDisplayMode"/>
+<div class="headline">setStereoDisplayMode</div>
+<div class="usage">public boolean setStereoDisplayMode( String sMethodID, long nParam = 0 )</div>
+<br/>
+
+<a name="virtual_setWindowCaption"/>
+<div class="headline">setWindowCaption</div>
+<div class="usage">public boolean setWindowCaption( String name )</div>
+<br/>
+
+<a name="virtual_setWindowLayout"/>
+<div class="headline">setWindowLayout</div>
+<div class="usage">public boolean setWindowLayout( int nFlags, int xPos = 0, int yPos = 0 )</div>
+<br/>
+
+<a name="virtual_showCursor"/>
+<div class="headline">showCursor</div>
+<div class="usage">public boolean showCursor( boolean fShow )</div>
+<br/>
+
+<a name="virtual_testLocked"/>
+<div class="headline">testLocked</div>
+<div class="usage">public long testLocked(&#32; )</div>
+<br/>
+
+<a name="virtual_unlock"/>
+<div class="headline">unlock</div>
+<div class="usage">public void unlock(&#32; )</div>
+<br/>
+
+<a name="virtual_updateWindow"/>
+<div class="headline">updateWindow</div>
+<div class="usage">public boolean updateWindow( WindowSprite.UpdateParameter pUpdate = null )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

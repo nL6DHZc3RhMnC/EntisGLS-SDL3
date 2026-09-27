@@ -1,0 +1,2213 @@
+
+; -----------------------------------------------------------------------------
+;	ERISA 画像コンバーター用 PSD->スキン変換スクリプトライブラリ
+; -----------------------------------------------------------------------------
+
+Include	"psdskin.ch"
+
+
+; -----------------------------------------------------------------------------
+;	切り出しパラメータを設定する
+; -----------------------------------------------------------------------------
+
+Function	void SkinData::SetCutParam(
+				Integer nAlign, Integer nMargin, Integer nThreshold )
+
+	this.nCutAlign := nAlign
+	this.nCutMargin := nMargin
+	this.nCutThreshold := nThreshold
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	出力ディレクトリを設定する
+; -----------------------------------------------------------------------------
+
+Function	void SkinData::SetDestinationDirectory( String sDstDir )
+
+	this.sDefDstDir := sDstDir
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	アイテム挿入方向を設定する
+; -----------------------------------------------------------------------------
+
+Function	void SkinData::SetToAddItem( Boolean fAddFlag )
+
+	this.fDirection := fAddFlag
+
+EndFunc
+
+
+
+; -----------------------------------------------------------------------------
+;	ボタンのデフォルトSEを設定する
+; -----------------------------------------------------------------------------
+
+Function	void SkinData::SetDefaultSE( String sPushedSE, String sFocusSE )
+	this.sDefPushedSE := sPushedSE
+	this.sDefFocusSE := sFocusSE
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	現在の画像コンテキストを設定する
+; -----------------------------------------------------------------------------
+
+Function	void SkinData::SetContext( ImageContext& imgctx )
+
+	this.rContext ::= imgctx
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	レイヤーを検索する
+; -----------------------------------------------------------------------------
+
+Function	Integer SkinData::FindLayerIndex(
+					Integer iLayer, Boolean fNoErrorMsg )
+
+	Return	iLayer
+
+EndFunc
+
+Function	Integer SkinData::FindLayerIndex(
+					String sLayer, Boolean fNoErrorMsg )
+
+	Integer	iLayer := -1
+	For	r | this.rContext[i]
+		If	r.name.IsMatchUsage( sLayer ) == ""
+			iLayer := i
+			Break
+		EndIf
+	Next
+	If	iLayer < 0
+		If	!fNoErrorMsg
+			print( "Error : ", sLayer,
+					"に該当するレイヤーが見つかりません。\n" )
+			this.nError += 1
+		EndIf
+		Return	-1
+	EndIf
+	Return	iLayer
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	ページ新規作成
+; -----------------------------------------------------------------------------
+
+Function	void SkinData::BeginPage(
+		String sPageID, ImageContext& imgctx,
+		String sBGID, String sBGFile, Integer iLayer )
+
+	this.rContext ::= imgctx
+	;
+	Integer	i := this.aPages.GetLength()
+	this.aPages[i] := PageForm
+	this.aPages[i].sID := sPageID
+	this.aPages[i].sizePage := imgctx.size
+	;
+	print( "\nBegin Page ID = ", sPageID, "\n" )
+
+	If	sBGID != ""
+		If	sBGFile != ""
+			If	SaveImage( sBGID, sBGFile, iLayer ) == 0
+				this.aPages[i].sBG := sBGID
+			EndIf
+		Else
+			this.aPages[i].sBG := sBGID
+		EndIf
+	EndIf
+
+EndFunc
+
+
+
+; -----------------------------------------------------------------------------
+;	画像リソース登録
+; -----------------------------------------------------------------------------
+
+Function	Error SkinData::SaveImage(
+		String sImageID, String sImageFile,
+				Integer iLayer, Boolean fKeepHotspot, Rect& rCurRect )
+
+	Return	this.SaveAnimation(
+				sImageID, sImageFile,
+					iLayer, 1, "", 0, fKeepHotspot, "", rCurRect )
+
+EndFunc
+
+
+Function	Error SkinData::SaveImage(
+		String sImageID, String sImageFile,
+				String sLayer, Boolean fKeepHotspot, Rect& rCurRect )
+
+	Return	this.SaveAnimation(
+				sImageID, sImageFile,
+					0, -1, sLayer, 0, fKeepHotspot, "", rCurRect )
+
+EndFunc
+
+
+Function	Error SkinData::SaveAnimation(
+		String sImageID, String sImageFile,
+		Integer iFirst, Integer nCount, String sName,
+		Integer nAnimeDuration, Boolean fKeepHotspot,
+		String sSequence, Rect& rCurRect, Boolean fGrayscale )
+
+	Integer			nResult
+	ImageContext	ictxSave
+	Point			ptOffset
+	ictxSave.merge( this.rContext, iFirst, nCount, sName )
+	If	fKeepHotspot
+		ictxSave.hotspot := this.rContext.hotspot
+	EndIf
+	Integer	nCutFlags := ImageContext::cutFlagAutoRemoveAlpha
+	If	fKeepHotspot
+		nCutFlags |= ImageContext::cutFlagKeepHotspot
+	EndIf
+	If	rCurRect === null
+		ictxSave.cut(
+			this.nCutAlign, this.nCutMargin,
+			this.nCutThreshold, nCutFlags, ptOffset )
+	Else
+		Size	sizeCut
+		ptOffset.x := rCurRect.left
+		ptOffset.y := rCurRect.top
+		sizeCut.w := rCurRect.right - rCurRect.left + 1
+		sizeCut.h := rCurRect.bottom - rCurRect.top + 1
+		ictxSave.cut( -1, 0, 0, nCutFlags, ptOffset, sizeCut )
+	EndIf
+	If	fGrayscale
+		ictxSave.gray_scale()
+	EndIf
+	If	nAnimeDuration != 0
+		ictxSave.duration := nAnimeDuration
+	EndIf
+	ictxSave.animation( sSequence )
+
+	If	sImageFile == ""
+		sImageFile := sImageID + ".eri"
+	EndIf
+	nResult := ictxSave.save( this.sDefDstDir.OffsetFilePath(sImageFile) )
+
+	If	nResult != 0
+		print( 'Error : "', sImageFile, '" への書き出しに失敗しました。\n' )
+		this.nError += 1
+	Else
+		print( "  Image ID = ", sImageID, " -> ", sImageFile, "\n" )
+		If	!this.aImages.IsEmpty( sImageID )
+			print( 'Error : 画像識別子 "',
+					sImageID, '" は既に定義されています。\n' )
+			this.nError += 1
+		Else
+			this.aImages[sImageID] := ResourceInfo
+		EndIf
+		this.aImages[sImageID].sRsrcType := "image"
+		this.aImages[sImageID].sFileName := sImageFile
+		If	!fKeepHotspot
+			this.aImages[sImageID].ptOffset := ptOffset
+		EndIf
+		this.aImages[sImageID].sizeImage := ictxSave.size
+	EndIf
+
+	Return	nResult
+
+EndFunc
+
+
+Function	Error SkinData::SaveImages(
+				String[]& aImageID, String[]& aImageFile,
+				String[]& aLayer, Integer[]& aDurations,
+				Boolean fKeepHotspot, Rect& rCurRect )
+
+	ImageContext	ictxTemp
+	Integer[]		aLayerCount
+
+	For	rLayer | aLayer[i]
+		ictxTemp.merge( this.rContext, 0, -1, rLayer )
+		aLayerCount += sizeof(ictxTemp)
+	Next
+	For	i := sizeof(aLayerCount) - 1 While i >= 1 Step -1
+		aLayerCount[i] -= aLayerCount[i - 1]
+	Next
+
+	Point	ptOffset
+	If	rCurRect === null
+		ictxTemp.cut(
+			this.nCutAlign, this.nCutMargin,
+			this.nCutThreshold, (4 | (fKeepHotspot & 1)), ptOffset )
+	Else
+		Size	sizeCut
+		ptOffset.x := rCurRect.left
+		ptOffset.y := rCurRect.top
+		sizeCut.w := rCurRect.right - rCurRect.left + 1
+		sizeCut.h := rCurRect.bottom - rCurRect.top + 1
+		ictxTemp.cut( -1, 0, 0, (4 | (fKeepHotspot & 1)), ptOffset, sizeCut )
+	EndIf
+
+	Error	errResult := eslErrSuccess
+	For	rID | aImageID[i]
+		ImageContext	ictxSave
+		ictxSave.merge( ictxTemp, 0, aLayerCount[i] )
+		ictxTemp.Remove( 0, aLayerCount[i] )
+		;
+		If	aDurations !== null
+			ictxSave.duration := aDurations[i]
+		EndIf
+		;
+		String	sImageFile := rID + ".eri"
+		If	aImageFile !== null
+			sImageFile := aImageFile[i]
+		EndIf
+		If	ictxSave.save(
+				this.sDefDstDir.OffsetFilePath(sImageFile) ) != eslErrSuccess
+			print( 'Error : "',
+					sImageFile, '" への書き出しに失敗しました。\n' )
+			this.nError += 1
+			errResult := eslErrFailed
+		Else
+			print( "  Image ID = ", rID, " -> ", sImageFile, "\n" )
+			If	!this.aImages.IsEmpty( rID )
+				print( 'Error : 画像識別子 "',
+						rID, '" は既に定義されています。\n' )
+				this.nError += 1
+			Else
+				this.aImages[rID] := ResourceInfo
+			EndIf
+			this.aImages[rID].sRsrcType := "image"
+			this.aImages[rID].sFileName := sImageFile
+			If	!fKeepHotspot
+				this.aImages[rID].ptOffset := ptOffset
+			EndIf
+			this.aImages[rID].sizeImage := ictxSave.size
+		EndIf
+	Next
+
+	Return	errResult
+
+EndFunc
+
+
+Function	ResourceInfo& SkinData::RegImage(
+		String sImageID, String sImageFile,
+		Point& rPosition, Size& rSize, String sType )
+
+	print( "  Image ID = ", sImageID, " -> ", sImageFile, "\n" )
+	If	!this.aImages.IsEmpty( sImageID )
+		print( 'Error : 画像識別子 "',
+				sImageID, '" は既に定義されています。\n' )
+		this.nError += 1
+	EndIf
+	If	sType == ""
+		sType := "image"
+	EndIf
+	this.aImages[sImageID].sRsrcType := sType
+	this.aImages[sImageID].sFileName := sImageFile
+	If	rPosition !== null
+		this.aImages[sImageID].ptOffset := rPosition
+	EndIf
+	If	rSize !== null
+		this.aImages[sImageID].sizeImage := rSize
+	EndIf
+
+	Return	this.aImages[sImageID]
+
+EndFunc
+
+
+Function	ResourceInfo& SkinData::GetImage( String sImageID )
+
+	If	this.aImages.IsEmpty( sImageID )
+		Return	null
+	EndIf
+	Return	this.aImages[sImageID]
+
+EndFunc
+
+
+
+; -----------------------------------------------------------------------------
+;	静テキストスタイル登録
+; -----------------------------------------------------------------------------
+
+Function	TextStyle& SkinData::AddTextStyle(
+		String sStyleID, Integer nAlign,
+		String sFontFace, Integer nSize, Integer nLineHeight,
+		Boolean fBold, Boolean fItalic,
+		Integer rgbColor, Integer nTransparency,
+		Point& rShadowOffset, Integer rgbShadow, Integer nShadowTrans,
+		Boolean fBordering, Integer nFontPitch )
+
+	If	!this.aStyles.IsEmpty( sStyleID )
+		print( "Error : スタイル ", sStyleID, " はすでに定義されています。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+	TextStyle&	rStyle := \
+			dynamic_cast<TextStyle>( this.aStyles[sStyleID] ::= TextStyle )
+
+	String[]	aAligns := { "left", "top", "right", "center", "accordance" }
+	rStyle.sID := sStyleID
+	rStyle.sAlign := aAligns[nAlign]
+	rStyle.nLineHeight := nLineHeight
+	rStyle.nFontSize := nSize
+	rStyle.nFontPitch := nFontPitch
+	rStyle.sFontFace := sFontFace
+	rStyle.fBold := fBold
+	rStyle.fItalic := fItalic
+	rStyle.rgbColor := rgbColor
+	rStyle.nTransparency := nTransparency
+	If	rShadowOffset !== null
+		rStyle.ptShadow := rShadowOffset
+		rStyle.rgbShadow := rgbShadow
+		rStyle.nShadowTrans := nShadowTrans
+	Else
+		rStyle.nShadowTrans := 100H
+	EndIf
+
+	If	fBordering
+		rStyle.nShadowTrans := 100H
+		rStyle.fBordering := fBordering
+	EndIf
+
+	Return	rStyle
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	ボタンスタイル登録
+; -----------------------------------------------------------------------------
+
+Function	ButtonStyle& SkinData::AddButtonStyle(
+		String sStyleID, String sImageID, Integer nType, Integer nFlags,
+		String sLayer, Integer iHitMask,
+		Integer iFocus, Integer iPushed, Integer iPushedFocus, 
+		Integer iActivePushed, Integer iDisabled, Integer iDisablePushed,
+		Rect& rCutRect )
+
+	Return	AddButtonStyle(
+				sStyleID, sImageID, nType, nFlags,
+				FindLayerIndex( sLayer ), iHitMask,
+				iFocus, iPushed, iPushedFocus,
+				iActivePushed, iDisabled, iDisablePushed, rCutRect )
+
+EndFunc
+
+
+Function	ButtonStyle& SkinData::AddButtonStyle(
+		String sStyleID, String sImageID, Integer nType, Integer nFlags,
+		Integer iLayer, Integer iHitMask,
+		Integer iFocus, Integer iPushed, Integer iPushedFocus, 
+		Integer iActivePushed, Integer iDisabled, Integer iDisablePushed,
+		Rect& rCutRect )
+
+	;
+	; 画像識別子取得
+	;
+	If	sImageID == ""
+		sImageID := sStyleID
+		Integer	i := 1
+		While	!this.aImages.IsEmpty( sImageID )
+			sImageID := sStyleID + "_" + String(i)
+			i += 1
+		EndWhile
+	EndIf
+	;
+	; スタイル登録
+	;
+	String[]	aButtonType := { "button", "check", "radio" }
+	If	!this.aStyles.IsEmpty( sStyleID )
+		print( 'Error : スタイル "',
+				sStyleID, '" は既に定義されています。\n' )
+		this.nError += 1
+		Return	null
+	Else
+		this.aStyles[sStyleID] ::= ButtonStyle
+	EndIf
+	ButtonStyle&	rStyle \
+			:= dynamic_cast<ButtonStyle>( this.aStyles[sStyleID] )
+	rStyle.sID := sStyleID
+	rStyle.sType := aButtonType[nType]
+	rStyle.fHitRect := (nFlags and btnHitRect) != 0
+	If	rStyle.fHitRect
+		rStyle.aImages.mask := ""
+	EndIf
+	;
+	; 整列画像生成
+	;
+	ImageContext	imgctx
+	Integer[]		aClipIdx
+	imgctx.merge( this.rContext, iLayer, 1 )
+	If	(nFlags and btnHideNormal) == 0
+		aClipIdx[0] := 0
+	EndIf
+	If	(nFlags and btnHitMask) != 0
+		aClipIdx[1] := imgctx.GetLength()
+		imgctx.merge( this.rContext, iLayer + iHitMask, 1 )
+	EndIf
+	If	iFocus != 0
+		aClipIdx[2] := imgctx.GetLength()
+		imgctx.merge( this.rContext, iLayer + iFocus, 1 )
+	ElseIf	(nFlags and btnVisFocus) != 0
+		aClipIdx[2] := 0
+	EndIf
+	If	iPushed != 0
+		aClipIdx[3] := imgctx.GetLength()
+		imgctx.merge( this.rContext, iLayer + iPushed, 1 )
+	ElseIf	(nFlags and btnVisPushed) != 0
+		aClipIdx[3] := 0
+	EndIf
+	If	iPushedFocus != 0
+		aClipIdx[4] := imgctx.GetLength()
+		imgctx.merge( this.rContext, iLayer + iPushedFocus, 1 )
+	ElseIf	(nFlags and btnVisPushedFocus) != 0
+		aClipIdx[4] := 0
+	EndIf
+	If	iActivePushed != 0
+		aClipIdx[5] := imgctx.GetLength()
+		imgctx.merge( this.rContext, iLayer + iActivePushed, 1 )
+	ElseIf	(nFlags and btnVisActivePushed) != 0
+		aClipIdx[5] := 0
+	EndIf
+	If	iDisabled != 0
+		aClipIdx[6] := imgctx.GetLength()
+		imgctx.merge( this.rContext, iLayer + iDisabled, 1 )
+	EndIf
+	If	iDisablePushed != 0
+		aClipIdx[7] := imgctx.GetLength()
+		imgctx.merge( this.rContext, iLayer + iDisablePushed, 1 )
+	EndIf
+	;
+	If	rCutRect !== null
+		Size	sizeCut
+		rStyle.ptOffset.x := rCutRect.left
+		rStyle.ptOffset.y := rCutRect.top
+		sizeCut.w := rCutRect.right - rCutRect.left + 1
+		sizeCut.h := rCutRect.bottom - rCutRect.top + 1
+		imgctx.cut( -1, 0, 0, 4, rStyle.ptOffset, sizeCut )
+	ElseIf	this.nCutAlign != 0
+		imgctx.cut(
+			this.nCutAlign, this.nCutMargin,
+			this.nCutThreshold, 4, rStyle.ptOffset )
+	Else
+		imgctx.cut( 1, this.nCutMargin,
+			this.nCutThreshold, 4, rStyle.ptOffset )
+	EndIf
+	Size	sizeParts := imgctx.size
+	rStyle.sizeButton := sizeParts
+	;
+	; 画像の保存・登録
+	;
+	imgctx.arrange( true )
+	If	imgctx.save(
+			this.sDefDstDir.OffsetFilePath(
+						sImageID + ".eri") ) != eslErrSuccess
+		print( "Error : ", sImageID, " の書き出しに失敗しました。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+	;
+	If	!this.aImages.IsEmpty( sImageID )
+		print( "Error : 画像識別子 ", sImageID, " は既に定義されています。\n" )
+		this.nError += 1
+		Return	null
+	Else
+		this.aImages[sImageID] := ResourceInfo
+	EndIf
+	this.aImages[sImageID].ptOffset := rStyle.ptOffset
+	this.aImages[sImageID].sRsrcType := "image"
+	this.aImages[sImageID].sFileName := sImageID + ".eri"
+	;
+	; ボタンステータス画像設定
+	;
+	For	rStatus | ButtonStatusTable[i]
+		If	!aClipIdx.IsEmpty( i )
+			Integer	j := aClipIdx[i]
+			String	sImage := sImageID +
+						":RECT(0," + String(j*sizeParts.h) + "," +
+						String(sizeParts.w) + "," + String(sizeParts.h) + ")"
+			rStyle.aImages[rStatus] := sImage
+		EndIf
+	Next
+	;
+	print( "  Button Style ID = ", sStyleID, " : ", sImageID, "\n" )
+
+	Return	rStyle
+
+EndFunc
+
+
+Function	ButtonStyle& SkinData::RegButtonStyle( 
+		String sStyleID, String sImageID,
+		ImageContext& imgctx, Integer nType, Integer nFlags,
+		Integer iHitMask, Integer iFocus,
+		Integer iPushed, Integer iPushedFocus, 
+		Integer iActivePushed, Integer iDisabled, Integer iDisablePushed )
+
+	;
+	; 画像識別子取得
+	;
+	If	sImageID == ""
+		sImageID := sStyleID
+		Integer	i := 1
+		While	!this.aImages.IsEmpty( sImageID )
+			sImageID := sStyleID + "_" + String(i)
+			i += 1
+		EndWhile
+	EndIf
+	;
+	; スタイル登録
+	;
+	String[]	aButtonType := { "button", "check", "radio" }
+	If	!this.aStyles.IsEmpty( sStyleID )
+		print( 'Error : スタイル "',
+				sStyleID, '" は既に定義されています。\n' )
+		this.nError += 1
+		Return	null
+	Else
+		this.aStyles[sStyleID] ::= ButtonStyle
+	EndIf
+	ButtonStyle&	rStyle \
+			:= dynamic_cast<ButtonStyle>( this.aStyles[sStyleID] )
+	rStyle.sID := sStyleID
+	rStyle.sType := aButtonType[nType]
+	rStyle.fHitRect := (nFlags and btnHitRect) != 0
+	If	rStyle.fHitRect
+		rStyle.aImages.mask := ""
+	EndIf
+	;
+	If	this.nCutAlign != 0
+		imgctx.cut(
+			this.nCutAlign, this.nCutMargin,
+			this.nCutThreshold, 4, rStyle.ptOffset )
+	Else
+		imgctx.cut( 1, this.nCutMargin,
+			this.nCutThreshold, 4, rStyle.ptOffset )
+	EndIf
+	Size	sizeParts := imgctx.size
+	rStyle.sizeButton := sizeParts
+	;
+	; 整列画像生成
+	;
+	Integer[]	aClipIdx
+	If	(nFlags and btnHideNormal) == 0
+		aClipIdx[0] := 0
+	EndIf
+	If	(nFlags and btnHitMask) != 0
+		aClipIdx[1] := iHitMask
+	EndIf
+	If	iFocus != 0
+		aClipIdx[2] := iFocus
+	ElseIf	(nFlags and btnVisFocus) != 0
+		aClipIdx[2] := 0
+	EndIf
+	If	iPushed != 0
+		aClipIdx[3] := iPushed
+	ElseIf	(nFlags and btnVisPushed) != 0
+		aClipIdx[3] := 0
+	EndIf
+	If	iPushedFocus != 0
+		aClipIdx[4] := iPushedFocus
+	ElseIf	(nFlags and btnVisPushedFocus) != 0
+		aClipIdx[4] := 0
+	EndIf
+	If	iActivePushed != 0
+		aClipIdx[5] := iActivePushed
+	EndIf
+	If	iDisabled != 0
+		aClipIdx[6] := iDisabled
+	EndIf
+	If	iDisablePushed != 0
+		aClipIdx[7] := iDisablePushed
+	EndIf
+	;
+	; 画像の保存・登録
+	;
+	imgctx.arrange( true )
+	If	imgctx.save(
+			this.sDefDstDir.OffsetFilePath(
+						sImageID + ".eri") ) != eslErrSuccess
+		print( "Error : ", sImageID, " の書き出しに失敗しました。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+	;
+	If	!this.aImages.IsEmpty( sImageID )
+		print( "Error : 画像識別子 ", sImageID, " は既に定義されています。\n" )
+		this.nError += 1
+		Return	null
+	Else
+		this.aImages[sImageID] := ResourceInfo
+	EndIf
+	this.aImages[sImageID].sRsrcType :="image"
+	this.aImages[sImageID].sFileName := sImageID + ".eri"
+	;
+	; ボタンステータス画像設定
+	;
+	For	rStatus | ButtonStatusTable[i]
+		If	!aClipIdx.IsEmpty( i )
+			Integer	j := aClipIdx[i]
+			String	sImage := sImageID +
+						":RECT(0," + String(j*sizeParts.h) + "," +
+						String(sizeParts.w) + "," + String(sizeParts.h) + ")"
+			rStyle.aImages[rStatus] := sImage
+		EndIf
+	Next
+	;
+	print( "  Button Style ID = ", sStyleID, " : ", sImageID, "\n" )
+
+	Return	rStyle
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	ボタンスタイルにテキストスタイルを適用する
+; -----------------------------------------------------------------------------
+
+Function	void SkinData::SetButtonTextStyle(
+		String sStyleID, Integer nLeft, Integer nTop,
+		Integer nRight, Integer nBottom, Integer nDeltaX, Integer nDeltaY,
+		String sNormal, String sFocus, String sPushed, String sPushedFocus,
+		String sActivePushed, String sDisabled, String sDisablePushed )
+
+	Rect	rctExt, rctPushed
+	rctExt.left := nLeft
+	rctExt.top := nTop
+	rctExt.right := nRight
+	rctExt.bottom := nBottom
+	rctPushed.left := nLeft + nDeltaX
+	rctPushed.top := nTop + nDeltaY
+	rctPushed.right := nRight + nDeltaX
+	rctPushed.bottom := nBottom + nDeltaY
+
+	ButtonStyle&	rButton := \
+			dynamic_cast<ButtonStyle>( this.aStyles[sStyleID] )
+	If	rButton === null
+		print( "Error : ボタンスタイル ",
+				 sStyleID, " は定義されていません。\n" )
+		this.nError += 1
+		Return
+	EndIf
+
+	String[]	aStatus := \
+			{ "normal", "focus", "pushed", "pushed_focus",
+				"active_pushed", "disabled", "push_disabled" }
+	String[]	aTextStyles := \
+			{ String(sNormal), String(sFocus), String(sPushed),
+				String(sPushedFocus), String(sActivePushed),
+				String(sDisabled), String(sDisablePushed) }
+	For	rStyle | aTextStyles[i]
+		If	rStyle != ""
+			If	this.aStyles.IsEmpty( rStyle )
+				print( "Error : スタイル ",
+						rStyle, " は定義されていません。\n" )
+				Continue
+			EndIf
+			TextStyle&	rText := rButton.aTextStyles[aStatus[i]]
+			rText := dynamic_cast<TextStyle>( this.aStyles[rStyle] )
+			If	(i == 0) || (i == 1) || (i == 5)
+				rText.rctExt := rctExt
+			Else
+				rText.rctExt := rctPushed
+			EndIf
+		EndIf
+	Next
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	ボタンスタイルの位置とサイズを取得する
+; -----------------------------------------------------------------------------
+
+Function	Error SkinData::GetButtonStyleRect(
+				String sStyleID, Point& rPosition, Size& rSize )
+
+	If	!this.aStyles.IsEmpty( sStyleID )
+		ButtonStyle&	rStyle := \
+				dynamic_cast<ButtonStyle>( this.aStyles[sStyleID] )
+		If	rStyle !== null
+			If	rPosition !== null
+				rPosition := rStyle.ptOffset
+			EndIf
+			If	rSize !== null
+				rSize := rStyle.sizeButton
+			EndIf
+			Return	eslErrSuccess
+		EndIf
+	EndIf
+	Return	eslErrGeneral
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	進捗バースタイルを登録する
+; -----------------------------------------------------------------------------
+
+Function	ProgressBarStyle& SkinData::AddProgressBarStyle(
+					String sStyleID, Integer nBarType,
+					String sBarLayer, String sFrameLayer, Rect& rFrameCutRect )
+
+	; スタイル基本属性設定
+	;
+	ProgressBarStyle&	rStyle
+	If	!this.aStyles.IsEmpty( sStyleID )
+		print( "Error : ", sStyleID,
+			" はすでに定義されているスタイル識別子です。\n" )
+		Return	null
+	EndIf
+	String[]	aTypes := { "vert", "horz" }
+	rStyle ::= dynamic_cast<ProgressBarStyle>(
+					this.aStyles[sStyleID] ::= ProgressBarStyle )
+	rStyle.sID := sStyleID
+	rStyle.sType := aTypes[nBarType]
+	;
+	; 画像レイヤー検索
+	;
+	Integer	iBarLayer := FindLayerIndex( sBarLayer )
+	Integer	iFrameLayer := FindLayerIndex( sFrameLayer )
+	If	(iBarLayer < 0) || (iFrameLayer < 0)
+		Return	null
+	EndIf
+	;
+	; フレーム画像切り出し
+	;
+	ImageContext	icFrame
+	icFrame.merge( this.rContext, iFrameLayer, 1 )
+	If	rFrameCutRect !== null
+		rStyle.ptOffset.x := rFrameCutRect.left
+		rStyle.ptOffset.y := rFrameCutRect.top
+		rStyle.sizeFrame.w := rFrameCutRect.right - rFrameCutRect.left + 1
+		rStyle.sizeFrame.h := rFrameCutRect.bottom - rFrameCutRect.top + 1
+		icFrame.cut( -1, 0, 0, 4, rStyle.ptOffset, rStyle.sizeFrame )
+	Else
+		icFrame.cut( this.nCutAlign, this.nCutMargin,
+				this.nCutThreshold, 4, rStyle.ptOffset, rStyle.sizeFrame )
+	EndIf
+	;
+	String	sFrameFileName, sFrameImageID
+	sFrameImageID := sStyleID + "_FRAME"
+	sFrameFileName := sFrameImageID + ".eri"
+	;
+	ResourceInfo&	rscinf
+	rscinf ::= this.aImages[sFrameImageID]
+	rscinf.sRsrcType := "image"
+	rscinf.sFileName := sFrameFileName
+	rscinf.sizeImage := icFrame.size
+	;
+	icFrame.save( this.sDefDstDir.OffsetFilePath(sFrameFileName) )
+	;
+	; バー画像切り出し
+	;
+	ImageContext	icBar
+	Point			ptBar
+	Size			sizeBar
+	icBar.merge( this.rContext, iBarLayer, 1 )
+	icBar.cut( this.nCutAlign, this.nCutMargin,
+				this.nCutThreshold, 4, ptBar, sizeBar )
+	;
+	String	sBarFileName, sBarImageID
+	sBarImageID := sStyleID + "_BAR"
+	sBarFileName := sBarImageID + ".eri"
+	;
+	rscinf ::= this.aImages[sBarImageID]
+	rscinf.sRsrcType := "image"
+	rscinf.sFileName := sBarFileName
+	rscinf.sizeImage := icBar.size
+	;
+	icBar.save( this.sDefDstDir.OffsetFilePath(sBarFileName) )
+	;
+	; スタイル完成
+	;
+	rStyle.ptBarOffset := ptBar - rStyle.ptOffset
+	rStyle.sFrameImage := sFrameImageID
+	rStyle.sBarImage := sBarImageID
+
+	Return	rStyle
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	スクロールバースタイルを登録する
+; -----------------------------------------------------------------------------
+
+Function	ScrollBarStyle& SkinData::AddScrollBarStyle(
+		String sStyleID, Integer nBarType,
+		String sBarLayer, Integer nBarNormal,
+		Integer nBarFocus, Integer nBarTracking, Integer nBarDisabled,
+		String sColLayer, Integer nColNormal,
+		Integer nColFocus, Integer nColTracking, Integer nColDisabled,
+		Rect& rColCutRect, Integer nBarOffset,
+		String sUpButton, String sDownButton,
+		Rect& rTrackSpaceRect, String sProgressLayer )
+
+	Integer	iBarLayer := -1
+	If	sBarLayer != ""
+		iBarLayer := FindLayerIndex( sBarLayer )
+	EndIf
+	Integer	iColLayer := FindLayerIndex( sColLayer, true )
+	Integer	iProgressLayer := -1
+	If	sProgressLayer != ""
+		iProgressLayer := FindLayerIndex( sProgressLayer, true )
+	EndIf
+	;
+	Return	AddScrollBarStyle(
+				sStyleID, nBarType, iBarLayer,
+				nBarNormal, nBarFocus, nBarTracking, nBarDisabled,
+				iColLayer, nColNormal, nColFocus, nColTracking, nColDisabled,
+				rColCutRect, nBarOffset,
+				sUpButton, sDownButton, rTrackSpaceRect, iProgressLayer )
+
+EndFunc
+
+
+Function	ScrollBarStyle& SkinData::AddScrollBarStyle(
+		String sStyleID, Integer nBarType,
+		Integer iBarLayer, Integer nBarNormal,
+		Integer nBarFocus, Integer nBarTracking, Integer nBarDisabled,
+		Integer iColLayer, Integer nColNormal,
+		Integer nColFocus, Integer nColTracking, Integer nColDisabled,
+		Rect& rColCutRect, Integer nBarOffset,
+		String sUpButton, String sDownButton,
+		Rect& rTrackSpaceRect, Integer iProgressBar )
+
+	;
+	; スタイル基本属性設定
+	;
+	ScrollBarStyle&	rStyle
+	If	!this.aStyles.IsEmpty( sStyleID )
+		print( "Error : ", sStyleID,
+			" はすでに定義されているスタイル識別子です。\n" )
+		Return	null
+	EndIf
+	String[]	aTypes := { "vert", "horz" }
+	rStyle ::= dynamic_cast<ScrollBarStyle>(
+					this.aStyles[sStyleID] ::= ScrollBarStyle )
+	rStyle.sID := sStyleID
+	rStyle.sType := aTypes[nBarType]
+	rStyle.nBarOffset := nBarOffset
+	rStyle.sUpButton := sUpButton
+	rStyle.sDownButton := sDownButton
+	;
+	; バー画像登録
+	;
+	If	iBarLayer >= 0
+		ImageContext	icBar
+		icBar.merge( this.rContext, iBarLayer + nBarNormal, 1 )
+		icBar.merge( this.rContext, iBarLayer + nBarFocus, 1 )
+		icBar.merge( this.rContext, iBarLayer + nBarTracking, 1 )
+		icBar.merge( this.rContext, iBarLayer + nBarDisabled, 1 )
+		If	this.nCutAlign != 0
+			icBar.cut( this.nCutAlign, this.nCutMargin, this.nCutThreshold, 4 )
+		Else
+			icBar.cut( 1, this.nCutMargin, this.nCutThreshold, 4 )
+		EndIf
+		;
+		String	sBarFileName, sBarImageID
+		Size	sizeBar := icBar.size
+		sBarImageID := sStyleID + "_BAR"
+		sBarFileName := sBarImageID + ".eri"
+		;
+		ResourceInfo&	rscinf := this.aImages[sBarImageID]
+		rscinf.sRsrcType := "image"
+		rscinf.sFileName := sBarFileName
+		rscinf.sizeImage := icBar.size
+		;
+		icBar.arrange( nBarType )
+		icBar.save( this.sDefDstDir.OffsetFilePath(sBarFileName) )
+		;
+		String	sSizeText := "," + String(sizeBar.w) +
+							 "," + String(sizeBar.h) + ")"
+		If	nBarType == sbtVert
+			For	i := 0 To 3
+				rStyle.aBarImages[i] := sBarImageID +
+					":RECT(" + String(sizeBar.w * i) + ",0" + sSizeText
+			Next
+		Else
+			For	i := 0 To 3
+				rStyle.aBarImages[i] := sBarImageID +
+					":RECT(0," + String(sizeBar.h * i) + sSizeText
+			Next
+		EndIf
+	Else
+		For	i := 0 To 3
+			rStyle.aBarImages[i] := ""
+		Next
+	EndIf
+	;
+	; つまみ軌道画像
+	;
+	If	iColLayer >= 0
+		ImageContext	icCol
+		icCol.merge( this.rContext, iColLayer + nColNormal, 1 )
+		icCol.merge( this.rContext, iColLayer + nColFocus, 1 )
+		icCol.merge( this.rContext, iColLayer + nColTracking, 1 )
+		icCol.merge( this.rContext, iColLayer + nColDisabled, 1 )
+		;
+		Point	ptCutCol
+		Size	sizeCutCol
+		If	rColCutRect !== null
+			rStyle.ptOffset.x := rColCutRect.left
+			rStyle.ptOffset.y := rColCutRect.top
+			rStyle.sizeColum.w := rColCutRect.right - rColCutRect.left + 1
+			rStyle.sizeColum.h := rColCutRect.bottom - rColCutRect.top + 1
+			icCol.cut( -1, 0, 0, 4, rStyle.ptOffset, rStyle.sizeColum )
+		ElseIf	this.nCutAlign != 0
+			icCol.cut(
+				this.nCutAlign, this.nCutMargin,
+					this.nCutThreshold, 4, rStyle.ptOffset, rStyle.sizeColum )
+		Else
+			icCol.cut(
+				1, this.nCutMargin,
+					this.nCutThreshold, 4, rStyle.ptOffset, rStyle.sizeColum )
+		EndIf
+		;
+		String	sColFileName, sColImageID
+		sColImageID := sStyleID + "_COL"
+		sColFileName := sColImageID + ".eri"
+		;
+		ResourceInfo&	rscinf := this.aImages[sColImageID]
+		this.aImages[sColImageID].sRsrcType := "image"
+		this.aImages[sColImageID].sFileName := sColFileName
+		this.aImages[sColImageID].sizeImage := icCol.size
+		;
+		icCol.arrange( nBarType )
+		icCol.save( this.sDefDstDir.OffsetFilePath(sColFileName) )
+		;
+		String	sSizeText := "," + String(rStyle.sizeColum.w) +
+						 "," + String(rStyle.sizeColum.h) + ")"
+		If	nBarType == sbtVert
+			For	i := 0 To 3
+				rStyle.aTrackImages[i] := sColImageID + ":RECT(" +
+					String(rStyle.sizeColum.w * i) + ",0" + sSizeText
+			Next
+		Else
+			For	i := 0 To 3
+				rStyle.aTrackImages[i] := sColImageID +
+					":RECT(0," + String(rStyle.sizeColum.h * i) + sSizeText
+			Next
+		EndIf
+		;
+		; 進捗バー画像
+		;
+		If	iProgressBar >= 0
+			ImageContext	icPrg
+			icPrg.merge( this.rContext, iProgressBar, 1 )
+			icPrg.cut( -1, 0, 0, 4, rStyle.ptOffset, rStyle.sizeColum )
+			;
+			String	sPrgFileName, sPrgImageID
+			sPrgImageID := sStyleID + "_PRGBAR"
+			sPrgFileName := sPrgImageID + ".eri"
+			icPrg.arrange( nBarType )
+			icPrg.save( this.sDefDstDir.OffsetFilePath(sPrgFileName) )
+			;
+			rscinf ::= this.aImages[sPrgImageID]
+			rscinf.sRsrcType := "image"
+			rscinf.sFileName := sPrgFileName
+			rscinf.sizeImage := icPrg.size
+			;
+			rStyle.sProgressBar := sPrgImageID
+			rStyle.sizeProgBar := icPrg.size
+		EndIf
+	EndIf
+	;
+	If	rTrackSpaceRect !== null
+		rStyle.rctTrackSpace := rTrackSpaceRect
+;		rStyle.ptOffset.x -= rTrackSpaceRect.left
+;		rStyle.ptOffset.y -= rTrackSpaceRect.top
+;		rStyle.sizeColum.w += rTrackSpaceRect.left + rTrackSpaceRect.right
+;		rStyle.sizeColum.h += rTrackSpaceRect.top + rTrackSpaceRect.bottom
+	Else
+		If	nBarOffset > 0
+			rStyle.rctTrackSpace.top += nBarOffset
+		Else
+			rStyle.rctTrackSpace.bottom -= nBarOffset
+		EndIf
+	EndIf
+
+	Return	rStyle
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	編集テキストスタイルを登録する
+; -----------------------------------------------------------------------------
+
+Function	EditTextStyle& SkinData::AddEditTextStyle(
+		String sStyleID, Integer nType,
+		Integer nFontSize, String sFontFace,
+		Boolean fBold, Boolean fItalic,
+		Integer nLineTop, Integer nLineBottom,
+		Integer rgbTextColor, Integer rgbSelColor,
+		Integer nCaretWidth, Integer nCaretHeight,
+		Integer nCaretInterval, Integer rgbaCaretColor,
+		Integer nIMEFontSize, String sFontFace )
+
+	If	!this.aStyles.IsEmpty( sStyleID )
+		print( 'Error : スタイル "',
+				sStyleID, '" は既に定義されています。\n' )
+		this.nError += 1
+		Return	null
+	EndIf
+	;
+	EditTextStyle&	rStyle := \
+				dynamic_cast<EditTextStyle>(
+							this.aStyles[sStyleID] ::= EditTextStyle )
+	rStyle.sID := sStyleID
+	rStyle.sType := "single"
+	If	nType == edtMultiLine
+		rStyle.sType := "multiline"
+	EndIf
+	;
+	rStyle.nFontSize := nFontSize
+	rStyle.sFontFace := sFontFace
+	rStyle.fBold := fBold
+	rStyle.fItalic := fItalic
+	;
+	rStyle.nLineTop := nLineTop
+	rStyle.nLineBottom := nLineBottom
+	rStyle.rgbTextColor := rgbTextColor
+	rStyle.rgbSelColor := rgbSelColor
+	;
+	rStyle.sizeCaret.w := nCaretWidth
+	rStyle.sizeCaret.h := nCaretHeight
+	rStyle.nCaretInterval := nCaretInterval
+	rStyle.rgbaCaretColor := rgbaCaretColor
+	;
+	rStyle.nIMEFontSize := nIMEFontSize
+	rStyle.sIMEFontFace := sFontFace
+
+	Return	rStyle
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	フレームスタイル追加
+; -----------------------------------------------------------------------------
+
+Function	FrameStyle& SkinData::AddFrameStyle(
+				String sStyleID, String sImageID,
+				Integer nFlags, String sBaseLayer,
+				Integer iUpperLeft, Integer iUpper, Integer iUpperRight,
+				Integer iLeft, Integer iCenter, Integer iRight,
+				Integer iUnderLeft, Integer iUnder, Integer iUnderRight )
+
+	;
+	; 画像識別子取得
+	;
+	If	sImageID == ""
+		sImageID := sStyleID
+		Integer	i := 1
+		While	!this.aImages.IsEmpty( sImageID )
+			sImageID := sStyleID + "_" + String(i)
+			i += 1
+		EndWhile
+	EndIf
+	;
+	; 画像の切り出し・結合
+	;
+	Integer	iLayer := this.FindLayerIndex( sBaseLayer )
+	If	iLayer < 0
+		this.nError += 1
+		Return	null
+	EndIf
+	;
+	Integer[][]	iParts
+	iParts[0][0] := iUpperLeft
+	iParts[0][1] := iUpper
+	iParts[0][2] := iUpperRight
+	iParts[1][0] := iLeft
+	iParts[1][1] := iCenter
+	iParts[1][2] := iRight
+	iParts[2][0] := iUnderLeft
+	iParts[2][1] := iUnder
+	iParts[2][2] := iUnderRight
+	Rect[][]		rctParts
+	ImageContext	imgctx
+	Integer			yParts := 0
+	For	hParts | iParts[i]
+		ImageContext	ictxHorz
+		Integer			xParts := 0
+		For	lParts | hParts[j]
+			ImageContext	ictxLayer
+			Point	pos
+			Size	size
+			ictxLayer.merge( this.rContext, iLayer + lParts, 1 )
+			ictxLayer.cut( 1, 0, 1, 0, pos, size )
+			ictxHorz.merge( ictxLayer )
+			;
+			rctParts[i][j].left := xParts
+			rctParts[i][j].top := yParts
+			rctParts[i][j].right := xParts + size.w - 1
+			rctParts[i][j].bottom := yParts + size.h - 1
+			;
+			xParts += size.w
+		Next
+		ictxHorz.arrange( 0 )
+		imgctx.merge( ictxHorz )
+		yParts += ictxHorz.size.h
+	Next
+	imgctx.arrange( 1 )
+	;
+	; 画像の保存・登録
+	;
+	If	imgctx.save(
+			this.sDefDstDir.OffsetFilePath(
+						sImageID + ".eri") ) != eslErrSuccess
+		print( "Error : ", sImageID, " の書き出しに失敗しました。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+	If	!this.aImages.IsEmpty( sImageID )
+		print( "Error : 画像識別子 ", sImageID, " は既に定義されています。\n" )
+		this.nError += 1
+		Return	null
+	Else
+		this.aImages[sImageID] := ResourceInfo
+	EndIf
+	this.aImages[sImageID].sRsrcType :="image"
+	this.aImages[sImageID].sFileName := sImageID + ".eri"
+	;
+	; フレームスタイル登録
+	;
+	If	!this.aStyles.IsEmpty( sStyleID )
+		print( 'Error : スタイル "',
+				sStyleID, '" は既に定義されています。\n' )
+		this.nError += 1
+		Return	null
+	Else
+		this.aStyles[sStyleID] ::= FrameStyle
+	EndIf
+	FrameStyle&	rStyle \
+			:= dynamic_cast<FrameStyle>( this.aStyles[sStyleID] )
+	rStyle.sID := sStyleID
+	;
+	String[]	aStyles := \
+					{ "upper_left", "upper", "upper_right",
+						"left", "pane", "right",
+						"under_left", "under", "under_right" }
+	For	r | aStyles[i]
+		Rect	rct := rctParts[i / 3][i % 3]
+		rStyle.aFrameImages[r] := \
+			sImageID + ":RECT(" +
+				String(rct.left) + "," + String(rct.top) + "," +
+				String(rct.right - rct.left + 1) + "," +
+				String(rct.bottom - rct.top + 1) + ")"
+	Next
+	Return	rStyle
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	静テキストアイテム追加
+; -----------------------------------------------------------------------------
+
+Function	TextItem& SkinData::AddTextItem(
+		String sItemID, String sStyleID,
+		Integer x, Integer y, Integer w, Integer h, String sText )
+
+	Integer		iPage := this.aPages.GetLength() - 1
+	If	iPage < 0
+		print( "Error : ページ宣言無しにアイテム ",
+					 sItemID, " を追加しようとしました。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+	PageForm&	rPage := this.aPages[iPage]
+
+	If	typeof( this.aStyles[sStyleID] ) != "TextStyle"
+		print( "Error : スタイル ", sStyleID, " は定義されていません。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+
+	Integer	nIndex := 0
+	If	this.fDirection
+		nIndex := rPage.aItems.GetLength()
+	EndIf
+	rPage.aItems.Insert( nIndex, TextItem )
+	;
+	TextItem&	rItem := dynamic_cast<TextItem>( rPage.aItems[nIndex] )
+	rItem.sID := sItemID
+	rItem.sStyleID := sStyleID
+	rItem.ptItem.x := x
+	rItem.ptItem.y := y
+	rItem.sizeItem.w := w
+	rItem.sizeItem.h := h
+	rItem.sText := sText
+
+	Return	rItem
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	矩形アイテム追加
+; -----------------------------------------------------------------------------
+
+Function	RectangleItem& SkinData::AddRectangleItem(
+		String sItemID,
+		Integer x, Integer y,
+		Integer w, Integer h, Integer argbColor )
+
+	Integer		iPage := this.aPages.GetLength() - 1
+	If	iPage < 0
+		print( "Error : ページ宣言無しにアイテム ",
+					 sItemID, " を追加しようとしました。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+	PageForm&	rPage := this.aPages[iPage]
+
+	Integer	nIndex := 0
+	If	this.fDirection
+		nIndex := rPage.aItems.GetLength()
+	EndIf
+	rPage.aItems.Insert( nIndex, RectangleItem )
+	;
+	RectangleItem&	rItem := \
+				dynamic_cast<RectangleItem>( rPage.aItems[nIndex] )
+	rItem.sID := sItemID
+	rItem.ptItem.x := x
+	rItem.ptItem.y := y
+	rItem.sizeItem.w := w
+	rItem.sizeItem.h := h
+	rItem.rgbaColor := argbColor
+
+	Return	rItem
+
+EndFunc
+
+
+Function	RectangleItem& SkinData::AddRectangleItem(
+				String sItemID, String sLayer, Integer argbColor )
+
+	Integer			nResult
+	ImageContext	ictxTemp
+	Point			ptOffset
+	Size			sizeCut
+	ictxTemp.merge( this.rContext, 0, -1, sLayer )
+	ictxTemp.cut(
+		this.nCutAlign, this.nCutMargin,
+		this.nCutThreshold, 0, ptOffset, sizeCut )
+
+	Return	AddRectangleItem(
+				sItemID, ptOffset.x, ptOffset.y,
+					sizeCut.w, sizeCut.h, argbColor )
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	画像アイテム追加
+; -----------------------------------------------------------------------------
+
+Function	ImageItem& SkinData::AddImageItem(
+		String sItemID, String sImageID,
+		Boolean fHitTransparency, Point& rPosition )
+
+	Integer		iPage := this.aPages.GetLength() - 1
+	If	iPage < 0
+		print( "Error : ページ宣言無しにアイテム ",
+					 sItemID, " を追加しようとしました。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+	PageForm&	rPage := this.aPages[iPage]
+
+	Point		ptPosition
+	Size		sizeImage
+	String		sImagePureID
+	String[]	aParam
+	Boolean		fSizeSpecification := false
+	If	sImageID.IsMatchUsage(
+			"(%s) [\\: &!RECT& \\( (%n) ," +
+			" (%n) , (%n), (%n) \\)]\\", aParam ) == ""
+		sImagePureID := aParam[0]
+		If	aParam[3] != ""
+			sizeImage.w := Integer( aParam[3] )
+			sizeImage.h := Integer( aParam[4] )
+			fSizeSpecification := true
+		EndIf
+	Else
+		print( sImageID, " は不正な画像識別子の書式です\n" )
+		sImagePureID := sImageID
+	EndIf
+	If	rPosition !== null
+		ptPosition := rPosition
+	ElseIf	!this.aImages.IsEmpty( sImagePureID )
+		ptPosition := this.aImages[sImagePureID].ptOffset
+	Else
+		print( sImagePureID, " は不正な画像識別子です。" )
+	EndIf
+	If	!fSizeSpecification
+		If	!this.aImages.IsEmpty( sImagePureID )
+			sizeImage := this.aImages[sImagePureID].sizeImage
+		EndIf
+	EndIf
+
+	Integer	nIndex := 0
+	If	this.fDirection
+		nIndex := rPage.aItems.GetLength()
+	EndIf
+	rPage.aItems.Insert( nIndex, ImageItem )
+	;
+	ImageItem&	rItem := dynamic_cast<ImageItem>( rPage.aItems[nIndex] )
+	rItem.sID := sItemID
+	rItem.ptItem := ptPosition
+	rItem.sizeItem := sizeImage
+	rItem.sRsrcID := sImageID
+	rItem.fHitTransparency := fHitTransparency
+
+	print( "  Image Item = ", sItemID, " : ", sImageID, "\n" )
+
+	Return	rItem
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	ボタンアイテム追加
+; -----------------------------------------------------------------------------
+
+Function	ButtonItem& SkinData::AddButtonItem(
+		String sItemID, String sStyleID, Integer nFlags,
+			Point& rPosition, String sPushedSE, String sFocusSE,
+			String sReflectionTarget, String sReflectionStyle )
+
+	Integer		iPage := this.aPages.GetLength() - 1
+	If	iPage < 0
+		print( "Error : ページ宣言無しにアイテム ",
+					 sItemID, " を追加しようとしました。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+	PageForm&	rPage := this.aPages[iPage]
+
+	If	typeof( this.aStyles[sStyleID] ) != "ButtonStyle"
+		print( "Error : スタイル ", sStyleID, " は定義されていません。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+
+	Integer	nIndex := 0
+	If	this.fDirection
+		nIndex := rPage.aItems.GetLength()
+	EndIf
+	rPage.aItems.Insert( nIndex, ButtonItem )
+	;
+	ButtonItem&		rItem := \
+						dynamic_cast<ButtonItem>( rPage.aItems[nIndex] )
+	ButtonStyle&	rStyle := \
+						dynamic_cast<ButtonStyle>( this.aStyles[sStyleID] )
+	rItem.sID := sItemID
+	If	rPosition !== null
+		rItem.ptItem := rPosition
+	Else
+		rItem.ptItem := rStyle.ptOffset
+	EndIf
+	If	sPushedSE == ""
+		sPushedSE := this.sDefPushedSE
+	EndIf
+	If	sFocusSE == ""
+		sFocusSE := this.sDefFocusSE
+	EndIf
+	rItem.sizeItem := rStyle.sizeButton
+	rItem.sStyleID := sStyleID
+	rItem.nFlags := nFlags
+	rItem.sPushedSE := sPushedSE
+	rItem.sFocusSE := sFocusSE
+
+	If	sReflectionTarget != ""
+		If	!this.aStyles.IsEmpty( sReflectionStyle )
+			ButtonStyle&	rStyle := \
+				dynamic_cast<ButtonStyle>( this.aStyles[sReflectionStyle] )
+			If	rStyle !== null
+				rItem.sReflectTarget := sReflectionTarget
+				rItem.aReflectionImage := rStyle.aImages
+				rItem.aReflectionImage.Remove( "mask" )
+			Else
+				this.nError += 1
+				print( sReflectionStyle, " はボタンスタイルではありません\n" )
+			EndIf
+		Else
+			this.nError += 1
+			print( sReflectionStyle, " スタイルは定義されていません\n" )
+		EndIf
+	EndIf
+
+	print( "  Button Item = ", sItemID, " : ", sStyleID, "\n" )
+
+	Return	rItem
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	進捗バーアイテム追加
+; -----------------------------------------------------------------------------
+
+Function	ProgressBarItem& SkinData::AddProgressBarItem(
+				String sItemID, String sStyleID,
+				Integer nRange, Integer nFlags,
+				Point& rDeltaPos, Point& rPosition )
+
+	If	this.aStyles.IsEmpty( sStyleID )
+		print( "Error : ", sStyleID,
+			" は定義されていないスタイル識別子です。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+	;
+	Point	ptPos
+	Size	sizeBar
+	ProgressBarStyle&	rStyle := \
+			dynamic_cast<ProgressBarStyle>( this.aStyles[sStyleID] )
+	If	rPosition !== null
+		ptPos := rPosition
+	Else
+		ptPos := rStyle.ptOffset
+	EndIf
+	If	rDeltaPos !== null
+		ptPos += rDeltaPos
+	EndIf
+	sizeBar := rStyle.sizeFrame
+	;
+	Integer		iPage := this.aPages.GetLength() - 1
+	If	iPage < 0
+		print( "Error : ページ宣言無しにアイテム ",
+					 sItemID, " を追加しようとしました。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+	PageForm&	rPage := this.aPages[iPage]
+	;
+	Integer	nIndex := 0
+	If	this.fDirection
+		nIndex := rPage.aItems.GetLength()
+	EndIf
+	rPage.aItems.Insert( nIndex, ProgressBarItem )
+	;
+	ProgressBarItem&	rItem := \
+			dynamic_cast<ProgressBarItem>( rPage.aItems[nIndex] )
+	rItem.sID := sItemID
+	rItem.sStyleID := sStyleID
+	rItem.ptItem := ptPos
+	rItem.sizeItem := sizeBar
+	If	rStyle.sType == "vert"
+		rItem.nBarWidth := sizeBar.h
+	Else
+		rItem.nBarWidth := sizeBar.w
+	EndIf
+	rItem.nFlags := nFlags
+	rItem.nRange := nRange
+
+	Return	rItem
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	スクロールアイテム追加
+; -----------------------------------------------------------------------------
+
+Function	ScrollBarItem& SkinData::AddScrollBarItem(
+		String sItemID, String sStyleID, Integer nRange, Integer nFlags,
+		Point& rDeltaPos, Point& rPosition, Size& rSize )
+
+	If	this.aStyles.IsEmpty( sStyleID )
+		print( "Error : ", sStyleID,
+			" は定義されていないスタイル識別子です。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+	;
+	Point			ptPos
+	Size			sizeBar
+	ScrollBarStyle&	rStyle := \
+			dynamic_cast<ScrollBarStyle>( this.aStyles[sStyleID] )
+	If	rPosition !== null
+		ptPos := rPosition
+	Else
+		ptPos := rStyle.ptOffset
+	EndIf
+	If	rSize !== null
+		sizeBar := rSize
+	Else
+		sizeBar := rStyle.sizeColum
+	EndIf
+	If	rDeltaPos !== null
+		ptPos += rDeltaPos
+	EndIf
+	;
+	Integer		iPage := this.aPages.GetLength() - 1
+	If	iPage < 0
+		print( "Error : ページ宣言無しにアイテム ",
+					 sItemID, " を追加しようとしました。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+	PageForm&	rPage := this.aPages[iPage]
+	;
+	Integer	nIndex := 0
+	If	this.fDirection
+		nIndex := rPage.aItems.GetLength()
+	EndIf
+	rPage.aItems.Insert( nIndex, ScrollBarItem )
+	;
+	ScrollBarItem&	rItem := \
+			dynamic_cast<ScrollBarItem>( rPage.aItems[nIndex] )
+	rItem.sID := sItemID
+	rItem.sStyleID := sStyleID
+	rItem.ptItem := ptPos
+	rItem.sizeItem := sizeBar
+	If	rStyle.sType == "vert"
+		rItem.nBarWidth := sizeBar.h
+	Else
+		rItem.nBarWidth := sizeBar.w
+	EndIf
+	rItem.nFlags := nFlags
+	rItem.nRange := nRange
+
+	Return	rItem
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	編集テキストアイテム追加
+; -----------------------------------------------------------------------------
+
+Function	EditTextItem& SkinData::AddEditTextItem(
+		String sItemID, String sStyleID,
+		Integer x, Integer y, Integer w, Integer h,
+		String sText, Integer nLimit )
+
+	Integer		iPage := this.aPages.GetLength() - 1
+	If	iPage < 0
+		print( "Error : ページ宣言無しにアイテム ",
+					 sItemID, " を追加しようとしました。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+	PageForm&	rPage := this.aPages[iPage]
+
+	If	typeof( this.aStyles[sStyleID] ) != "EditTextStyle"
+		print( "Error : スタイル ", sStyleID, " は定義されていません。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+
+	Integer	nIndex := 0
+	If	this.fDirection
+		nIndex := rPage.aItems.GetLength()
+	EndIf
+	rPage.aItems.Insert( nIndex, EditTextItem )
+	;
+	EditTextItem&	rItem := dynamic_cast<EditTextItem>( rPage.aItems[nIndex] )
+	rItem.sID := sItemID
+	rItem.sStyleID := sStyleID
+	rItem.ptItem.x := x
+	rItem.ptItem.y := y
+	rItem.sizeItem.w := w
+	rItem.sizeItem.h := h
+	rItem.sText := sText
+	rItem.nLimit := nLimit
+
+	Return	rItem
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	オブジェクトアイテム追加
+; -----------------------------------------------------------------------------
+
+Function	ObjectItem& SkinData::AddObjectItem(
+		String	sItemID, String sPageID, Integer& x, Integer& y )
+
+	Integer		iPage := this.aPages.GetLength() - 1
+	If	iPage < 0
+		print( "Error : ページ宣言無しにアイテム ",
+					 sItemID, " を追加しようとしました。\n" )
+		this.nError += 1
+		Return	null
+	EndIf
+	PageForm&	rPage := this.aPages[iPage]
+
+	Integer	nIndex := 0
+	If	this.fDirection
+		nIndex := rPage.aItems.GetLength()
+	EndIf
+	rPage.aItems.Insert( nIndex, ObjectItem )
+	;
+	ObjectItem&	rItem := dynamic_cast<ObjectItem>( rPage.aItems[nIndex] )
+	For	r | this.aPages[i]
+		If	r.sID == sPageID
+			rItem.sizeItem := r.sizePage
+			If	x === null
+				x ::= r.ptPage.x
+			EndIf
+			If	y === null
+				y ::= r.ptPage.y
+			EndIf
+			Break
+		EndIf
+	Next
+	rItem.sID := sItemID
+	rItem.sStyleID := sPageID
+	rItem.ptItem.x := x
+	rItem.ptItem.y := y
+
+	Return	rItem
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	現在のページ取得
+; -----------------------------------------------------------------------------
+
+Function	PageForm& SkinData::GetCurrentPage()
+
+	Integer		iPage := this.aPages.GetLength() - 1
+	If	iPage < 0
+		Return	null
+	EndIf
+	Return	this.aPages[iPage]
+
+EndFunc
+
+
+; -----------------------------------------------------------------------------
+;	ページのスリム化
+; -----------------------------------------------------------------------------
+
+Function	void SkinData::SmartPage(
+				Integer nAlign,
+				Integer xMarginLeft, Integer yMarginTop,
+				Integer xMarginRight, Integer yMarginBottom )
+
+	Integer		iPage := this.aPages.GetLength() - 1
+	If	iPage < 0
+		Return
+	EndIf
+	PageForm&	rPage := this.aPages[iPage]
+
+	Rect	rect( 7FFFFFFFH, 7FFFFFFFH, -8000000H, -8000000H )
+	For	rItem | rPage.aItems[i]
+		If	rItem.ptItem.x < rect.left
+			rect.left := rItem.ptItem.x
+		EndIf
+		If	rItem.ptItem.y < rect.top
+			rect.top := rItem.ptItem.y
+		EndIf
+		If	rItem.ptItem.x + rItem.sizeItem.w > rect.right
+			rect.right := rItem.ptItem.x + rItem.sizeItem.w
+		EndIf
+		If	rItem.ptItem.y + rItem.sizeItem.h > rect.bottom
+			rect.bottom := rItem.ptItem.y + rItem.sizeItem.h
+		EndIf
+	Next
+
+	If	nAlign > 2
+		rect.left -= rect.left mod nAlign
+		rect.top -= rect.top mod nAlign
+		rect.right += nAlign - (rect.right mod nAlign)
+		rect.bottom += nAlign - (rect.bottom mod nAlign)
+	EndIf
+
+	rPage.ptPage.x := rect.left - xMarginLeft
+	rPage.ptPage.y := rect.top - yMarginTop
+	rPage.sizePage.w := rect.right - rect.left + xMarginLeft + xMarginRight
+	rPage.sizePage.h := rect.bottom - rect.top + yMarginTop + yMarginBottom
+	If	rPage.sizePage.w <= 0
+		rPage.sizePage.w := 1
+	EndIf
+	If	rPage.sizePage.h <= 0
+		rPage.sizePage.h := 1
+	EndIf
+
+	For	rItem | rPage.aItems[i]
+		rItem.ptItem.x -= rect.left - xMarginLeft
+		rItem.ptItem.y -= rect.top - yMarginTop
+	Next
+
+EndFunc
+
+Function	void SkinData::ClipPage( Integer nLeft, Integer nTop,
+									Integer nWidth, Integer nHeight )
+
+	Integer		iPage := this.aPages.GetLength() - 1
+	If	iPage < 0
+		Return
+	EndIf
+	PageForm&	rPage := this.aPages[iPage]
+
+	rPage.ptPage.x := nLeft
+	rPage.ptPage.y := nTop
+	rPage.sizePage.w := nWidth
+	rPage.sizePage.h := nHeight	
+	If	rPage.sizePage.w <= 0
+		rPage.sizePage.w := 1
+	EndIf
+	If	rPage.sizePage.h <= 0
+		rPage.sizePage.h := 1
+	EndIf
+
+	For	rItem | rPage.aItems[i]
+		rItem.ptItem.x -= nLeft
+		rItem.ptItem.y -= nTop
+	Next
+
+EndFunc
+
+
+
+; -----------------------------------------------------------------------------
+;	スキンフォーマット出力
+; -----------------------------------------------------------------------------
+
+Function	void SkinData::FormatSkin()
+
+	output( '<?xml version="1.0" encoding="Shift_JIS"?>\r\n' )
+	output( '<skin>\r\n' )
+
+	;
+	;	リソース定義タグ出力
+	; -------------------------------------------------------------------------
+	output( '	<resource>\r\n' )
+	For	rInfo | this.aImages[i]
+		String	sType := rInfo.sRsrcType
+		If	sType == ""
+			sType := "image"
+		EndIf
+		output( '		<', sType, ' id="', this.aImages.GetTagName(i),
+								'" src="', rInfo.sFileName, '"/>\r\n' )
+	Next
+	output( '	</resource>\r\n' )
+
+	;
+	;	スタイル定義タグ出力
+	; -------------------------------------------------------------------------
+	output( '	<declare_style>\r\n' )
+	For	rStyle | this.aStyles[i]
+		If	rStyle !== null
+			rStyle.FormatSkin()
+		EndIf
+	Next
+	output( '	</declare_style>\r\n' )
+
+	;
+	;	フォーム出力
+	; -------------------------------------------------------------------------
+	For	rPage | this.aPages[i]
+		If	rPage.sBG != ""
+			output( '	<window id="', rPage.sID,
+						'" bg="', rPage.sBG,
+						'" x="', rPage.ptPage.x,
+						'" y="', rPage.ptPage.y, '">\r\n' )
+		Else
+			output( '	<page id="', rPage.sID,
+						'" width="', rPage.sizePage.w,
+						'" height="', rPage.sizePage.h,
+						'" x="', rPage.ptPage.x,
+						'" y="', rPage.ptPage.y, '">\r\n' )
+		EndIf
+		For	rItem | rPage.aItems[j]
+			rItem.FormatSkin()
+		Next
+		If	rPage.sBG != ""
+			output( '	</window>\r\n' )
+		Else
+			output( '	</page>\r\n' )
+		EndIf
+	Next
+
+	output( '</skin>\r\n' )
+
+	print( "\nエラー : ", this.nError, "\n\n" )
+
+EndFunc
+
+
+Function	void TextStyle::FormatSkin()
+	FormatSkin( false )
+EndFunc
+
+
+Function	void TextStyle::FormatSkin( Boolean fNoStyleTag )
+
+	If	!fNoStyleTag
+		output( '\t\t<style id="', this.sID, '" type="static_text">\r\n' )
+	EndIf
+
+	output( '\t\t\t<arrange box_align="', this.sBoxAlign,
+			'" align="', this.sAlign,
+			'" line_height="', this.nLineHeight,
+			'" indent="0" pitch="', this.nFontPitch, '"' )
+	If	(this.rctExt.left < this.rctExt.right) \
+			&& (this.rctExt.top < this.rctExt.bottom)
+		output( '\r\n				 ',
+				'left="', this.rctExt.left, '" top="', this.rctExt.top,
+				'" width="', this.rctExt.right - this.rctExt.left,
+				'" height="', this.rctExt.bottom - this.rctExt.top, '"' )
+	EndIf
+	output( '/>\r\n' )
+	output( '\t\t\t<font size="',
+			this.nFontSize, '" face="', this.sFontFace, '" bold="' )
+	If	this.fBold
+		output( 'true' )
+	Else
+		output( 'false' )
+	EndIf
+	output( '" italic="' )
+	If	this.fItalic
+		output( 'true' )
+	Else
+		output( 'false' )
+	EndIf
+	output( '"/>\r\n' )
+	output( '			<text color="00', this.rgbColor.Format(16,6),
+				'H" transparency="', this.nTransparency, '"/>\r\n' )
+	output( '			<shadow x="', this.ptShadow.x, '" y="',
+				this.ptShadow.y, '" color="00', this.rgbShadow.Format(16,6),
+				'H" transparency="', this.nShadowTrans, '"/>\r\n' )
+
+	If	this.fBordering
+		output( '			<border color="00',
+				this.rgbShadow.Format(16,6), 'H" transparency="0"/>\r\n' )
+	EndIf
+
+	If	!fNoStyleTag
+		output( '		</style>\r\n' )
+	EndIf
+
+EndFunc
+
+
+Function	void ButtonStyle::FormatSkin()
+
+	output( '		<style id="', this.sID, '" type="button">\r\n' )
+	output( '			<arrange type="', this.sType, '"/>\r\n' )
+	For	rImage | this.aImages[j]
+		If	rImage !== null
+			String	sTag := this.aImages.GetTagName(j)
+			output( '			<', sTag, ' image="', rImage, '"' )
+			If	sTag == "mask"
+				output( ' rect="' )
+				If	this.fHitRect
+					output( "true" )
+				Else
+					output( "false" )
+				EndIf
+				output( '"' )
+			EndIf
+			If	!this.aTextStyles.IsEmpty( sTag )
+				output( ">\r\n" )
+				this.aTextStyles[sTag].FormatSkin( true )
+				output( "			</", sTag, ">\r\n" )
+			Else
+				output( "/>\r\n" )
+			EndIf
+		EndIf
+	Next
+	output( '		</style>\r\n' )
+
+EndFunc
+
+
+Function	void ProgressBarStyle::FormatSkin()
+
+	output( '		<style id="', this.sID, '" type="progress_bar">\r\n' )
+	output( '			<arrange type="', this.sType,
+							'" bar_x="', this.ptBarOffset.x,
+							'" bar_y="', this.ptBarOffset.y, '"/>\r\n' )
+	output( '			<frame way="', this.sFrameImage, '"/>\r\n' )
+	output( '			<bar way="', this.sBarImage, '"/>\r\n' )
+	output( '		</style>\r\n' )
+
+EndFunc
+
+
+Function	void ScrollBarStyle::FormatSkin()
+
+	output( '		<style id="', this.sID, '" type="scroll_bar">\r\n' )
+	output( '			<arrange type="',
+			this.sType, '" bar_offset="', this.nBarOffset, '"/>\r\n' )
+	output( '			<track left="', this.rctTrackSpace.left,
+			'" top="', this.rctTrackSpace.top,
+			'" right="', this.rctTrackSpace.right,
+			'" bottom="', this.rctTrackSpace.bottom, '"/>\r\n' )
+	If	this.sUpButton != ""
+		output( '			<up_button style="',
+								 this.sUpButton, '"/>\r\n' )
+	EndIf
+	If	this.sDownButton != ""
+		output( '			<down_button style="',
+								 this.sDownButton, '"/>\r\n' )
+	EndIf
+	If	this.fProgBarStretch
+		Integer	x := 0
+		Integer	y := 0
+		Integer	w := this.sizeProgBar.w
+		Integer	h := this.sizeProgBar.h
+		If	this.sType == "vert"
+			y := this.nProgBarLeft
+			h := h - (this.nProgBarLeft + this.nProgBarRight)
+		Else
+			x := this.nProgBarLeft
+			w := w - (this.nProgBarLeft + this.nProgBarRight)
+		EndIf
+		output( '			<progress_stretchable x="', x,
+				'" y="', y, '" width="', w, '" height="', h, '"/>\r\n' )
+	EndIf
+	Array	aStatus := { "normal", "focus", "tracking", "disabled" }
+	For	rStatus | aStatus[i]
+		If	!this.aBarImages.IsEmpty(i)
+			output( '			<', rStatus, ' bar="', this.aBarImages[i] )
+			If	!this.aTrackImages.IsEmpty(i)
+				output( '" column="', this.aTrackImages[i] )
+			EndIf
+			If	(i == 0) && (this.sProgressBar != "")
+				output( '" progress="', this.sProgressBar )
+			EndIf
+			output( '"/>\r\n' )
+		EndIf
+	Next
+	output( '		</style>\r\n' )
+
+EndFunc
+
+Function	void EditTextStyle::FormatSkin()
+
+	output( '		<style id="', this.sID, '" type="edit_text">\r\n' )
+	output( '			<arrange type="', this.sType, '"/>\r\n' )
+	output( '			<frame left_image="" right_image="" text_way_image="" />\r\n' )
+	output( '			<caret width="', this.sizeCaret.w,
+			'" height="', this.sizeCaret.h,
+			'" interval="', this.nCaretInterval,
+			'" color="0', this.rgbaCaretColor.Format(16,8), 'H" />\r\n' )
+	output( '			<font size="',
+			this.nFontSize, '" face="', this.sFontFace, '" bold="' )
+	If	this.fBold
+		output( 'true' )
+	Else
+		output( 'false' )
+	EndIf
+	output( '" italic="' )
+	If	this.fItalic
+		output( 'true' )
+	Else
+		output( 'false' )
+	EndIf
+	output( '"/>\r\n' )
+	If	this.nIMEFontSize > 0
+		output( '			<ime_font size="',
+				this.nIMEFontSize, '" face="', this.sIMEFontFace, '"/>\r\n' )
+	EndIf
+	output( '			<edit top="', this.nLineTop,
+			'" bottom="', this.nLineBottom,
+			'" color="00', this.rgbTextColor.Format(16,6),
+			'H" sel_color="00', this.rgbSelColor.Format(16,6), 'H" />\r\n' )
+	output( '		</style>\r\n' )
+
+EndFunc
+
+Function	void FrameStyle::FormatSkin()
+
+	String[]	aStyles := \
+					{ "upper_left", "upper", "upper_right",
+						"left", "pane", "right",
+						"under_left", "under", "under_right" }
+
+	output( '		<style id="', this.sID, '" type="static_frame">\r\n' )
+
+	String	sImage := '			<image'
+	For	r | aStyles[i]
+		sImage += " " + r + "=\"" + this.aFrameImages[r] + "\""
+	Next
+	output( sImage + "/>\r\n" )
+
+	output( '		</style>\r\n' )
+
+EndFunc
+
+Function	void ImageItem::FormatSkin()
+
+	output( '		<image id="', this.sID,
+					'" x="', this.ptItem.x, '" y="', this.ptItem.y,
+					'" rsrc="', this.sRsrcID )
+	If	this.fHitTransparency
+		output( '">\r\n			<command>',
+			'<basic_flag hit_transparency="true"/></command></image>\r\n' )
+	Else
+		output( '"/>\r\n' )
+	EndIf
+
+EndFunc
+
+
+Function	void TextItem::FormatSkin()
+
+	output( '		<static_text id="', this.sID,
+					'" x="', this.ptItem.x, '" y="', this.ptItem.y,
+					'" width="', this.sizeItem.w,
+					'" height="', this.sizeItem.h,
+					'" style="', this.sStyleID,
+					'" text="', this.sText, '"/>\r\n' )
+
+EndFunc
+
+
+Function	void RectangleItem::FormatSkin()
+
+	output( '		<rectangle id="', this.sID,
+					'" x="', this.ptItem.x, '" y="', this.ptItem.y,
+					'" width="', this.sizeItem.w,
+					'" height="', this.sizeItem.h,
+					'" color="0', this.rgbaColor.Format(16,8), 'H"/>\r\n' )
+
+EndFunc
+
+
+Function	void ButtonItem::FormatSkin()
+
+	output( '		<button id="', this.sID,
+					'" x="', this.ptItem.x, '" y="', this.ptItem.y,
+					'" width="', this.sizeItem.w,
+					'" height="', this.sizeItem.h,
+					'" style="', this.sStyleID, '" tab_stop="' )
+
+	If	(this.nFlags and itemNoTabStop) != 0
+		output( "false" )
+	Else
+		output( "true" )
+	EndIf
+	output( '" group="' )
+	If	(this.nFlags and itemNoGroup) != 0
+		output( "false" )
+	Else
+		output( "true" )
+	EndIf
+	If	this.sPushedSE != ""
+		output( '" pushed_se="', this.sPushedSE )
+	EndIf
+	If	this.sFocusSE != ""
+		output( '" focus_se="', this.sFocusSE )
+	EndIf
+	If	(this.sReflectTarget == "") \
+			&& !(this.nFlags & \
+					(buttonStatusNotification | buttonAcceptRightClick))
+		output( '"/>\r\n' )
+	Else
+		output( '"><command>\r\n' )
+		If	(this.nFlags & buttonStatusNotification) != 0
+			output( '			<status_notification parameter="1"/>\r\n' )
+		EndIf
+		If	(this.nFlags & buttonAcceptRightClick) != 0
+			output( '			<right_click parameter="2"/>\r\n' )
+		EndIf
+		If	this.sReflectTarget != ""
+			output( '			<status_reflection target="',
+									this.sReflectTarget, '">\r\n' )
+			For	rImage | this.aReflectionImage[i]
+				output( '				<',
+					this.aReflectionImage.GetTagName(i),
+							' image="', rImage, '"/>\r\n' )
+			Next
+			output( '			</status_reflection>\r\n' )
+		EndIf
+		output( '		</command></button>\r\n' )
+	EndIf
+
+EndFunc
+
+Function	void ProgressBarItem::FormatSkin()
+
+	output( '		<progress_bar id="', this.sID,
+					'" x="', this.ptItem.x, '" y="', this.ptItem.y,
+					'" width="', this.nBarWidth,
+					'" style="', this.sStyleID, '">\r\n' )
+	output( '			<command>',
+				'<bar range="', this.nRange, '"/></command>\r\n' )
+	output( '		</progress_bar>\r\n' )
+
+EndFunc
+
+
+Function	void ScrollBarItem::FormatSkin()
+
+	output( '		<scroll_bar id="', this.sID,
+					'" x="', this.ptItem.x, '" y="', this.ptItem.y,
+					'" width="', this.nBarWidth,
+					'" style="', this.sStyleID, '" tab_stop="' )
+
+	If	(this.nFlags and itemNoTabStop) != 0
+		output( "false" )
+	Else
+		output( "true" )
+	EndIf
+	output( '" group="' )
+	If	(this.nFlags and itemNoGroup) != 0
+		output( "false" )
+	Else
+		output( "true" )
+	EndIf
+	output( '">\r\n			<command>',
+		'<bar range="', this.nRange, '"/></command>\r\n' )
+	output( '		</scroll_bar>\r\n' )
+
+EndFunc
+
+
+Function	void EditTextItem::FormatSkin()
+
+	output( '		<edit_text id="', this.sID,
+					'" x="', this.ptItem.x, '" y="', this.ptItem.y,
+					'" width="', this.sizeItem.w,
+					'" height="', this.sizeItem.h,
+					'" style="', this.sStyleID,
+					'" text="', this.sText, '">\r\n' )
+	If	(this.nLimit != 0) || (this.nAccept != 0)
+		String	sAccept := ""
+		If	(this.nAccept & acceptEditReturn) != 0
+			sAccept := "return"
+		EndIf
+		If	(this.nAccept & acceptEditTab) != 0
+			If	sAccept != ""
+				sAccept += " "
+			EndIf
+			sAccept += "tab"
+		EndIf
+		output( '			<command><option limit="', this.nLimit,
+							'" accept="', sAccept, '"/></command>\r\n' )
+	EndIf
+	output( '		</edit_text>\r\n' )
+
+EndFunc
+
+
+Function	void ObjectItem::FormatSkin()
+
+	output( '		<object id="', this.sID,
+					'" x="', this.ptItem.x, '" y="', this.ptItem.y,
+					'" style="', this.sStyleID, '"/>\r\n' )
+
+EndFunc
+
+

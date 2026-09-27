@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>HttpInputStream</title>
+</head>
+<body>
+<div class="chapter">HttpInputStream</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　HttpInputStream は HTTP、HTTPS 上のファイルへの接続と入力ストリームを提供します。EntisGLS4 の SHttpFile クラスとほぼ同等です。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="InputStream.xhtml">InputStream</a>
+<div class="indent1"><a href="HttpInputStream.xhtml">HttpInputStream</a>
+</div></div></div><br/>
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_HttpInputStream">HttpInputStream</a><br/>
+	<a href="#virtual_addHeader">addHeader</a><br/>
+	<a href="#virtual_connect">connect</a><br/>
+	<a href="#virtual_openURL">openURL</a><br/>
+	<a href="#virtual_queryContentDate">queryContentDate</a><br/>
+	<a href="#virtual_queryContentLastModified">queryContentLastModified</a><br/>
+	<a href="#virtual_queryContentLength">queryContentLength</a><br/>
+	<a href="#virtual_queryContentTransferEncoding">queryContentTransferEncoding</a><br/>
+	<a href="#virtual_queryContentType">queryContentType</a><br/>
+	<a href="#virtual_queryContentTypeCharset">queryContentTypeCharset</a><br/>
+	<a href="#virtual_queryStatusCode">queryStatusCode</a><br/>
+	<a href="#virtual_sendRequest">sendRequest</a><br/>
+	<a href="#virtual_setRequest">setRequest</a><br/>
+	<a href="#virtual_setSendData">setSendData</a><br/>
+	<a href="#virtual_setSendURLFormData">setSendURLFormData</a><br/>
+</div><br/>
+
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_HttpInputStream"/>
+<div class="headline">HttpInputStream</div>
+<div class="usage">public void HttpInputStream(&#32; )</div>
+<br/>
+
+<a name="virtual_addHeader"/>
+<div class="headline">addHeader</div>
+<div class="usage">public boolean addHeader( String strHeader )</div>
+<br/>
+
+<a name="virtual_connect"/>
+<div class="headline">connect</div>
+<div class="usage">public boolean connect(&#32; )</div>
+<br/>
+
+<a name="virtual_openURL"/>
+<div class="headline">openURL</div>
+<div class="usage">public boolean openURL( String url, String agent, Uint8Pointer data = null, int len = -1, String strContentType = null )</div>
+<br/>
+
+<a name="virtual_queryContentDate"/>
+<div class="headline">queryContentDate</div>
+<div class="usage">public Date queryContentDate(&#32; )</div>
+<br/>
+
+<a name="virtual_queryContentLastModified"/>
+<div class="headline">queryContentLastModified</div>
+<div class="usage">public Date queryContentLastModified(&#32; )</div>
+<br/>
+
+<a name="virtual_queryContentLength"/>
+<div class="headline">queryContentLength</div>
+<div class="usage">public long queryContentLength(&#32; )</div>
+<br/>
+
+<a name="virtual_queryContentTransferEncoding"/>
+<div class="headline">queryContentTransferEncoding</div>
+<div class="usage">public String queryContentTransferEncoding(&#32; )</div>
+<br/>
+
+<a name="virtual_queryContentType"/>
+<div class="headline">queryContentType</div>
+<div class="usage">public String queryContentType(&#32; )</div>
+<br/>
+
+<a name="virtual_queryContentTypeCharset"/>
+<div class="headline">queryContentTypeCharset</div>
+<div class="usage">public String queryContentTypeCharset(&#32; )</div>
+<br/>
+
+<a name="virtual_queryStatusCode"/>
+<div class="headline">queryStatusCode</div>
+<div class="usage">public int queryStatusCode(&#32; )</div>
+<br/>
+
+<a name="virtual_sendRequest"/>
+<div class="headline">sendRequest</div>
+<div class="usage">public boolean sendRequest(&#32; )</div>
+<br/>
+
+<a name="virtual_setRequest"/>
+<div class="headline">setRequest</div>
+<div class="usage">public boolean setRequest( String url, String cmd = &quot;GET&quot; )</div>
+<br/>
+
+<a name="virtual_setSendData"/>
+<div class="headline">setSendData</div>
+<div class="usage">public boolean setSendData( Uint8Pointer b, int len )</div>
+<br/>
+
+<a name="virtual_setSendURLFormData"/>
+<div class="headline">setSendURLFormData</div>
+<div class="usage">public boolean setSendURLFormData( String param, int encoding = 1 )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

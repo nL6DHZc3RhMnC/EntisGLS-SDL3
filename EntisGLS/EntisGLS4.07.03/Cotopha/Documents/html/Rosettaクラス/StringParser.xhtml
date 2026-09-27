@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>StringParser</title>
+</head>
+<body>
+<div class="chapter">StringParser</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　StringParser は文字列の構文解析を行います。<br/>
+　EntisGLS4 の SStringParser と同等です。<br/>
+　構築関数や attachString 関数で設定された、又は loadTextFile, readTextFile で読み込まれた文字列が解析対象となり、指標を移動させながら構文を解釈します。<br/>
+　解析対象の文字列は、(String) キャストか toString 関数によって取得できます。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="StringParser.xhtml">StringParser</a>
+</div></div><br/>
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_ctrlCStyleNumber">ctrlCStyleNumber</a><br/>
+	<a href="#static_ctrlEscCSVInDQuote">ctrlEscCSVInDQuote</a><br/>
+	<a href="#static_ctrlNoEscInDQuote">ctrlNoEscInDQuote</a><br/>
+	<a href="#static_ctrlNoEscInQuote">ctrlNoEscInQuote</a><br/>
+	<a href="#static_ctrlNoRadixPostfix">ctrlNoRadixPostfix</a><br/>
+	<a href="#static_numberDefault">numberDefault</a><br/>
+	<a href="#static_numberFlagReal">numberFlagReal</a><br/>
+	<a href="#static_numberInteger">numberInteger</a><br/>
+	<a href="#static_numberInvalid">numberInvalid</a><br/>
+	<a href="#static_numberRadix10">numberRadix10</a><br/>
+	<a href="#static_numberRadix16">numberRadix16</a><br/>
+	<a href="#static_numberRadix2">numberRadix2</a><br/>
+	<a href="#static_numberRadix8">numberRadix8</a><br/>
+	<a href="#static_numberRadixMask">numberRadixMask</a><br/>
+	<a href="#static_numberStyleHex">numberStyleHex</a><br/>
+	<a href="#static_numberStyleOct">numberStyleOct</a><br/>
+	<a href="#static_tokenInvalid">tokenInvalid</a><br/>
+	<a href="#static_tokenNormal">tokenNormal</a><br/>
+	<a href="#static_tokenPunctuation">tokenPunctuation</a><br/>
+	<a href="#static_tokenSpecialMark">tokenSpecialMark</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Functions</div>
+<div class="indent2">
+	<a href="#static_isCharacterSpace">isCharacterSpace</a><br/>
+	<a href="#static_isPunctuation">isPunctuation</a><br/>
+	<a href="#static_isSpecialMark">isSpecialMark</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_StringParser">StringParser</a><br/>
+	<a href="#virtual_attachString">attachString</a><br/>
+	<a href="#virtual_currentCharacter">currentCharacter</a><br/>
+	<a href="#virtual_getCharacter">getCharacter</a><br/>
+	<a href="#virtual_getEnclosedString">getEnclosedString</a><br/>
+	<a href="#virtual_getExpression">getExpression</a><br/>
+	<a href="#virtual_getExpressionTerm">getExpressionTerm</a><br/>
+	<a href="#virtual_getIndex">getIndex</a><br/>
+	<a href="#virtual_getLength">getLength</a><br/>
+	<a href="#virtual_getLine">getLine</a><br/>
+	<a href="#virtual_getLineNumberOf">getLineNumberOf</a><br/>
+	<a href="#virtual_getString">getString</a><br/>
+	<a href="#virtual_getStringTerm">getStringTerm</a><br/>
+	<a href="#virtual_getToken">getToken</a><br/>
+	<a href="#virtual_hasToComeChar">hasToComeChar</a><br/>
+	<a href="#virtual_hasToComeNoCaseString">hasToComeNoCaseString</a><br/>
+	<a href="#virtual_hasToComeString">hasToComeString</a><br/>
+	<a href="#virtual_hasToComeToken">hasToComeToken</a><br/>
+	<a href="#virtual_isIndexOverflow">isIndexOverflow</a><br/>
+	<a href="#virtual_isNextNumber">isNextNumber</a><br/>
+	<a href="#virtual_loadTextFile">loadTextFile</a><br/>
+	<a href="#virtual_markIndex">markIndex</a><br/>
+	<a href="#virtual_nextInteger">nextInteger</a><br/>
+	<a href="#virtual_nextRealNumber">nextRealNumber</a><br/>
+	<a href="#virtual_offsetAt">offsetAt</a><br/>
+	<a href="#virtual_parseCommaSeparatedValues">parseCommaSeparatedValues</a><br/>
+	<a href="#virtual_parseHexIntegerArray">parseHexIntegerArray</a><br/>
+	<a href="#virtual_parseIntegerArray">parseIntegerArray</a><br/>
+	<a href="#virtual_parseNumberArray">parseNumberArray</a><br/>
+	<a href="#virtual_passEnclosedString">passEnclosedString</a><br/>
+	<a href="#virtual_passExpression">passExpression</a><br/>
+	<a href="#virtual_passExpressionTerm">passExpressionTerm</a><br/>
+	<a href="#virtual_passSpace">passSpace</a><br/>
+	<a href="#virtual_passString">passString</a><br/>
+	<a href="#virtual_passToken">passToken</a><br/>
+	<a href="#virtual_readTextFile">readTextFile</a><br/>
+	<a href="#virtual_releaseMark">releaseMark</a><br/>
+	<a href="#virtual_releaseString">releaseString</a><br/>
+	<a href="#virtual_seekAnyCharacters">seekAnyCharacters</a><br/>
+	<a href="#virtual_seekIndex">seekIndex</a><br/>
+	<a href="#virtual_seekString">seekString</a><br/>
+	<a href="#virtual_seekToMark">seekToMark</a><br/>
+	<a href="#virtual_seekToNextLine">seekToNextLine</a><br/>
+	<a href="#virtual_subString">subString</a><br/>
+	<a href="#virtual_subStringFrom">subStringFrom</a><br/>
+	<a href="#virtual_subStringFromMark">subStringFromMark</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_ctrlCStyleNumber"/>
+<div class="headline">ctrlCStyleNumber</div>
+<div class="usage">public static const Integer ctrlCStyleNumber = 8</div>
+<br/>
+
+<a name="static_ctrlEscCSVInDQuote"/>
+<div class="headline">ctrlEscCSVInDQuote</div>
+<div class="usage">public static const Integer ctrlEscCSVInDQuote = 16</div>
+<br/>
+
+<a name="static_ctrlNoEscInDQuote"/>
+<div class="headline">ctrlNoEscInDQuote</div>
+<div class="usage">public static const Integer ctrlNoEscInDQuote = 2</div>
+<br/>
+
+<a name="static_ctrlNoEscInQuote"/>
+<div class="headline">ctrlNoEscInQuote</div>
+<div class="usage">public static const Integer ctrlNoEscInQuote = 1</div>
+<br/>
+
+<a name="static_ctrlNoRadixPostfix"/>
+<div class="headline">ctrlNoRadixPostfix</div>
+<div class="usage">public static const Integer ctrlNoRadixPostfix = 4</div>
+<br/>
+
+<a name="static_numberDefault"/>
+<div class="headline">numberDefault</div>
+<div class="usage">public static const Integer numberDefault = 0</div>
+<br/>
+
+<a name="static_numberFlagReal"/>
+<div class="headline">numberFlagReal</div>
+<div class="usage">public static const Integer numberFlagReal = 512 /* 0x0200 */</div>
+<br/>
+
+<a name="static_numberInteger"/>
+<div class="headline">numberInteger</div>
+<div class="usage">public static const Integer numberInteger = 0</div>
+<br/>
+
+<a name="static_numberInvalid"/>
+<div class="headline">numberInvalid</div>
+<div class="usage">public static const Integer numberInvalid = -1</div>
+<br/>
+
+<a name="static_numberRadix10"/>
+<div class="headline">numberRadix10</div>
+<div class="usage">public static const Integer numberRadix10 = 10</div>
+<br/>
+
+<a name="static_numberRadix16"/>
+<div class="headline">numberRadix16</div>
+<div class="usage">public static const Integer numberRadix16 = 16</div>
+<br/>
+
+<a name="static_numberRadix2"/>
+<div class="headline">numberRadix2</div>
+<div class="usage">public static const Integer numberRadix2 = 2</div>
+<br/>
+
+<a name="static_numberRadix8"/>
+<div class="headline">numberRadix8</div>
+<div class="usage">public static const Integer numberRadix8 = 8</div>
+<br/>
+
+<a name="static_numberRadixMask"/>
+<div class="headline">numberRadixMask</div>
+<div class="usage">public static const Integer numberRadixMask = 255 /* 0x00FF */</div>
+<br/>
+
+<a name="static_numberStyleHex"/>
+<div class="headline">numberStyleHex</div>
+<div class="usage">public static const Integer numberStyleHex = 272 /* 0x0110 */</div>
+<br/>
+
+<a name="static_numberStyleOct"/>
+<div class="headline">numberStyleOct</div>
+<div class="usage">public static const Integer numberStyleOct = 264 /* 0x0108 */</div>
+<br/>
+
+<a name="static_tokenInvalid"/>
+<div class="headline">tokenInvalid</div>
+<div class="usage">public static const Integer tokenInvalid = -1</div>
+<br/>
+
+<a name="static_tokenNormal"/>
+<div class="headline">tokenNormal</div>
+<div class="usage">public static const Integer tokenNormal = 0</div>
+<br/>
+
+<a name="static_tokenPunctuation"/>
+<div class="headline">tokenPunctuation</div>
+<div class="usage">public static const Integer tokenPunctuation = 1</div>
+<br/>
+
+<a name="static_tokenSpecialMark"/>
+<div class="headline">tokenSpecialMark</div>
+<div class="usage">public static const Integer tokenSpecialMark = 2</div>
+<br/>
+
+<div class="chapter">Static Functions</div>
+
+<a name="static_isCharacterSpace"/>
+<div class="headline">isCharacterSpace</div>
+<div class="usage">public static boolean isCharacterSpace( char c )</div>
+<br/>
+
+<a name="static_isPunctuation"/>
+<div class="headline">isPunctuation</div>
+<div class="usage">public static boolean isPunctuation( char c )</div>
+<br/>
+
+<a name="static_isSpecialMark"/>
+<div class="headline">isSpecialMark</div>
+<div class="usage">public static boolean isSpecialMark( char c )</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_StringParser"/>
+<div class="headline">StringParser</div>
+<div class="usage">public void StringParser( String value )</div>
+<br/>
+
+<div class="headline">StringParser</div>
+<div class="usage">public void StringParser( StringParser value )</div>
+<br/>
+
+<a name="virtual_attachString"/>
+<div class="headline">attachString</div>
+<div class="usage">public void attachString( String str )</div>
+<br/>
+
+<a name="virtual_currentCharacter"/>
+<div class="headline">currentCharacter</div>
+<div class="usage">public char currentCharacter(&#32; )</div>
+<div class="normal">
+　現在の指標の文字を取得します。指標が範囲を超えている場合 0 を返します。
+</div>
+<br/>
+
+<a name="virtual_getCharacter"/>
+<div class="headline">getCharacter</div>
+<div class="usage">public char getCharacter(&#32; )</div>
+<div class="normal">
+　現在の指標の文字を取得し、指標を次の文字へ進めます。
+</div>
+<br/>
+
+<a name="virtual_getEnclosedString"/>
+<div class="headline">getEnclosedString</div>
+<div class="usage">public String getEnclosedString( char chCloser, int nCtrlFlags = 0, char[] pGetClosed = null )</div>
+<div class="normal">
+　現在の指標から chCloser 文字を見つけるまでの区間の文字列を取得します。<br/>
+　文字列に終端の chCloser は含まれませんが。指標は chCloser の次へ移動します。<br/>
+　pGetClosed が null でない場合 pGetClosed[0] に chCloser が返されます。<br/>
+　chCloser が見つからなかった場合、終端までの文字列が返されます。
+</div>
+<br/>
+
+<a name="virtual_getExpression"/>
+<div class="headline">getExpression</div>
+<div class="usage">public String getExpression( String strCloses, int nCtrlFlags = 0, char[] pGetClosed = null )</div>
+<br/>
+
+<a name="virtual_getExpressionTerm"/>
+<div class="headline">getExpressionTerm</div>
+<div class="usage">public String getExpressionTerm( int nCtrlFlags = 0 )</div>
+<br/>
+
+<a name="virtual_getIndex"/>
+<div class="headline">getIndex</div>
+<div class="usage">public const int getIndex(&#32; )</div>
+<br/>
+
+<a name="virtual_getLength"/>
+<div class="headline">getLength</div>
+<div class="usage">public const int getLength(&#32; )</div>
+<br/>
+
+<a name="virtual_getLine"/>
+<div class="headline">getLine</div>
+<div class="usage">public String getLine( int[] pRetCode = null )</div>
+<div class="normal">
+　現在の指標から行末までの文字列を取得します。<br/>
+　文字列には行末の改行記号が含まれます。<br/>
+　pRetCode が null でない場合、pRetCode[0] に改行コードが返されます。<br/>
+　改行コードが CRLF の場合には 0x0D0A が返されます。
+</div>
+<br/>
+
+<a name="virtual_getLineNumberOf"/>
+<div class="headline">getLineNumberOf</div>
+<div class="usage">public int getLineNumberOf( int index, int[] pGetLineIndex = null )</div>
+<br/>
+
+<a name="virtual_getString"/>
+<div class="headline">getString</div>
+<div class="usage">public String getString(&#32; )</div>
+<br/>
+
+<a name="virtual_getStringTerm"/>
+<div class="headline">getStringTerm</div>
+<div class="usage">public String getStringTerm( int nCtrlFlags = 0 )</div>
+<br/>
+
+<a name="virtual_getToken"/>
+<div class="headline">getToken</div>
+<div class="usage">public String getToken( int[] pGetType = null )</div>
+<br/>
+
+<a name="virtual_hasToComeChar"/>
+<div class="headline">hasToComeChar</div>
+<div class="usage">public char hasToComeChar( String strNext )</div>
+<div class="normal">
+　現在の指標から空白を除く次の文字が strNext に指定した文字列の要素文字のいずれかだった場合、その文字コードを返し、指標をその次の文字へ移動します。<br/>
+　次の文字が指定文字列のいずれの文字でもなかった場合 0 を返し指標は移動しません。
+</div>
+<br/>
+
+<a name="virtual_hasToComeNoCaseString"/>
+<div class="headline">hasToComeNoCaseString</div>
+<div class="usage">public boolean hasToComeNoCaseString( String strNext )</div>
+<br/>
+
+<a name="virtual_hasToComeString"/>
+<div class="headline">hasToComeString</div>
+<div class="usage">public boolean hasToComeString( String strNext )</div>
+<br/>
+
+<a name="virtual_hasToComeToken"/>
+<div class="headline">hasToComeToken</div>
+<div class="usage">public boolean hasToComeToken( String strNext )</div>
+<br/>
+
+<a name="virtual_isIndexOverflow"/>
+<div class="headline">isIndexOverflow</div>
+<div class="usage">public const boolean isIndexOverflow(&#32; )</div>
+<br/>
+
+<a name="virtual_isNextNumber"/>
+<div class="headline">isNextNumber</div>
+<div class="usage">public int isNextNumber( int nCtrlFlags = 0 )</div>
+<br/>
+
+<a name="virtual_loadTextFile"/>
+<div class="headline">loadTextFile</div>
+<div class="usage">public boolean loadTextFile( String sFilePath, int encoding = -1 )</div>
+<br/>
+
+<a name="virtual_markIndex"/>
+<div class="headline">markIndex</div>
+<div class="usage">public void markIndex(&#32; )</div>
+<br/>
+
+<a name="virtual_nextInteger"/>
+<div class="headline">nextInteger</div>
+<div class="usage">public long nextInteger( int type = 0 )</div>
+<br/>
+
+<a name="virtual_nextRealNumber"/>
+<div class="headline">nextRealNumber</div>
+<div class="usage">public double nextRealNumber( int type = 0 )</div>
+<br/>
+
+<a name="virtual_offsetAt"/>
+<div class="headline">offsetAt</div>
+<div class="usage">public char offsetAt( int iOffset )</div>
+<div class="normal">
+　現在の指標から iOffset 番目の文字を取得します。<br/>
+　指標が範囲を超えている場合、0 を返します。
+</div>
+<br/>
+
+<a name="virtual_parseCommaSeparatedValues"/>
+<div class="headline">parseCommaSeparatedValues</div>
+<div class="usage">public int parseCommaSeparatedValues( String[] aValues )</div>
+<br/>
+
+<a name="virtual_parseHexIntegerArray"/>
+<div class="headline">parseHexIntegerArray</div>
+<div class="usage">public int parseHexIntegerArray( long[] pNumbers, int nCount, String strSeparator = null )</div>
+<br/>
+
+<a name="virtual_parseIntegerArray"/>
+<div class="headline">parseIntegerArray</div>
+<div class="usage">public int parseIntegerArray( long[] pNumbers, int nCount, int nCtrlFlags = 0, String strSeparator = null )</div>
+<br/>
+
+<a name="virtual_parseNumberArray"/>
+<div class="headline">parseNumberArray</div>
+<div class="usage">public int parseNumberArray( double[] pNumbers, int nCount, int nCtrlFlags = 0, String strSeparator = null )</div>
+<br/>
+
+<a name="virtual_passEnclosedString"/>
+<div class="headline">passEnclosedString</div>
+<div class="usage">public void passEnclosedString( char chCloser, int nCtrlFlags = 0 )</div>
+<br/>
+
+<a name="virtual_passExpression"/>
+<div class="headline">passExpression</div>
+<div class="usage">public void passExpression( String strCloses, int nCtrlFlags = 0 )</div>
+<br/>
+
+<a name="virtual_passExpressionTerm"/>
+<div class="headline">passExpressionTerm</div>
+<div class="usage">public void passExpressionTerm( int nCtrlFlags = 0 )</div>
+<br/>
+
+<a name="virtual_passSpace"/>
+<div class="headline">passSpace</div>
+<div class="usage">public boolean passSpace(&#32; )</div>
+<div class="normal">
+　現在の指標から空白文字の間、指標を進めます。<br/>
+　空白以外の文字を発見した場合、true を返します。
+</div>
+<br/>
+
+<a name="virtual_passString"/>
+<div class="headline">passString</div>
+<div class="usage">public void passString(&#32; )</div>
+<br/>
+
+<a name="virtual_passToken"/>
+<div class="headline">passToken</div>
+<div class="usage">public int passToken(&#32; )</div>
+<br/>
+
+<a name="virtual_readTextFile"/>
+<div class="headline">readTextFile</div>
+<div class="usage">public boolean readTextFile( InputStream is, int encoding = -1 )</div>
+<br/>
+
+<div class="headline">readTextFile</div>
+<div class="usage">public boolean readTextFile( RandomAccessFile raf, int encoding = -1 )</div>
+<br/>
+
+<a name="virtual_releaseMark"/>
+<div class="headline">releaseMark</div>
+<div class="usage">public void releaseMark(&#32; )</div>
+<br/>
+
+<a name="virtual_releaseString"/>
+<div class="headline">releaseString</div>
+<div class="usage">public void releaseString(&#32; )</div>
+<br/>
+
+<a name="virtual_seekAnyCharacters"/>
+<div class="headline">seekAnyCharacters</div>
+<div class="usage">public boolean seekAnyCharacters( String strChars )</div>
+<br/>
+
+<a name="virtual_seekIndex"/>
+<div class="headline">seekIndex</div>
+<div class="usage">public int seekIndex( int index )</div>
+<br/>
+
+<a name="virtual_seekString"/>
+<div class="headline">seekString</div>
+<div class="usage">public boolean seekString( String str )</div>
+<br/>
+
+<a name="virtual_seekToMark"/>
+<div class="headline">seekToMark</div>
+<div class="usage">public void seekToMark(&#32; )</div>
+<br/>
+
+<a name="virtual_seekToNextLine"/>
+<div class="headline">seekToNextLine</div>
+<div class="usage">public int seekToNextLine(&#32; )</div>
+<br/>
+
+<a name="virtual_subString"/>
+<div class="headline">subString</div>
+<div class="usage">public String subString( int iStart, int nCount = -1 )</div>
+<div class="normal">
+　iStart から nCount 文字分の部分文字列を取得します。
+</div>
+<br/>
+
+<a name="virtual_subStringFrom"/>
+<div class="headline">subStringFrom</div>
+<div class="usage">public String subStringFrom( int iStart )</div>
+<div class="normal">
+　iStart 位置から現在の指標までの部分文字列を取得します。<br/>
+　現在の指標の文字は含みません。
+</div>
+<br/>
+
+<a name="virtual_subStringFromMark"/>
+<div class="headline">subStringFromMark</div>
+<div class="usage">public String subStringFromMark(&#32; )</div>
+<div class="normal">
+　記憶指標から現在の指標までの部分文字列を取得します。<br/>
+　現在の指標の文字は含みません。
+</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

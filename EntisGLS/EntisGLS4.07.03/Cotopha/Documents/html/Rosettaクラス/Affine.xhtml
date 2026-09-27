@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>Affine</title>
+</head>
+<body>
+<div class="chapter">Affine</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　Affine はアフィン行列を格納する構造体です。<br/>
+　EntisGLS4 の SGLAffine と同等です。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="Uint8Pointer.xhtml">Uint8Pointer</a>
+<div class="indent1"><a href="Structure.xhtml">Structure</a>
+<div class="indent1"><a href="Affine.xhtml">Affine</a>
+</div></div></div></div><br/>
+
+<div class="headline">Members</div>
+<div class="indent2">
+	<a href="#member_a11">a11</a><br/>
+	<a href="#member_a21">a21</a><br/>
+	<a href="#member_a12">a12</a><br/>
+	<a href="#member_a22">a22</a><br/>
+	<a href="#member_a13">a13</a><br/>
+	<a href="#member_a23">a23</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_getPosition">getPosition</a><br/>
+	<a href="#virtual_inverseOf">inverseOf</a><br/>
+	<a href="#virtual_isRotation">isRotation</a><br/>
+	<a href="#virtual_mappingOf">mappingOf</a><br/>
+	<a href="#virtual_setPosition">setPosition</a><br/>
+	<a href="#virtual_setRotation">setRotation</a><br/>
+	<a href="#virtual_transformVector">transformVector</a><br/>
+	<a href="#virtual_transformVectors">transformVectors</a><br/>
+</div><br/>
+
+
+<div class="chapter">Members</div>
+
+<a name="member_a11"/>
+<div class="headline">a11</div>
+<div class="usage">&#9;public float a11</div>
+<br/>
+
+<a name="member_a21"/>
+<div class="headline">a21</div>
+<div class="usage">&#9;public float a21</div>
+<br/>
+
+<a name="member_a12"/>
+<div class="headline">a12</div>
+<div class="usage">&#9;public float a12</div>
+<br/>
+
+<a name="member_a22"/>
+<div class="headline">a22</div>
+<div class="usage">&#9;public float a22</div>
+<br/>
+
+<a name="member_a13"/>
+<div class="headline">a13</div>
+<div class="usage">&#9;public float a13</div>
+<br/>
+
+<a name="member_a23"/>
+<div class="headline">a23</div>
+<div class="usage">&#9;public float a23</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_getPosition"/>
+<div class="headline">getPosition</div>
+<div class="usage">public const Vector2D getPosition(&#32; )</div>
+<br/>
+
+<a name="virtual_inverseOf"/>
+<div class="headline">inverseOf</div>
+<div class="usage">public void inverseOf( Affine af )</div>
+<br/>
+
+<a name="virtual_isRotation"/>
+<div class="headline">isRotation</div>
+<div class="usage">public const boolean isRotation(&#32; )</div>
+<br/>
+
+<a name="virtual_mappingOf"/>
+<div class="headline">mappingOf</div>
+<div class="usage">public void mappingOf( Vector2D vDst, Vector2D vSrc )</div>
+<br/>
+
+<a name="virtual_setPosition"/>
+<div class="headline">setPosition</div>
+<div class="usage">public void setPosition( double x, double y )</div>
+<br/>
+
+<a name="virtual_setRotation"/>
+<div class="headline">setRotation</div>
+<div class="usage">public void setRotation( double rad )</div>
+<br/>
+
+<a name="virtual_transformVector"/>
+<div class="headline">transformVector</div>
+<div class="usage">public const Vector2D transformVector( Vector2D v )</div>
+<br/>
+
+<a name="virtual_transformVectors"/>
+<div class="headline">transformVectors</div>
+<div class="usage">public const void transformVectors( Vector2D vDst, Vector2D vSrc, int count )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

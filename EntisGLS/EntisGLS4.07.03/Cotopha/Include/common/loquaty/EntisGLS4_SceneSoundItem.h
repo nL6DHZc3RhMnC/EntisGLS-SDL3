@@ -1,0 +1,11 @@
+﻿
+
+DECL_LOQUATY_CONSTRUCTOR(EntisGLS4_SceneSoundItem);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneSoundItem_createInstance);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneSoundItem_removeInstance);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneSoundItem_playInstance);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneSoundItem_isValidInstance);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneSoundItem_setInstancePosition);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneSoundItem_getPlayingTimeOfInstance);
+
+

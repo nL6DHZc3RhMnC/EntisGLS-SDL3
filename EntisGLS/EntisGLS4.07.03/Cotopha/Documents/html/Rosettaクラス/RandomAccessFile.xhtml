@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>RandomAccessFile</title>
+</head>
+<body>
+<div class="chapter">RandomAccessFile</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　RandomAccessFile はファイルへの入出力を提供します。<br/>
+　getInputStream, getOutputStream 関数で InputStream, OutputStream インターフェースを取得できます。getOutputStream で取得した OutputStream への出力はバッファリングされているので、出力を確定するには flush 関数を明示的に呼び出す必要があります。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="RandomAccessFile.xhtml">RandomAccessFile</a>
+</div></div><br/>
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_RandomAccessFile">RandomAccessFile</a><br/>
+	<a href="#virtual_close">close</a><br/>
+	<a href="#virtual_getFilePointer">getFilePointer</a><br/>
+	<a href="#virtual_getInputStream">getInputStream</a><br/>
+	<a href="#virtual_getOutputStream">getOutputStream</a><br/>
+	<a href="#virtual_length">length</a><br/>
+	<a href="#virtual_printf">printf</a><br/>
+	<a href="#virtual_read">read</a><br/>
+	<a href="#virtual_readBoolean">readBoolean</a><br/>
+	<a href="#virtual_readByte">readByte</a><br/>
+	<a href="#virtual_readChar">readChar</a><br/>
+	<a href="#virtual_readDouble">readDouble</a><br/>
+	<a href="#virtual_readFloat">readFloat</a><br/>
+	<a href="#virtual_readInt">readInt</a><br/>
+	<a href="#virtual_readLine">readLine</a><br/>
+	<a href="#virtual_readLong">readLong</a><br/>
+	<a href="#virtual_readShort">readShort</a><br/>
+	<a href="#virtual_readUTF">readUTF</a><br/>
+	<a href="#virtual_readUnsignedByte">readUnsignedByte</a><br/>
+	<a href="#virtual_readUnsignedShort">readUnsignedShort</a><br/>
+	<a href="#virtual_seek">seek</a><br/>
+	<a href="#virtual_setLength">setLength</a><br/>
+	<a href="#virtual_write">write</a><br/>
+	<a href="#virtual_writeBoolean">writeBoolean</a><br/>
+	<a href="#virtual_writeByte">writeByte</a><br/>
+	<a href="#virtual_writeChar">writeChar</a><br/>
+	<a href="#virtual_writeChars">writeChars</a><br/>
+	<a href="#virtual_writeDouble">writeDouble</a><br/>
+	<a href="#virtual_writeFloat">writeFloat</a><br/>
+	<a href="#virtual_writeInt">writeInt</a><br/>
+	<a href="#virtual_writeLong">writeLong</a><br/>
+	<a href="#virtual_writeShort">writeShort</a><br/>
+	<a href="#virtual_writeUTF">writeUTF</a><br/>
+</div><br/>
+
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_RandomAccessFile"/>
+<div class="headline">RandomAccessFile</div>
+<div class="usage">public void RandomAccessFile( String path, String mode )</div>
+<br/>
+
+<a name="virtual_close"/>
+<div class="headline">close</div>
+<div class="usage">public void close(&#32; )</div>
+<br/>
+
+<a name="virtual_getFilePointer"/>
+<div class="headline">getFilePointer</div>
+<div class="usage">public long getFilePointer(&#32; )</div>
+<br/>
+
+<a name="virtual_getInputStream"/>
+<div class="headline">getInputStream</div>
+<div class="usage">public InputStream getInputStream(&#32; )</div>
+<br/>
+
+<div class="headline">getInputStream</div>
+<div class="usage">public InputStream getInputStream( String encoding )</div>
+<br/>
+
+<a name="virtual_getOutputStream"/>
+<div class="headline">getOutputStream</div>
+<div class="usage">public OutputStream getOutputStream(&#32; )</div>
+<br/>
+
+<div class="headline">getOutputStream</div>
+<div class="usage">public OutputStream getOutputStream( String encoding )</div>
+<br/>
+
+<a name="virtual_length"/>
+<div class="headline">length</div>
+<div class="usage">public long length(&#32; )</div>
+<br/>
+
+<a name="virtual_printf"/>
+<div class="headline">printf</div>
+<div class="usage">public RandomAccessFile printf( String fmt, ... )</div>
+<br/>
+
+<a name="virtual_read"/>
+<div class="headline">read</div>
+<div class="usage">public int read( Uint8Pointer b, int off, int len )</div>
+<br/>
+
+<div class="headline">read</div>
+<div class="usage">public int read( ArrayBuffer b, int off, int len )</div>
+<br/>
+
+<div class="headline">read</div>
+<div class="usage">public int read(&#32; )</div>
+<br/>
+
+<div class="headline">read</div>
+<div class="usage">public int read( byte[] b )</div>
+<br/>
+
+<div class="headline">read</div>
+<div class="usage">public int read( byte[] b, int off, int len )</div>
+<br/>
+
+<a name="virtual_readBoolean"/>
+<div class="headline">readBoolean</div>
+<div class="usage">public boolean readBoolean(&#32; )</div>
+<br/>
+
+<a name="virtual_readByte"/>
+<div class="headline">readByte</div>
+<div class="usage">public byte readByte(&#32; )</div>
+<br/>
+
+<a name="virtual_readChar"/>
+<div class="headline">readChar</div>
+<div class="usage">public char readChar(&#32; )</div>
+<br/>
+
+<a name="virtual_readDouble"/>
+<div class="headline">readDouble</div>
+<div class="usage">public double readDouble(&#32; )</div>
+<br/>
+
+<a name="virtual_readFloat"/>
+<div class="headline">readFloat</div>
+<div class="usage">public float readFloat(&#32; )</div>
+<br/>
+
+<a name="virtual_readInt"/>
+<div class="headline">readInt</div>
+<div class="usage">public int readInt(&#32; )</div>
+<br/>
+
+<a name="virtual_readLine"/>
+<div class="headline">readLine</div>
+<div class="usage">public String readLine(&#32; )</div>
+<br/>
+
+<a name="virtual_readLong"/>
+<div class="headline">readLong</div>
+<div class="usage">public long readLong(&#32; )</div>
+<br/>
+
+<a name="virtual_readShort"/>
+<div class="headline">readShort</div>
+<div class="usage">public short readShort(&#32; )</div>
+<br/>
+
+<a name="virtual_readUTF"/>
+<div class="headline">readUTF</div>
+<div class="usage">public String readUTF(&#32; )</div>
+<br/>
+
+<a name="virtual_readUnsignedByte"/>
+<div class="headline">readUnsignedByte</div>
+<div class="usage">public int readUnsignedByte(&#32; )</div>
+<br/>
+
+<a name="virtual_readUnsignedShort"/>
+<div class="headline">readUnsignedShort</div>
+<div class="usage">public int readUnsignedShort(&#32; )</div>
+<br/>
+
+<a name="virtual_seek"/>
+<div class="headline">seek</div>
+<div class="usage">public void seek( long pos )</div>
+<br/>
+
+<a name="virtual_setLength"/>
+<div class="headline">setLength</div>
+<div class="usage">public void setLength( long newLength )</div>
+<br/>
+
+<a name="virtual_write"/>
+<div class="headline">write</div>
+<div class="usage">public void write( Uint8Pointer b, int off, int len )</div>
+<br/>
+
+<div class="headline">write</div>
+<div class="usage">public void write( ArrayBuffer b, int off, int len )</div>
+<br/>
+
+<div class="headline">write</div>
+<div class="usage">public void write( int b )</div>
+<br/>
+
+<div class="headline">write</div>
+<div class="usage">public void write( byte[] b )</div>
+<br/>
+
+<div class="headline">write</div>
+<div class="usage">public void write( byte[] b, int off, int len )</div>
+<br/>
+
+<a name="virtual_writeBoolean"/>
+<div class="headline">writeBoolean</div>
+<div class="usage">public void writeBoolean( boolean v )</div>
+<br/>
+
+<a name="virtual_writeByte"/>
+<div class="headline">writeByte</div>
+<div class="usage">public void writeByte( int v )</div>
+<br/>
+
+<a name="virtual_writeChar"/>
+<div class="headline">writeChar</div>
+<div class="usage">public void writeChar( int v )</div>
+<br/>
+
+<a name="virtual_writeChars"/>
+<div class="headline">writeChars</div>
+<div class="usage">public void writeChars( String s )</div>
+<br/>
+
+<a name="virtual_writeDouble"/>
+<div class="headline">writeDouble</div>
+<div class="usage">public void writeDouble( double v )</div>
+<br/>
+
+<a name="virtual_writeFloat"/>
+<div class="headline">writeFloat</div>
+<div class="usage">public void writeFloat( float v )</div>
+<br/>
+
+<a name="virtual_writeInt"/>
+<div class="headline">writeInt</div>
+<div class="usage">public void writeInt( int v )</div>
+<br/>
+
+<a name="virtual_writeLong"/>
+<div class="headline">writeLong</div>
+<div class="usage">public void writeLong( long v )</div>
+<br/>
+
+<a name="virtual_writeShort"/>
+<div class="headline">writeShort</div>
+<div class="usage">public void writeShort( int v )</div>
+<br/>
+
+<a name="virtual_writeUTF"/>
+<div class="headline">writeUTF</div>
+<div class="usage">public void writeUTF( String s )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

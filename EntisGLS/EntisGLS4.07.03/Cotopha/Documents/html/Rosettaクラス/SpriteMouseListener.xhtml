@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>SpriteMouseListener</title>
+</head>
+<body>
+<div class="chapter">SpriteMouseListener</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　SpriteMouseListener は Sprite へのマウス入力インターフェースです。<br/>
+　EntisGLS4 の SGLSpriteMouseStateListener と同等です。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="SpriteMouseListener.xhtml">SpriteMouseListener</a>
+</div></div><br/>
+
+<div class="headline">Static Functions</div>
+<div class="indent2">
+	<a href="#static_getMouseID">getMouseID</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_afterLButtonDblClk">afterLButtonDblClk</a><br/>
+	<a href="#virtual_afterLButtonDown">afterLButtonDown</a><br/>
+	<a href="#virtual_afterLButtonUp">afterLButtonUp</a><br/>
+	<a href="#virtual_afterMButtonDblClk">afterMButtonDblClk</a><br/>
+	<a href="#virtual_afterMButtonDown">afterMButtonDown</a><br/>
+	<a href="#virtual_afterMButtonUp">afterMButtonUp</a><br/>
+	<a href="#virtual_afterRButtonDblClk">afterRButtonDblClk</a><br/>
+	<a href="#virtual_afterRButtonDown">afterRButtonDown</a><br/>
+	<a href="#virtual_afterRButtonUp">afterRButtonUp</a><br/>
+	<a href="#virtual_enumerateLDownPoints">enumerateLDownPoints</a><br/>
+	<a href="#virtual_findMouseIndexById">findMouseIndexById</a><br/>
+	<a href="#virtual_getMousePointAt">getMousePointAt</a><br/>
+	<a href="#virtual_getPointerCount">getPointerCount</a><br/>
+	<a href="#virtual_isLButtonDownAt">isLButtonDownAt</a><br/>
+	<a href="#virtual_isRButtonDownAt">isRButtonDownAt</a><br/>
+	<a href="#virtual_onLButtonDblClk">onLButtonDblClk</a><br/>
+	<a href="#virtual_onLButtonDown">onLButtonDown</a><br/>
+	<a href="#virtual_onLButtonUp">onLButtonUp</a><br/>
+	<a href="#virtual_onMButtonDblClk">onMButtonDblClk</a><br/>
+	<a href="#virtual_onMButtonDown">onMButtonDown</a><br/>
+	<a href="#virtual_onMButtonUp">onMButtonUp</a><br/>
+	<a href="#virtual_onMouseLeave">onMouseLeave</a><br/>
+	<a href="#virtual_onMouseMove">onMouseMove</a><br/>
+	<a href="#virtual_onMouseWheel">onMouseWheel</a><br/>
+	<a href="#virtual_onRButtonDblClk">onRButtonDblClk</a><br/>
+	<a href="#virtual_onRButtonDown">onRButtonDown</a><br/>
+	<a href="#virtual_onRButtonUp">onRButtonUp</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Functions</div>
+
+<a name="static_getMouseID"/>
+<div class="headline">getMouseID</div>
+<div class="usage">public static int getMouseID( long nFlags )</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_afterLButtonDblClk"/>
+<div class="headline">afterLButtonDblClk</div>
+<div class="usage">public boolean afterLButtonDblClk( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_afterLButtonDown"/>
+<div class="headline">afterLButtonDown</div>
+<div class="usage">public boolean afterLButtonDown( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_afterLButtonUp"/>
+<div class="headline">afterLButtonUp</div>
+<div class="usage">public boolean afterLButtonUp( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_afterMButtonDblClk"/>
+<div class="headline">afterMButtonDblClk</div>
+<div class="usage">public boolean afterMButtonDblClk( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_afterMButtonDown"/>
+<div class="headline">afterMButtonDown</div>
+<div class="usage">public boolean afterMButtonDown( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_afterMButtonUp"/>
+<div class="headline">afterMButtonUp</div>
+<div class="usage">public boolean afterMButtonUp( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_afterRButtonDblClk"/>
+<div class="headline">afterRButtonDblClk</div>
+<div class="usage">public boolean afterRButtonDblClk( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_afterRButtonDown"/>
+<div class="headline">afterRButtonDown</div>
+<div class="usage">public boolean afterRButtonDown( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_afterRButtonUp"/>
+<div class="headline">afterRButtonUp</div>
+<div class="usage">public boolean afterRButtonUp( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_enumerateLDownPoints"/>
+<div class="headline">enumerateLDownPoints</div>
+<div class="usage">public const Vector2D enumerateLDownPoints(&#32; )</div>
+<br/>
+
+<a name="virtual_findMouseIndexById"/>
+<div class="headline">findMouseIndexById</div>
+<div class="usage">public const int findMouseIndexById( int idMouse )</div>
+<br/>
+
+<a name="virtual_getMousePointAt"/>
+<div class="headline">getMousePointAt</div>
+<div class="usage">public const Vector2D getMousePointAt( int i )</div>
+<br/>
+
+<a name="virtual_getPointerCount"/>
+<div class="headline">getPointerCount</div>
+<div class="usage">public const int getPointerCount(&#32; )</div>
+<br/>
+
+<a name="virtual_isLButtonDownAt"/>
+<div class="headline">isLButtonDownAt</div>
+<div class="usage">public const boolean isLButtonDownAt( int i )</div>
+<br/>
+
+<a name="virtual_isRButtonDownAt"/>
+<div class="headline">isRButtonDownAt</div>
+<div class="usage">public const boolean isRButtonDownAt( int i )</div>
+<br/>
+
+<a name="virtual_onLButtonDblClk"/>
+<div class="headline">onLButtonDblClk</div>
+<div class="usage">public boolean onLButtonDblClk( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_onLButtonDown"/>
+<div class="headline">onLButtonDown</div>
+<div class="usage">public boolean onLButtonDown( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_onLButtonUp"/>
+<div class="headline">onLButtonUp</div>
+<div class="usage">public boolean onLButtonUp( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_onMButtonDblClk"/>
+<div class="headline">onMButtonDblClk</div>
+<div class="usage">public boolean onMButtonDblClk( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_onMButtonDown"/>
+<div class="headline">onMButtonDown</div>
+<div class="usage">public boolean onMButtonDown( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_onMButtonUp"/>
+<div class="headline">onMButtonUp</div>
+<div class="usage">public boolean onMButtonUp( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_onMouseLeave"/>
+<div class="headline">onMouseLeave</div>
+<div class="usage">public void onMouseLeave( Sprite sprite, long nFlags )</div>
+<br/>
+
+<a name="virtual_onMouseMove"/>
+<div class="headline">onMouseMove</div>
+<div class="usage">public boolean onMouseMove( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_onMouseWheel"/>
+<div class="headline">onMouseWheel</div>
+<div class="usage">public boolean onMouseWheel( Sprite sprite, int zDelta, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_onRButtonDblClk"/>
+<div class="headline">onRButtonDblClk</div>
+<div class="usage">public boolean onRButtonDblClk( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_onRButtonDown"/>
+<div class="headline">onRButtonDown</div>
+<div class="usage">public boolean onRButtonDown( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<a name="virtual_onRButtonUp"/>
+<div class="headline">onRButtonUp</div>
+<div class="usage">public boolean onRButtonUp( Sprite sprite, double xPos, double yPos, long nFlags )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

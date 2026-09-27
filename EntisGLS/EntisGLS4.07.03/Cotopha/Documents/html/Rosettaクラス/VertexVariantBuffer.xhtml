@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>VertexVariantBuffer</title>
+</head>
+<body>
+<div class="chapter">VertexVariantBuffer</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　VertexVariantBuffer は3Dグラフィックス処理で扱う変形モデルパラメータの抽象物です。<br/>
+　EntisGLS4 の S3DVertexVariantBuffer コンテナです。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="VertexVariantBuffer.xhtml">VertexVariantBuffer</a>
+</div></div></div><br/>
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_enableToRenderMesh">enableToRenderMesh</a><br/>
+	<a href="#virtual_getBoneMatrix">getBoneMatrix</a><br/>
+	<a href="#virtual_getMaterialToRenderMesh">getMaterialToRenderMesh</a><br/>
+	<a href="#virtual_getMorphingApplication">getMorphingApplication</a><br/>
+	<a href="#virtual_isEnabledToRenderMesh">isEnabledToRenderMesh</a><br/>
+	<a href="#virtual_setBoneMatrix">setBoneMatrix</a><br/>
+	<a href="#virtual_setMaterialToRenderMesh">setMaterialToRenderMesh</a><br/>
+	<a href="#virtual_setMorphingApplication">setMorphingApplication</a><br/>
+</div><br/>
+
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_enableToRenderMesh"/>
+<div class="headline">enableToRenderMesh</div>
+<div class="usage">public boolean enableToRenderMesh( int iFirst = 0, int iEnd = -1, boolean fEnable = true )</div>
+<br/>
+
+<a name="virtual_getBoneMatrix"/>
+<div class="headline">getBoneMatrix</div>
+<div class="usage">public const boolean getBoneMatrix( int iMesh, int nCount, Matrix4D pMatrix )</div>
+<br/>
+
+<a name="virtual_getMaterialToRenderMesh"/>
+<div class="headline">getMaterialToRenderMesh</div>
+<div class="usage">public const Material getMaterialToRenderMesh( int iMesh )</div>
+<br/>
+
+<a name="virtual_getMorphingApplication"/>
+<div class="headline">getMorphingApplication</div>
+<div class="usage">public const boolean getMorphingApplication( int iMesh, Int32Pointer pTarget, Float32Pointer pApplication, int iTargetIndex )</div>
+<br/>
+
+<a name="virtual_isEnabledToRenderMesh"/>
+<div class="headline">isEnabledToRenderMesh</div>
+<div class="usage">public const boolean isEnabledToRenderMesh( int iMesh )</div>
+<br/>
+
+<a name="virtual_setBoneMatrix"/>
+<div class="headline">setBoneMatrix</div>
+<div class="usage">public boolean setBoneMatrix( int iMesh, int nCount, Matrix4D pMatrix )</div>
+<br/>
+
+<a name="virtual_setMaterialToRenderMesh"/>
+<div class="headline">setMaterialToRenderMesh</div>
+<div class="usage">public boolean setMaterialToRenderMesh( int iMesh, Material material )</div>
+<br/>
+
+<a name="virtual_setMorphingApplication"/>
+<div class="headline">setMorphingApplication</div>
+<div class="usage">public boolean setMorphingApplication( int iMesh, Int32Pointer pTarget, Float32Pointer pApplication, int nTargetCount )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

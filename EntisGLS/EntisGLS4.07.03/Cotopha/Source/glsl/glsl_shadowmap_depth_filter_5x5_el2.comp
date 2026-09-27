@@ -1,0 +1,46 @@
+﻿
+///////////////////////////////////////////////////////////////////////////////
+// Depth バッファ用ループフィルタ
+///////////////////////////////////////////////////////////////////////////////
+
+uniform highp sampler2DArray 	u_imageInput ;
+
+layout(rgba32f, binding = 0) uniform highp writeonly image2DArray	u_imageOutput ;
+
+uniform int		u_nImageWidth ;
+uniform int		u_nImageHeight ;
+uniform int		u_nImageLayers ;
+
+uniform float	u_filterKernel[5*5] ;
+
+
+void main()
+{
+    ivec3	ivPoint = ivec3( gl_GlobalInvocationID.xyz ) ;
+	if ( (ivPoint.x >= u_nImageWidth)
+		|| (ivPoint.y >= u_nImageHeight)
+		|| (ivPoint.z >= u_nImageLayers) )
+	{
+		return ;
+	}
+	ivec3	ivMin = ivec3( 0, 0, 0 ) ;
+	ivec3	ivMax = ivec3( u_nImageWidth-1, u_nImageHeight-1, u_nImageLayers-1 ) ;
+
+	float	s1 = 0.0 ;
+	float	s2 = 0.0 ;
+	for ( int y = -2; y <= 2; y ++ )
+	{
+		for ( int x = -2; x <= 2; x ++ )
+		{
+			ivec3	iv = clamp( ivPoint + ivec3(x,y,0), ivMin, ivMax ) ;
+			float	d = texelFetch( u_imageInput, iv, 0 ).r ;
+			float	f = u_filterKernel[(y + 2) * 5 + (x + 2)] ;
+			s1 += d * f ;
+			s2 += d * d * f ;
+		}
+	}
+
+	imageStore( u_imageOutput, ivPoint, vec4(s1, s2, 0.0, 0.0) ) ;
+}
+
+

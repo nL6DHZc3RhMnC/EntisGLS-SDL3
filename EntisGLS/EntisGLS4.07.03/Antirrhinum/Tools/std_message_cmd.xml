@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<agl_usage_definition>
+	<script file="std_message_cmd.rs" listener="StdMessageCompilerListener"/>
+	<command lead="@voice" cmd="voice" arg_type="array">
+		<arg_list>
+			<arg name="src"/>
+		</arg_list>
+	</command>
+	<command lead="@voices" cmd="voices" arg_type="array">
+		<arg_list>
+			<arg name="src0"/>
+			<arg name="src1"/>
+			<arg name="src2"/>
+			<arg name="src3"/>
+			<arg name="src4"/>
+			<arg name="src5"/>
+			<arg name="src6"/>
+			<arg name="src7"/>
+			<arg name="src8"/>
+			<arg name="src9"/>
+		</arg_list>
+	</command>
+	<command lead="@stopvoice" cmd="voice_stop" arg_type="array">
+		<arg_list>
+			<arg name="fadeout" default="500"/>
+		</arg_list>
+	</command>
+	<command lead="@voice_sync" cmd="voice_sync" arg_type="array">
+		<arg_list>
+			<arg name="id"/>
+		</arg_list>
+	</command>
+	<command lead="@msg_window_id" cmd="msg_window_id" arg_type="array">
+		<arg_list>
+			<arg name="id"/>
+		</arg_list>
+	</command>
+	<command lead="@showmsg" cmd="msg_show_window" arg_type="array">
+		<arg_list>
+			<arg name="show"/>
+			<arg name="time" default="300"/>
+		</arg_list>
+	</command>
+	<command lead="@msg_face" cmd="msg_set_face" arg_type="array">
+		<arg_list>
+			<arg name="face"/>
+		</arg_list>
+	</command>
+	<command lead="@clr_face" cmd="msg_set_face" arg_type="array">
+		<arg_list>
+		</arg_list>
+	</command>
+	<command lead="@pause" cmd="msg_pause" arg_type="named">
+		<arg_list>
+			<arg name="timeout" default="-1"/>
+			<arg name="fadeout" default="0"/>
+			<arg name="keep_msg" default="0"/>
+			<arg name="keep_voice" default="0"/>
+		</arg_list>
+	</command>
+	<command lead="@msg_sync" cmd="msg_sync" arg_type="array">
+		<arg_list>
+			<arg name="timeout" default="-1"/>
+		</arg_list>
+	</command>
+	<command lead="@msg" cmd="msg" arg_type="named">
+		<arg_list>
+			<arg name="text"/>
+			<arg name="name"/>
+			<arg name="char"/>
+			<arg name="voices"/>
+			<arg name="add_msg" default="0"/>
+			<arg name="async" default="0"/>
+			<arg name="timeout" default="-1"/>
+			<arg name="fadeout" default="0"/>
+			<arg name="keep_msg" default="0"/>
+			<arg name="keep_voice" default="0"/>
+		</arg_list>
+		<proto_list>
+			<prototype cmd="msg">
+				<arg name="name"/>
+				<arg name="name_en"/>
+				<arg name="text"/>
+				<arg name="text_en"/>
+				<arg name="face"/>
+				<arg name="voices"/>
+				<arg name="char_idx"/>
+				<arg name="char_id"/>
+				<arg name="index"/>
+				<arg name="async"/>
+				<arg name="add_msg"/>
+				<arg name="timeout"/>
+				<arg name="fadeout"/>
+				<arg name="keep_msg"/>
+				<arg name="keep_voice"/>
+			</prototype>
+		</proto_list>
+		<proc><![CDATA[
+		    function( HashMap params ) -> AGLCompiler
+		    {
+				StdMessageCompilerListener	listener =
+					(StdMessageCompilerListener)
+						 getCompileListener
+						 	( StdMessageCompilerListener ) ;
+				if ( listener != null )
+				{
+				 	listener.effectMessage
+				 		( params, params["char_id"], params["name"] ) ;
+				}
+		    }
+		]]></proc>
+	</command>
+	<command lead="@en" cmd="msg_en" arg_type="named">
+		<arg_list>
+			<arg name="text"/>
+			<arg name="name"/>
+		</arg_list>
+		<proto_list>
+		</proto_list>
+		<proc><![CDATA[
+		    function( HashMap params ) -> AGLCompiler
+		    {
+			    StdMessageCompilerListener	listener =
+			    	(StdMessageCompilerListener)
+			    		 getCompileListener
+			    		 	( StdMessageCompilerListener ) ;
+	   		 	if ( listener != null )
+	   		 	{
+		   		 	listener.setEnglishMessage( params ) ;
+	   		 	}
+		    }
+		]]></proc>
+	</command>
+	<command lead="@msg_clear" cmd="msg_clear" arg_type="array">
+		<arg_list>
+		</arg_list>
+	</command>
+	<command lead="@enable_skip" cmd="enable_skip" arg_type="named">
+		<arg_list>
+			<arg name="sys"/>
+			<arg name="click"/>
+			<arg name="button"/>
+		</arg_list>
+	</command>
+	<command lead="@disable_skip" cmd="disable_skip" arg_type="named">
+		<arg_list>
+			<arg name="sys"/>
+			<arg name="click"/>
+			<arg name="button"/>
+		</arg_list>
+	</command>
+	<command lead="@keep_skip" cmd="keep_skip" arg_type="array">
+		<arg_list>
+			<arg name="flags"/>
+		</arg_list>
+	</command>
+	<command lead="@scene_skip" cmd="scene_skip" arg_type="array">
+		<arg_list>
+			<arg name="jump"/>
+		</arg_list>
+	</command>
+	<command lead="@selector" cmd="begin_selector" arg_type="array">
+		<arg_list>
+			<arg name="result_target"/>
+			<arg name="timeout"/>
+		</arg_list>
+		<proc><![CDATA[
+		    function( HashMap params ) -> AGLCompiler
+		    {
+			    StdMessageCompilerListener	listener =
+			    	(StdMessageCompilerListener)
+			    		 getCompileListener
+			    		 	( StdMessageCompilerListener ) ;
+	   		 	if ( listener != null )
+	   		 	{
+		   		 	listener.beginSelector() ;
+	   		 	}
+		    }
+		]]></proc>
+	</command>
+	<command lead="@menu" cmd="add_menu_item" arg_type="usage"
+			usage=" &quot;(%c&quot;)&quot; [jump (%t)] [if (%x)]\">
+		<arg_list>
+			<arg name="text"/>
+			<arg name="jump"/>
+			<arg name="cond"/>
+		</arg_list>
+		<proto_list>
+			<prototype cmd="add_menu_item">
+				<arg name="text"/>
+				<arg name="jump"/>
+				<arg name="cond"/>
+				<arg name="value"/>
+				<arg name="msg_index"/>
+			</prototype>
+		</proto_list>
+		<proc><![CDATA[
+		    function( HashMap params ) -> AGLCompiler
+		    {
+			    StdMessageCompilerListener	listener =
+			    	(StdMessageCompilerListener)
+			    		 getCompileListener
+			    		 	( StdMessageCompilerListener ) ;
+	   		 	if ( listener != null )
+	   		 	{
+		   		 	listener.effectSelectorItem( params ) ;
+	   		 	}
+		    }
+		]]></proc>
+	</command>
+	<command lead="@endsel" cmd="end_selector" arg_type="array">
+		<arg_list>
+		</arg_list>
+	</command>
+</agl_usage_definition>

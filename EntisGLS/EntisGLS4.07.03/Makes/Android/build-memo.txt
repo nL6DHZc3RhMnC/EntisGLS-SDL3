@@ -1,0 +1,68 @@
+
+■アプリの環境構築
+
+　Cotopha\Library\android\jni_template\jni_setup.txt 参照
+
+
+
+
+■ライブラリのビルド
+
+　make_api18.bat を実行
+（ビルドされたライブラリは Cotopha\Library\android\api18_jni\jni\jni\libs にコピーされる）
+
+　デバッグ用は make_api18_debug.bat を実行
+（ビルドされたライブラリは Cotopha\Library\android\api18_debug_jni\jni\jni\libs にコピーされる）
+
+
+※BAT ファイル実行前に以下の環境変数を設定しておく
+
+COTOPHA_HOME     : EntisGLS4 のルートディレクトリ
+ANDROID_NDK_HOME : 使用する Android NDK ディレクトリ
+LOQUATY_HOME     : Loquaty リポジトリのルートディレクトリ
+TINYGLTF_HOME    : tinygltf のルートディレクトリ
+
+
+
+
+■ 古い NDK での補記
+
+-------------------------------------
+Android NDK r8 以前でビルドする場合
+-------------------------------------
+
+　add-application.mk の
+
+ifeq ($(APP_OPTIM),debug)
+  APP_CFLAGS := -O0 -g $(APP_CFLAGS)
+else
+  APP_CFLAGS := -O2 -DNDEBUG -g $(APP_CFLAGS)
+endif
+
+　の -g を削除する。必要なら -s へ置き換え。
+
+
+
+-------------------------------------
+Android NDK r10 以降でビルドする場合
+-------------------------------------
+
+　toolchains 以下の各対応するフォルダ内の setup.mk の TARGET_thumb_release_CFLAGS のオプションから -g を削除し、-s へ置き換え。
+　-Os は必要に応じ -O2 または -O3 等に変更。
+
+　toolchains は Application.mk の NDK_TOOLCHAIN_VERSION で指定するか、ndk-build の引数に NDK_LOG=1 を渡して確認。
+
+
+　アプリケーションリンク時には、-s を追加。
+（Application.mk に APP_LDFLAGS := -s を追加）
+
+
+
+-------------------------------------
+Android NDK r12 以降でビルドする場合
+-------------------------------------
+
+　sources\cpufeatures に sources\android\cpufeatures からコピー。
+
+
+

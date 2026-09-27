@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>SpriteAction</title>
+</head>
+<body>
+<div class="chapter">SpriteAction</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　SpriteAction は Sprite パラメータアニメーションを Sprite に供給します。<br/>
+　EntisGLS4 の SGLSpriteAction と同等です。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="SpriteAction.xhtml">SpriteAction</a>
+</div></div></div><br/>
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_actionLoop">actionLoop</a><br/>
+	<a href="#static_actionOnce">actionOnce</a><br/>
+	<a href="#static_actionTurn">actionTurn</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_SpriteAction">SpriteAction</a><br/>
+	<a href="#virtual_setActionType">setActionType</a><br/>
+	<a href="#virtual_setAngleCurve">setAngleCurve</a><br/>
+	<a href="#virtual_setBezierCurve">setBezierCurve</a><br/>
+	<a href="#virtual_setCenterCurve">setCenterCurve</a><br/>
+	<a href="#virtual_setDuration">setDuration</a><br/>
+	<a href="#virtual_setFilter2ParamCurve">setFilter2ParamCurve</a><br/>
+	<a href="#virtual_setFilter2To">setFilter2To</a><br/>
+	<a href="#virtual_setFilterParamCurve">setFilterParamCurve</a><br/>
+	<a href="#virtual_setFilterTo">setFilterTo</a><br/>
+	<a href="#virtual_setMoveTo">setMoveTo</a><br/>
+	<a href="#virtual_setRotationTo">setRotationTo</a><br/>
+	<a href="#virtual_setTransparencyCurve">setTransparencyCurve</a><br/>
+	<a href="#virtual_setTransparencyTo">setTransparencyTo</a><br/>
+	<a href="#virtual_setZoomCurve">setZoomCurve</a><br/>
+	<a href="#virtual_setZoomTo">setZoomTo</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_actionLoop"/>
+<div class="headline">actionLoop</div>
+<div class="usage">public static const Integer actionLoop = 1</div>
+<br/>
+
+<a name="static_actionOnce"/>
+<div class="headline">actionOnce</div>
+<div class="usage">public static const Integer actionOnce = 0</div>
+<br/>
+
+<a name="static_actionTurn"/>
+<div class="headline">actionTurn</div>
+<div class="usage">public static const Integer actionTurn = 2</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_SpriteAction"/>
+<div class="headline">SpriteAction</div>
+<div class="usage">public void SpriteAction(&#32; )</div>
+<br/>
+
+<a name="virtual_setActionType"/>
+<div class="headline">setActionType</div>
+<div class="usage">public void setActionType( int type )</div>
+<br/>
+
+<a name="virtual_setAngleCurve"/>
+<div class="headline">setAngleCurve</div>
+<div class="usage">public void setAngleCurve( Float32Pointer bzCurve, boolean fOffset = false )</div>
+<br/>
+
+<a name="virtual_setBezierCurve"/>
+<div class="headline">setBezierCurve</div>
+<div class="usage">public void setBezierCurve( Vector2D bzCurve, boolean fOffset = false )</div>
+<br/>
+
+<a name="virtual_setCenterCurve"/>
+<div class="headline">setCenterCurve</div>
+<div class="usage">public void setCenterCurve( Vector2D bzCurve, boolean fOffset = false )</div>
+<br/>
+
+<a name="virtual_setDuration"/>
+<div class="headline">setDuration</div>
+<div class="usage">public void setDuration( int msecDuration, int msecDelay = 0 )</div>
+<br/>
+
+<a name="virtual_setFilter2ParamCurve"/>
+<div class="headline">setFilter2ParamCurve</div>
+<div class="usage">public void setFilter2ParamCurve( Float32Pointer bzCurve, boolean fOffset = false )</div>
+<br/>
+
+<a name="virtual_setFilter2To"/>
+<div class="headline">setFilter2To</div>
+<div class="usage">public void setFilter2To( Sprite sprite, int paramFilter )</div>
+<br/>
+
+<a name="virtual_setFilterParamCurve"/>
+<div class="headline">setFilterParamCurve</div>
+<div class="usage">public void setFilterParamCurve( Float32Pointer bzCurve, boolean fOffset = false )</div>
+<br/>
+
+<a name="virtual_setFilterTo"/>
+<div class="headline">setFilterTo</div>
+<div class="usage">public void setFilterTo( Sprite sprite, int paramFilter )</div>
+<br/>
+
+<a name="virtual_setMoveTo"/>
+<div class="headline">setMoveTo</div>
+<div class="usage">public void setMoveTo( Sprite sprite, double x, double y, double a0 = 0., double a1 = 0. )</div>
+<br/>
+
+<a name="virtual_setRotationTo"/>
+<div class="headline">setRotationTo</div>
+<div class="usage">public void setRotationTo( Sprite sprite, double z, double a0 = 0., double a1 = 0. )</div>
+<br/>
+
+<a name="virtual_setTransparencyCurve"/>
+<div class="headline">setTransparencyCurve</div>
+<div class="usage">public void setTransparencyCurve( Float32Pointer bzCurve, boolean fOffset = false )</div>
+<br/>
+
+<a name="virtual_setTransparencyTo"/>
+<div class="headline">setTransparencyTo</div>
+<div class="usage">public void setTransparencyTo( Sprite sprite, int nTransparency )</div>
+<br/>
+
+<a name="virtual_setZoomCurve"/>
+<div class="headline">setZoomCurve</div>
+<div class="usage">public void setZoomCurve( Vector2D bzCurve, boolean fOffset = false )</div>
+<br/>
+
+<a name="virtual_setZoomTo"/>
+<div class="headline">setZoomTo</div>
+<div class="usage">public void setZoomTo( Sprite sprite, double x, double y, double a0 = 0., double a1 = 0. )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

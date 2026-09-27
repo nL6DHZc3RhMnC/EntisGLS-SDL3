@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>NoaFileArchiver</title>
+</head>
+<body>
+<div class="chapter">NoaFileArchiver</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　NoaFileArchiver は NOA 形式書庫ファイルへのインターフェースを提供します。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="RandomAccessFile.xhtml">RandomAccessFile</a>
+<div class="indent1"><a href="NoaFileArchiver.xhtml">NoaFileArchiver</a>
+</div></div></div><br/>
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="NoaFileArchiver.FileInfo.xhtml">NoaFileArchiver.FileInfo</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_attrDirectory">attrDirectory</a><br/>
+	<a href="#static_attrEndOfDirectory">attrEndOfDirectory</a><br/>
+	<a href="#static_attrFileNameUTF8">attrFileNameUTF8</a><br/>
+	<a href="#static_attrHidden">attrHidden</a><br/>
+	<a href="#static_attrNextDirectory">attrNextDirectory</a><br/>
+	<a href="#static_attrNormal">attrNormal</a><br/>
+	<a href="#static_attrReadOnly">attrReadOnly</a><br/>
+	<a href="#static_attrSystem">attrSystem</a><br/>
+	<a href="#static_encodeCrypt32">encodeCrypt32</a><br/>
+	<a href="#static_encodeERISA">encodeERISA</a><br/>
+	<a href="#static_encodeERISACrypt32">encodeERISACrypt32</a><br/>
+	<a href="#static_encodeRaw">encodeRaw</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_NoaFileArchiver">NoaFileArchiver</a><br/>
+	<a href="#virtual_ascendDirectory">ascendDirectory</a><br/>
+	<a href="#virtual_ascendFile">ascendFile</a><br/>
+	<a href="#virtual_close">close</a><br/>
+	<a href="#virtual_createArchive">createArchive</a><br/>
+	<a href="#virtual_createDirectory">createDirectory</a><br/>
+	<a href="#virtual_descendDirectory">descendDirectory</a><br/>
+	<a href="#virtual_descendFile">descendFile</a><br/>
+	<a href="#virtual_getCurrentFileInfo">getCurrentFileInfo</a><br/>
+	<a href="#virtual_isExisting">isExisting</a><br/>
+	<a href="#virtual_listDirectories">listDirectories</a><br/>
+	<a href="#virtual_listFiles">listFiles</a><br/>
+	<a href="#virtual_openArchive">openArchive</a><br/>
+	<a href="#virtual_openFile">openFile</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_attrDirectory"/>
+<div class="headline">attrDirectory</div>
+<div class="usage">public static const Integer attrDirectory = 16</div>
+<br/>
+
+<a name="static_attrEndOfDirectory"/>
+<div class="headline">attrEndOfDirectory</div>
+<div class="usage">public static const Integer attrEndOfDirectory = 32 /* 0x0020 */</div>
+<br/>
+
+<a name="static_attrFileNameUTF8"/>
+<div class="headline">attrFileNameUTF8</div>
+<div class="usage">public static const Integer attrFileNameUTF8 = 16777216 /* 0x01000000 */</div>
+<br/>
+
+<a name="static_attrHidden"/>
+<div class="headline">attrHidden</div>
+<div class="usage">public static const Integer attrHidden = 2</div>
+<br/>
+
+<a name="static_attrNextDirectory"/>
+<div class="headline">attrNextDirectory</div>
+<div class="usage">public static const Integer attrNextDirectory = 64 /* 0x0040 */</div>
+<br/>
+
+<a name="static_attrNormal"/>
+<div class="headline">attrNormal</div>
+<div class="usage">public static const Integer attrNormal = 0</div>
+<br/>
+
+<a name="static_attrReadOnly"/>
+<div class="headline">attrReadOnly</div>
+<div class="usage">public static const Integer attrReadOnly = 1</div>
+<br/>
+
+<a name="static_attrSystem"/>
+<div class="headline">attrSystem</div>
+<div class="usage">public static const Integer attrSystem = 4</div>
+<br/>
+
+<a name="static_encodeCrypt32"/>
+<div class="headline">encodeCrypt32</div>
+<div class="usage">public static const Integer encodeCrypt32 = 536870912 /* 0x20000000 */</div>
+<br/>
+
+<a name="static_encodeERISA"/>
+<div class="headline">encodeERISA</div>
+<div class="usage">public static const Integer encodeERISA = -2147483632 /* 0xFFFFFFFF80000010 */</div>
+<br/>
+
+<a name="static_encodeERISACrypt32"/>
+<div class="headline">encodeERISACrypt32</div>
+<div class="usage">public static const Integer encodeERISACrypt32 = -1610612720 /* 0xFFFFFFFFA0000010 */</div>
+<br/>
+
+<a name="static_encodeRaw"/>
+<div class="headline">encodeRaw</div>
+<div class="usage">public static const Integer encodeRaw = 0</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_NoaFileArchiver"/>
+<div class="headline">NoaFileArchiver</div>
+<div class="usage">public void NoaFileArchiver(&#32; )</div>
+<br/>
+
+<a name="virtual_ascendDirectory"/>
+<div class="headline">ascendDirectory</div>
+<div class="usage">public boolean ascendDirectory(&#32; )</div>
+<br/>
+
+<a name="virtual_ascendFile"/>
+<div class="headline">ascendFile</div>
+<div class="usage">public boolean ascendFile(&#32; )</div>
+<br/>
+
+<a name="virtual_close"/>
+<div class="headline">close</div>
+<div class="usage">public void close(&#32; )</div>
+<br/>
+
+<a name="virtual_createArchive"/>
+<div class="headline">createArchive</div>
+<div class="usage">public boolean createArchive( RandomAccessFile file, NoaFileArchiver.FileInfo[] dirRoot )</div>
+<br/>
+
+<a name="virtual_createDirectory"/>
+<div class="headline">createDirectory</div>
+<div class="usage">public boolean createDirectory( String sDirName, NoaFileArchiver.FileInfo[] dirFiles )</div>
+<br/>
+
+<a name="virtual_descendDirectory"/>
+<div class="headline">descendDirectory</div>
+<div class="usage">public boolean descendDirectory( String sDirName )</div>
+<br/>
+
+<a name="virtual_descendFile"/>
+<div class="headline">descendFile</div>
+<div class="usage">public boolean descendFile( String sFileName, String sPassword = null, boolean flagStream = false )</div>
+<br/>
+
+<a name="virtual_getCurrentFileInfo"/>
+<div class="headline">getCurrentFileInfo</div>
+<div class="usage">public NoaFileArchiver.FileInfo getCurrentFileInfo(&#32; )</div>
+<br/>
+
+<a name="virtual_isExisting"/>
+<div class="headline">isExisting</div>
+<div class="usage">public boolean isExisting( String sFilePath )</div>
+<br/>
+
+<a name="virtual_listDirectories"/>
+<div class="headline">listDirectories</div>
+<div class="usage">public String[] listDirectories( String sDirPath )</div>
+<br/>
+
+<a name="virtual_listFiles"/>
+<div class="headline">listFiles</div>
+<div class="usage">public String[] listFiles( String sDirPath )</div>
+<br/>
+
+<a name="virtual_openArchive"/>
+<div class="headline">openArchive</div>
+<div class="usage">public boolean openArchive( RandomAccessFile file )</div>
+<br/>
+
+<a name="virtual_openFile"/>
+<div class="headline">openFile</div>
+<div class="usage">public RandomAccessFile openFile( String sFilePath )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

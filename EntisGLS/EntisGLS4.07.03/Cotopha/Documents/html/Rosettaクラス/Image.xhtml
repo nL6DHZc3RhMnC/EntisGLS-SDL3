@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>Image</title>
+</head>
+<body>
+<div class="chapter">Image</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　Image クラスは画像データを保持します。<br/>
+　EntisGLS4 の SGLImage と同等です。<br/>
+　Image.BufferInfo 構造体は SGLImageInfo 構造体に相当します。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="NativeObject.xhtml">NativeObject</a>
+<div class="indent1"><a href="Image.xhtml">Image</a>
+</div></div></div><br/>
+
+<div class="headline">Classes</div>
+<div class="indent2">
+	<a href="Image.BufferInfo.xhtml">Image.BufferInfo</a><br/>
+	<a href="Image.BuildAtlasParam.xhtml">Image.BuildAtlasParam</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_atlasFlagExpandPOT">atlasFlagExpandPOT</a><br/>
+	<a href="#static_bufferCompressedTexture">bufferCompressedTexture</a><br/>
+	<a href="#static_bufferCubeMapTexture">bufferCubeMapTexture</a><br/>
+	<a href="#static_bufferDeviceRenderBuffer">bufferDeviceRenderBuffer</a><br/>
+	<a href="#static_bufferForMipmapTexture">bufferForMipmapTexture</a><br/>
+	<a href="#static_bufferForRenderTarget">bufferForRenderTarget</a><br/>
+	<a href="#static_bufferForTexture">bufferForTexture</a><br/>
+	<a href="#static_bufferMultisample">bufferMultisample</a><br/>
+	<a href="#static_bufferNoReadable">bufferNoReadable</a><br/>
+	<a href="#static_bufferNoWritable">bufferNoWritable</a><br/>
+	<a href="#static_bufferNonPowerOf2">bufferNonPowerOf2</a><br/>
+	<a href="#static_bufferOnDeviceOnly">bufferOnDeviceOnly</a><br/>
+	<a href="#static_bufferOnMemory">bufferOnMemory</a><br/>
+	<a href="#static_bufferSampleNoSmooth">bufferSampleNoSmooth</a><br/>
+	<a href="#static_bufferSampleTiling">bufferSampleTiling</a><br/>
+	<a href="#static_bufferTexture3D">bufferTexture3D</a><br/>
+	<a href="#static_formatABGR">formatABGR</a><br/>
+	<a href="#static_formatARGB">formatARGB</a><br/>
+	<a href="#static_formatBGR">formatBGR</a><br/>
+	<a href="#static_formatDefaultRGBA">formatDefaultRGBA</a><br/>
+	<a href="#static_formatDepth">formatDepth</a><br/>
+	<a href="#static_formatFlagAlpha">formatFlagAlpha</a><br/>
+	<a href="#static_formatFlagClipping">formatFlagClipping</a><br/>
+	<a href="#static_formatFlagDepth">formatFlagDepth</a><br/>
+	<a href="#static_formatFlagNoProductOfAlpha">formatFlagNoProductOfAlpha</a><br/>
+	<a href="#static_formatFlagPalette">formatFlagPalette</a><br/>
+	<a href="#static_formatFlagSideBySide">formatFlagSideBySide</a><br/>
+	<a href="#static_formatGray">formatGray</a><br/>
+	<a href="#static_formatHSB">formatHSB</a><br/>
+	<a href="#static_formatRGB">formatRGB</a><br/>
+	<a href="#static_formatTypeMask">formatTypeMask</a><br/>
+	<a href="#static_formatYUV">formatYUV</a><br/>
+	<a href="#static_formatZ">formatZ</a><br/>
+	<a href="#static_lockRead">lockRead</a><br/>
+	<a href="#static_lockReadWrite">lockReadWrite</a><br/>
+	<a href="#static_lockWrite">lockWrite</a><br/>
+	<a href="#static_normalizeFormatCastSize">normalizeFormatCastSize</a><br/>
+	<a href="#static_normalizeFormatCastSizeBottom">normalizeFormatCastSizeBottom</a><br/>
+	<a href="#static_normalizeFormatMergeAnimation">normalizeFormatMergeAnimation</a><br/>
+	<a href="#static_stereoBoth">stereoBoth</a><br/>
+	<a href="#static_stereoLeft">stereoLeft</a><br/>
+	<a href="#static_stereoRight">stereoRight</a><br/>
+	<a href="#static_toneAdditional">toneAdditional</a><br/>
+	<a href="#static_toneBrightness">toneBrightness</a><br/>
+	<a href="#static_toneGamma">toneGamma</a><br/>
+	<a href="#static_toneMultiple">toneMultiple</a><br/>
+	<a href="#static_toneOffsetMultiple">toneOffsetMultiple</a><br/>
+</div><br/>
+
+
+<div class="headline">Static Functions</div>
+<div class="indent2">
+	<a href="#static_buildAtlas">buildAtlas</a><br/>
+	<a href="#static_estimateAtlasSize">estimateAtlasSize</a><br/>
+	<a href="#static_makeToneFilter">makeToneFilter</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_Image">Image</a><br/>
+	<a href="#virtual_blendImage">blendImage</a><br/>
+	<a href="#virtual_blendWithAlphaChannel">blendWithAlphaChannel</a><br/>
+	<a href="#virtual_convertImage">convertImage</a><br/>
+	<a href="#virtual_copyImage">copyImage</a><br/>
+	<a href="#virtual_createBuffer">createBuffer</a><br/>
+	<a href="#virtual_createCloneBuffer">createCloneBuffer</a><br/>
+	<a href="#virtual_createImage">createImage</a><br/>
+	<a href="#virtual_enlargeHalfImage">enlargeHalfImage</a><br/>
+	<a href="#virtual_fillImage">fillImage</a><br/>
+	<a href="#virtual_filterToneTable">filterToneTable</a><br/>
+	<a href="#virtual_frameFromMilliSec">frameFromMilliSec</a><br/>
+	<a href="#virtual_getBufferFlags">getBufferFlags</a><br/>
+	<a href="#virtual_getFrameCount">getFrameCount</a><br/>
+	<a href="#virtual_getImageInfo">getImageInfo</a><br/>
+	<a href="#virtual_getImageSize">getImageSize</a><br/>
+	<a href="#virtual_getPaletteTable">getPaletteTable</a><br/>
+	<a href="#virtual_getReferenceRectOfAtlas">getReferenceRectOfAtlas</a><br/>
+	<a href="#virtual_getSelectedFrame">getSelectedFrame</a><br/>
+	<a href="#virtual_getSequenceTable">getSequenceTable</a><br/>
+	<a href="#virtual_getTotalTime">getTotalTime</a><br/>
+	<a href="#virtual_halfBlendImage">halfBlendImage</a><br/>
+	<a href="#virtual_loadImage">loadImage</a><br/>
+	<a href="#virtual_lockBuffer">lockBuffer</a><br/>
+	<a href="#virtual_multiplyImageRGBAlpha">multiplyImageRGBAlpha</a><br/>
+	<a href="#virtual_newReference">newReference</a><br/>
+	<a href="#virtual_normalizeFormat">normalizeFormat</a><br/>
+	<a href="#virtual_normalizeToMipmapTexture">normalizeToMipmapTexture</a><br/>
+	<a href="#virtual_normalizeToRenderTarget">normalizeToRenderTarget</a><br/>
+	<a href="#virtual_normalizeToTexture">normalizeToTexture</a><br/>
+	<a href="#virtual_orthogonalRotate">orthogonalRotate</a><br/>
+	<a href="#virtual_readImage">readImage</a><br/>
+	<a href="#virtual_releaseBuffer">releaseBuffer</a><br/>
+	<a href="#virtual_saveImage">saveImage</a><br/>
+	<a href="#virtual_selectFrame">selectFrame</a><br/>
+	<a href="#virtual_setAnimationDuration">setAnimationDuration</a><br/>
+	<a href="#virtual_setImageOrigin">setImageOrigin</a><br/>
+	<a href="#virtual_setPaletteTable">setPaletteTable</a><br/>
+	<a href="#virtual_setSequenceTable">setSequenceTable</a><br/>
+	<a href="#virtual_unlockBuffer">unlockBuffer</a><br/>
+	<a href="#virtual_writeImage">writeImage</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_atlasFlagExpandPOT"/>
+<div class="headline">atlasFlagExpandPOT</div>
+<div class="usage">public static const Integer atlasFlagExpandPOT = 1</div>
+<br/>
+
+<a name="static_bufferCompressedTexture"/>
+<div class="headline">bufferCompressedTexture</div>
+<div class="usage">public static const Integer bufferCompressedTexture = 2048 /* 0x0800 */</div>
+<br/>
+
+<a name="static_bufferCubeMapTexture"/>
+<div class="headline">bufferCubeMapTexture</div>
+<div class="usage">public static const Integer bufferCubeMapTexture = 128 /* 0x0080 */</div>
+<br/>
+
+<a name="static_bufferDeviceRenderBuffer"/>
+<div class="headline">bufferDeviceRenderBuffer</div>
+<div class="usage">public static const Integer bufferDeviceRenderBuffer = 512 /* 0x0200 */</div>
+<br/>
+
+<a name="static_bufferForMipmapTexture"/>
+<div class="headline">bufferForMipmapTexture</div>
+<div class="usage">public static const Integer bufferForMipmapTexture = 32 /* 0x0020 */</div>
+<br/>
+
+<a name="static_bufferForRenderTarget"/>
+<div class="headline">bufferForRenderTarget</div>
+<div class="usage">public static const Integer bufferForRenderTarget = 64 /* 0x0040 */</div>
+<br/>
+
+<a name="static_bufferForTexture"/>
+<div class="headline">bufferForTexture</div>
+<div class="usage">public static const Integer bufferForTexture = 16</div>
+<br/>
+
+<a name="static_bufferMultisample"/>
+<div class="headline">bufferMultisample</div>
+<div class="usage">public static const Integer bufferMultisample = 1024 /* 0x0400 */</div>
+<br/>
+
+<a name="static_bufferNoReadable"/>
+<div class="headline">bufferNoReadable</div>
+<div class="usage">public static const Integer bufferNoReadable = 2</div>
+<br/>
+
+<a name="static_bufferNoWritable"/>
+<div class="headline">bufferNoWritable</div>
+<div class="usage">public static const Integer bufferNoWritable = 1</div>
+<br/>
+
+<a name="static_bufferNonPowerOf2"/>
+<div class="headline">bufferNonPowerOf2</div>
+<div class="usage">public static const Integer bufferNonPowerOf2 = 8</div>
+<br/>
+
+<a name="static_bufferOnDeviceOnly"/>
+<div class="headline">bufferOnDeviceOnly</div>
+<div class="usage">public static const Integer bufferOnDeviceOnly = 256 /* 0x0100 */</div>
+<br/>
+
+<a name="static_bufferOnMemory"/>
+<div class="headline">bufferOnMemory</div>
+<div class="usage">public static const Integer bufferOnMemory = 0</div>
+<br/>
+
+<a name="static_bufferSampleNoSmooth"/>
+<div class="headline">bufferSampleNoSmooth</div>
+<div class="usage">public static const Integer bufferSampleNoSmooth = 65536 /* 0x00010000 */</div>
+<br/>
+
+<a name="static_bufferSampleTiling"/>
+<div class="headline">bufferSampleTiling</div>
+<div class="usage">public static const Integer bufferSampleTiling = 131072 /* 0x00020000 */</div>
+<br/>
+
+<a name="static_bufferTexture3D"/>
+<div class="headline">bufferTexture3D</div>
+<div class="usage">public static const Integer bufferTexture3D = 4096 /* 0x1000 */</div>
+<br/>
+
+<a name="static_formatABGR"/>
+<div class="headline">formatABGR</div>
+<div class="usage">public static const Integer formatABGR = 67108867 /* 0x04000003 */</div>
+<br/>
+
+<a name="static_formatARGB"/>
+<div class="headline">formatARGB</div>
+<div class="usage">public static const Integer formatARGB = 67108865 /* 0x04000001 */</div>
+<br/>
+
+<a name="static_formatBGR"/>
+<div class="headline">formatBGR</div>
+<div class="usage">public static const Integer formatBGR = 3</div>
+<br/>
+
+<a name="static_formatDefaultRGBA"/>
+<div class="headline">formatDefaultRGBA</div>
+<div class="usage">public static const Integer formatDefaultRGBA = 0</div>
+<br/>
+
+<a name="static_formatDepth"/>
+<div class="headline">formatDepth</div>
+<div class="usage">public static const Integer formatDepth = 73733 /* 0x00012005 */</div>
+<br/>
+
+<a name="static_formatFlagAlpha"/>
+<div class="headline">formatFlagAlpha</div>
+<div class="usage">public static const Integer formatFlagAlpha = 67108864 /* 0x04000000 */</div>
+<br/>
+
+<a name="static_formatFlagClipping"/>
+<div class="headline">formatFlagClipping</div>
+<div class="usage">public static const Integer formatFlagClipping = 33554432 /* 0x02000000 */</div>
+<br/>
+
+<a name="static_formatFlagDepth"/>
+<div class="headline">formatFlagDepth</div>
+<div class="usage">public static const Integer formatFlagDepth = 65536 /* 0x00010000 */</div>
+<br/>
+
+<a name="static_formatFlagNoProductOfAlpha"/>
+<div class="headline">formatFlagNoProductOfAlpha</div>
+<div class="usage">public static const Integer formatFlagNoProductOfAlpha = 134217728 /* 0x08000000 */</div>
+<br/>
+
+<a name="static_formatFlagPalette"/>
+<div class="headline">formatFlagPalette</div>
+<div class="usage">public static const Integer formatFlagPalette = 16777216 /* 0x01000000 */</div>
+<br/>
+
+<a name="static_formatFlagSideBySide"/>
+<div class="headline">formatFlagSideBySide</div>
+<div class="usage">public static const Integer formatFlagSideBySide = 268435456 /* 0x10000000 */</div>
+<br/>
+
+<a name="static_formatGray"/>
+<div class="headline">formatGray</div>
+<div class="usage">public static const Integer formatGray = 2</div>
+<br/>
+
+<a name="static_formatHSB"/>
+<div class="headline">formatHSB</div>
+<div class="usage">public static const Integer formatHSB = 6</div>
+<br/>
+
+<a name="static_formatRGB"/>
+<div class="headline">formatRGB</div>
+<div class="usage">public static const Integer formatRGB = 1</div>
+<br/>
+
+<a name="static_formatTypeMask"/>
+<div class="headline">formatTypeMask</div>
+<div class="usage">public static const Integer formatTypeMask = 65535 /* 0xFFFF */</div>
+<br/>
+
+<a name="static_formatYUV"/>
+<div class="headline">formatYUV</div>
+<div class="usage">public static const Integer formatYUV = 4</div>
+<br/>
+
+<a name="static_formatZ"/>
+<div class="headline">formatZ</div>
+<div class="usage">public static const Integer formatZ = 8197 /* 0x2005 */</div>
+<br/>
+
+<a name="static_lockRead"/>
+<div class="headline">lockRead</div>
+<div class="usage">public static const Integer lockRead = 1</div>
+<br/>
+
+<a name="static_lockReadWrite"/>
+<div class="headline">lockReadWrite</div>
+<div class="usage">public static const Integer lockReadWrite = 3</div>
+<br/>
+
+<a name="static_lockWrite"/>
+<div class="headline">lockWrite</div>
+<div class="usage">public static const Integer lockWrite = 2</div>
+<br/>
+
+<a name="static_normalizeFormatCastSize"/>
+<div class="headline">normalizeFormatCastSize</div>
+<div class="usage">public static const Integer normalizeFormatCastSize = 2</div>
+<br/>
+
+<a name="static_normalizeFormatCastSizeBottom"/>
+<div class="headline">normalizeFormatCastSizeBottom</div>
+<div class="usage">public static const Integer normalizeFormatCastSizeBottom = 4</div>
+<br/>
+
+<a name="static_normalizeFormatMergeAnimation"/>
+<div class="headline">normalizeFormatMergeAnimation</div>
+<div class="usage">public static const Integer normalizeFormatMergeAnimation = 1</div>
+<br/>
+
+<a name="static_stereoBoth"/>
+<div class="headline">stereoBoth</div>
+<div class="usage">public static const Integer stereoBoth = -1</div>
+<br/>
+
+<a name="static_stereoLeft"/>
+<div class="headline">stereoLeft</div>
+<div class="usage">public static const Integer stereoLeft = 1</div>
+<br/>
+
+<a name="static_stereoRight"/>
+<div class="headline">stereoRight</div>
+<div class="usage">public static const Integer stereoRight = 0</div>
+<br/>
+
+<a name="static_toneAdditional"/>
+<div class="headline">toneAdditional</div>
+<div class="usage">public static const Integer toneAdditional = 2</div>
+<br/>
+
+<a name="static_toneBrightness"/>
+<div class="headline">toneBrightness</div>
+<div class="usage">public static const Integer toneBrightness = 0</div>
+<br/>
+
+<a name="static_toneGamma"/>
+<div class="headline">toneGamma</div>
+<div class="usage">public static const Integer toneGamma = 4</div>
+<br/>
+
+<a name="static_toneMultiple"/>
+<div class="headline">toneMultiple</div>
+<div class="usage">public static const Integer toneMultiple = 1</div>
+<br/>
+
+<a name="static_toneOffsetMultiple"/>
+<div class="headline">toneOffsetMultiple</div>
+<div class="usage">public static const Integer toneOffsetMultiple = 3</div>
+<br/>
+
+<div class="chapter">Static Functions</div>
+
+<a name="static_buildAtlas"/>
+<div class="headline">buildAtlas</div>
+<div class="usage">public static Image buildAtlas( Image[] images, Image.BuildAtlasParam param )</div>
+<br/>
+
+<a name="static_estimateAtlasSize"/>
+<div class="headline">estimateAtlasSize</div>
+<div class="usage">public static int estimateAtlasSize( Size sizeEstimated, Image[] images, boolean flagMakePOT = false, int nMargin = 1, int nSizeLimit = 0, Uint32Pointer pUsedIndex = null )</div>
+<br/>
+
+<a name="static_makeToneFilter"/>
+<div class="headline">makeToneFilter</div>
+<div class="usage">public static void makeToneFilter( Uint8Pointer pTone, int nValue, int nType )</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_Image"/>
+<div class="headline">Image</div>
+<div class="usage">public void Image(&#32; )</div>
+<br/>
+
+<a name="virtual_blendImage"/>
+<div class="headline">blendImage</div>
+<div class="usage">public boolean blendImage( Image imgSrc, int x = 0, int y = 0, Rect rctSrc = null )</div>
+<br/>
+
+<a name="virtual_blendWithAlphaChannel"/>
+<div class="headline">blendWithAlphaChannel</div>
+<div class="usage">public boolean blendWithAlphaChannel( Image imgAlpha, int fxCoefficient = 256 /* 0x0100 */, int fxIntercept = 0, int x = 0, int y = 0, Rect rctSrc = null )</div>
+<br/>
+
+<a name="virtual_convertImage"/>
+<div class="headline">convertImage</div>
+<div class="usage">public boolean convertImage( Image imgSrc, int x = 0, int y = 0, Rect rctSrc = null )</div>
+<br/>
+
+<a name="virtual_copyImage"/>
+<div class="headline">copyImage</div>
+<div class="usage">public boolean copyImage( Image imgSrc, int x = 0, int y = 0, Rect rctSrc = null )</div>
+<br/>
+
+<a name="virtual_createBuffer"/>
+<div class="headline">createBuffer</div>
+<div class="usage">public boolean createBuffer( Image.BufferInfo imginf, long nFlags = 0, int countFrame = 1, long msecLong = 0 )</div>
+<br/>
+
+<a name="virtual_createCloneBuffer"/>
+<div class="headline">createCloneBuffer</div>
+<div class="usage">public boolean createCloneBuffer( Image src, long nFlags = 0 )</div>
+<br/>
+
+<a name="virtual_createImage"/>
+<div class="headline">createImage</div>
+<div class="usage">public boolean createImage( int width, int height, int format = 0, int depth = 32 /* 0x0020 */, long nFlags = 0, int countFrame = 1, long msecLong = 0 )</div>
+<br/>
+
+<a name="virtual_enlargeHalfImage"/>
+<div class="headline">enlargeHalfImage</div>
+<div class="usage">public boolean enlargeHalfImage( Image imgSrc )</div>
+<br/>
+
+<a name="virtual_fillImage"/>
+<div class="headline">fillImage</div>
+<div class="usage">public boolean fillImage( int argb, Rect rect = null )</div>
+<br/>
+
+<a name="virtual_filterToneTable"/>
+<div class="headline">filterToneTable</div>
+<div class="usage">public boolean filterToneTable( Uint8Pointer pRedTone, Uint8Pointer pGreenTone, Uint8Pointer pBlueTone, Uint8Pointer pAlphaTone, Rect rect = null )</div>
+<br/>
+
+<a name="virtual_frameFromMilliSec"/>
+<div class="headline">frameFromMilliSec</div>
+<div class="usage">public const int frameFromMilliSec( long msec )</div>
+<br/>
+
+<a name="virtual_getBufferFlags"/>
+<div class="headline">getBufferFlags</div>
+<div class="usage">public const long getBufferFlags(&#32; )</div>
+<br/>
+
+<a name="virtual_getFrameCount"/>
+<div class="headline">getFrameCount</div>
+<div class="usage">public const int getFrameCount(&#32; )</div>
+<br/>
+
+<a name="virtual_getImageInfo"/>
+<div class="headline">getImageInfo</div>
+<div class="usage">public const boolean getImageInfo( Image.BufferInfo imginf )</div>
+<br/>
+
+<a name="virtual_getImageSize"/>
+<div class="headline">getImageSize</div>
+<div class="usage">public const Size getImageSize(&#32; )</div>
+<br/>
+
+<a name="virtual_getPaletteTable"/>
+<div class="headline">getPaletteTable</div>
+<div class="usage">public const int[] getPaletteTable(&#32; )</div>
+<br/>
+
+<a name="virtual_getReferenceRectOfAtlas"/>
+<div class="headline">getReferenceRectOfAtlas</div>
+<div class="usage">public Image getReferenceRectOfAtlas( Rect rectRef, int iFrame = -1 )</div>
+<br/>
+
+<a name="virtual_getSelectedFrame"/>
+<div class="headline">getSelectedFrame</div>
+<div class="usage">public const int getSelectedFrame( int[] side = null )</div>
+<br/>
+
+<a name="virtual_getSequenceTable"/>
+<div class="headline">getSequenceTable</div>
+<div class="usage">public const int[] getSequenceTable(&#32; )</div>
+<br/>
+
+<a name="virtual_getTotalTime"/>
+<div class="headline">getTotalTime</div>
+<div class="usage">public const long getTotalTime(&#32; )</div>
+<br/>
+
+<a name="virtual_halfBlendImage"/>
+<div class="headline">halfBlendImage</div>
+<div class="usage">public boolean halfBlendImage( Image imgSrc, int x = 0, int y = 0, Rect rctSrc = null )</div>
+<br/>
+
+<a name="virtual_loadImage"/>
+<div class="headline">loadImage</div>
+<div class="usage">public boolean loadImage( String file, String mime = null )</div>
+<br/>
+
+<a name="virtual_lockBuffer"/>
+<div class="headline">lockBuffer</div>
+<div class="usage">public Uint8Pointer lockBuffer( Image.BufferInfo imginf, int flags = 3, Rect rect = null )</div>
+<br/>
+
+<a name="virtual_multiplyImageRGBAlpha"/>
+<div class="headline">multiplyImageRGBAlpha</div>
+<div class="usage">public boolean multiplyImageRGBAlpha(&#32; )</div>
+<br/>
+
+<a name="virtual_newReference"/>
+<div class="headline">newReference</div>
+<div class="usage">public Image newReference( Rect rectClip = null, int iFrame = -1, int iSide = 0 )</div>
+<br/>
+
+<a name="virtual_normalizeFormat"/>
+<div class="headline">normalizeFormat</div>
+<div class="usage">public void normalizeFormat( int format = 0, int depth = 0, int flags = 0, int width = 0, int height = 0 )</div>
+<br/>
+
+<a name="virtual_normalizeToMipmapTexture"/>
+<div class="headline">normalizeToMipmapTexture</div>
+<div class="usage">public void normalizeToMipmapTexture( int nFlags = 0 )</div>
+<br/>
+
+<a name="virtual_normalizeToRenderTarget"/>
+<div class="headline">normalizeToRenderTarget</div>
+<div class="usage">public void normalizeToRenderTarget( int nFlags = 0 )</div>
+<br/>
+
+<a name="virtual_normalizeToTexture"/>
+<div class="headline">normalizeToTexture</div>
+<div class="usage">public void normalizeToTexture( int nFlags = 0 )</div>
+<br/>
+
+<a name="virtual_orthogonalRotate"/>
+<div class="headline">orthogonalRotate</div>
+<div class="usage">public boolean orthogonalRotate( Image imgSrc, int degAngle )</div>
+<br/>
+
+<a name="virtual_readImage"/>
+<div class="headline">readImage</div>
+<div class="usage">public boolean readImage( InputStream is, String mime = null )</div>
+<br/>
+
+<div class="headline">readImage</div>
+<div class="usage">public boolean readImage( RandomAccessFile file, String mime = null )</div>
+<br/>
+
+<a name="virtual_releaseBuffer"/>
+<div class="headline">releaseBuffer</div>
+<div class="usage">public void releaseBuffer(&#32; )</div>
+<br/>
+
+<a name="virtual_saveImage"/>
+<div class="headline">saveImage</div>
+<div class="usage">public const boolean saveImage( String file, String mime = null, int quality = 256 /* 0x0100 */ )</div>
+<br/>
+
+<a name="virtual_selectFrame"/>
+<div class="headline">selectFrame</div>
+<div class="usage">public boolean selectFrame( int iFrame, int iSide = 0 )</div>
+<br/>
+
+<a name="virtual_setAnimationDuration"/>
+<div class="headline">setAnimationDuration</div>
+<div class="usage">public void setAnimationDuration( int duration )</div>
+<br/>
+
+<a name="virtual_setImageOrigin"/>
+<div class="headline">setImageOrigin</div>
+<div class="usage">public void setImageOrigin( int x, int y )</div>
+<br/>
+
+<a name="virtual_setPaletteTable"/>
+<div class="headline">setPaletteTable</div>
+<div class="usage">public void setPaletteTable( int[] palette )</div>
+<br/>
+
+<a name="virtual_setSequenceTable"/>
+<div class="headline">setSequenceTable</div>
+<div class="usage">public void setSequenceTable( int[] seq )</div>
+<br/>
+
+<a name="virtual_unlockBuffer"/>
+<div class="headline">unlockBuffer</div>
+<div class="usage">public boolean unlockBuffer( int flags = 3 )</div>
+<br/>
+
+<a name="virtual_writeImage"/>
+<div class="headline">writeImage</div>
+<div class="usage">public const boolean writeImage( RandomAccessFile file, String mime = null, int quality = 256 /* 0x0100 */ )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

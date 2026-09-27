@@ -1,0 +1,70 @@
+
+
+; 画像の移動アニメーション
+
+.macro	@move : "_id", "_time"="300", "_x"="0", "_y"="0", "_tr"="0", "_rz"="0"
+
+	@layer_pre_move		%"_id"
+	@layer_add_move		%"_id", %"_time", 0, 0, x=%"_x", y=%"_y", tr=%"_tr", rz=%"_rz"
+	@layer_start_move	%"_id"
+	@layer_wait_move	%"_id"
+
+.endm
+
+
+
+; レイヤーのフェードアウトと消去
+
+.macro	@clear : "_id", "_time"="300", "_dx"="0", "_dy"="0"
+
+	@layer_pre_move		%"_id"
+	@layer_add_move		%"_id", %"_time", 0, 2, dx=%"_dx", dy=%"_dy", tr="256"
+	@layer_start_move	%"_id"
+	@layer_wait_move	%"_id"
+	@layer_delete		%"_id"
+
+.endm
+
+
+
+; 画像の読み込み／レイヤーが存在する場合には置き換え
+; ＆座標と透明度の変化アニメーション
+
+.macro	@image : "_id", "_file", "_time"="300", "_priority"="0", "_x"="0", "_y"="0", "_tr"="0", "_rz"="0", "_style"="image"
+
+	$f["@layer_exist"] = Integer(0) ;
+	@layer_exist %"_id", 'f["@layer_exist"]'
+	.if	f["@layer_exist"]
+		@layer_image	%"_id", %"_file", %"_time"
+	.else
+		@layer_create	".", %"_id", "image", %"_style", x=%"_x", y=%"_y", tr=%"_tr", rz=%"_rz" file=%"_file"
+	.end
+	@move	%"_id", %"_time", %"_x", %"_y", %"_tr", %"_rz"
+	@layer_parameter	%"_id", priority=%"_priority"
+
+.endm
+
+
+
+; 背景画像の読み込み
+
+.macro	@bg : "_file", "_time"="700", "_style"="bg"
+
+	@image	"bg", %"_file", %"_time", 100, 0, 0, 0, 0, %"_style"
+
+.endm
+
+
+
+; キャラクター立ち絵画像の読み込み
+
+.macro	@char : "_id", "_file", "_time"="300", "_x"="0", "_style"="char"
+
+	@image	%"_id", %"_file", %"_time", 50, %"_x", 0, 0, 0, %"_style"
+
+.endm
+
+
+
+
+

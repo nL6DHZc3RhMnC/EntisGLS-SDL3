@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProjectSchemaDefinitions xmlns="clr-namespace:Microsoft.Build.Framework.XamlTypes;assembly=Microsoft.Build.Framework" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:transformCallback="Microsoft.Cpp.Dev10.ConvertPropertyCallback">
+  <Rule
+    Name="MASMforEntisGLS"
+    PageTemplate="tool"
+    DisplayName="MASM for EntisGLS"
+    Order="200">
+    <Rule.DataSource>
+      <DataSource
+        Persistence="ProjectFile"
+        ItemType="MASMforEntisGLS" />
+    </Rule.DataSource>
+    <Rule.Categories>
+      <Category
+        Name="General">
+        <Category.DisplayName>
+          <sys:String>General</sys:String>
+        </Category.DisplayName>
+      </Category>
+      <Category
+        Name="Command Line"
+        Subtype="CommandLine">
+        <Category.DisplayName>
+          <sys:String>Command Line</sys:String>
+        </Category.DisplayName>
+      </Category>
+    </Rule.Categories>
+    <StringListProperty
+      Name="Inputs"
+      Category="Command Line"
+      IsRequired="true"
+      Switch=" ">
+      <StringListProperty.DataSource>
+        <DataSource
+          Persistence="ProjectFile"
+          ItemType="MASMforEntisGLS"
+          SourceType="Item" />
+      </StringListProperty.DataSource>
+    </StringListProperty>
+    <BoolProperty
+      Name="DebugMode"
+      Category="一般"
+      HelpContext="0"
+      DisplayName="デバッグ出力"
+      Description="デバッグ用のコードを選択し、デバッグ情報を付加します (/Zd /Zf /Zi /D_DEBUG)"
+      Switch="/Zd /Zf /Zi /D_DEBUG" />
+    <StringListProperty
+      Name="PreprocessorDefinitions"
+      Category="一般"
+      HelpContext="0"
+      DisplayName="テキストマクロ定義"
+      Description="テキストマクロを定義します (/D[symbol])"
+      Separator=";"
+      Switch="/D&quot;[value]&quot;" />
+    <StringListProperty
+      Name="AssembledCodeListingFile"
+      Category="一般"
+      HelpContext="0"
+      DisplayName="リスティングファイル"
+      Description="リスティングファイルを生成します (/Fl[file])"
+      Separator=";"
+      Switch="/Fl&quot;[value]&quot;" />
+    <StringListProperty
+      Name="IncludePaths"
+      Category="一般"
+      HelpContext="0"
+      DisplayName="インクルードパス"
+      Description="インクルードパスを指定します (/I [path])"
+      Separator=";"
+      Switch="/I &quot;[value]&quot;" />
+    <EnumProperty
+      Name="WarningLevel"
+      Category="一般"
+      HelpContext="0"
+      DisplayName="警告レベル"
+      Description="警告レベルを設定します {0, 1, 2, 3} (/W0, /W1, /W2, /W3)">
+      <EnumValue
+        Name="0"
+        DisplayName="Warning Level 0 (/W0)"
+        Switch="/W0" />
+      <EnumValue
+        Name="1"
+        DisplayName="Warning Level 1 (/W1)"
+        Switch="/W1" />
+      <EnumValue
+        Name="2"
+        DisplayName="Warning Level 2 (/W2)"
+        Switch="/W2" />
+      <EnumValue
+        Name="3"
+        DisplayName="Warning Level 3 (/W3)"
+        Switch="/W3" />
+    </EnumProperty>
+    <StringProperty
+      Name="CommandLineTemplate"
+      DisplayName="Command Line"
+      Visible="False"
+      IncludeInCommandLine="False" />
+    <DynamicEnumProperty
+      Name="MASMforEntisGLSBeforeTargets"
+      Category="General"
+      EnumProvider="Targets"
+      IncludeInCommandLine="False">
+      <DynamicEnumProperty.DisplayName>
+        <sys:String>Execute Before</sys:String>
+      </DynamicEnumProperty.DisplayName>
+      <DynamicEnumProperty.Description>
+        <sys:String>Specifies the targets for the build customization to run before.</sys:String>
+      </DynamicEnumProperty.Description>
+      <DynamicEnumProperty.ProviderSettings>
+        <NameValuePair
+          Name="Exclude"
+          Value="^MASMforEntisGLSBeforeTargets|^Compute" />
+      </DynamicEnumProperty.ProviderSettings>
+      <DynamicEnumProperty.DataSource>
+        <DataSource
+          Persistence="ProjectFile"
+          HasConfigurationCondition="true" />
+      </DynamicEnumProperty.DataSource>
+    </DynamicEnumProperty>
+    <DynamicEnumProperty
+      Name="MASMforEntisGLSAfterTargets"
+      Category="General"
+      EnumProvider="Targets"
+      IncludeInCommandLine="False">
+      <DynamicEnumProperty.DisplayName>
+        <sys:String>Execute After</sys:String>
+      </DynamicEnumProperty.DisplayName>
+      <DynamicEnumProperty.Description>
+        <sys:String>Specifies the targets for the build customization to run after.</sys:String>
+      </DynamicEnumProperty.Description>
+      <DynamicEnumProperty.ProviderSettings>
+        <NameValuePair
+          Name="Exclude"
+          Value="^MASMforEntisGLSAfterTargets|^Compute" />
+      </DynamicEnumProperty.ProviderSettings>
+      <DynamicEnumProperty.DataSource>
+        <DataSource
+          Persistence="ProjectFile"
+          ItemType=""
+          HasConfigurationCondition="true" />
+      </DynamicEnumProperty.DataSource>
+    </DynamicEnumProperty>
+    <StringListProperty
+      Name="Outputs"
+      DisplayName="Outputs"
+      Visible="False"
+      IncludeInCommandLine="False" />
+    <StringProperty
+      Name="ExecutionDescription"
+      DisplayName="Execution Description"
+      Visible="False"
+      IncludeInCommandLine="False" />
+    <StringListProperty
+      Name="AdditionalDependencies"
+      DisplayName="Additional Dependencies"
+      IncludeInCommandLine="False"
+      Visible="false" />
+    <StringProperty
+      Subtype="AdditionalOptions"
+      Name="AdditionalOptions"
+      Category="Command Line">
+      <StringProperty.DisplayName>
+        <sys:String>Additional Options</sys:String>
+      </StringProperty.DisplayName>
+      <StringProperty.Description>
+        <sys:String>Additional Options</sys:String>
+      </StringProperty.Description>
+    </StringProperty>
+  </Rule>
+  <ItemType
+    Name="MASMforEntisGLS"
+    DisplayName="MASM for EntisGLS" />
+  <FileExtension
+    Name="*.asm"
+    ContentType="MASMforEntisGLS" />
+  <ContentType
+    Name="MASMforEntisGLS"
+    DisplayName="MASM for EntisGLS"
+    ItemType="MASMforEntisGLS" />
+</ProjectSchemaDefinitions>

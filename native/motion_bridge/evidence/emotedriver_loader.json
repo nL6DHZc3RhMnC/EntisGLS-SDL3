@@ -1,0 +1,144 @@
+{
+  "addr": "0x1005aab0",
+  "code": "int __userpurge sub_1005AAB0@<eax>(int a1@<ecx>, int a2@<ebp>, _DWORD *a3)\n{\n  int v4; // eax\n  char *v5; // eax\n  int v6; // ecx\n  int v7; // ecx\n  int *v8; // esi\n  _DWORD *v9; // edi\n  int v10; // ecx\n  int v11; // eax\n  unsigned int v12; // edx\n  unsigned int v13; // ecx\n  int *v14; // edi\n  unsigned int v15; // ecx\n  char *v16; // edi\n  unsigned int v17; // eax\n  int v18; // eax\n  char *v19; // edi\n  int v20; // esi\n  int v21; // esi\n  int v22; // eax\n  _DWORD *v23; // edx\n  int v24; // ecx\n  _DWORD *v25; // esi\n  int v26; // eax\n  int v27; // ecx\n  int v28; // ecx\n  int v29; // ecx\n  int v30; // ecx\n  int v31; // ecx\n  int v32; // ecx\n  unsigned __int8 *v33; // esi\n  int v34; // edi\n  int v35; // eax\n  int v36; // edx\n  int v37; // eax\n  char *v38; // edx\n  size_t v39; // ecx\n  int v40; // eax\n  int v41; // ecx\n  int v42; // eax\n  bool v43; // dl\n  int *v44; // ecx\n  _DWORD *v45; // edx\n  int result; // eax\n  int v47; // eax\n  int v48; // eax\n  _DWORD *v49; // edx\n  unsigned int v50; // ecx\n  int v51; // esi\n  void *v52; // edi\n  unsigned int v53; // eax\n  int v54; // [esp-110h] [ebp-11Ch]\n  int v55; // [esp-ECh] [ebp-F8h]\n  int v56; // [esp-E0h] [ebp-ECh]\n  _DWORD v57[4]; // [esp-DCh] [ebp-E8h] BYREF\n  _DWORD v58[4]; // [esp-CCh] [ebp-D8h] BYREF\n  int v59; // [esp-BCh] [ebp-C8h] BYREF\n  int v60; // [esp-B8h] [ebp-C4h]\n  int v61; // [esp-B4h] [ebp-C0h]\n  int v62; // [esp-B0h] [ebp-BCh]\n  _DWORD v63[2]; // [esp-ACh] [ebp-B8h] BYREF\n  _DWORD v64[2]; // [esp-A4h] [ebp-B0h] BYREF\n  _DWORD v65[2]; // [esp-9Ch] [ebp-A8h] BYREF\n  unsigned __int8 *v66[2]; // [esp-94h] [ebp-A0h] BYREF\n  int v67; // [esp-8Ch] [ebp-98h]\n  _DWORD *v68; // [esp-88h] [ebp-94h]\n  _DWORD *v69; // [esp-84h] [ebp-90h]\n  _DWORD v70[2]; // [esp-80h] [ebp-8Ch] BYREF\n  _DWORD v71[2]; // [esp-78h] [ebp-84h] BYREF\n  int v72; // [esp-70h] [ebp-7Ch] BYREF\n  int v73; // [esp-6Ch] [ebp-78h]\n  _DWORD *v74; // [esp-68h] [ebp-74h] BYREF\n  unsigned int v75; // [esp-64h] [ebp-70h]\n  int v76; // [esp-60h] [ebp-6Ch]\n  int v77; // [esp-5Ch] [ebp-68h]\n  int v78; // [esp-58h] [ebp-64h] BYREF\n  int v79; // [esp-54h] [ebp-60h]\n  char *v80; // [esp-50h] [ebp-5Ch] BYREF\n  _DWORD *v81; // [esp-4Ch] [ebp-58h]\n  int v82; // [esp-48h] [ebp-54h] BYREF\n  int v83; // [esp-44h] [ebp-50h]\n  int v84; // [esp-40h] [ebp-4Ch] BYREF\n  int *v85; // [esp-3Ch] [ebp-48h]\n  char v86; // [esp-35h] [ebp-41h]\n  __int64 v87; // [esp-34h] [ebp-40h] BYREF\n  void *v88[2]; // [esp-2Ch] [ebp-38h] BYREF\n  int v89; // [esp-24h] [ebp-30h]\n  void *v90; // [esp-20h] [ebp-2Ch]\n  int v91; // [esp-1Ch] [ebp-28h]\n  unsigned int v92; // [esp-18h] [ebp-24h]\n  int *v93; // [esp-10h] [ebp-1Ch]\n  struct _EXCEPTION_REGISTRATION_RECORD *ExceptionList; // [esp-Ch] [ebp-18h]\n  void *v95; // [esp-8h] [ebp-14h]\n  int v96; // [esp-4h] [ebp-10h]\n  int v97; // [esp+0h] [ebp-Ch]\n  void *v98; // [esp+4h] [ebp-8h]\n  int v99; // [esp+8h] [ebp-4h] BYREF\n  void *retaddr; // [esp+Ch] [ebp+0h]\n\n  v97 = a2; /*0x1005aabc*/\n  v98 = retaddr; /*0x1005aac0*/\n  v96 = -1; /*0x1005aac6*/\n  v95 = &loc_100854F9; /*0x1005aac8*/\n  ExceptionList = NtCurrentTeb()->NtTib.ExceptionList; /*0x1005aad3*/\n  v93 = &v99; /*0x1005aad4*/\n  v84 = a1; /*0x1005aaf3*/\n  v81 = a3; /*0x1005ab00*/\n  v87 = 0; /*0x1005ab03*/\n  v88[0] = nullptr; /*0x1005ab07*/\n  v88[1] = nullptr; /*0x1005ab0e*/\n  v89 = 0; /*0x1005ab15*/\n  v90 = nullptr; /*0x1005ab1c*/\n  v91 = 0; /*0x1005ab23*/\n  v92 = 0; /*0x1005ab2a*/\n  v96 = 0; /*0x1005ab34*/\n  v4 = sub_1005C990(a1: &v87); /*0x1005ab45*/\n  LOBYTE(v96) = 1; /*0x1005ab51*/\n  v5 = (char *)sub_1005CB00(a1: v4); /*0x1005ab55*/\n  sub_1005CB30(a1: a1 + 12, a2: &v78, a3: v6, a4: v5 + 16, Block: v5); /*0x1005ab67*/\n  v8 = (int *)(v78 + 20); /*0x1005ab6f*/\n  v85 = (int *)(v78 + 20); /*0x1005ab79*/\n  if ( v56 != 0 ) /*0x1005ab7c*/\n  {\n    LOBYTE(v96) = 2; /*0x1005ab7e*/\n    ((void (__cdecl *)())off_101064C4)(); /*0x1005ab88*/\n  }\n  if ( v55 != 0 ) /*0x1005ab98*/\n  {\n    LOBYTE(v96) = 3; /*0x1005ab9a*/\n    ((void (__cdecl *)())off_101064C4)(); /*0x1005aba4*/\n  }\n  v96 = -1; /*0x1005abad*/\n  if ( v92 != 0 ) /*0x1005abb8*/\n  {\n    v96 = 4; /*0x1005abba*/\n    off_101064C4(Block: v90); /*0x1005abc4*/\n    v96 = -1; /*0x1005abcd*/\n  }\n  if ( v89 != 0 ) /*0x1005abd8*/\n  {\n    v96 = 5; /*0x1005abda*/\n    off_101064C4(Block: v88[0]); /*0x1005abe4*/\n    v96 = -1; /*0x1005abed*/\n  }\n  v9 = v81; /*0x1005abf4*/\n  v82 = 0; /*0x1005ac03*/\n  v83 = 0; /*0x1005ac0a*/\n  if ( sub_100581F0(this: v81, a2: (int)\"meshCombinator\", a3: &v82, a4: v7) == 0 )\n  {\n    sub_100574C0(a1: \"psb: undefined object key '%s' is referenced.\", \"meshCombinator\");\n    abort(); /*0x1005ac2c*/\n  }\n  v78 = v82; /*0x1005ac34*/\n  v79 = v83; /*0x1005ac3b*/\n  v72 = 0; /*0x1005ac44*/\n  v73 = 0; /*0x1005ac51*/\n  if ( sub_100581F0(this: &v78, a2: (int)\"combinatorList\", a3: &v72, a4: v10) == 0 )\n  {\n    sub_100574C0(a1: \"psb: undefined object key '%s' is referenced.\", \"combinatorList\");\n    abort(); /*0x1005ac73*/\n  }\n  v11 = sub_10057790(a1: v73 + 1); /*0x1005ac7e*/\n  *v8 = v9[175]; /*0x1005ac89*/\n  v12 = v8[3]; /*0x1005ac8d*/\n  v75 = v11; /*0x1005ac93*/\n  v13 = (v11 << 6) + 32; /*0x1005ac96*/\n  v68 = v8 + 2; /*0x1005ac9c*/\n  if ( v13 >= v12 ) /*0x1005aca4*/\n  {\n    v15 = v13 - v12; /*0x1005acb6*/\n    v16 = (char *)(v8[2] + 4 * v12); /*0x1005acb8*/\n    v17 = v8[4] - v12; /*0x1005acbe*/\n    v80 = v16; /*0x1005acc0*/\n    if ( v15 <= v17 ) /*0x1005acc5*/\n      sub_1005CF60(Src: v16, a2: v15, a3: (int)v85); /*0x1005ace8*/\n    else\n      sub_1005CEE0(a1: &v74, a2: &v80, a3: v15, a4: v85, a5: v84); /*0x1005acd9*/\n    v14 = v8 + 2; /*0x1005aced*/\n  }\n  else\n  {\n    v14 = v8 + 2; /*0x1005aca8*/\n    v8[3] = v13; /*0x1005acaf*/\n  }\n  v69 = v8 + 5; /*0x1005acf9*/\n  sub_1005CA20(a1: v75, a2: v13); /*0x1005acff*/\n  v18 = *v14; /*0x1005ad04*/\n  v19 = nullptr; /*0x1005ad06*/\n  v8[1] = v18; /*0x1005ad08*/\n  v80 = nullptr; /*0x1005ad0b*/\n  if ( v75 != 0 )\n  {\n    v70[0] = v72; /*0x1005ad1a*/\n    v76 = 0; /*0x1005ad1d*/\n    v77 = 0; /*0x1005ad20*/\n    do\n    {\n      v20 = *(unsigned __int8 *)(v73 + 1) - 11; /*0x1005ad2d*/\n      v60 = sub_10057790(a1: v73 + 1); /*0x1005ad38*/\n      v61 = *(unsigned __int8 *)(v20 + v73 + 1) - 12; /*0x1005ad4b*/\n      v62 = v20 + v73 + 2; /*0x1005ad55*/\n      v21 = v60 * v61 + v20 + 1; /*0x1005ad61*/\n      v59 = v21; /*0x1005ad65*/\n      v22 = sub_10057A10(a1: &v59, a2: v19); /*0x1005ad6b*/\n      v23 = v68; /*0x1005ad74*/\n      v24 = v76; /*0x1005ad7c*/\n      v70[1] = v21 + 1 + v73 + v22; /*0x1005ad7f*/\n      v54 = v76; /*0x1005ad88*/\n      v66[0] = nullptr; /*0x1005ad89*/\n      v66[1] = nullptr; /*0x1005ad93*/\n      v25 = (_DWORD *)(v77 + *v69); /*0x1005ada1*/\n      v26 = v76 + *v68 + 128; /*0x1005ada7*/\n      v74 = v25; /*0x1005ada9*/\n      v25[1] = v26; /*0x1005adac*/\n      *v25 = v24 + *v23 + 256; /*0x1005adbb*/\n      if ( sub_100581F0(this: v70, a2: (int)\"rawMeshList\", a3: v66, a4: v54) == 0 )\n      {\n        sub_100574C0(a1: \"psb: undefined object key '%s' is referenced.\", \"rawMeshList\");\n        abort(); /*0x1005b0fe*/\n      }\n      v25[2] = sub_10057E70(this: v66); /*0x1005ade2*/\n      v65[0] = 0; /*0x1005adee*/\n      v65[1] = 0; /*0x1005adfe*/\n      if ( sub_100581F0(this: v70, a2: (int)\"neutralIndex\", a3: v65, a4: v27) != 0 ) /*0x1005ae0f*/\n        v25[4] = sub_10057C70(a1: v65); /*0x1005ae1c*/\n      else\n        v25[4] = -1; /*0x1005ae21*/\n      v71[0] = 0; /*0x1005ae2c*/\n      v71[1] = 0; /*0x1005ae3c*/\n      if ( sub_100581F0(this: v70, a2: (int)\"variable\", a3: v71, a4: v28) == 0 )\n      {\n        sub_100574C0(a1: \"psb: undefined object key '%s' is referenced.\", \"variable\");\n        abort(); /*0x1005b0e7*/\n      }\n      v64[0] = 0; /*0x1005ae57*/\n      v64[1] = 0; /*0x1005ae61*/\n      v57[0] = *v85; /*0x1005ae6d*/\n      if ( sub_100581F0(this: v71, a2: (int)\"rangeBegin\", a3: v64, a4: v29) == 0 )\n      {\n        sub_100574C0(a1: \"psb: undefined object key '%s' is referenced.\", \"rangeBegin\");\n        abort(); /*0x1005b0d0*/\n      }\n      v57[1] = sub_10057D30(a1: v64).m128_u32[0]; /*0x1005ae9e*/\n      v63[0] = 0; /*0x1005aeaf*/\n      v63[1] = 0; /*0x1005aeb9*/\n      if ( sub_100581F0(this: v71, a2: (int)\"rangeEnd\", a3: v63, a4: v30) == 0 )\n      {\n        sub_100574C0(a1: \"psb: undefined object key '%s' is referenced.\", \"rangeEnd\");\n        abort(); /*0x1005b0b9*/\n      }\n      v57[2] = sub_10057D30(a1: v63).m128_u32[0]; /*0x1005aedf*/\n      v78 = 0; /*0x1005aef0*/\n      v79 = 0; /*0x1005aef7*/\n      if ( sub_100581F0(this: v71, a2: (int)\"meshCount\", a3: &v78, a4: v31) == 0 )\n      {\n        sub_100574C0(a1: \"psb: undefined object key '%s' is referenced.\", \"meshCount\");\n        abort(); /*0x1005b0a2*/\n      }\n      v57[3] = sub_10057C70(a1: &v78); /*0x1005af14*/\n      v82 = 0; /*0x1005af20*/\n      v83 = 0; /*0x1005af2d*/\n      if ( sub_100581F0(this: v71, a2: (int)\"key\", a3: &v82, a4: v32) == 0 )\n      {\n        sub_100574C0(a1: \"psb: undefined object key '%s' is referenced.\", \"key\");\n        abort(); /*0x1005b08b*/\n      }\n      v67 = sub_10057890(a1: v83); /*0x1005af4c*/\n      v33 = *(unsigned __int8 **)(v82 + 44); /*0x1005af52*/\n      v34 = *v33 - 11; /*0x1005af5a*/\n      v35 = sub_10057790(a1: v33); /*0x1005af5d*/\n      v36 = v33[v34] - 12; /*0x1005af69*/\n      v58[1] = v35; /*0x1005af6c*/\n      v58[2] = v36; /*0x1005af72*/\n      v58[3] = &v33[v34 + 1]; /*0x1005af80*/\n      v58[0] = v35 * v36 + v34 + 1; /*0x1005af94*/\n      v37 = sub_10057A10(a1: v58, a2: v67); /*0x1005af9a*/\n      v38 = (char *)(*(_DWORD *)(v82 + 48) + v37); /*0x1005afa4*/\n      v92 = 15; /*0x1005afa7*/\n      v91 = 0; /*0x1005afae*/\n      LOBYTE(v88[0]) = 0; /*0x1005afb5*/\n      if ( *v38 != 0 ) /*0x1005afbc*/\n        v39 = strlen(v38); /*0x1005afc4*/\n      else\n        v39 = 0; /*0x1005afbe*/\n      sub_1001CE20(Src: v38, Size: v39); /*0x1005afd5*/\n      v96 = 6; /*0x1005afda*/\n      sub_1005B390(a1: v88, a2: v57, a3: v74); /*0x1005aff2*/\n      v96 = 7; /*0x1005aff7*/\n      if ( v92 >= 0x10 ) /*0x1005b002*/\n        off_101064C4(Block: v88[0]); /*0x1005b007*/\n      v77 += 24; /*0x1005b010*/\n      v76 += 256; /*0x1005b014*/\n      v96 = -1; /*0x1005b01b*/\n      v19 = v80 + 1; /*0x1005b025*/\n      v80 = v19; /*0x1005b026*/\n    }\n    while ( (unsigned int)v19 < v75 );\n    v8 = v85; /*0x1005b032*/\n  }\n  sub_1005B9B0(a1: v8); /*0x1005b036*/\n  v40 = v8[6]; /*0x1005b03b*/\n  v41 = v8[5]; /*0x1005b03e*/\n  v86 = 1; /*0x1005b041*/\n  if ( v41 == v41 + 24 * v40 ) /*0x1005b04d*/\n    goto LABEL_52; /*0x1005b04d*/\n  v42 = v41 + 24 * v8[6]; /*0x1005b059*/\n  v43 = v86; /*0x1005b05c*/\n  do /*0x1005b10a*/\n  {\n    v43 = v43 && *(_BYTE *)(v41 + 13) != 0; /*0x1005b072*/\n    v41 += 24; /*0x1005b105*/\n  }\n  while ( v41 != v42 ); /*0x1005b10a*/\n  if ( v43 ) /*0x1005b112*/\nLABEL_52:\n    v44 = nullptr; /*0x1005b119*/\n  else\n    v44 = (int *)v8[1]; /*0x1005b114*/\n  v45 = v81; /*0x1005b11b*/\n  result = *v8; /*0x1005b11e*/\n  v85 = v44; /*0x1005b120*/\n  if ( v81[175] == result && --result == 0 ) /*0x1005b132*/\n  {\n    v47 = v81[176]; /*0x1005b138*/\n    *((_BYTE *)v81 + 36) = 1; /*0x1005b13e*/\n    *(_BYTE *)(v47 + 8) = 1; /*0x1005b142*/\n    v48 = v45[176]; /*0x1005b146*/\n    if ( v44 != nullptr ) /*0x1005b14e*/\n    {\n      v49 = *(_DWORD **)(v48 + 12); /*0x1005b158*/\n      v50 = v49[8]; /*0x1005b15b*/\n      if ( v50 <= 0x10 ) /*0x1005b161*/\n      {\n        v51 = 16 - v50; /*0x1005b175*/\n        v52 = (void *)(v49[7] + 8 * v50); /*0x1005b177*/\n        v53 = v49[9] - v50; /*0x1005b17d*/\n        v84 = (int)v52; /*0x1005b17f*/\n        if ( 16 - v50 <= v53 ) /*0x1005b18a*/\n          sub_10054780(Src: v52, a2: v51, a3: v84); /*0x1005b1a1*/\n        else\n          sub_10054700(a1: &v74, a2: &v84, a3: v51, a4: v84, a5: v84); /*0x1005b198*/\n      }\n      else\n      {\n        v49[8] = 16; /*0x1005b168*/\n      }\n      result = v81[176]; /*0x1005b1b1*/\n      qmemcpy(*(void **)(*(_DWORD *)(result + 12) + 28), v85, 0x80u); /*0x1005b1bd*/\n    }\n    else\n    {\n      result = *(_DWORD *)(v48 + 12); /*0x1005b150*/\n      *(_DWORD *)(result + 32) = 0; /*0x1005b153*/\n    }\n  }\n  return result; /*0x1005b1d9*/\n}",
+  "refs": [
+    {
+      "addr": "0x100854f9",
+      "name": "loc_100854F9"
+    },
+    {
+      "addr": "0x1005c990",
+      "name": "sub_1005C990"
+    },
+    {
+      "addr": "0x1005cb00",
+      "name": "sub_1005CB00"
+    },
+    {
+      "addr": "0x1005cb30",
+      "name": "sub_1005CB30"
+    },
+    {
+      "addr": "0x101064c4",
+      "name": "off_101064C4"
+    },
+    {
+      "addr": "0x100574c0",
+      "name": "sub_100574C0"
+    },
+    {
+      "addr": "0x1008dab0",
+      "name": "aPsbUndefinedOb",
+      "string": "psb: undefined object key '%s' is referenced."
+    },
+    {
+      "addr": "0x1008d644",
+      "name": "aMeshcombinator",
+      "string": "meshCombinator"
+    },
+    {
+      "addr": "0x10071418",
+      "name": "_abort"
+    },
+    {
+      "addr": "0x100581f0",
+      "name": "sub_100581F0"
+    },
+    {
+      "addr": "0x1008db50",
+      "name": "aCombinatorlist",
+      "string": "combinatorList"
+    },
+    {
+      "addr": "0x10057790",
+      "name": "sub_10057790"
+    },
+    {
+      "addr": "0x1005cf60",
+      "name": "sub_1005CF60"
+    },
+    {
+      "addr": "0x1005cee0",
+      "name": "sub_1005CEE0"
+    },
+    {
+      "addr": "0x1005ca20",
+      "name": "sub_1005CA20"
+    },
+    {
+      "addr": "0x10057a10",
+      "name": "sub_10057A10"
+    },
+    {
+      "addr": "0x1008db60",
+      "name": "aRawmeshlist",
+      "string": "rawMeshList"
+    },
+    {
+      "addr": "0x10057e70",
+      "name": "sub_10057E70"
+    },
+    {
+      "addr": "0x10057c70",
+      "name": "sub_10057C70"
+    },
+    {
+      "addr": "0x1008db6c",
+      "name": "aNeutralindex",
+      "string": "neutralIndex"
+    },
+    {
+      "addr": "0x1008d958",
+      "name": "aVariable",
+      "string": "variable"
+    },
+    {
+      "addr": "0x1008d534",
+      "name": "aRangebegin",
+      "string": "rangeBegin"
+    },
+    {
+      "addr": "0x10057d30",
+      "name": "sub_10057D30"
+    },
+    {
+      "addr": "0x1008d540",
+      "name": "aRangeend",
+      "string": "rangeEnd"
+    },
+    {
+      "addr": "0x1008db7c",
+      "name": "aMeshcount",
+      "string": "meshCount"
+    },
+    {
+      "addr": "0x1008db88",
+      "name": "aKey",
+      "string": "key"
+    },
+    {
+      "addr": "0x10057890",
+      "name": "sub_10057890"
+    },
+    {
+      "addr": "0x1001ce20",
+      "name": "sub_1001CE20"
+    },
+    {
+      "addr": "0x1005b390",
+      "name": "sub_1005B390"
+    },
+    {
+      "addr": "0x1005b9b0",
+      "name": "sub_1005B9B0"
+    },
+    {
+      "addr": "0x10054780",
+      "name": "sub_10054780"
+    },
+    {
+      "addr": "0x10054700",
+      "name": "sub_10054700"
+    }
+  ]
+}

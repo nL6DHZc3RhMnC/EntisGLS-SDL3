@@ -1,0 +1,16 @@
+﻿
+
+DECL_LOQUATY_CONSTRUCTOR(EntisGLS4_SceneItemInstanceRef);
+DECL_LOQUATY_CONSTRUCTOR_N(EntisGLS4_SceneItemInstanceRef,1);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneItemInstanceRef_operator_smov);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneItemInstanceRef_isEmpty);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneItemInstanceRef_isEqual);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneItemInstanceRef_releaseRef);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneItemInstanceRef_getRefItem);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneItemInstanceRef_isInstance);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneItemInstanceRef_getInstanceIndex);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneItemInstanceRef_correctInstance);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneItemInstanceRef_getInstanceMatrix);
+DECL_LOQUATY_FUNC(EntisGLS4_SceneItemInstanceRef_deleteInstance);
+
+

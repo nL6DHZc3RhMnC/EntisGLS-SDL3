@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>Randomizer</title>
+</head>
+<body>
+<div class="chapter">Randomizer</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　Randomizer は擬似乱数を発生するクラスです。<br/>
+　quickInt、quickFloat 関数は、initSeed で設定された同一の初期値に対し、同じ数列を出力します。randomize 関数は同じ数列を出力するとは限りません。<br/>
+　Randomizer は initSeed 関数を呼び出さない場合、ランダムな初期値で初期化されています。
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="Randomizer.xhtml">Randomizer</a>
+</div></div><br/>
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_Randomizer">Randomizer</a><br/>
+	<a href="#virtual_initSeed">initSeed</a><br/>
+	<a href="#virtual_quickFloat">quickFloat</a><br/>
+	<a href="#virtual_quickInt">quickInt</a><br/>
+	<a href="#virtual_randomize">randomize</a><br/>
+</div><br/>
+
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_Randomizer"/>
+<div class="headline">Randomizer</div>
+<div class="usage">public void Randomizer(&#32; )</div>
+<br/>
+
+<a name="virtual_initSeed"/>
+<div class="headline">initSeed</div>
+<div class="usage">public void initSeed( int seed )</div>
+<br/>
+
+<a name="virtual_quickFloat"/>
+<div class="headline">quickFloat</div>
+<div class="usage">public float quickFloat( float nRange )</div>
+<br/>
+
+<a name="virtual_quickInt"/>
+<div class="headline">quickInt</div>
+<div class="usage">public int quickInt( int nRange )</div>
+<br/>
+
+<a name="virtual_randomize"/>
+<div class="headline">randomize</div>
+<div class="usage">public int randomize( int nRange )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

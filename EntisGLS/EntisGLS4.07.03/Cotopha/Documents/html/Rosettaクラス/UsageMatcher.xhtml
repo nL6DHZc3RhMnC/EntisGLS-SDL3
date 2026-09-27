@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+[
+	<!ENTITY nbsp "&#160;">
+]>
+<?xml-stylesheet type="text/css" href="specifications.css"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+	<title>UsageMatcher</title>
+</head>
+<body>
+<div class="chapter">UsageMatcher</div>
+
+<div class="headline">Summary</div>
+<div class="normal">
+　EntisGLS4 の SUsageMatcher とほぼ同等です。
+<br/>
+<div class="code_quote">
+	String[]&#9;param = new String[] ;
+	<br/>
+	UsageMatcher usage = new UsageMatcher( &quot;(%t) is (%t)&quot; ) ;
+	<br/>
+	if ( usage.parse( &quot;apple is red&quot;, param ) == null )
+	<br/>
+	{
+	<br/>
+	&nbsp; &nbsp; System.console().printf( &quot;%s, %s&quot;, param[0], param[1] ) ; // apple, red
+	<br/>
+	}
+	<br/>
+</div>
+</div>
+<br/>
+
+<div class="headline">Super Classes</div>
+<div class="indent1"><a href="index.xhtml">&lt;class index&gt;</a></div><div class="indent1"><a href="Object.xhtml">Object</a>
+<div class="indent1"><a href="UsageMatcher.xhtml">UsageMatcher</a>
+</div></div><br/>
+
+<div class="headline">Static Members</div>
+<div class="indent2">
+	<a href="#static_utWildCardExpression">utWildCardExpression</a><br/>
+	<a href="#static_utWildCardToken">utWildCardToken</a><br/>
+	<a href="#static_utWildCardUsage">utWildCardUsage</a><br/>
+</div><br/>
+
+
+<div class="headline">Methods</div>
+<div class="indent2">
+	<a href="#virtual_UsageMatcher">UsageMatcher</a><br/>
+	<a href="#virtual_find">find</a><br/>
+	<a href="#virtual_parse">parse</a><br/>
+	<a href="#virtual_parseNext">parseNext</a><br/>
+	<a href="#virtual_setUsage">setUsage</a><br/>
+</div><br/>
+
+
+<div class="chapter">Static Members</div>
+
+<a name="static_utWildCardExpression"/>
+<div class="headline">utWildCardExpression</div>
+<div class="usage">public static const Integer utWildCardExpression = 6</div>
+<br/>
+
+<a name="static_utWildCardToken"/>
+<div class="headline">utWildCardToken</div>
+<div class="usage">public static const Integer utWildCardToken = 4</div>
+<br/>
+
+<a name="static_utWildCardUsage"/>
+<div class="headline">utWildCardUsage</div>
+<div class="usage">public static const Integer utWildCardUsage = 5</div>
+<br/>
+
+<div class="chapter">Methods</div>
+
+<a name="virtual_UsageMatcher"/>
+<div class="headline">UsageMatcher</div>
+<div class="usage">public void UsageMatcher( String usage )</div>
+<br/>
+
+<a name="virtual_find"/>
+<div class="headline">find</div>
+<div class="usage">public const int find( StringParser parser, int typeWildCard = 4 )</div>
+<br/>
+
+<a name="virtual_parse"/>
+<div class="headline">parse</div>
+<div class="usage">public const String parse( String text, String[] aParams = null )</div>
+<br/>
+
+<a name="virtual_parseNext"/>
+<div class="headline">parseNext</div>
+<div class="usage">public const String parseNext( StringParser parser, String[] aParams = null )</div>
+<br/>
+
+<a name="virtual_setUsage"/>
+<div class="headline">setUsage</div>
+<div class="usage">public void setUsage( String usage )</div>
+<br/>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

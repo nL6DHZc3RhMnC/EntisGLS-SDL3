@@ -1,0 +1,3359 @@
+{
+  "scope": "All 529 original and patch .srcxml entries; lexical open/play/close contexts, not runtime path coverage. Dialogue text deliberately excluded.",
+  "script_count": 529,
+  "archives": {
+    "script.noa": 189,
+    "stst_patch_R18.noa": 340
+  },
+  "movie_segments": 24,
+  "direct_segments": 8,
+  "csx_flags": {
+    "start": "0x655e2..0x655e9: flags=1",
+    "layered": "0x65618..0x6562c: layered != 0 sets flags=0",
+    "loop": "0x6565c..0x65670: loop != 0 assigns flags=2, replacing rather than ORing direct",
+    "call": "0x656b8 WitchWizard::PlayMovie; 0x695f7..0x6960b may OR decode flag0x400, preserving presentation bits"
+  },
+  "movies": [
+    {
+      "movie": "opening.mei",
+      "occurrences": 8,
+      "by_archive": {
+        "script.noa": 4,
+        "stst_patch_R18.noa": 4
+      },
+      "direct": 8,
+      "non_direct": 0,
+      "raw_play_parameters": [
+        {
+          "layered": "0",
+          "loop": "0",
+          "vol_line": "0"
+        }
+      ],
+      "open_presentation": [
+        {
+          "fadein": "0",
+          "fullscreen": "-1",
+          "priority": "65535",
+          "x": "0",
+          "y": "0"
+        }
+      ],
+      "locations": [
+        {
+          "archive": "script.noa",
+          "file": "haz_01_R.srcxml",
+          "open_line": null,
+          "play_line": null,
+          "close_line": "122",
+          "script_flags": 1,
+          "during_message_commands": 0
+        },
+        {
+          "archive": "script.noa",
+          "file": "mai_01_R.srcxml",
+          "open_line": null,
+          "play_line": null,
+          "close_line": "121",
+          "script_flags": 1,
+          "during_message_commands": 0
+        },
+        {
+          "archive": "script.noa",
+          "file": "nak_01_R.srcxml",
+          "open_line": null,
+          "play_line": null,
+          "close_line": "125",
+          "script_flags": 1,
+          "during_message_commands": 0
+        },
+        {
+          "archive": "script.noa",
+          "file": "yuu_01_R.srcxml",
+          "open_line": null,
+          "play_line": null,
+          "close_line": "126",
+          "script_flags": 1,
+          "during_message_commands": 0
+        },
+        {
+          "archive": "stst_patch_R18.noa",
+          "file": "haz_01.srcxml",
+          "open_line": null,
+          "play_line": null,
+          "close_line": "122",
+          "script_flags": 1,
+          "during_message_commands": 0
+        },
+        {
+          "archive": "stst_patch_R18.noa",
+          "file": "mai_01.srcxml",
+          "open_line": null,
+          "play_line": null,
+          "close_line": "121",
+          "script_flags": 1,
+          "during_message_commands": 0
+        },
+        {
+          "archive": "stst_patch_R18.noa",
+          "file": "nak_01.srcxml",
+          "open_line": null,
+          "play_line": null,
+          "close_line": "125",
+          "script_flags": 1,
+          "during_message_commands": 0
+        },
+        {
+          "archive": "stst_patch_R18.noa",
+          "file": "yuu_01.srcxml",
+          "open_line": null,
+          "play_line": null,
+          "close_line": "126",
+          "script_flags": 1,
+          "during_message_commands": 0
+        }
+      ]
+    },
+    {
+      "movie": "トンネル車窓.mei",
+      "occurrences": 2,
+      "by_archive": {
+        "script.noa": 1,
+        "stst_patch_R18.noa": 1
+      },
+      "direct": 0,
+      "non_direct": 2,
+      "raw_play_parameters": [
+        {
+          "layered": "0",
+          "loop": "-1",
+          "vol_line": "0"
+        }
+      ],
+      "open_presentation": [
+        {
+          "fadein": "500",
+          "fullscreen": "-1",
+          "priority": "65535",
+          "x": "0",
+          "y": "0"
+        }
+      ],
+      "locations": [
+        {
+          "archive": "script.noa",
+          "file": "common1_1_R.srcxml",
+          "open_line": "27",
+          "play_line": "31",
+          "close_line": "54",
+          "script_flags": 2,
+          "during_message_commands": 5
+        },
+        {
+          "archive": "stst_patch_R18.noa",
+          "file": "common1_1.srcxml",
+          "open_line": "27",
+          "play_line": "31",
+          "close_line": "54",
+          "script_flags": 2,
+          "during_message_commands": 5
+        }
+      ]
+    },
+    {
+      "movie": "空から雪.mei",
+      "occurrences": 14,
+      "by_archive": {
+        "script.noa": 7,
+        "stst_patch_R18.noa": 7
+      },
+      "direct": 0,
+      "non_direct": 14,
+      "raw_play_parameters": [
+        {
+          "layered": "0",
+          "loop": "-1",
+          "vol_line": "0"
+        }
+      ],
+      "open_presentation": [
+        {
+          "fadein": "500",
+          "fullscreen": "-1",
+          "priority": "65535",
+          "x": "0",
+          "y": "0"
+        }
+      ],
+      "locations": [
+        {
+          "archive": "script.noa",
+          "file": "common1_1_R.srcxml",
+          "open_line": "145",
+          "play_line": "146",
+          "close_line": "155",
+          "script_flags": 2,
+          "during_message_commands": 2
+        },
+        {
+          "archive": "script.noa",
+          "file": "common1_3_R_2.srcxml",
+          "open_line": "2468",
+          "play_line": "2469",
+          "close_line": "2493",
+          "script_flags": 2,
+          "during_message_commands": 7
+        },
+        {
+          "archive": "script.noa",
+          "file": "common1_9_R.srcxml",
+          "open_line": "318",
+          "play_line": "319",
+          "close_line": "332",
+          "script_flags": 2,
+          "during_message_commands": 2
+        },
+        {
+          "archive": "script.noa",
+          "file": "common1_9_R.srcxml",
+          "open_line": "550",
+          "play_line": "551",
+          "close_line": "565",
+          "script_flags": 2,
+          "during_message_commands": 3
+        },
+        {
+          "archive": "script.noa",
+          "file": "common1_9_R_2.srcxml",
+          "open_line": "3013",
+          "play_line": "3014",
+          "close_line": "3054",
+          "script_flags": 2,
+          "during_message_commands": 11
+        },
+        {
+          "archive": "script.noa",
+          "file": "common1_9_R_2.srcxml",
+          "open_line": "3098",
+          "play_line": "3099",
+          "close_line": "3115",
+          "script_flags": 2,
+          "during_message_commands": 2
+        },
+        {
+          "archive": "script.noa",
+          "file": "yuu_10_R_1.srcxml",
+          "open_line": "1306",
+          "play_line": "1307",
+          "close_line": "1322",
+          "script_flags": 2,
+          "during_message_commands": 2
+        },
+        {
+          "archive": "stst_patch_R18.noa",
+          "file": "common1_1.srcxml",
+          "open_line": "145",
+          "play_line": "146",
+          "close_line": "155",
+          "script_flags": 2,
+          "during_message_commands": 2
+        },
+        {
+          "archive": "stst_patch_R18.noa",
+          "file": "common1_3_2.srcxml",
+          "open_line": "2468",
+          "play_line": "2469",
+          "close_line": "2493",
+          "script_flags": 2,
+          "during_message_commands": 7
+        },
+        {
+          "archive": "stst_patch_R18.noa",
+          "file": "common1_9.srcxml",
+          "open_line": "318",
+          "play_line": "319",
+          "close_line": "332",
+          "script_flags": 2,
+          "during_message_commands": 2
+        },
+        {
+          "archive": "stst_patch_R18.noa",
+          "file": "common1_9.srcxml",
+          "open_line": "550",
+          "play_line": "551",
+          "close_line": "565",
+          "script_flags": 2,
+          "during_message_commands": 3
+        },
+        {
+          "archive": "stst_patch_R18.noa",
+          "file": "common1_9_2.srcxml",
+          "open_line": "3013",
+          "play_line": "3014",
+          "close_line": "3054",
+          "script_flags": 2,
+          "during_message_commands": 11
+        },
+        {
+          "archive": "stst_patch_R18.noa",
+          "file": "common1_9_2.srcxml",
+          "open_line": "3098",
+          "play_line": "3099",
+          "close_line": "3115",
+          "script_flags": 2,
+          "during_message_commands": 2
+        },
+        {
+          "archive": "stst_patch_R18.noa",
+          "file": "yuu_10_1.srcxml",
+          "open_line": "1306",
+          "play_line": "1307",
+          "close_line": "1322",
+          "script_flags": 2,
+          "during_message_commands": 2
+        }
+      ]
+    }
+  ],
+  "sources_with_movies": [
+    {
+      "archive": "script.noa",
+      "file": "common1_1_R.srcxml",
+      "bytes": 138454,
+      "sha256": "0ed0dd1bd3e5b5591f67d1bd7251ab0a3cf31cb8c72ef0592129f7ff149cd29d",
+      "segments": [
+        {
+          "open": {
+            "@l": "27",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "トンネル車窓.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "16",
+                "buf": "1",
+                "fadeout": "0",
+                "type": "1"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "17",
+                "buf": "0",
+                "fadeout": "2000",
+                "type": "0"
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "18",
+                "duration": "100",
+                "show": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "19",
+                "duration": "3000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "black",
+                "type": "99"
+              }
+            }
+          ],
+          "play": {
+            "@l": "31",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "54",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "loadimage",
+              "attributes": {
+                "@l": "56",
+                "bg": "0",
+                "fit": "0",
+                "screen": "1",
+                "src": "white"
+              }
+            },
+            {
+              "command": "chgscrn",
+              "attributes": {
+                "@l": "57",
+                "duration": "1000",
+                "flags": "4608",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "0",
+                "screen": "1",
+                "type": "3"
+              }
+            },
+            {
+              "command": "wait",
+              "attributes": {
+                "@l": "58",
+                "flags": "5",
+                "time": "500"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_sound": 2,
+            "play_movie": 1,
+            "wait": 1,
+            "face": 5,
+            "msg": 5,
+            "nvoice_opt": 1,
+            "showmsg": 1
+          },
+          "during_visual_commands": [
+            {
+              "command": "nvoice_opt",
+              "attributes": {
+                "@l": "37",
+                "opt": "a"
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "51",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ]
+        },
+        {
+          "open": {
+            "@l": "145",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "空から雪.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "msg",
+              "attributes": {
+                "@l": "137",
+                "char": "-1",
+                "flags": "0",
+                "index": "36",
+                "line": "137",
+                "timeout": "",
+                "voices": ""
+              }
+            },
+            {
+              "command": "face",
+              "attributes": {
+                "src": ""
+              }
+            },
+            {
+              "command": "msg",
+              "attributes": {
+                "@l": "138",
+                "char": "-1",
+                "flags": "0",
+                "index": "38",
+                "line": "138",
+                "timeout": "",
+                "voices": ""
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "143",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ],
+          "play": {
+            "@l": "146",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "155",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "loadimage",
+              "attributes": {
+                "@l": "157",
+                "bg": "0",
+                "fit": "0",
+                "screen": "1",
+                "src": "bg09ez"
+              }
+            },
+            {
+              "command": "scroll",
+              "attributes": {
+                "@l": "158",
+                "async": "-1",
+                "center_x": "0",
+                "center_y": "320",
+                "duration": "0",
+                "flags": "0",
+                "rev": "0.",
+                "screen": "1",
+                "transparency": "0",
+                "v0": "0.",
+                "v1": "0.",
+                "wait_flags": "0",
+                "x": "0",
+                "y": "0",
+                "zoom": "1."
+              }
+            },
+            {
+              "command": "screen_fall_particle",
+              "attributes": {
+                "flickness": "20",
+                "gen_count": "150",
+                "priority": "61540",
+                "screen": "1",
+                "src0": "particle_snow1.eri",
+                "stream_x": "0",
+                "stream_y": "50"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "face": 2,
+            "msg": 2,
+            "showmsg": 1
+          },
+          "during_visual_commands": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "154",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "archive": "script.noa",
+      "file": "common1_3_R_2.srcxml",
+      "bytes": 39423,
+      "sha256": "0e2360aae8f548feb015bdb1f71d554ab97fd32b1fc948fcfc3bdf9d7f29e49d",
+      "segments": [
+        {
+          "open": {
+            "@l": "2468",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "空から雪.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "2463",
+                "buf": "0",
+                "fadeout": "2500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "2464",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "2465",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "black",
+                "type": "99"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "2466",
+                "buf": "1",
+                "fadeout": "0",
+                "intro": "-1",
+                "src": "se503",
+                "type": "1",
+                "volume": "1."
+              }
+            }
+          ],
+          "play": {
+            "@l": "2469",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "2493",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "2496",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "bg02cz",
+                "type": "99"
+              }
+            },
+            {
+              "command": "face",
+              "attributes": {
+                "src": "f"
+              }
+            },
+            {
+              "command": "msg",
+              "attributes": {
+                "@l": "2498",
+                "char": "4",
+                "flags": "0",
+                "index": "1012",
+                "line": "2498",
+                "timeout": "",
+                "voices": "ggr00341"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "play_sound": 2,
+            "face": 7,
+            "msg": 7,
+            "showmsg": 1
+          },
+          "during_visual_commands": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "2491",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "archive": "script.noa",
+      "file": "common1_9_R.srcxml",
+      "bytes": 151285,
+      "sha256": "dab1c9b6a9e30cc3578cb4fa6c05573373cb07232ee45d1ad6cda82782bfe7a1",
+      "segments": [
+        {
+          "open": {
+            "@l": "318",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "空から雪.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "msg",
+              "attributes": {
+                "@l": "306",
+                "char": "-1",
+                "flags": "0",
+                "index": "108",
+                "line": "306",
+                "timeout": "",
+                "voices": ""
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "311",
+                "buf": "0",
+                "fadeout": "2500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "312",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "316",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "black",
+                "type": "99"
+              }
+            }
+          ],
+          "play": {
+            "@l": "319",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "332",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "loadimage",
+              "attributes": {
+                "@l": "333",
+                "bg": "0",
+                "fit": "0",
+                "screen": "1",
+                "src": "bg54a"
+              }
+            },
+            {
+              "command": "chgpsb",
+              "attributes": {
+                "async": "0",
+                "duration": "0",
+                "priority": "61441",
+                "screen": "1",
+                "size_opt": "",
+                "src": "nak_d",
+                "transparency": "256",
+                "x": "860"
+              }
+            },
+            {
+              "command": "waitbs",
+              "attributes": {
+                "@l": "334",
+                "flags": "0",
+                "screen": "1"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "play_sound": 2,
+            "face": 2,
+            "msg": 2,
+            "showmsg": 1
+          },
+          "during_visual_commands": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "331",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ]
+        },
+        {
+          "open": {
+            "@l": "550",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "空から雪.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "bsemote",
+              "attributes": {
+                "@l": "537",
+                "id": "nak",
+                "operate": "play",
+                "screen": "0",
+                "timeline": "01"
+              }
+            },
+            {
+              "command": "pause",
+              "attributes": {
+                "@l": "538",
+                "flags": "-2147483648",
+                "index": "195",
+                "timeout": ""
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "546",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "548",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "black",
+                "type": "99"
+              }
+            }
+          ],
+          "play": {
+            "@l": "551",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "565",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "loadimage",
+              "attributes": {
+                "@l": "567",
+                "bg": "0",
+                "fit": "0",
+                "screen": "1",
+                "src": "bg54az"
+              }
+            },
+            {
+              "command": "chgpsb",
+              "attributes": {
+                "async": "0",
+                "duration": "0",
+                "priority": "61441",
+                "screen": "1",
+                "size_opt": "",
+                "src": "nak_d",
+                "transparency": "256",
+                "x": "860"
+              }
+            },
+            {
+              "command": "waitbs",
+              "attributes": {
+                "@l": "568",
+                "flags": "0",
+                "screen": "1"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "face": 3,
+            "msg": 3,
+            "play_sound": 1,
+            "showmsg": 1
+          },
+          "during_visual_commands": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "564",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "archive": "script.noa",
+      "file": "common1_9_R_2.srcxml",
+      "bytes": 144396,
+      "sha256": "93ae28b4cc46f3e66fb9610134e15c99f080a58443c7f67d0bcfbeee717ae146",
+      "segments": [
+        {
+          "open": {
+            "@l": "3013",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "空から雪.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "clr_allbs",
+              "attributes": {
+                "duration": "200",
+                "screen": "0"
+              }
+            },
+            {
+              "command": "waitbs",
+              "attributes": {
+                "@l": "3006",
+                "flags": "0",
+                "screen": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "3008",
+                "buf": "1",
+                "fadeout": "0",
+                "intro": "0",
+                "src": "se101",
+                "type": "1",
+                "volume": "1."
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "3009",
+                "buf": "2",
+                "fadeout": "0",
+                "intro": "0",
+                "src": "se102",
+                "type": "1",
+                "volume": "1."
+              }
+            }
+          ],
+          "play": {
+            "@l": "3014",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "3054",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "3055",
+                "duration": "1000",
+                "flags": "4608",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "0",
+                "screen": "1",
+                "src": "white",
+                "type": "3"
+              }
+            },
+            {
+              "command": "face",
+              "attributes": {
+                "src": ""
+              }
+            },
+            {
+              "command": "msg",
+              "attributes": {
+                "@l": "3057",
+                "char": "-1",
+                "flags": "0",
+                "index": "992",
+                "line": "3057",
+                "timeout": "",
+                "voices": ""
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "face": 11,
+            "msg": 11,
+            "showmsg": 2,
+            "chgbg": 1,
+            "play_sound": 2
+          },
+          "during_visual_commands": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "3021",
+                "duration": "300",
+                "show": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "3022",
+                "duration": "300",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "501"
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "3053",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ]
+        },
+        {
+          "open": {
+            "@l": "3098",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "空から雪.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "msg",
+              "attributes": {
+                "@l": "3085",
+                "char": "-1",
+                "flags": "0",
+                "index": "1002",
+                "line": "3085",
+                "timeout": "",
+                "voices": ""
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "3089",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "fade",
+              "attributes": {
+                "@l": "3090",
+                "async": "0",
+                "degree": "256",
+                "duration": "800",
+                "flags": "0",
+                "screen": "2",
+                "wait_flags": "0"
+              }
+            },
+            {
+              "command": "clrscrn",
+              "attributes": {
+                "@l": "3091",
+                "screen": "2"
+              }
+            }
+          ],
+          "play": {
+            "@l": "3099",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "3115",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "3116",
+                "duration": "2500",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "black",
+                "type": "7"
+              }
+            },
+            {
+              "command": "face",
+              "attributes": {
+                "src": ""
+              }
+            },
+            {
+              "command": "msg",
+              "attributes": {
+                "@l": "3118",
+                "char": "-1",
+                "flags": "0",
+                "index": "1008",
+                "line": "3118",
+                "timeout": "",
+                "voices": ""
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "face": 2,
+            "msg": 2,
+            "play_sound": 4,
+            "showmsg": 1
+          },
+          "during_visual_commands": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "3114",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "archive": "script.noa",
+      "file": "haz_01_R.srcxml",
+      "bytes": 68940,
+      "sha256": "9a0ce59ef573d8d9d6a7d973ecb48059aee6112b840d35aa3a7d6a00f9a6ef8b",
+      "segments": [
+        {
+          "open": {
+            "fadein": "0",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "opening.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "116",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "117",
+                "buf": "0",
+                "fadeout": "2500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "118",
+                "duration": "2500",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            },
+            {
+              "command": "wait",
+              "attributes": {
+                "@l": "119",
+                "flags": "5",
+                "time": "500"
+              }
+            }
+          ],
+          "play": {
+            "layered": "0",
+            "loop": "0",
+            "vol_line": "0"
+          },
+          "script_flags": 1,
+          "requests_direct": true,
+          "wait": [
+            {
+              "no_skip_time": "2000"
+            }
+          ],
+          "close": {
+            "@l": "122",
+            "fadeout": "0"
+          },
+          "after": [
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "128",
+                "buf": "0",
+                "fadeout": "500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "129",
+                "buf": "1",
+                "fadeout": "0",
+                "type": "1"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "130",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "wait_movie": 1
+          },
+          "during_visual_commands": [],
+          "position_anchor": {
+            "previous_source_line": "119",
+            "next_source_line": "122",
+            "note": "Generated open/play tags lack @l; surrounding source annotations identify the segment."
+          }
+        }
+      ]
+    },
+    {
+      "archive": "script.noa",
+      "file": "mai_01_R.srcxml",
+      "bytes": 84814,
+      "sha256": "12de853b3cfbb9029d3418784cc2d1a286a50a630997f3112888ff164cd0e2dd",
+      "segments": [
+        {
+          "open": {
+            "fadein": "0",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "opening.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "115",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "116",
+                "buf": "0",
+                "fadeout": "2500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "117",
+                "duration": "2500",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            },
+            {
+              "command": "wait",
+              "attributes": {
+                "@l": "118",
+                "flags": "5",
+                "time": "500"
+              }
+            }
+          ],
+          "play": {
+            "layered": "0",
+            "loop": "0",
+            "vol_line": "0"
+          },
+          "script_flags": 1,
+          "requests_direct": true,
+          "wait": [
+            {
+              "no_skip_time": "2000"
+            }
+          ],
+          "close": {
+            "@l": "121",
+            "fadeout": "0"
+          },
+          "after": [
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "127",
+                "buf": "1",
+                "fadeout": "0",
+                "type": "1"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "128",
+                "buf": "0",
+                "fadeout": "500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "130",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "wait_movie": 1
+          },
+          "during_visual_commands": [],
+          "position_anchor": {
+            "previous_source_line": "118",
+            "next_source_line": "121",
+            "note": "Generated open/play tags lack @l; surrounding source annotations identify the segment."
+          }
+        }
+      ]
+    },
+    {
+      "archive": "script.noa",
+      "file": "nak_01_R.srcxml",
+      "bytes": 79962,
+      "sha256": "c127416c913b9d02e5f8f9d99d62cd059e6bebdc92b7b9484e7ebd183c85586b",
+      "segments": [
+        {
+          "open": {
+            "fadein": "0",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "opening.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "119",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "120",
+                "buf": "0",
+                "fadeout": "2500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "121",
+                "duration": "2500",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            },
+            {
+              "command": "wait",
+              "attributes": {
+                "@l": "122",
+                "flags": "5",
+                "time": "500"
+              }
+            }
+          ],
+          "play": {
+            "layered": "0",
+            "loop": "0",
+            "vol_line": "0"
+          },
+          "script_flags": 1,
+          "requests_direct": true,
+          "wait": [
+            {
+              "no_skip_time": "2000"
+            }
+          ],
+          "close": {
+            "@l": "125",
+            "fadeout": "0"
+          },
+          "after": [
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "131",
+                "buf": "0",
+                "fadeout": "500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "132",
+                "buf": "1",
+                "fadeout": "0",
+                "type": "1"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "133",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "wait_movie": 1
+          },
+          "during_visual_commands": [],
+          "position_anchor": {
+            "previous_source_line": "122",
+            "next_source_line": "125",
+            "note": "Generated open/play tags lack @l; surrounding source annotations identify the segment."
+          }
+        }
+      ]
+    },
+    {
+      "archive": "script.noa",
+      "file": "yuu_01_R.srcxml",
+      "bytes": 119862,
+      "sha256": "dfe2e909cba06380c5ed5b7d8738b3d69e591189ea8fd3ee82f04f7b7c102086",
+      "segments": [
+        {
+          "open": {
+            "fadein": "0",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "opening.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "120",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "121",
+                "buf": "0",
+                "fadeout": "2500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "122",
+                "duration": "2500",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            },
+            {
+              "command": "wait",
+              "attributes": {
+                "@l": "123",
+                "flags": "5",
+                "time": "500"
+              }
+            }
+          ],
+          "play": {
+            "layered": "0",
+            "loop": "0",
+            "vol_line": "0"
+          },
+          "script_flags": 1,
+          "requests_direct": true,
+          "wait": [
+            {
+              "no_skip_time": "2000"
+            }
+          ],
+          "close": {
+            "@l": "126",
+            "fadeout": "0"
+          },
+          "after": [
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "132",
+                "buf": "0",
+                "fadeout": "500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "133",
+                "buf": "1",
+                "fadeout": "0",
+                "type": "1"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "134",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "wait_movie": 1
+          },
+          "during_visual_commands": [],
+          "position_anchor": {
+            "previous_source_line": "123",
+            "next_source_line": "126",
+            "note": "Generated open/play tags lack @l; surrounding source annotations identify the segment."
+          }
+        }
+      ]
+    },
+    {
+      "archive": "script.noa",
+      "file": "yuu_10_R_1.srcxml",
+      "bytes": 27291,
+      "sha256": "2aa39ad6fab6a4c4f8e1a0ea78c2b0649491bb56415240db05398ab3901d5dbf",
+      "segments": [
+        {
+          "open": {
+            "@l": "1306",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "空から雪.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "1300",
+                "buf": "0",
+                "fadeout": "1500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "1301",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "1303",
+                "buf": "0",
+                "fadeout": "500",
+                "intro": "-1",
+                "src": "bgm32",
+                "type": "0",
+                "volume": "1."
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "1304",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            }
+          ],
+          "play": {
+            "@l": "1307",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "1322",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "loadimage",
+              "attributes": {
+                "@l": "1324",
+                "bg": "0",
+                "fit": "0",
+                "screen": "1",
+                "src": "bg26cz"
+              }
+            },
+            {
+              "command": "bsfilter",
+              "attributes": {
+                "@l": "1325",
+                "screen": "1",
+                "src": "yoru.tct"
+              }
+            },
+            {
+              "command": "chgpsb",
+              "attributes": {
+                "async": "0",
+                "duration": "0",
+                "priority": "61441",
+                "screen": "1",
+                "size_opt": "l",
+                "src": "yuu_f",
+                "transparency": "0",
+                "x": "960"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "face": 2,
+            "msg": 2,
+            "showmsg": 1,
+            "clr_allbs": 1,
+            "waitbs": 1
+          },
+          "during_visual_commands": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "1318",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "clr_allbs",
+              "attributes": {
+                "duration": "200",
+                "screen": "0"
+              }
+            },
+            {
+              "command": "waitbs",
+              "attributes": {
+                "@l": "1320",
+                "flags": "0",
+                "screen": "0"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "archive": "stst_patch_R18.noa",
+      "file": "common1_1.srcxml",
+      "bytes": 138452,
+      "sha256": "c4b9bac2ac96fd1dfe823b42c89012d03da0402c3ea859e1dcd834e599bb7b72",
+      "segments": [
+        {
+          "open": {
+            "@l": "27",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "トンネル車窓.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "16",
+                "buf": "1",
+                "fadeout": "0",
+                "type": "1"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "17",
+                "buf": "0",
+                "fadeout": "2000",
+                "type": "0"
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "18",
+                "duration": "100",
+                "show": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "19",
+                "duration": "3000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "black",
+                "type": "99"
+              }
+            }
+          ],
+          "play": {
+            "@l": "31",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "54",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "loadimage",
+              "attributes": {
+                "@l": "56",
+                "bg": "0",
+                "fit": "0",
+                "screen": "1",
+                "src": "white"
+              }
+            },
+            {
+              "command": "chgscrn",
+              "attributes": {
+                "@l": "57",
+                "duration": "1000",
+                "flags": "4608",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "0",
+                "screen": "1",
+                "type": "3"
+              }
+            },
+            {
+              "command": "wait",
+              "attributes": {
+                "@l": "58",
+                "flags": "5",
+                "time": "500"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_sound": 2,
+            "play_movie": 1,
+            "wait": 1,
+            "face": 5,
+            "msg": 5,
+            "nvoice_opt": 1,
+            "showmsg": 1
+          },
+          "during_visual_commands": [
+            {
+              "command": "nvoice_opt",
+              "attributes": {
+                "@l": "37",
+                "opt": "a"
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "51",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ]
+        },
+        {
+          "open": {
+            "@l": "145",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "空から雪.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "msg",
+              "attributes": {
+                "@l": "137",
+                "char": "-1",
+                "flags": "0",
+                "index": "36",
+                "line": "137",
+                "timeout": "",
+                "voices": ""
+              }
+            },
+            {
+              "command": "face",
+              "attributes": {
+                "src": ""
+              }
+            },
+            {
+              "command": "msg",
+              "attributes": {
+                "@l": "138",
+                "char": "-1",
+                "flags": "0",
+                "index": "38",
+                "line": "138",
+                "timeout": "",
+                "voices": ""
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "143",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ],
+          "play": {
+            "@l": "146",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "155",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "loadimage",
+              "attributes": {
+                "@l": "157",
+                "bg": "0",
+                "fit": "0",
+                "screen": "1",
+                "src": "bg09ez"
+              }
+            },
+            {
+              "command": "scroll",
+              "attributes": {
+                "@l": "158",
+                "async": "-1",
+                "center_x": "0",
+                "center_y": "320",
+                "duration": "0",
+                "flags": "0",
+                "rev": "0.",
+                "screen": "1",
+                "transparency": "0",
+                "v0": "0.",
+                "v1": "0.",
+                "wait_flags": "0",
+                "x": "0",
+                "y": "0",
+                "zoom": "1."
+              }
+            },
+            {
+              "command": "screen_fall_particle",
+              "attributes": {
+                "flickness": "20",
+                "gen_count": "150",
+                "priority": "61540",
+                "screen": "1",
+                "src0": "particle_snow1.eri",
+                "stream_x": "0",
+                "stream_y": "50"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "face": 2,
+            "msg": 2,
+            "showmsg": 1
+          },
+          "during_visual_commands": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "154",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "archive": "stst_patch_R18.noa",
+      "file": "common1_3_2.srcxml",
+      "bytes": 39405,
+      "sha256": "8cbf3221910a192c10b6fc0ea82985827d0a189f195a9ff376b284bbd5532ad8",
+      "segments": [
+        {
+          "open": {
+            "@l": "2468",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "空から雪.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "2463",
+                "buf": "0",
+                "fadeout": "2500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "2464",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "2465",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "black",
+                "type": "99"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "2466",
+                "buf": "1",
+                "fadeout": "0",
+                "intro": "-1",
+                "src": "se503",
+                "type": "1",
+                "volume": "1."
+              }
+            }
+          ],
+          "play": {
+            "@l": "2469",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "2493",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "2496",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "bg02cz",
+                "type": "99"
+              }
+            },
+            {
+              "command": "face",
+              "attributes": {
+                "src": "f"
+              }
+            },
+            {
+              "command": "msg",
+              "attributes": {
+                "@l": "2498",
+                "char": "4",
+                "flags": "0",
+                "index": "1012",
+                "line": "2498",
+                "timeout": "",
+                "voices": "ggr00341"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "play_sound": 2,
+            "face": 7,
+            "msg": 7,
+            "showmsg": 1
+          },
+          "during_visual_commands": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "2491",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "archive": "stst_patch_R18.noa",
+      "file": "common1_9.srcxml",
+      "bytes": 151283,
+      "sha256": "607177319b3b1cc766bfdc510aa5642207ee5fd2127be7946d0392676ff05f8b",
+      "segments": [
+        {
+          "open": {
+            "@l": "318",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "空から雪.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "msg",
+              "attributes": {
+                "@l": "306",
+                "char": "-1",
+                "flags": "0",
+                "index": "108",
+                "line": "306",
+                "timeout": "",
+                "voices": ""
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "311",
+                "buf": "0",
+                "fadeout": "2500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "312",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "316",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "black",
+                "type": "99"
+              }
+            }
+          ],
+          "play": {
+            "@l": "319",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "332",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "loadimage",
+              "attributes": {
+                "@l": "333",
+                "bg": "0",
+                "fit": "0",
+                "screen": "1",
+                "src": "bg54a"
+              }
+            },
+            {
+              "command": "chgpsb",
+              "attributes": {
+                "async": "0",
+                "duration": "0",
+                "priority": "61441",
+                "screen": "1",
+                "size_opt": "",
+                "src": "nak_d",
+                "transparency": "256",
+                "x": "860"
+              }
+            },
+            {
+              "command": "waitbs",
+              "attributes": {
+                "@l": "334",
+                "flags": "0",
+                "screen": "1"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "play_sound": 2,
+            "face": 2,
+            "msg": 2,
+            "showmsg": 1
+          },
+          "during_visual_commands": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "331",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ]
+        },
+        {
+          "open": {
+            "@l": "550",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "空から雪.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "bsemote",
+              "attributes": {
+                "@l": "537",
+                "id": "nak",
+                "operate": "play",
+                "screen": "0",
+                "timeline": "01"
+              }
+            },
+            {
+              "command": "pause",
+              "attributes": {
+                "@l": "538",
+                "flags": "-2147483648",
+                "index": "195",
+                "timeout": ""
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "546",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "548",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "black",
+                "type": "99"
+              }
+            }
+          ],
+          "play": {
+            "@l": "551",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "565",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "loadimage",
+              "attributes": {
+                "@l": "567",
+                "bg": "0",
+                "fit": "0",
+                "screen": "1",
+                "src": "bg54az"
+              }
+            },
+            {
+              "command": "chgpsb",
+              "attributes": {
+                "async": "0",
+                "duration": "0",
+                "priority": "61441",
+                "screen": "1",
+                "size_opt": "",
+                "src": "nak_d",
+                "transparency": "256",
+                "x": "860"
+              }
+            },
+            {
+              "command": "waitbs",
+              "attributes": {
+                "@l": "568",
+                "flags": "0",
+                "screen": "1"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "face": 3,
+            "msg": 3,
+            "play_sound": 1,
+            "showmsg": 1
+          },
+          "during_visual_commands": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "564",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "archive": "stst_patch_R18.noa",
+      "file": "common1_9_2.srcxml",
+      "bytes": 144394,
+      "sha256": "1eb9c83b515dfe159ff7e60ec538e8ffbadb3f55e2c6b7bbf880d40dada3285b",
+      "segments": [
+        {
+          "open": {
+            "@l": "3013",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "空から雪.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "clr_allbs",
+              "attributes": {
+                "duration": "200",
+                "screen": "0"
+              }
+            },
+            {
+              "command": "waitbs",
+              "attributes": {
+                "@l": "3006",
+                "flags": "0",
+                "screen": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "3008",
+                "buf": "1",
+                "fadeout": "0",
+                "intro": "0",
+                "src": "se101",
+                "type": "1",
+                "volume": "1."
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "3009",
+                "buf": "2",
+                "fadeout": "0",
+                "intro": "0",
+                "src": "se102",
+                "type": "1",
+                "volume": "1."
+              }
+            }
+          ],
+          "play": {
+            "@l": "3014",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "3054",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "3055",
+                "duration": "1000",
+                "flags": "4608",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "0",
+                "screen": "1",
+                "src": "white",
+                "type": "3"
+              }
+            },
+            {
+              "command": "face",
+              "attributes": {
+                "src": ""
+              }
+            },
+            {
+              "command": "msg",
+              "attributes": {
+                "@l": "3057",
+                "char": "-1",
+                "flags": "0",
+                "index": "992",
+                "line": "3057",
+                "timeout": "",
+                "voices": ""
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "face": 11,
+            "msg": 11,
+            "showmsg": 2,
+            "chgbg": 1,
+            "play_sound": 2
+          },
+          "during_visual_commands": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "3021",
+                "duration": "300",
+                "show": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "3022",
+                "duration": "300",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "501"
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "3053",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ]
+        },
+        {
+          "open": {
+            "@l": "3098",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "空から雪.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "msg",
+              "attributes": {
+                "@l": "3085",
+                "char": "-1",
+                "flags": "0",
+                "index": "1002",
+                "line": "3085",
+                "timeout": "",
+                "voices": ""
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "3089",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "fade",
+              "attributes": {
+                "@l": "3090",
+                "async": "0",
+                "degree": "256",
+                "duration": "800",
+                "flags": "0",
+                "screen": "2",
+                "wait_flags": "0"
+              }
+            },
+            {
+              "command": "clrscrn",
+              "attributes": {
+                "@l": "3091",
+                "screen": "2"
+              }
+            }
+          ],
+          "play": {
+            "@l": "3099",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "3115",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "3116",
+                "duration": "2500",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "black",
+                "type": "7"
+              }
+            },
+            {
+              "command": "face",
+              "attributes": {
+                "src": ""
+              }
+            },
+            {
+              "command": "msg",
+              "attributes": {
+                "@l": "3118",
+                "char": "-1",
+                "flags": "0",
+                "index": "1008",
+                "line": "3118",
+                "timeout": "",
+                "voices": ""
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "face": 2,
+            "msg": 2,
+            "play_sound": 4,
+            "showmsg": 1
+          },
+          "during_visual_commands": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "3114",
+                "duration": "500",
+                "show": "0"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "archive": "stst_patch_R18.noa",
+      "file": "haz_01.srcxml",
+      "bytes": 68778,
+      "sha256": "0f8f02214f78a5e4f716ccb83a5af1b43b812bd45dd4f0c10528f8083a313d9a",
+      "segments": [
+        {
+          "open": {
+            "fadein": "0",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "opening.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "116",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "117",
+                "buf": "0",
+                "fadeout": "2500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "118",
+                "duration": "2500",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            },
+            {
+              "command": "wait",
+              "attributes": {
+                "@l": "119",
+                "flags": "5",
+                "time": "500"
+              }
+            }
+          ],
+          "play": {
+            "layered": "0",
+            "loop": "0",
+            "vol_line": "0"
+          },
+          "script_flags": 1,
+          "requests_direct": true,
+          "wait": [
+            {
+              "no_skip_time": "2000"
+            }
+          ],
+          "close": {
+            "@l": "122",
+            "fadeout": "0"
+          },
+          "after": [
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "128",
+                "buf": "0",
+                "fadeout": "500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "129",
+                "buf": "1",
+                "fadeout": "0",
+                "type": "1"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "130",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "wait_movie": 1
+          },
+          "during_visual_commands": [],
+          "position_anchor": {
+            "previous_source_line": "119",
+            "next_source_line": "122",
+            "note": "Generated open/play tags lack @l; surrounding source annotations identify the segment."
+          }
+        }
+      ]
+    },
+    {
+      "archive": "stst_patch_R18.noa",
+      "file": "mai_01.srcxml",
+      "bytes": 97897,
+      "sha256": "bebf3e9a71ee536477f80a187b6a065281651320aa25c685c7552d26b9949b6d",
+      "segments": [
+        {
+          "open": {
+            "fadein": "0",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "opening.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "115",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "116",
+                "buf": "0",
+                "fadeout": "2500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "117",
+                "duration": "2500",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            },
+            {
+              "command": "wait",
+              "attributes": {
+                "@l": "118",
+                "flags": "5",
+                "time": "500"
+              }
+            }
+          ],
+          "play": {
+            "layered": "0",
+            "loop": "0",
+            "vol_line": "0"
+          },
+          "script_flags": 1,
+          "requests_direct": true,
+          "wait": [
+            {
+              "no_skip_time": "2000"
+            }
+          ],
+          "close": {
+            "@l": "121",
+            "fadeout": "0"
+          },
+          "after": [
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "127",
+                "buf": "1",
+                "fadeout": "0",
+                "type": "1"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "128",
+                "buf": "0",
+                "fadeout": "500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "130",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "wait_movie": 1
+          },
+          "during_visual_commands": [],
+          "position_anchor": {
+            "previous_source_line": "118",
+            "next_source_line": "121",
+            "note": "Generated open/play tags lack @l; surrounding source annotations identify the segment."
+          }
+        }
+      ]
+    },
+    {
+      "archive": "stst_patch_R18.noa",
+      "file": "nak_01.srcxml",
+      "bytes": 79962,
+      "sha256": "c127416c913b9d02e5f8f9d99d62cd059e6bebdc92b7b9484e7ebd183c85586b",
+      "segments": [
+        {
+          "open": {
+            "fadein": "0",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "opening.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "119",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "120",
+                "buf": "0",
+                "fadeout": "2500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "121",
+                "duration": "2500",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            },
+            {
+              "command": "wait",
+              "attributes": {
+                "@l": "122",
+                "flags": "5",
+                "time": "500"
+              }
+            }
+          ],
+          "play": {
+            "layered": "0",
+            "loop": "0",
+            "vol_line": "0"
+          },
+          "script_flags": 1,
+          "requests_direct": true,
+          "wait": [
+            {
+              "no_skip_time": "2000"
+            }
+          ],
+          "close": {
+            "@l": "125",
+            "fadeout": "0"
+          },
+          "after": [
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "131",
+                "buf": "0",
+                "fadeout": "500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "132",
+                "buf": "1",
+                "fadeout": "0",
+                "type": "1"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "133",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "wait_movie": 1
+          },
+          "during_visual_commands": [],
+          "position_anchor": {
+            "previous_source_line": "122",
+            "next_source_line": "125",
+            "note": "Generated open/play tags lack @l; surrounding source annotations identify the segment."
+          }
+        }
+      ]
+    },
+    {
+      "archive": "stst_patch_R18.noa",
+      "file": "yuu_01.srcxml",
+      "bytes": 119860,
+      "sha256": "743c66b1a5ad317e1bafaf1da5d7515e4a4bb4390cab88e481af764b68d2fdd5",
+      "segments": [
+        {
+          "open": {
+            "fadein": "0",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "opening.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "120",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "121",
+                "buf": "0",
+                "fadeout": "2500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "122",
+                "duration": "2500",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            },
+            {
+              "command": "wait",
+              "attributes": {
+                "@l": "123",
+                "flags": "5",
+                "time": "500"
+              }
+            }
+          ],
+          "play": {
+            "layered": "0",
+            "loop": "0",
+            "vol_line": "0"
+          },
+          "script_flags": 1,
+          "requests_direct": true,
+          "wait": [
+            {
+              "no_skip_time": "2000"
+            }
+          ],
+          "close": {
+            "@l": "126",
+            "fadeout": "0"
+          },
+          "after": [
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "132",
+                "buf": "0",
+                "fadeout": "500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "133",
+                "buf": "1",
+                "fadeout": "0",
+                "type": "1"
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "134",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "wait_movie": 1
+          },
+          "during_visual_commands": [],
+          "position_anchor": {
+            "previous_source_line": "123",
+            "next_source_line": "126",
+            "note": "Generated open/play tags lack @l; surrounding source annotations identify the segment."
+          }
+        }
+      ]
+    },
+    {
+      "archive": "stst_patch_R18.noa",
+      "file": "yuu_10_1.srcxml",
+      "bytes": 27291,
+      "sha256": "2aa39ad6fab6a4c4f8e1a0ea78c2b0649491bb56415240db05398ab3901d5dbf",
+      "segments": [
+        {
+          "open": {
+            "@l": "1306",
+            "fadein": "500",
+            "fullscreen": "-1",
+            "priority": "65535",
+            "src": "空から雪.mei",
+            "x": "0",
+            "y": "0"
+          },
+          "before": [
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "1300",
+                "buf": "0",
+                "fadeout": "1500",
+                "type": "0"
+              }
+            },
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "1301",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "play_sound",
+              "attributes": {
+                "@l": "1303",
+                "buf": "0",
+                "fadeout": "500",
+                "intro": "-1",
+                "src": "bgm32",
+                "type": "0",
+                "volume": "1."
+              }
+            },
+            {
+              "command": "chgbg",
+              "attributes": {
+                "@l": "1304",
+                "duration": "1000",
+                "flags": "256",
+                "flip": "-1",
+                "flip_flags": "0",
+                "param": "16",
+                "screen": "1",
+                "src": "white",
+                "type": "99"
+              }
+            }
+          ],
+          "play": {
+            "@l": "1307",
+            "layered": "0",
+            "loop": "-1",
+            "vol_line": "0"
+          },
+          "script_flags": 2,
+          "requests_direct": false,
+          "close": {
+            "@l": "1322",
+            "fadeout": "500"
+          },
+          "after": [
+            {
+              "command": "loadimage",
+              "attributes": {
+                "@l": "1324",
+                "bg": "0",
+                "fit": "0",
+                "screen": "1",
+                "src": "bg26cz"
+              }
+            },
+            {
+              "command": "bsfilter",
+              "attributes": {
+                "@l": "1325",
+                "screen": "1",
+                "src": "yoru.tct"
+              }
+            },
+            {
+              "command": "chgpsb",
+              "attributes": {
+                "async": "0",
+                "duration": "0",
+                "priority": "61441",
+                "screen": "1",
+                "size_opt": "l",
+                "src": "yuu_f",
+                "transparency": "0",
+                "x": "960"
+              }
+            }
+          ],
+          "during_command_counts": {
+            "play_movie": 1,
+            "face": 2,
+            "msg": 2,
+            "showmsg": 1,
+            "clr_allbs": 1,
+            "waitbs": 1
+          },
+          "during_visual_commands": [
+            {
+              "command": "showmsg",
+              "attributes": {
+                "@l": "1318",
+                "duration": "500",
+                "show": "0"
+              }
+            },
+            {
+              "command": "clr_allbs",
+              "attributes": {
+                "duration": "200",
+                "screen": "0"
+              }
+            },
+            {
+              "command": "waitbs",
+              "attributes": {
+                "@l": "1320",
+                "flags": "0",
+                "screen": "0"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "source_inventory": {
+    "cross_checked_against": "super_effect_usage.json:sources",
+    "matching_decoded_sha256_count": 529,
+    "sorted_entry_sha256_digest": "e3ae81968b3e59d0b9640e735404ae88fefdf0ed3131726f1c5c2a6be69da759"
+  },
+  "csx": {
+    "path": "build/game/script.csx",
+    "sha256": "897cb337bc2fc1d99d2c685a9f30b10a76439f03f5aa79a94a738333e773567a",
+    "branch_disassembly": "build/analysis/movie-command-branches.txt"
+  },
+  "extra_gallery": {
+    "function": "UIExtraMode::PlayMovie",
+    "movie": "opening.mei",
+    "open_call": "0x3aac3",
+    "priority": 65536,
+    "fadein": 0,
+    "x": 0,
+    "y": 0,
+    "fullscreen": true,
+    "play_call": "0x3aae4",
+    "script_flags": 1,
+    "volume_line": 0,
+    "wait_no_skip_ms": 2000,
+    "context": "UISimplePage.Fadeout and StopMusic precede the movie; wait and close precede page Fadein.",
+    "evidence": "build/analysis/movie-gallery-play-audit.txt"
+  },
+  "conclusion": {
+    "direct_assets": [
+      "opening.mei"
+    ],
+    "known_non_opening_dependency_on_bypassing_sprite_alpha_or_priority": false,
+    "evidence_boundary": "No such dependency identified in these actual script parameters and lexical contexts; does not establish Windows/Android pixel equivalence or successful playback. Corrected Android opening device regression remains blocked by missing USB device."
+  }
+}
