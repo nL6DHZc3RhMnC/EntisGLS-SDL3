@@ -2,6 +2,7 @@ package io.entisgls.launcher.sdl;
 
 import android.media.AudioManager;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.Toast;
 import java.io.File;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import org.libsdl.app.SDLActivity;
 
-/** SDL owns rendering, input, audio and lifecycle; this class only supplies paths. */
+/** SDL owns rendering, input, audio and lifecycle; this class supplies paths and orientation policy. */
 public final class GameActivity extends SDLActivity {
     private DocumentTreeAccess documentTreeAccess;
     /** Called by native code after SDL has obtained getArguments(). */
@@ -23,6 +24,17 @@ public final class GameActivity extends SDLActivity {
 
     @Override protected String[] getLibraries() {
         return new String[] { "c++_shared", "SDL3", "main" };
+    }
+
+    @Override public void setOrientationBis(int width, int height, boolean resizable, String hint) {
+        // SDL maps these two-sided hints to USER_LANDSCAPE/USER_PORTRAIT, which
+        // respect the system rotation lock. A game's content aspect instead
+        // chooses the axis; the sensor can still select either side of it.
+        if (width > 1 && height > 1 && "LandscapeLeft LandscapeRight".equals(hint))
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        else if (width > 1 && height > 1 && "Portrait PortraitUpsideDown".equals(hint))
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        else super.setOrientationBis(width, height, resizable, hint);
     }
 
     @Override protected void main() {
@@ -40,7 +52,9 @@ public final class GameActivity extends SDLActivity {
         try {
             File local = ResourceStore.localRoot(this);
             ResourceStore.Game game = ResourceStore.game(this, getIntent().getStringExtra("game_id"));
-            documentTreeAccess = game.tree == null ? null : new DocumentTreeAccess(this, game.tree);
+            final boolean traceFileIo = (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0
+                && getIntent().getBooleanExtra("trace_file_io", false);
+            documentTreeAccess = game.tree == null ? null : new DocumentTreeAccess(this, game.tree, traceFileIo);
             ArrayList<String> arguments = new ArrayList<>(Arrays.asList(
                 "--game-dir", game.directory.getAbsolutePath(),
                 "--storage-dir", ResourceStore.storageRoot(this).getAbsolutePath(),
@@ -51,6 +65,7 @@ public final class GameActivity extends SDLActivity {
                 arguments.add(psbKey);
             }
             if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
+                if (traceFileIo) arguments.add("--trace-file-io");
                 String probe = getIntent().getStringExtra("probe");
                 if (Arrays.asList("self-test", "window-probe", "emote-probe", "image-export-probe", "opening-probe").contains(probe))
                     arguments.add("--" + probe);

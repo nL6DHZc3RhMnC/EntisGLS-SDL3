@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name="io.entisgls.launcher.sdl.GameActivity"
-            android:exported="false" android:screenOrientation="sensorLandscape"
+            android:exported="false"
             android:launchMode="singleTop" android:preferMinimalPostProcessing="true"
             android:configChanges="layoutDirection|locale|grammaticalGender|fontScale|fontWeightAdjustment|orientation|uiMode|screenLayout|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation" />
     </application>

@@ -19,7 +19,8 @@ JDK = find_jdk(ROOT)
 STUBS = {
 'android/net/Uri.java': '''package android.net; public final class Uri { public final String value; public Uri(String s){value=s;} public String getScheme(){return value.startsWith("content:")?"content":"doc";} public String toString(){return value;} public boolean equals(Object o){return o instanceof Uri&&value.equals(((Uri)o).value);} public int hashCode(){return value.hashCode();} }''',
 'android/content/UriPermission.java': '''package android.content; import android.net.Uri; public class UriPermission { final Uri uri; final boolean r,w; public UriPermission(Uri u,boolean r,boolean w){uri=u;this.r=r;this.w=w;} public Uri getUri(){return uri;}public boolean isReadPermission(){return r;}public boolean isWritePermission(){return w;} }''',
-'android/content/Context.java': '''package android.content; import java.io.File; public abstract class Context {public Context getApplicationContext(){return this;} public abstract ContentResolver getContentResolver();public abstract File getFilesDir();}''',
+'android/content/Context.java': '''package android.content; import java.io.File;import android.content.pm.ApplicationInfo;public abstract class Context {public Context getApplicationContext(){return this;}public ApplicationInfo getApplicationInfo(){return new ApplicationInfo();}public abstract ContentResolver getContentResolver();public abstract File getFilesDir();}''',
+'android/content/pm/ApplicationInfo.java': '''package android.content.pm;public class ApplicationInfo {public static final int FLAG_DEBUGGABLE=2;public int flags;}''',
 'android/database/Cursor.java': '''package android.database;public interface Cursor extends AutoCloseable {boolean moveToFirst();boolean moveToNext();String getString(int i);long getLong(int i);boolean isNull(int i);void close();}''',
 'android/content/ContentResolver.java': '''package android.content; import android.database.Cursor;import android.net.Uri;import android.os.ParcelFileDescriptor;import java.util.List;import java.io.IOException;public abstract class ContentResolver {public abstract List<UriPermission> getPersistedUriPermissions();public abstract Cursor query(Uri u,String[] p,String a,String[] b,String c);public abstract ParcelFileDescriptor openFileDescriptor(Uri u,String mode)throws IOException;public abstract Uri create(Uri parent,String mime,String name)throws IOException;public abstract boolean delete(Uri u)throws IOException;public abstract Uri rename(Uri u,String name)throws IOException;}''',
 'android/provider/DocumentsContract.java': '''package android.provider;import android.content.ContentResolver;import android.net.Uri;import java.io.IOException;public class DocumentsContract {public static class Document {public static final String COLUMN_DOCUMENT_ID="id",COLUMN_DISPLAY_NAME="name",COLUMN_MIME_TYPE="mime",COLUMN_SIZE="size",COLUMN_LAST_MODIFIED="modified",COLUMN_FLAGS="flags",MIME_TYPE_DIR="dir";public static final int FLAG_DIR_SUPPORTS_CREATE=8,FLAG_SUPPORTS_WRITE=2;}public static boolean isTreeUri(Uri u){return u.value.startsWith("content:tree:");}public static String getTreeDocumentId(Uri u){return u.value.substring(13);}public static Uri buildDocumentUriUsingTree(Uri t,String id){return new Uri("doc:"+id);}public static Uri buildChildDocumentsUriUsingTree(Uri t,String id){return new Uri("children:"+id);}public static Uri createDocument(ContentResolver r,Uri p,String m,String n)throws IOException{return r.create(p,m,n);}public static boolean deleteDocument(ContentResolver r,Uri u)throws IOException{return r.delete(u);}public static Uri renameDocument(ContentResolver r,Uri u,String n)throws IOException{return r.rename(u,n);}}''',
@@ -37,6 +38,7 @@ public class DocumentTreeTest {
  static int count;interface Checked{void run()throws Exception;}
  static void check(boolean p,String m){if(!p)throw new AssertionError(m);++count;}
  static void rejects(Checked f)throws Exception{try{f.run();throw new AssertionError("accepted");}catch(IOException expected){++count;}}
+ static long diagnosticCount(String snapshot,String metric){String marker="\""+metric+"\":{\"count\":";int start=snapshot.indexOf(marker)+marker.length();return Long.parseLong(snapshot.substring(start,snapshot.indexOf(',',start)));}
  static final Uri TREE=new Uri("content:tree:root");
  static class Node {String id,name,parent;boolean dir,seek=true;long size=73,flags=10;Node(String i,String n,String p,boolean d){id=i;name=n;parent=p;dir=d;}}
  static class Provider extends ContentResolver {
@@ -142,6 +144,19 @@ public class DocumentTreeTest {
    for(int i=0;i<70;++i){Node dir=wide.add("dir-"+i,"root",true);wide.add("item",dir.id,false);}SystemClock.expire();
    for(int i=0;i<70;++i)check(indexed.stat("dir-"+i+"/item")[0]==1,"nested directory lookup");
    beforeChildren=wide.childQueries;check(indexed.stat("dir-0/item")[0]==1&&wide.childQueries-beforeChildren==1,"least recently used directory is evicted at cache bound");
+   check(indexed.diagnosticsSnapshot().contains("\"enabled\":false")&&diagnosticCount(indexed.diagnosticsSnapshot(),"root_query")==0,"normal launches do not accumulate timings");
+   Provider measuredProvider=new Provider();measuredProvider.add("measure.noa","root",false);
+   Host debugHost=new Host(root,measuredProvider){public android.content.pm.ApplicationInfo getApplicationInfo(){android.content.pm.ApplicationInfo info=new android.content.pm.ApplicationInfo();info.flags=android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE;return info;}};
+   DocumentTreeAccess untraced=new DocumentTreeAccess(debugHost,TREE);untraced.stat("measure.noa");
+   check(untraced.diagnosticsSnapshot().contains("\"enabled\":false")&&diagnosticCount(untraced.diagnosticsSnapshot(),"root_query")==0,"debug builds also require explicit tracing");
+   DocumentTreeAccess releaseTrace=new DocumentTreeAccess(new Host(root,measuredProvider),TREE,true);
+   check(releaseTrace.diagnosticsSnapshot().contains("\"enabled\":false"),"release builds ignore the trace request");
+   DocumentTreeAccess measured=new DocumentTreeAccess(debugHost,TREE,true);measured.stat("measure.noa");measured.open("measure.noa","r");
+   String snapshot=measured.diagnosticsSnapshot();
+   check(snapshot.contains("\"enabled\":true")&&diagnosticCount(snapshot,"root_query")==3&&diagnosticCount(snapshot,"children_query")==1,"debug counters include constructor and each actual provider query");
+   check(diagnosticCount(snapshot,"open_descriptor")==1&&diagnosticCount(snapshot,"journal_recovery")==3&&diagnosticCount(snapshot,"open_total")==1&&diagnosticCount(snapshot,"open_lock_wait")==1,"debug counters report descriptor, journal and locked open stages");
+   check(snapshot.contains("\"children_cache_hits\":1")&&snapshot.contains("\"children_cache_misses\":1"),"debug counters distinguish cached path resolution");
+   measuredProvider.deny=true;rejects(()->measured.stat("measure.noa"));check(diagnosticCount(measured.diagnosticsSnapshot(),"root_query")==4,"failed provider queries are timed without hiding the exception");
    System.out.println("PASS "+count+" SAF filesystem/transaction checks (host fake provider; Android device testing still required)");
   } finally {try(java.util.stream.Stream<Path> paths=Files.walk(root)){paths.sorted(Comparator.reverseOrder()).forEach(p->{try{Files.delete(p);}catch(IOException e){throw new RuntimeException(e);}});}}
  }

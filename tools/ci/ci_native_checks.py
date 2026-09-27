@@ -32,6 +32,7 @@ TARGETS = (
     "psb_key_settings_test",
     "game_save_directory_test",
     "sdl_system_test",
+    "mobile_orientation_test",
     "make_csx_fixture",
 )
 
@@ -100,6 +101,8 @@ def main() -> None:
                 "Game directory saves PASS:")
             run("native and document-tree SDK IO", [build / "sdl_system_test", fixtures],
                 "SDL system services and unified path routing: PASS")
+            run("game orientation policy and restoration", [build / "mobile_orientation_test"],
+                "Mobile orientation policy PASS:")
             game = fixtures / "original-game-fixture"
             run("real CSX serialization and execution", [build / "make_csx_fixture", game],
                 "CSX fixture PASS:")

@@ -44,7 +44,8 @@ and release**.
 The manual workflow builds an ARM64 Simulator app and checks the game library
 and GLES presentation without commercial resources. The rendering check creates
 a shared motion context and changes renderbuffer bindings, then verifies the
-displayed green/red pattern in a Simulator screenshot. Readiness markers and
+displayed green/red pattern and landscape orientation in a Simulator screenshot.
+The resizable game window uses the production orientation helper. Readiness markers and
 explicit termination are used because SDL UIKit does not exit when SDL_main
 returns. Build logs, screenshots and the smoke report remain in Actions artifacts.
 These diagnostics do not establish physical-device gameplay compatibility.

@@ -4,6 +4,33 @@
 #include "platform/log.h"
 #include <chrono>
 #include <cwchar>
+#include <utility>
+#if defined(STUDYSTEADY_PLATFORM_SDL3)
+#include "platform/sdl/game_file_metrics.h"
+#if defined(__ANDROID__)
+#include "platform/android/android_game_files.h"
+#endif
+#endif
+
+namespace {
+void FileDiagnostics(const char* phase, const wchar_t* path = L"") {
+#if defined(STUDYSTEADY_PLATFORM_SDL3)
+    using namespace study::platform::sdl;
+    if (!GameFileMetricsEnabled()) return;
+    const auto stats = SnapshotGameFileMetrics();
+    for (const auto& item : {std::pair<const char*, GameFileOperationMetrics>{"duplicate", stats.duplicate},
+            {"read", stats.read}, {"seek", stats.seek}, {"length", stats.getLength}})
+        study::platform::LogPrint(study::platform::LogPriority::Info, "StartupIO",
+            "phase=%s path=%ls operation=%s calls=%llu bytes=%llu total_ms=%.3f max_all_ms=%.3f",
+            phase, path, item.first, static_cast<unsigned long long>(item.second.calls),
+            static_cast<unsigned long long>(item.second.bytes), item.second.totalNs / 1e6, item.second.maxNs / 1e6);
+#if defined(__ANDROID__)
+    study::platform::LogPrint(study::platform::LogPriority::Info, "StartupIO",
+        "phase=%s provider=%s", phase, AndroidGameFileDiagnostics().c_str());
+#endif
+#endif
+}
+}
 
 IMPLEMENT_CLASS_INFO(ECSResourceManager, ECSGlobal)
 ECSResourceManager::ECSResourceManager() { m_vtType = csvtObject; }
@@ -18,6 +45,7 @@ void ECSResourceManager::Release() {
     filename_ = L"";
 }
 ESLError ECSResourceManager::ReadSkinFile(ESLFileObject& file) {
+    FileDiagnostics("skin_begin");
     const auto started = std::chrono::steady_clock::now();
     Release();
     auto* copy = file.Duplicate();
@@ -41,10 +69,13 @@ ESLError ECSResourceManager::ReadSkinFile(ESLFileObject& file) {
         "Legacy skin loaded: resources=%zu forms=%zu decode_attach_ms=%.1f",
         resources.GetLength(), skin_->GetFormDefinitions().GetLength(),
         std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - started).count());
+    FileDiagnostics("skin_end");
     return eslErrSuccess;
 }
 ESLError ECSResourceManager::LoadSkinFile(const wchar_t* path, ECSContext& context) {
+    FileDiagnostics("skin_open_begin", path);
     std::unique_ptr<ESLFileObject> file(context.OpenFileOnScript(path));
+    FileDiagnostics("skin_open_end", path);
     if (!file) return eslErrGeneral;
     ESLError error = ReadSkinFile(*file);
     if (!error) filename_ = path;

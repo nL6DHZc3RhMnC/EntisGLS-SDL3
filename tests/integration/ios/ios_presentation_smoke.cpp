@@ -1,5 +1,6 @@
 #include "ios_presentation_smoke.h"
 #include "platform/sdl/gl_drawable.h"
+#include "platform/sdl/mobile_orientation.h"
 #include "platform/ios/ios_gl_context.h"
 #include "extensions/emote/tjs_runtime/runtime_gl.h"
 #include <SDL3/SDL.h>
@@ -19,12 +20,14 @@ int RunIOSPresentationSmoke() {
     SDL_Window* window = nullptr;
     SDL_GLContext context = nullptr;
     GLuint offscreen = 0;
+    GameOrientationHintScope orientation;
     GlWindowLease lease;
     std::unique_ptr<studysteady::motion::RuntimeGl> motion;
     auto cleanup = [&] {
         motion.reset();
         if (context) MakeIOSGLContextCurrent(context);
         if (offscreen) glDeleteRenderbuffers(1, &offscreen);
+        RestoreMobileGameOrientation(orientation, window);
         if (lease) {
             UnregisterGlWindow(window);
             lease.reset(); // Owns physical SDL context and window destruction.
@@ -41,11 +44,26 @@ int RunIOSPresentationSmoke() {
         SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
         SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
         SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-        window = SDL_CreateWindow("EntisGLS presentation diagnostic", 640, 480,
-            SDL_WINDOW_OPENGL | SDL_WINDOW_HIGH_PIXEL_DENSITY);
+        Require(ApplyMobileGameOrientation(orientation, nullptr, 360, 640), "Cannot select portrait setup");
+        window = SDL_CreateWindow("EntisGLS presentation diagnostic", 360, 640,
+            SDL_WINDOW_OPENGL | SDL_WINDOW_HIGH_PIXEL_DENSITY | SDL_WINDOW_RESIZABLE);
         Require(window != nullptr, "Cannot create the presentation window");
         context = SDL_GL_CreateContext(window);
         Require(context != nullptr, "Cannot create the GLES context");
+        Require(ApplyMobileGameOrientation(orientation, window, 360, 640), "Cannot request portrait setup");
+        const auto portraitStarted = SDL_GetTicks();
+        for (;;) {
+            SDL_Event event;
+            while (SDL_PollEvent(&event)) Require(event.type != SDL_EVENT_QUIT, "Presentation check closed during orientation setup");
+            int width = 0, height = 0;
+            Require(SDL_GetWindowSizeInPixels(window, &width, &height), "Cannot read initial drawable size");
+            if (height > width && width > 2) break;
+            Require(SDL_GetTicks() - portraitStarted < 10000, "The simulator did not enter the initial portrait orientation");
+            SDL_Delay(10);
+        }
+        // Match a wide game launched from the portrait library. RESIZABLE is
+        // intentional: relying only on SDL's window aspect would allow portrait.
+        Require(ApplyMobileGameOrientation(orientation, window, 1920, 1080), "Cannot request landscape game orientation");
         Require(ResolveWindowFramebuffer(0) != 0, "Missing UIKit drawable framebuffer");
         lease = RegisterGlWindow(window, context);
         const auto properties = SDL_GetWindowProperties(window);
@@ -100,6 +118,8 @@ int RunIOSPresentationSmoke() {
         Require(glGetError() == GL_NO_ERROR, "Cannot create the offscreen renderbuffer");
 
         unsigned frames = 0;
+        unsigned landscapeFrames = 0;
+        bool ready = false;
         bool running = true, background = false;
         const auto started = SDL_GetTicks();
         while (running && SDL_GetTicks() - started < 120000) {
@@ -115,6 +135,9 @@ int RunIOSPresentationSmoke() {
             int width = 0, height = 0;
             Require(SDL_GetWindowSizeInPixels(window, &width, &height) && width > 2 && height > 2,
                 "Invalid presentation drawable size");
+            landscapeFrames = width > height ? landscapeFrames + 1 : 0;
+            Require(ready || SDL_GetTicks() - started < 10000,
+                "The resizable game window did not present in landscape after the orientation request");
             glBindFramebuffer(GL_FRAMEBUFFER, ResolveWindowFramebuffer(0));
             glViewport(0, 0, width, height);
             glDisable(GL_SCISSOR_TEST);
@@ -141,9 +164,12 @@ int RunIOSPresentationSmoke() {
             glGetIntegerv(GL_RENDERBUFFER_BINDING, &restored);
             Require(restored == GLint(previous) && glGetError() == GL_NO_ERROR,
                 "Presentation failed to preserve the caller's renderbuffer binding");
-            if (++frames == 4)
-                SDL_Log("IOS_PRESENTATION_READY framebuffer=%u zero_and_offscreen_bindings=verified shared_motion_context=verified pattern=green-left-red-right",
+            ++frames;
+            if (!ready && frames >= 4 && landscapeFrames >= 4) {
+                ready = true;
+                SDL_Log("IOS_PRESENTATION_READY framebuffer=%u zero_and_offscreen_bindings=verified shared_motion_context=verified orientation=landscape initial_portrait=verified pattern=green-left-red-right",
                     ResolveWindowFramebuffer(0));
+            }
             SDL_Delay(16);
         }
         cleanup();

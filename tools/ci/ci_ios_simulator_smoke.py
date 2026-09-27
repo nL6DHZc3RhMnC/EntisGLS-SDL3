@@ -117,6 +117,8 @@ def png_rgb(path):
 
 def verify_presented_pattern(path):
     width, height, channels, rows = png_rgb(path)
+    if width <= height:
+        raise RuntimeError(f'UIKit did not rotate the landscape game window: {width}x{height}')
     matched = [0, 0]
     total = [0, 0]
     # Sample well inside each half, clear of the status bar, home indicator,
@@ -133,7 +135,8 @@ def verify_presented_pattern(path):
     ratios = [hits / count if count else 0 for hits, count in zip(matched, total)]
     if min(ratios) < 0.95:
         raise RuntimeError(f'UIKit did not present the expected green/red frame: ratios={ratios}')
-    return {'width': width, 'height': height, 'green_left_ratio': ratios[0], 'red_right_ratio': ratios[1]}
+    return {'width': width, 'height': height, 'orientation': 'landscape',
+            'green_left_ratio': ratios[0], 'red_right_ratio': ratios[1]}
 
 
 def wait_for_marker(process, log, marker, timeout=60):

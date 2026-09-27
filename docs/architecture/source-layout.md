@@ -13,7 +13,7 @@ Android package ID, save rules, or release artifact names.
 | `native/io/` | Game filesystem abstraction and the game-directory save policy |
 | `native/platform/sdl/` | Shared SDL window, input, audio, synchronization and graphics services |
 | `native/platform/android/` | Android native storage/JNI adaptation |
-| `native/platform/ios/` | iOS native graphics adaptation |
+| `native/platform/ios/` | iOS native graphics and orientation adaptation |
 | `native/extensions/emote/` | E-mote, PSB and TJS integration |
 | `native/compatibility/` | SDK compatibility headers and explicitly selected game compatibility profiles |
 | `apps/launcher/` | Common application entry point |
@@ -60,6 +60,19 @@ Android document trees. Both implement the same game-relative operations. Saves
 use `$(CURRENT)\savedata`; missing directories are created, and old application
 private saves are not migrated. Platform UI and permission handling stay in the
 application shells or corresponding native platform adapter.
+
+Read-only game streams share their opened file when duplicated, with independent
+logical read positions. See [game file streams](game-file-streams.md) for lifetime,
+write handling and opt-in diagnostics.
+
+The SDL window boundary selects mobile orientation from the game's logical
+display dimensions: wide games use both landscape directions, tall games use
+portrait directions, and square games allow both axes. Drawable resize events
+continue to drive aspect-preserving layout and input coordinates. Android's
+Activity maps the game's axis to sensor rotation; UIKit is explicitly notified
+when the allowed directions change. The hint is restored on logical game-window
+close, even if a renderer still retains the physical GL window. Desktop window
+orientation is unchanged.
 
 Some historical CMake target names and SDK macros remain to preserve compatibility
 with existing build tooling. Moving sources does not imply that all SDK coupling

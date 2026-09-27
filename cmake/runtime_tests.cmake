@@ -1,10 +1,14 @@
 # Synthetic tests remain available without original game data or diagnostic probes.
 if(NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    find_package(Threads REQUIRED)
     add_executable(sdl_system_test EXCLUDE_FROM_ALL tests/integration/platform/system_test.cpp)
-    target_link_libraries(sdl_system_test PRIVATE gls4_sdl)
+    target_link_libraries(sdl_system_test PRIVATE gls4_sdl Threads::Threads)
 endif()
 
 if(NOT ANDROID AND NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    add_executable(mobile_orientation_test EXCLUDE_FROM_ALL tests/unit/platform/mobile_orientation_test.cpp
+        native/platform/sdl/mobile_orientation.cpp)
+    target_link_libraries(mobile_orientation_test PRIVATE study_sdl_platform)
     add_executable(game_save_directory_test EXCLUDE_FROM_ALL tests/unit/launcher/save_directory_test.cpp
         native/io/save_directory.cpp native/runtime/cotopha_port/legacy_atomic_path.cpp)
     target_compile_definitions(game_save_directory_test PRIVATE STUDYSTEADY_PLATFORM_SDL3=1)

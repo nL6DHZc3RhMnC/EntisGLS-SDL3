@@ -12,6 +12,7 @@
 #include "io/game_files.h"
 #include "runtime/cotopha_port/legacy_window_draw.h"
 #include "platform/sdl/system.h"
+#include "platform/sdl/game_file_metrics.h"
 #include "platform/sdl/window.h"
 #include "platform/sdl/sdl_sound_player.h"
 #include "platform/sdl/sdk_image_codec.h"
@@ -265,6 +266,7 @@ static int RunApplication(int argc, char** argv) {
         else if (argument == "--ios-presentation-smoke") { presentationSmoke = true; cliMode = true; }
 #endif
         else if (argument == "--inspect-game") { inspectOnly = true; cliMode = true; }
+        else if (argument == "--trace-file-io") SetGameFileMetricsEnabled(true);
         else if (argument == "--configure-game") configureGame = true;
         else if (i + 1 < argc && argument == "--psb-key") {
             commandLineKey = entis::launcher::ParsePsbKey(argv[++i]);

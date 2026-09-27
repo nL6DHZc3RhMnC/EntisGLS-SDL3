@@ -1,6 +1,8 @@
 # Documentation
 
 - [Source layout and module boundaries](architecture/source-layout.md)
+- [Shared game file streams and I/O diagnostics](architecture/game-file-streams.md)
+- [Mobile game orientation](architecture/mobile-orientation.md)
 - [Launcher configuration, fonts and saves](launcher-configuration.md)
 - [GitHub Actions and release publishing](development/github-actions.md)
 - [Clean-checkout build inputs](development/ci-build-inputs.md)

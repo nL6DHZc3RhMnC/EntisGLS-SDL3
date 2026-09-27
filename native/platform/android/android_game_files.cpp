@@ -86,6 +86,7 @@ public:
         mkdir_ = env->GetMethodID(type, "mkdir", "(Ljava/lang/String;)V"); Check(env);
         remove_ = env->GetMethodID(type, "remove", "(Ljava/lang/String;Z)V"); Check(env);
         rename_ = env->GetMethodID(type, "rename", "(Ljava/lang/String;Ljava/lang/String;)V"); Check(env);
+        diagnostics_ = env->GetMethodID(type, "diagnosticsSnapshot", "()Ljava/lang/String;"); Check(env);
         object_ = env->NewGlobalRef(access); Check(env);
         if (!object_) throw std::runtime_error("Cannot retain document-tree access");
     }
@@ -160,13 +161,30 @@ public:
     void Rename(const std::string& oldPath, const std::string& newPath) override {
         Frame frame; frame.env->CallVoidMethod(object_, rename_, frame.String(oldPath), frame.String(newPath)); Check(frame.env);
     }
+    std::string Diagnostics() {
+        Frame frame;
+        auto result = static_cast<jstring>(frame.env->CallObjectMethod(object_, diagnostics_));
+        Check(frame.env);
+        return Utf8(frame.env, result);
+    }
 private:
     jobject object_ = nullptr;
-    jmethodID stat_{}, list_{}, open_{}, mkdir_{}, remove_{}, rename_{};
+    jmethodID stat_{}, list_{}, open_{}, mkdir_{}, remove_{}, rename_{}, diagnostics_{};
 };
+std::weak_ptr<DocumentBackend> diagnosticBackend;
 }
 void ConfigureAndroidGameFiles(const std::string& root) {
-    if (root.compare(0, 15, "/__entis_saf__/") == 0)
-        entis::io::SetBackend(root, std::make_shared<DocumentBackend>());
+    if (root.compare(0, 15, "/__entis_saf__/") == 0) {
+        auto backend = std::make_shared<DocumentBackend>();
+        diagnosticBackend = backend;
+        entis::io::SetBackend(root, std::move(backend));
+    }
+}
+std::string AndroidGameFileDiagnostics() {
+    if (auto backend = diagnosticBackend.lock()) {
+        try { return backend->Diagnostics(); }
+        catch (const std::exception&) { return "{\"diagnostics_unavailable\":true}"; }
+    }
+    return "{\"document_backend\":false}";
 }
 }

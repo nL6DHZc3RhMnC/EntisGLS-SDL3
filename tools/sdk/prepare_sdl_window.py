@@ -42,7 +42,7 @@ def prepare(output):
     text = text.replace('ESL_IMPLEMENT_CLASS_INFO2\n\t( SakuraGL::SGLGenericWindow, SGLAbstractWindow, JavaObject )',
                         'ESL_IMPLEMENT_CLASS_INFO( SakuraGL::SGLGenericWindow, SGLAbstractWindow )')
     replaced = [
-        'CreateDisplay', 'SetOptionalFlags', 'ChangeCooperationLevel',
+        'CreateDisplay', 'SetOptionalFlags', 'ChangeCooperationLevel', 'ChangeDisplaySize',
         'PostUpdate', 'UpdateWindow', 'PostRenderingThread', 'PostUIThread', 'IsWindowActive',
         'SetWindowCaption', 'ShowCursor', 'IsShowCursor', 'SetCursor',
         'GetMonitorFrequency', 'AttachMenu', 'CaptureMouse', 'ReleaseMouse',

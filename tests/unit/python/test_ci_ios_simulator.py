@@ -54,8 +54,8 @@ class SimulatorSelectionTest(unittest.TestCase):
 
 
 class PresentationScreenshotTest(unittest.TestCase):
-    def fixture(self, path, *, black=False, reversed_colors=False, alpha=True):
-        width, height = 80, 100
+    def fixture(self, path, *, black=False, reversed_colors=False, alpha=True, portrait=False):
+        width, height = (80, 100) if portrait else (100, 80)
         channels = 4 if alpha else 3
         pixels = bytearray()
         previous = bytearray(width * channels)
@@ -104,6 +104,13 @@ class PresentationScreenshotTest(unittest.TestCase):
             path = Path(directory) / 'frame.png'
             self.fixture(path, black=True)
             with self.assertRaisesRegex(RuntimeError, 'did not present'):
+                verify_presented_pattern(path)
+
+    def test_rejects_landscape_content_presented_in_portrait(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'frame.png'
+            self.fixture(path, portrait=True)
+            with self.assertRaisesRegex(RuntimeError, 'did not rotate'):
                 verify_presented_pattern(path)
 
     def test_rejects_reversed_frame(self):

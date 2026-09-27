@@ -5,6 +5,7 @@
 #include "platform/sdl/gl_window_lease.h"
 #include "platform/sdl/presentation.h"
 #include "platform/sdl/gl_drawable.h"
+#include "platform/sdl/mobile_orientation.h"
 #include "platform/sdl/system.h"
 #include <algorithm>
 #include <cmath>
@@ -37,6 +38,7 @@ struct SDLRenderTask {
     std::shared_ptr<std::promise<SGLError>> completed;
 };
 struct SDLWindowState {
+    study::platform::sdl::GameOrientationHintScope orientation;
     study::platform::sdl::GlWindowLease glLease;
     study::platform::sdl::WindowFramePacer framePacer;
     SDL_Window* window = nullptr;
@@ -183,6 +185,9 @@ SGLError SGLGenericWindow::CreateWindowSimply(const wchar_t* title, uint32_t wid
             const int initialHeight = std::max(1, int(double(height) * initialWidth / width));
             const SDL_WindowFlags flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE |
                 SDL_WINDOW_HIGH_PIXEL_DENSITY | (m_flagFullscreen ? SDL_WINDOW_FULLSCREEN : 0);
+            if (!study::platform::sdl::ApplyMobileGameOrientation(state->orientation, nullptr, width, height)) {
+                Trace("SDL game orientation: %s\n", SDL_GetError()); return sglErrFailed;
+            }
             state->window = SDL_CreateWindow(caption.c_str(), initialWidth, initialHeight, flags);
             if (!state->window) {Trace("SDL window: %s\n", SDL_GetError()); return sglErrFailed;}
             state->context = SDL_GL_CreateContext(state->window);
@@ -200,6 +205,8 @@ SGLError SGLGenericWindow::CreateWindowSimply(const wchar_t* title, uint32_t wid
                 SDL_GL_DestroyContext(state->context); SDL_DestroyWindow(state->window); return sglErrFailed;
             }
             state->glLease = study::platform::sdl::RegisterGlWindow(state->window, state->context);
+            if (!study::platform::sdl::ApplyMobileGameOrientation(state->orientation, state->window, width, height))
+                Trace("SDL game orientation refresh: %s\n", SDL_GetError());
             m_sizePhysicalDisplay = SGLSize(pixelWidth, pixelHeight);
             m_rectWindow = SGLImageRect(0, 0, pixelWidth, pixelHeight);
             study::platform::sdl::SetDialogParent(state->window);
@@ -240,6 +247,7 @@ SGLError SGLGenericWindow::CloseWindowSimply() {
                 state->events.clear();
                 DetachWindowFromChain(); m_flagCreated = false;
                 SDL_StopTextInput(state->window); SDL_HideWindow(state->window);
+                study::platform::sdl::RestoreMobileGameOrientation(state->orientation, state->window);
                 study::platform::sdl::UnregisterGlWindow(state->window);
                 // Keep GL alive while the caller finishes destroying its SDK
                 // members. This list contains no SDK window pointer.
@@ -261,6 +269,7 @@ SGLError SGLGenericWindow::CloseWindowSimply() {
             m_flagCreated = false;
             SDL_StopTextInput(state->window);
             SDL_HideWindow(state->window);
+            study::platform::sdl::RestoreMobileGameOrientation(state->orientation, state->window);
             study::platform::sdl::UnregisterGlWindow(state->window);
             // The state releases its lease when removed; motion renderers keep
             // the physical parent window/context alive until their own teardown.
@@ -295,6 +304,30 @@ SGLError SGLGenericWindow::ChangeCooperationLevel(Window::CooperationMode mode) 
     });
     if (!changed) return sglErrFailed;
     m_modeCooperation = mode; m_flagFullscreen = fullscreen; return sglErrSuccess;
+}
+SGLError SGLGenericWindow::ChangeDisplaySize(uint32_t width, uint32_t height,
+        uint32_t depth, uint32_t frequency) {
+    if (!m_flagCreated || !width || !height) return sglErrFailed;
+    try {
+        return WindowMainRetry(m_pMutexUI, [&](bool& retry, bool callerMain) -> SGLError {
+            auto* state = StateFor(this);
+            if (!state) return sglErrFailed;
+            SDLUILock lock(m_pMutexUI);
+            if (!lock.locked) { retry = !callerMain; return sglErrFailed; }
+            if (m_wvfFramework.GetView()) {
+                m_sizeVirtual = SGLSize(width, height);
+                m_sizeLayoutOriginal = m_sizeVirtual;
+                m_nBitsPerPixel = depth; m_nFrequency = frequency;
+                if (!study::platform::sdl::ApplyMobileGameOrientation(state->orientation, state->window, width, height))
+                    Trace("SDL changed game orientation: %s\n", SDL_GetError());
+                UpdateWindowLayout();
+                PostUpdate();
+            }
+            return sglErrSuccess;
+        });
+    } catch (const std::exception& error) {
+        Trace("SDL display size: %s\n", error.what()); return sglErrFailed;
+    }
 }
 SGLError SGLGenericWindow::PostUpdate(const SGLImageRect*) {
     if (!m_flagCreated) return sglErrFailed;

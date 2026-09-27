@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 #include <SDL3/SDL.h>
 #include "ios_launcher.h"
+#include "platform/ios/window_orientation.h"
 #include <stdexcept>
 
 @interface EntisLibraryController : UITableViewController <UIDocumentPickerDelegate>
@@ -188,6 +189,7 @@ bool ChooseIOSLibraryGame(const std::string& documents, std::string& game, doubl
         if (!window) window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
         window.rootViewController = [[UINavigationController alloc] initWithRootViewController:library];
         [window makeKeyAndVisible];
+        RefreshIOSLibraryOrientation((__bridge void*)window);
         SDL_Log("IOS_LIBRARY_READY documents=%s", documents.c_str());
         const Uint64 started = SDL_GetTicks();
         bool running = true;

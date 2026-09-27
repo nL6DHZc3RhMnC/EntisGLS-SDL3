@@ -316,6 +316,7 @@ public final class LauncherActivity extends Activity implements ResourceImporter
         game.putExtra("game_id", target.id);
         Intent request = getIntent();
         if (request.hasExtra("probe")) game.putExtra("probe", request.getStringExtra("probe"));
+        if (request.hasExtra("trace_file_io")) game.putExtra("trace_file_io", request.getBooleanExtra("trace_file_io", false));
         if (request.hasExtra("exit_after")) game.putExtra("exit_after", request.getIntExtra("exit_after", 0));
         if (request.hasExtra("capture_after")) game.putExtra("capture_after", request.getIntExtra("capture_after", 0));
         startActivity(game);

@@ -33,10 +33,12 @@ else()
                 XCODE_ATTRIBUTE_ENABLE_BITCODE NO)
             target_sources(studysteady_sdl PRIVATE apps/ios/ios_launcher.mm
                 native/platform/ios/ios_gl_context.mm
+                native/platform/ios/window_orientation.mm
                 tests/integration/ios/ios_presentation_smoke.cpp
                 apps/ios/LaunchScreen.storyboard)
             set_source_files_properties(apps/ios/ios_launcher.mm
-                native/platform/ios/ios_gl_context.mm PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
+                native/platform/ios/ios_gl_context.mm native/platform/ios/window_orientation.mm
+                PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
             set_source_files_properties(apps/ios/LaunchScreen.storyboard PROPERTIES
                 MACOSX_PACKAGE_LOCATION Resources)
             find_library(STUDY_UIKIT_FRAMEWORK UIKit REQUIRED)

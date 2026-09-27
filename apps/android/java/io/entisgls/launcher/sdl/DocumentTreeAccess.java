@@ -3,6 +3,7 @@ package io.entisgls.launcher.sdl;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.UriPermission;
+import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
@@ -36,6 +37,37 @@ public final class DocumentTreeAccess {
     private final Uri tree;
     private final String rootId;
     private final File replacementJournal;
+    private final boolean diagnosticsEnabled;
+    private final Metric rootQuery = new Metric(), childrenQuery = new Metric(), openDescriptorTime = new Metric();
+    private final Metric journalRecovery = new Metric(), openTotal = new Metric(), openLockWait = new Metric();
+    private long childrenCacheHits, childrenCacheMisses;
+
+    private static final class Metric {
+        long count, total, maximum;
+        void record(long elapsed) { ++count; total += elapsed; maximum = Math.max(maximum, elapsed); }
+        void append(StringBuilder result, String name) {
+            result.append(",\"").append(name).append("\":{\"count\":").append(count)
+                .append(",\"total_ns\":").append(total).append(",\"max_ns\":").append(maximum).append('}');
+        }
+    }
+    private long diagnosticNow() { return diagnosticsEnabled ? System.nanoTime() : 0; }
+    // Called only while holding this instance's monitor, or by the unpublished constructor.
+    private void record(Metric metric, long started) {
+        if (diagnosticsEnabled) metric.record(System.nanoTime() - started);
+    }
+
+    /** Cumulative debug counters. Native code attaches a phase name and logs only at phase boundaries. */
+    public synchronized String diagnosticsSnapshot() {
+        StringBuilder result = new StringBuilder(600).append("{\"enabled\":").append(diagnosticsEnabled);
+        rootQuery.append(result, "root_query");
+        childrenQuery.append(result, "children_query");
+        openDescriptorTime.append(result, "open_descriptor");
+        journalRecovery.append(result, "journal_recovery");
+        openTotal.append(result, "open_total");
+        openLockWait.append(result, "open_lock_wait");
+        return result.append(",\"children_cache_hits\":").append(childrenCacheHits)
+            .append(",\"children_cache_misses\":").append(childrenCacheMisses).append('}').toString();
+    }
     // Resolving every resource used to enumerate every sibling again. Keep short-lived,
     // bounded directory indexes; never cache the root query that checks provider access.
     private static final long DIRECTORY_CACHE_MS = 2000;
@@ -78,6 +110,12 @@ public final class DocumentTreeAccess {
     }
 
     public DocumentTreeAccess(Context context, Uri selectedTree) throws IOException {
+        this(context, selectedTree, false);
+    }
+
+    public DocumentTreeAccess(Context context, Uri selectedTree, boolean traceFileIo) throws IOException {
+        diagnosticsEnabled = traceFileIo &&
+            (context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
         resolver = context.getApplicationContext().getContentResolver();
         tree = selectedTree;
         try {
@@ -135,6 +173,11 @@ public final class DocumentTreeAccess {
 
     /** Recover a process death between provider operations without deleting an inferred old save. */
     private void recoverReplacement() throws IOException {
+        long started = diagnosticNow();
+        try { recoverReplacementBody(); }
+        finally { record(journalRecovery, started); }
+    }
+    private void recoverReplacementBody() throws IOException {
         if (!replacementJournal.isFile()) return;
         invalidateDirectories();
         if (replacementJournal.length() > 32768) throw new IOException("存档事务记录无效，已保留现有文件。");
@@ -178,7 +221,11 @@ public final class DocumentTreeAccess {
     private static String name(String path) { return path.substring(path.lastIndexOf('/') + 1); }
     private Uri uri(String id) { return DocumentsContract.buildDocumentUriUsingTree(tree, id); }
     private static IOException accessError(Exception cause) { return new IOException("无法访问所选游戏文件夹，请检查连接与读写授权，必要时重新选择同一文件夹。", cause); }
-    private Entry byId(String id) throws IOException { return byUri(uri(id)); }
+    private Entry byId(String id) throws IOException {
+        long started = diagnosticNow();
+        try { return byUri(uri(id)); }
+        finally { if (id.equals(rootId)) record(rootQuery, started); }
+    }
     private Entry byUri(Uri document) throws IOException {
         try (Cursor cursor = resolver.query(document, COLUMNS, null, null, null)) {
             if (cursor == null) throw new IOException("文件提供方无法读取资源信息。");
@@ -189,9 +236,14 @@ public final class DocumentTreeAccess {
     private DirectoryEntries children(Entry directory, boolean refresh) throws IOException {
         if (directory == null || !directory.directory) throw new IOException("资源目录不存在。");
         DirectoryEntries cached = directoryCache.get(directory.id);
-        if (!refresh && cached != null && SystemClock.elapsedRealtime() < cached.expires) return cached;
+        if (!refresh && cached != null && SystemClock.elapsedRealtime() < cached.expires) {
+            if (diagnosticsEnabled) ++childrenCacheHits;
+            return cached;
+        }
+        if (diagnosticsEnabled) ++childrenCacheMisses;
         if (cached != null) { directoryCache.remove(directory.id); cachedEntries -= cached.entries.size(); }
         DirectoryEntries result = new DirectoryEntries();
+        long started = diagnosticNow();
         try (Cursor cursor = resolver.query(DocumentsContract.buildChildDocumentsUriUsingTree(tree, directory.id), COLUMNS, null, null, null)) {
             if (cursor == null) throw new IOException("无法列出所选游戏文件夹。");
             while (cursor.moveToNext()) {
@@ -203,7 +255,7 @@ public final class DocumentTreeAccess {
                 result.entries.add(entry);
                 if (result.entries.size() > MAX_CACHED_ENTRIES) throw new IOException("所选文件夹文件过多。");
             }
-        }
+        } finally { record(childrenQuery, started); }
         // Start the lifetime after the provider has finished enumerating a potentially slow directory.
         result.expires = SystemClock.elapsedRealtime() + DIRECTORY_CACHE_MS;
         while (!directoryCache.isEmpty() && (directoryCache.size() >= MAX_CACHED_DIRECTORIES ||
@@ -234,7 +286,7 @@ public final class DocumentTreeAccess {
         if (entry == null) return;
         long size = entry.size;
         if (size < 0) {
-            try (ParcelFileDescriptor descriptor = resolver.openFileDescriptor(uri(entry.id), "r")) {
+            try (ParcelFileDescriptor descriptor = providerOpen(uri(entry.id), "r")) {
                 if (descriptor == null) throw new IOException("无法查询游戏资源大小：" + relative);
                 try { size = Os.lseek(descriptor.getFileDescriptor(), 0, OsConstants.SEEK_END); }
                 catch (ErrnoException error) { throw new IOException("文件提供方无法报告资源大小或不支持随机读取：" + relative, error); }
@@ -285,8 +337,13 @@ public final class DocumentTreeAccess {
         catch (SecurityException | IllegalArgumentException error) { invalidateDirectories(); throw accessError(error); }
     }
 
-    private ParcelFileDescriptor openDescriptor(String relative, Uri document, String mode) throws IOException {
+    private ParcelFileDescriptor providerOpen(Uri document, String mode) throws IOException {
+        long started = diagnosticNow();
         try { return resolver.openFileDescriptor(document, mode); }
+        finally { record(openDescriptorTime, started); }
+    }
+    private ParcelFileDescriptor openDescriptor(String relative, Uri document, String mode) throws IOException {
+        try { return providerOpen(document, mode); }
         catch (java.io.FileNotFoundException missing) {
             invalidateDirectories();
             if (!"r".equals(mode)) throw missing;
@@ -294,12 +351,20 @@ public final class DocumentTreeAccess {
             // Retry only the read-only open, never an operation that could create/truncate a file.
             Entry refreshed = resolve(relative);
             if (refreshed == null || refreshed.directory) throw missing;
-            return resolver.openFileDescriptor(uri(refreshed.id), mode);
+            return providerOpen(uri(refreshed.id), mode);
         }
     }
 
     /** Ownership of the seekable descriptor transfers to native code, which must close it. */
-    public synchronized int open(String relative, String mode) throws IOException {
+    public int open(String relative, String mode) throws IOException {
+        long started = diagnosticNow();
+        synchronized (this) {
+            record(openLockWait, started);
+            try { return openLocked(relative, mode); }
+            finally { record(openTotal, started); }
+        }
+    }
+    private int openLocked(String relative, String mode) throws IOException {
         Uri created = null;
         boolean transferred = false;
         boolean write = !"r".equals(mode);
