@@ -5,9 +5,11 @@
 #include <codecvt>
 #include <cstdio>
 #include <locale>
+#include <limits>
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <fcntl.h>
 #include <unistd.h>
 
@@ -54,6 +56,15 @@ struct Frame {
     }
 };
 
+FileInfo Metadata(const jlong* data) {
+    if (data[0] < 0 || data[0] > 2 || data[1] < 0) throw std::runtime_error("Invalid document kind or length");
+    FileInfo result;
+    result.kind = data[0] == 1 ? FileInfo::Kind::File : data[0] == 2 ? FileInfo::Kind::Directory : FileInfo::Kind::Missing;
+    result.size = static_cast<std::uint64_t>(data[1]);
+    result.modifiedMs = data[2]; result.writable = data[3] != 0;
+    return result;
+}
+
 class DocumentBackend final : public entis::io::Backend {
 public:
     DocumentBackend() {
@@ -70,7 +81,7 @@ public:
         if (!access) throw std::runtime_error("The selected game folder has no document-tree grant");
         jclass type = env->GetObjectClass(access);
         stat_ = env->GetMethodID(type, "stat", "(Ljava/lang/String;)[J"); Check(env);
-        list_ = env->GetMethodID(type, "list", "(Ljava/lang/String;)[Ljava/lang/String;"); Check(env);
+        list_ = env->GetMethodID(type, "listEntries", "(Ljava/lang/String;)Lio/entisgls/launcher/sdl/DocumentTreeAccess$Listing;"); Check(env);
         open_ = env->GetMethodID(type, "open", "(Ljava/lang/String;Ljava/lang/String;)I"); Check(env);
         mkdir_ = env->GetMethodID(type, "mkdir", "(Ljava/lang/String;)V"); Check(env);
         remove_ = env->GetMethodID(type, "remove", "(Ljava/lang/String;Z)V"); Check(env);
@@ -88,26 +99,31 @@ public:
         if (!value || frame.env->GetArrayLength(value) != 4) throw std::runtime_error("Invalid document metadata");
         jlong data[4]{};
         frame.env->GetLongArrayRegion(value, 0, 4, data); Check(frame.env);
-        if (data[0] < 0 || data[0] > 2 || data[1] < 0) throw std::runtime_error("Invalid document kind or length");
-        FileInfo result;
-        result.kind = data[0] == 1 ? FileInfo::Kind::File : data[0] == 2 ? FileInfo::Kind::Directory : FileInfo::Kind::Missing;
-        result.size = static_cast<std::uint64_t>(data[1]);
-        result.modifiedMs = data[2]; result.writable = data[3] != 0;
-        return result;
+        return Metadata(data);
     }
     std::vector<entis::io::Entry> List(const std::string& path) override {
         Frame frame;
-        auto names = static_cast<jobjectArray>(frame.env->CallObjectMethod(object_, list_, frame.String(path)));
-        Check(frame.env);
-        if (!names) throw std::runtime_error("Cannot enumerate selected game folder");
+        auto* env = frame.env;
+        jobject listing = env->CallObjectMethod(object_, list_, frame.String(path)); Check(env);
+        if (!listing) throw std::runtime_error("Cannot enumerate selected game folder");
+        jclass type = env->GetObjectClass(listing); Check(env);
+        jfieldID namesField = env->GetFieldID(type, "names", "[Ljava/lang/String;"); Check(env);
+        jfieldID metadataField = env->GetFieldID(type, "metadata", "[J"); Check(env);
+        auto names = static_cast<jobjectArray>(env->GetObjectField(listing, namesField)); Check(env);
+        auto metadata = static_cast<jlongArray>(env->GetObjectField(listing, metadataField)); Check(env);
+        if (!names || !metadata) throw std::runtime_error("Invalid document listing");
+        const jsize count = env->GetArrayLength(names);
+        if (count > std::numeric_limits<jsize>::max() / 4 || env->GetArrayLength(metadata) != count * 4)
+            throw std::runtime_error("Invalid document listing metadata");
+        std::vector<jlong> values(static_cast<std::size_t>(count) * 4);
+        if (!values.empty()) { env->GetLongArrayRegion(metadata, 0, count * 4, values.data()); Check(env); }
         std::vector<entis::io::Entry> result;
-        for (jsize i = 0; i < frame.env->GetArrayLength(names); ++i) {
-            auto name = static_cast<jstring>(frame.env->GetObjectArrayElement(names, i));
-            Check(frame.env);
-            auto text = Utf8(frame.env, name);
-            frame.env->DeleteLocalRef(name);
-            const auto child = path.empty() ? text : path + "/" + text;
-            result.push_back({text, Stat(child)});
+        result.reserve(static_cast<std::size_t>(count));
+        for (jsize i = 0; i < count; ++i) {
+            auto name = static_cast<jstring>(env->GetObjectArrayElement(names, i)); Check(env);
+            auto text = Utf8(env, name);
+            env->DeleteLocalRef(name);
+            result.push_back({std::move(text), Metadata(values.data() + static_cast<std::size_t>(i) * 4)});
         }
         return result;
     }
@@ -115,12 +131,11 @@ public:
         const std::string value(mode);
         if (value.empty() || (value.front() != 'r' && value.front() != 'w' && value.front() != 'a'))
             throw std::runtime_error("Unsupported document stream mode");
-        const auto existing = Stat(path);
-        if (value.front() == 'r' && existing.kind != FileInfo::Kind::File)
-            throw std::runtime_error("Game document does not exist: " + path);
         const bool appendUpdate = value.front() == 'a' && value.find('+') != std::string::npos;
+        // Java performs one fresh lookup for writes. Its internal rwa mode creates a
+        // missing a+ document, then opens rw without ever truncating an existing file.
         const char* javaMode = value.find('w') != std::string::npos ? "rwt" :
-            appendUpdate ? (existing.kind == FileInfo::Kind::Missing ? "rwt" : "rw") :
+            appendUpdate ? "rwa" :
             value.find('a') != std::string::npos ? "wa" : value.find('+') != std::string::npos ? "rw" : "r";
         Frame frame;
         const int fd = frame.env->CallIntMethod(object_, open_, frame.String(path), frame.String(javaMode));

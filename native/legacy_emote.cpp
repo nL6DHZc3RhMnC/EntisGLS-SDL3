@@ -163,18 +163,25 @@ public:
     }
     static int ResolvePsbKey(void* user, const char* path, const void* bytes, size_t size,
                              uint32_t* key, char* error, size_t capacity) {
+        const auto started = std::chrono::steady_clock::now();
         auto& owner = *static_cast<LegacyMotionService*>(user);
         try {
             if (!owner.psbResolver_)
                 throw std::runtime_error("No game PSB key resolver is configured. Supply the original E-mote driver or a per-game PSB key.");
             *key = owner.psbResolver_->Resolve(static_cast<const uint8_t*>(bytes), size);
             study::platform::LogPrint(study::platform::LogPriority::Info, "EntisGLS",
-                "PSB key verified for %s; source=%s", path, owner.psbResolver_->LastSource().c_str());
+                "PSB key verified for %s; source=%s resolve_ms=%.1f", path,
+                owner.psbResolver_->LastSource().c_str(),
+                std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - started).count());
             if (!owner.psbResolver_->LastWarning().empty())
                 study::platform::LogWrite(study::platform::LogPriority::Warn, "EntisGLS", owner.psbResolver_->LastWarning().c_str());
             return 1;
         } catch (const std::exception& failure) {
             const std::string message = std::string("PSB ") + (path ? path : "") + ": " + failure.what();
+            study::platform::LogPrint(study::platform::LogPriority::Error, "EntisGLS",
+                "PSB key resolution failed: resolve_ms=%.1f; %s",
+                std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - started).count(),
+                message.c_str());
             entis::launcher::ReportGamePsbKeyError(message);
             if (error && capacity) { std::strncpy(error, message.c_str(), capacity - 1); error[capacity - 1] = 0; }
             return 0;
@@ -450,6 +457,7 @@ void ECSEmoteSprite::ReleaseMotionPlayer() {
     device_.SetReference(nullptr, nullptr);
 }
 ESLError ECSEmoteSprite::OpenPlayer(ECSContext& context, ECSEmoteDevice& device, const wchar_t* path) {
+    const auto started = std::chrono::steady_clock::now();
     auto service = device.Service();
     if (!(service->Capabilities() & STUDY_MOTION_GLES_RENDERER)) return eslErrNotSupported;
     uint64_t project = 0;
@@ -471,7 +479,10 @@ ESLError ECSEmoteSprite::OpenPlayer(ECSContext& context, ECSEmoteDevice& device,
     scale_ = 1; coordX_ = coordY_ = 0;
     device_.SetReference(&device, &context);
     NativeSprite().NotifyUpdate();
-    study::platform::LogPrint(study::platform::LogPriority::Info, "StudySteady", "EmoteSprite loaded real Player from NOA: %s", MotionUTF8(path).c_str());
+    // Total includes archive reads, PSB key resolution, decoding and Player creation.
+    study::platform::LogPrint(study::platform::LogPriority::Info, "StudySteady",
+        "EmoteSprite loaded real Player from NOA: %s; load_total_ms=%.1f", MotionUTF8(path).c_str(),
+        std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - started).count());
     TraceMotion("opened");
     return eslErrSuccess;
 }

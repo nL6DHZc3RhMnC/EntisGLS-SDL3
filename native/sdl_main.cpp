@@ -21,6 +21,7 @@
 #endif
 #if defined(SDL_PLATFORM_IOS)
 #include "platform/sdl/ios_launcher.h"
+#include "platform/sdl/ios_presentation_smoke.h"
 #endif
 #include "platform/gl.h"
 #include <algorithm>
@@ -254,13 +255,14 @@ static int RunApplication(int argc, char** argv) {
     std::optional<std::string> saveKey;
     bool configureGame = false;
 #if defined(SDL_PLATFORM_IOS)
-    bool librarySmoke = false;
+    bool librarySmoke = false, presentationSmoke = false;
 #endif
     for (int i = 1; i < argc; ++i) {
         const std::string argument = argv[i];
         if (argument == "--legacy-local-data") { /* Accepted for older launch scripts; save location is always game/savedata. */ }
 #if defined(SDL_PLATFORM_IOS)
         else if (argument == "--library-smoke") { librarySmoke = true; cliMode = true; }
+        else if (argument == "--ios-presentation-smoke") { presentationSmoke = true; cliMode = true; }
 #endif
         else if (argument == "--inspect-game") { inspectOnly = true; cliMode = true; }
         else if (argument == "--configure-game") configureGame = true;
@@ -307,6 +309,13 @@ static int RunApplication(int argc, char** argv) {
             SDL_Quit(); return 2;
         }
     }
+#if defined(SDL_PLATFORM_IOS)
+    if (presentationSmoke) {
+        const int result = RunIOSPresentationSmoke();
+        SDL_Quit();
+        return result;
+    }
+#endif
     const fs::path applicationData = paths.localRoot;
     fs::create_directories(applicationData);
     fs::path legacyData;

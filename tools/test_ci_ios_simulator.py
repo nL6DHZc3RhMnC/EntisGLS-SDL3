@@ -1,7 +1,11 @@
 """Prevent unsupported model/runtime pairs on runners containing several Xcodes."""
 
 import unittest
-from ci_ios_simulator_smoke import select_device
+from pathlib import Path
+import struct
+import tempfile
+import zlib
+from ci_ios_simulator_smoke import select_device, verify_presented_pattern
 
 
 class SimulatorSelectionTest(unittest.TestCase):
@@ -39,6 +43,77 @@ class SimulatorSelectionTest(unittest.TestCase):
         inventory['runtimes'][0]['isAvailable'] = False
         with self.assertRaisesRegex(RuntimeError, 'No compatible'):
             select_device(inventory, '18.5')
+
+
+class PresentationScreenshotTest(unittest.TestCase):
+    def fixture(self, path, *, black=False, reversed_colors=False, alpha=True):
+        width, height = 80, 100
+        channels = 4 if alpha else 3
+        pixels = bytearray()
+        previous = bytearray(width * channels)
+        for y in range(height):
+            row = bytearray()
+            for x in range(width):
+                green = (x < width // 2) != reversed_colors
+                rgb = (0, 0, 0) if black else (0, 255, 0) if green else (255, 0, 0)
+                row.extend((*rgb, 255) if alpha else rgb)
+            method = y % 5
+            pixels.append(method)
+            for x, value in enumerate(row):
+                left = row[x - channels] if x >= channels else 0
+                up = previous[x]
+                corner = previous[x - channels] if x >= channels else 0
+                if method == 0:
+                    prediction = 0
+                elif method == 1:
+                    prediction = left
+                elif method == 2:
+                    prediction = up
+                elif method == 3:
+                    prediction = (left + up) // 2
+                else:
+                    estimate = left + up - corner
+                    prediction = min((left, up, corner), key=lambda candidate: abs(estimate - candidate))
+                pixels.append((value - prediction) & 255)
+            previous = row
+
+        def chunk(tag, data):
+            return struct.pack('>I', len(data)) + tag + data + struct.pack('>I', zlib.crc32(tag + data) & 0xffffffff)
+
+        path.write_bytes(b'\x89PNG\r\n\x1a\n' +
+            chunk(b'IHDR', struct.pack('>IIBBBBB', width, height, 8, 6 if alpha else 2, 0, 0, 0)) +
+            chunk(b'IDAT', zlib.compress(pixels)) + chunk(b'IEND', b''))
+
+    def test_accepts_presented_frame_in_rgb_and_rgba_with_all_filters(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'frame.png'
+            for alpha in (True, False):
+                self.fixture(path, alpha=alpha)
+                self.assertEqual(verify_presented_pattern(path)['green_left_ratio'], 1)
+
+    def test_rejects_black_screen(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'frame.png'
+            self.fixture(path, black=True)
+            with self.assertRaisesRegex(RuntimeError, 'did not present'):
+                verify_presented_pattern(path)
+
+    def test_rejects_reversed_frame(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'frame.png'
+            self.fixture(path, reversed_colors=True)
+            with self.assertRaisesRegex(RuntimeError, 'did not present'):
+                verify_presented_pattern(path)
+
+    def test_rejects_corrupted_screenshot(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'frame.png'
+            self.fixture(path)
+            damaged = bytearray(path.read_bytes())
+            damaged[-1] ^= 1
+            path.write_bytes(damaged)
+            with self.assertRaisesRegex(RuntimeError, 'checksum'):
+                verify_presented_pattern(path)
 
 
 if __name__ == '__main__':

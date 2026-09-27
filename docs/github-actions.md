@@ -24,10 +24,13 @@ Android packaging verifies the APK signature, ZIP alignment and ELF 16 KB alignm
 iOS packaging checks the IPA checksum, archive contents and ARM64 device Mach-O,
 and rejects code signatures or provisioning data. The IPA must be signed locally
 before installation; no Apple credentials are used by CI. See [iOS builds](ios-build.md).
-The release workflow does not run an iOS Simulator startup check. The earlier
-independent workflow's Simulator check timed out; its diagnostic tools remain
-available, but device IPA publication now depends on build/package checks only.
-Device gameplay still needs separate testing.
+The same workflow also builds an iPhone Simulator app and checks the game library
+and actual GLES presentation without commercial resources. The rendering check
+creates a shared motion context and changes renderbuffer bindings, then verifies
+the displayed green/red pattern in a Simulator screenshot. Readiness markers and
+explicit termination are used because SDL UIKit does not exit when SDL_main
+returns. Logs, screenshots and the smoke report are in the iOS diagnostics
+artifact. Device gameplay still needs separate testing.
 
 Build jobs have read-only repository access. Only the final release job receives
 `contents: write`; no personal access token is needed by the workflow. Releases

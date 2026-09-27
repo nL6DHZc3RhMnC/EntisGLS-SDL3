@@ -18,11 +18,9 @@ unsigned IPA and build report with the Android/macOS packages and shared
 SHA-256 checksums in the same `dev-*` prerelease or version-tag release.
 No Apple account or signing secrets are configured in CI.
 
-iOS CI validation covers the device build and package. Simulator startup is not
-part of this release workflow: the earlier independent Simulator check timed out.
-The Simulator build and diagnostic smoke tools remain available for separate
-investigation. A successful release does not certify iOS launcher startup or
-gameplay on a physical device.
+iOS CI validation covers the device build and package, plus Simulator library
+startup and GLES presentation checked against a captured image. A successful
+release does not certify gameplay on a physical device.
 
 ## Build an unsigned device IPA
 
@@ -77,14 +75,17 @@ directory with `EntisGLSLauncher-simulator.zip`. It receives a local ad-hoc
 signature required by ARM64 execution; this does not use a development identity.
 A Simulator build cannot be installed on an iPhone.
 
-The separate diagnostic helper can create a compatible disposable Simulator,
-capture the game-library screen, and check its diagnostic exit:
+The diagnostic helper used by CI creates a compatible disposable Simulator,
+captures the game library, and checks a displayed GLES color pattern:
 
 ```sh
 python3 tools/ci_ios_simulator_smoke.py --app artifacts/entisgls-launcher/ios-simulator-arm64/EntisGLSLauncher.app --output artifacts/ios-smoke
 ```
 
-This exercises the launcher library only, not game scripts, rendering or audio.
+This exercises the launcher library and drawable presentation after changing
+renderbuffer bindings. It does not test game scripts, full game rendering or
+audio. It waits for readiness logs and explicitly terminates each diagnostic;
+SDL UIKit keeps the app alive after SDL_main returns.
 
 ## Sign and install locally
 

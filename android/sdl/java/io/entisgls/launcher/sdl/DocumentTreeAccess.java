@@ -6,6 +6,7 @@ import android.content.UriPermission;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
+import android.os.SystemClock;
 import android.provider.DocumentsContract;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -19,7 +20,10 @@ import java.util.Properties;
 import java.util.UUID;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
 
 /** JNI-facing filesystem for one user-authorized document tree. Never turns a URI into a raw path. */
 public final class DocumentTreeAccess {
@@ -32,6 +36,28 @@ public final class DocumentTreeAccess {
     private final Uri tree;
     private final String rootId;
     private final File replacementJournal;
+    // Resolving every resource used to enumerate every sibling again. Keep short-lived,
+    // bounded directory indexes; never cache the root query that checks provider access.
+    private static final long DIRECTORY_CACHE_MS = 2000;
+    private static final int MAX_CACHED_DIRECTORIES = 64, MAX_CACHED_ENTRIES = 200000;
+    private final LinkedHashMap<String, DirectoryEntries> directoryCache = new LinkedHashMap<>(16, 0.75f, true);
+    private int cachedEntries;
+
+    private static final class DirectoryEntries {
+        final ArrayList<Entry> entries = new ArrayList<>();
+        // The comparator has the same Unicode semantics as resolve's former equalsIgnoreCase.
+        final TreeMap<String, Entry> byName = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        long expires;
+    }
+
+    /** One provider enumeration, including metadata, for the native directory iterator. */
+    public static final class Listing {
+        public final String[] names;
+        public final long[] metadata;
+        private Listing(int count) { names = new String[count]; metadata = new long[count * 4]; }
+    }
+
+    private void invalidateDirectories() { directoryCache.clear(); cachedEntries = 0; }
 
     private static final class Entry {
         final String id, name;
@@ -101,13 +127,16 @@ public final class DocumentTreeAccess {
         if (replacementJournal.exists() && !replacementJournal.delete()) throw new IOException("无法清理已完成的存档事务记录。");
     }
     private void renameEntry(Entry entry, String newName) throws IOException {
-        if (DocumentsContract.renameDocument(resolver, uri(entry.id), newName) == null)
-            throw new IOException("文件提供方不支持重命名此资源。");
+        try {
+            if (DocumentsContract.renameDocument(resolver, uri(entry.id), newName) == null)
+                throw new IOException("文件提供方不支持重命名此资源。");
+        } finally { invalidateDirectories(); } // Providers may change IDs even on an interrupted rename.
     }
 
     /** Recover a process death between provider operations without deleting an inferred old save. */
     private void recoverReplacement() throws IOException {
         if (!replacementJournal.isFile()) return;
+        invalidateDirectories();
         if (replacementJournal.length() > 32768) throw new IOException("存档事务记录无效，已保留现有文件。");
         Properties transaction = new Properties();
         try (FileInputStream input = new FileInputStream(replacementJournal)) { transaction.load(input); }
@@ -156,10 +185,13 @@ public final class DocumentTreeAccess {
             return cursor.moveToFirst() ? new Entry(cursor) : null;
         }
     }
-    private ArrayList<Entry> children(Entry directory) throws IOException {
+    private DirectoryEntries children(Entry directory) throws IOException { return children(directory, false); }
+    private DirectoryEntries children(Entry directory, boolean refresh) throws IOException {
         if (directory == null || !directory.directory) throw new IOException("资源目录不存在。");
-        ArrayList<Entry> entries = new ArrayList<>();
-        HashSet<String> names = new HashSet<>();
+        DirectoryEntries cached = directoryCache.get(directory.id);
+        if (!refresh && cached != null && SystemClock.elapsedRealtime() < cached.expires) return cached;
+        if (cached != null) { directoryCache.remove(directory.id); cachedEntries -= cached.entries.size(); }
+        DirectoryEntries result = new DirectoryEntries();
         try (Cursor cursor = resolver.query(DocumentsContract.buildChildDocumentsUriUsingTree(tree, directory.id), COLUMNS, null, null, null)) {
             if (cursor == null) throw new IOException("无法列出所选游戏文件夹。");
             while (cursor.moveToNext()) {
@@ -167,12 +199,22 @@ public final class DocumentTreeAccess {
                 Entry entry = new Entry(cursor);
                 checkedPath(entry.name);
                 if (entry.name.isEmpty() || entry.name.indexOf('/') >= 0) throw new IOException("文件提供方返回了无效文件名。");
-                if (!names.add(entry.name.toLowerCase(Locale.ROOT))) throw new IOException("发现仅大小写不同的重复资源：" + entry.name);
-                entries.add(entry);
-                if (entries.size() > 200000) throw new IOException("所选文件夹文件过多。");
+                if (result.byName.put(entry.name, entry) != null) throw new IOException("发现大小写不明确的资源路径：" + entry.name);
+                result.entries.add(entry);
+                if (result.entries.size() > MAX_CACHED_ENTRIES) throw new IOException("所选文件夹文件过多。");
             }
         }
-        return entries;
+        // Start the lifetime after the provider has finished enumerating a potentially slow directory.
+        result.expires = SystemClock.elapsedRealtime() + DIRECTORY_CACHE_MS;
+        while (!directoryCache.isEmpty() && (directoryCache.size() >= MAX_CACHED_DIRECTORIES ||
+                cachedEntries + result.entries.size() > MAX_CACHED_ENTRIES)) {
+            Map.Entry<String, DirectoryEntries> oldest = directoryCache.entrySet().iterator().next();
+            cachedEntries -= oldest.getValue().entries.size();
+            directoryCache.remove(oldest.getKey());
+        }
+        directoryCache.put(directory.id, result);
+        cachedEntries += result.entries.size();
+        return result;
     }
     private Entry resolve(String path) throws IOException {
         checkedPath(path);
@@ -182,59 +224,92 @@ public final class DocumentTreeAccess {
         visited.add(rootId);
         for (String part : path.split("/")) {
             if (current == null || !current.directory) return null;
-            Entry found = null;
-            for (Entry entry : children(current)) if (entry.name.equalsIgnoreCase(part)) {
-                if (found != null) throw new IOException("发现大小写不明确的资源路径：" + path);
-                found = entry;
-            }
-            current = found;
+            current = children(current).byName.get(part);
             if (current != null && !visited.add(current.id)) throw new IOException("文件提供方返回了循环目录。");
         }
         return current;
+    }
+
+    private void metadata(Entry entry, String relative, long[] result, int offset) throws IOException {
+        if (entry == null) return;
+        long size = entry.size;
+        if (size < 0) {
+            try (ParcelFileDescriptor descriptor = resolver.openFileDescriptor(uri(entry.id), "r")) {
+                if (descriptor == null) throw new IOException("无法查询游戏资源大小：" + relative);
+                try { size = Os.lseek(descriptor.getFileDescriptor(), 0, OsConstants.SEEK_END); }
+                catch (ErrnoException error) { throw new IOException("文件提供方无法报告资源大小或不支持随机读取：" + relative, error); }
+            }
+        }
+        result[offset] = entry.directory ? 2 : 1;
+        result[offset + 1] = size;
+        result[offset + 2] = entry.modified;
+        result[offset + 3] = entry.writable() ? 1 : 0;
     }
 
     /** kind: 0 missing, 1 file, 2 directory; size; modification milliseconds; writable. */
     public synchronized long[] stat(String relative) throws IOException {
         try {
             recoverReplacement();
-            Entry entry = resolve(relative);
-            if (entry == null) return new long[] {0, 0, 0, 0};
-            long size = entry.size;
-            if (size < 0) {
-                try (ParcelFileDescriptor descriptor = resolver.openFileDescriptor(uri(entry.id), "r")) {
-                    if (descriptor == null) throw new IOException("无法查询游戏资源大小：" + relative);
-                    try { size = Os.lseek(descriptor.getFileDescriptor(), 0, OsConstants.SEEK_END); }
-                    catch (ErrnoException error) { throw new IOException("文件提供方无法报告资源大小或不支持随机读取：" + relative, error); }
-                }
+            long[] result = new long[4];
+            metadata(resolve(relative), relative, result, 0);
+            return result;
+        } catch (SecurityException | IllegalArgumentException error) { invalidateDirectories(); throw accessError(error); }
+    }
+
+    public synchronized Listing listEntries(String relative) throws IOException {
+        try {
+            recoverReplacement();
+            ArrayList<Entry> entries = children(resolve(relative), true).entries;
+            Listing result = new Listing(entries.size());
+            for (int i = 0; i < entries.size(); ++i) {
+                if (Thread.currentThread().isInterrupted()) throw new IOException("资源检查已取消。");
+                Entry entry = entries.get(i);
+                result.names[i] = entry.name;
+                String path = relative.isEmpty() ? entry.name : relative + "/" + entry.name;
+                metadata(entry, path, result.metadata, i * 4);
             }
-            return new long[] {entry.directory ? 2 : 1, size, entry.modified, entry.writable() ? 1 : 0};
-        } catch (SecurityException | IllegalArgumentException error) { throw accessError(error); }
+            return result;
+        } catch (SecurityException | IllegalArgumentException error) { invalidateDirectories(); throw accessError(error); }
     }
     public synchronized String[] list(String relative) throws IOException {
         try {
             recoverReplacement();
-            ArrayList<Entry> entries = children(resolve(relative));
+            ArrayList<Entry> entries = children(resolve(relative), true).entries;
             String[] names = new String[entries.size()];
             for (int i = 0; i < entries.size(); ++i) names[i] = entries.get(i).name;
             return names;
-        } catch (SecurityException | IllegalArgumentException error) { throw accessError(error); }
+        } catch (SecurityException | IllegalArgumentException error) { invalidateDirectories(); throw accessError(error); }
     }
     public synchronized String displayName() throws IOException {
         try { Entry root = byId(rootId); return root == null || root.name == null || root.name.trim().isEmpty() ? "游戏文件夹" : root.name; }
-        catch (SecurityException | IllegalArgumentException error) { throw accessError(error); }
+        catch (SecurityException | IllegalArgumentException error) { invalidateDirectories(); throw accessError(error); }
+    }
+
+    private ParcelFileDescriptor openDescriptor(String relative, Uri document, String mode) throws IOException {
+        try { return resolver.openFileDescriptor(document, mode); }
+        catch (java.io.FileNotFoundException missing) {
+            invalidateDirectories();
+            if (!"r".equals(mode)) throw missing;
+            // An external replacement may have changed an opaque ID since enumeration.
+            // Retry only the read-only open, never an operation that could create/truncate a file.
+            Entry refreshed = resolve(relative);
+            if (refreshed == null || refreshed.directory) throw missing;
+            return resolver.openFileDescriptor(uri(refreshed.id), mode);
+        }
     }
 
     /** Ownership of the seekable descriptor transfers to native code, which must close it. */
     public synchronized int open(String relative, String mode) throws IOException {
         Uri created = null;
         boolean transferred = false;
+        boolean write = !"r".equals(mode);
         try {
+            if (write) invalidateDirectories();
             recoverReplacement();
             checkedPath(relative);
             if (relative.isEmpty()) throw new IOException("无法将游戏根目录作为文件打开。");
-            if (!"r".equals(mode) && !"rw".equals(mode) && !"rwt".equals(mode) && !"wa".equals(mode))
+            if (!"r".equals(mode) && !"rw".equals(mode) && !"rwt".equals(mode) && !"wa".equals(mode) && !"rwa".equals(mode))
                 throw new IOException("不支持的资源打开模式。");
-            boolean write = !"r".equals(mode);
             Entry entry = resolve(relative);
             Uri document;
             if (entry == null) {
@@ -251,7 +326,10 @@ public final class DocumentTreeAccess {
                 if (entry.directory || (write && !entry.writable())) throw new IOException("资源文件不可按要求读写：" + relative);
                 document = uri(entry.id);
             }
-            try (ParcelFileDescriptor descriptor = resolver.openFileDescriptor(document, mode)) {
+            // Native a+ uses an internal mode: create if missing after the fresh write
+            // lookup, but always open rw so a cached miss can never truncate a new file.
+            String providerMode = "rwa".equals(mode) ? "rw" : mode;
+            try (ParcelFileDescriptor descriptor = openDescriptor(relative, document, providerMode)) {
                 if (descriptor == null) throw new IOException("无法打开游戏资源：" + relative);
                 try { Os.lseek(descriptor.getFileDescriptor(), 0, OsConstants.SEEK_CUR); }
                 catch (ErrnoException error) { throw new IOException("所选文件提供方不支持随机读写，请将游戏放在手机本地存储或可随机访问的存储设备。", error); }
@@ -259,17 +337,19 @@ public final class DocumentTreeAccess {
                 transferred = true;
                 return fd;
             }
-        } catch (SecurityException | IllegalArgumentException error) { throw accessError(error); }
+        } catch (SecurityException | IllegalArgumentException error) { invalidateDirectories(); throw accessError(error); }
         finally {
             if (created != null && !transferred) {
                 try { DocumentsContract.deleteDocument(resolver, created); }
                 catch (Exception ignored) { /* Only our newly created file may be cleaned up. */ }
             }
+            if (write) invalidateDirectories();
         }
     }
 
     public synchronized void mkdir(String relative) throws IOException {
         try {
+            invalidateDirectories();
             recoverReplacement();
             checkedPath(relative);
             if (relative.isEmpty()) return;
@@ -283,6 +363,7 @@ public final class DocumentTreeAccess {
                     Entry directory = resolve(path);
                     if (directory == null || !directory.writable()) throw new IOException("资源目录不可写：" + path);
                     Uri made = DocumentsContract.createDocument(resolver, uri(directory.id), DocumentsContract.Document.MIME_TYPE_DIR, part);
+                    invalidateDirectories();
                     if (made == null) throw new IOException("无法创建游戏目录：" + next);
                     Entry actual = byUri(made);
                     if (actual == null || !actual.directory || !part.equals(actual.name)) {
@@ -295,21 +376,25 @@ public final class DocumentTreeAccess {
                 path = next;
             }
         } catch (SecurityException | IllegalArgumentException error) { throw accessError(error); }
+        finally { invalidateDirectories(); }
     }
     public synchronized void remove(String relative, boolean directory) throws IOException {
         try {
+            invalidateDirectories();
             recoverReplacement();
             checkedPath(relative);
             if (relative.isEmpty()) throw new IOException("不能删除所选游戏根目录。");
             Entry entry = resolve(relative);
             if (entry == null) throw new java.io.FileNotFoundException(relative);
             if (entry.directory != directory) throw new IOException("资源类型与删除操作不符。");
-            if (directory && !children(entry).isEmpty()) throw new IOException("只能删除空目录。");
+            if (directory && !children(entry).entries.isEmpty()) throw new IOException("只能删除空目录。");
             if (!DocumentsContract.deleteDocument(resolver, uri(entry.id))) throw new IOException("无法删除资源：" + relative);
         } catch (SecurityException | IllegalArgumentException error) { throw accessError(error); }
+        finally { invalidateDirectories(); }
     }
     public synchronized void rename(String oldRelative, String newRelative) throws IOException {
         try {
+            invalidateDirectories();
             recoverReplacement();
             checkedPath(oldRelative); checkedPath(newRelative);
             if (oldRelative.isEmpty() || newRelative.isEmpty()) throw new IOException("不能重命名所选游戏根目录。");
@@ -344,5 +429,6 @@ public final class DocumentTreeAccess {
             }
             clearReplacement();
         } catch (SecurityException | IllegalArgumentException error) { throw accessError(error); }
+        finally { invalidateDirectories(); }
     }
 }

@@ -17,6 +17,7 @@ STUBS = {
 'android/content/ContentResolver.java': '''package android.content; import android.database.Cursor;import android.net.Uri;import android.os.ParcelFileDescriptor;import java.util.List;import java.io.IOException;public abstract class ContentResolver {public abstract List<UriPermission> getPersistedUriPermissions();public abstract Cursor query(Uri u,String[] p,String a,String[] b,String c);public abstract ParcelFileDescriptor openFileDescriptor(Uri u,String mode)throws IOException;public abstract Uri create(Uri parent,String mime,String name)throws IOException;public abstract boolean delete(Uri u)throws IOException;public abstract Uri rename(Uri u,String name)throws IOException;}''',
 'android/provider/DocumentsContract.java': '''package android.provider;import android.content.ContentResolver;import android.net.Uri;import java.io.IOException;public class DocumentsContract {public static class Document {public static final String COLUMN_DOCUMENT_ID="id",COLUMN_DISPLAY_NAME="name",COLUMN_MIME_TYPE="mime",COLUMN_SIZE="size",COLUMN_LAST_MODIFIED="modified",COLUMN_FLAGS="flags",MIME_TYPE_DIR="dir";public static final int FLAG_DIR_SUPPORTS_CREATE=8,FLAG_SUPPORTS_WRITE=2;}public static boolean isTreeUri(Uri u){return u.value.startsWith("content:tree:");}public static String getTreeDocumentId(Uri u){return u.value.substring(13);}public static Uri buildDocumentUriUsingTree(Uri t,String id){return new Uri("doc:"+id);}public static Uri buildChildDocumentsUriUsingTree(Uri t,String id){return new Uri("children:"+id);}public static Uri createDocument(ContentResolver r,Uri p,String m,String n)throws IOException{return r.create(p,m,n);}public static boolean deleteDocument(ContentResolver r,Uri u)throws IOException{return r.delete(u);}public static Uri renameDocument(ContentResolver r,Uri u,String n)throws IOException{return r.rename(u,n);}}''',
 'android/os/ParcelFileDescriptor.java': '''package android.os;import java.io.FileDescriptor;import java.util.IdentityHashMap;public class ParcelFileDescriptor implements AutoCloseable {public static final IdentityHashMap<FileDescriptor,Boolean> seekable=new IdentityHashMap<>();public static int closed,detached;final FileDescriptor fd=new FileDescriptor();boolean transferred;public ParcelFileDescriptor(boolean s){seekable.put(fd,s);}public FileDescriptor getFileDescriptor(){return fd;}public int detachFd(){transferred=true;++detached;return 42;}public void close(){if(!transferred)++closed;seekable.remove(fd);}}''',
+'android/os/SystemClock.java': '''package android.os;public final class SystemClock {public static long now;public static long elapsedRealtime(){return now;}public static void expire(){now+=2001;}}''',
 'android/system/ErrnoException.java': '''package android.system;public class ErrnoException extends Exception {public ErrnoException(Throwable t){super(t);}}''',
 'android/system/OsConstants.java': '''package android.system;public class OsConstants {public static final int SEEK_CUR=1,SEEK_END=2;}''',
 'android/system/Os.java': '''package android.system;import java.io.FileDescriptor;import java.nio.file.*;import android.os.ParcelFileDescriptor;public class Os {public static long lseek(FileDescriptor f,long o,int w)throws ErrnoException{if(!Boolean.TRUE.equals(ParcelFileDescriptor.seekable.get(f)))throw new ErrnoException(new Exception("pipe"));return w==2?99:0;}public static void rename(String a,String b)throws ErrnoException{try{Files.move(Paths.get(a),Paths.get(b),StandardCopyOption.ATOMIC_MOVE,StandardCopyOption.REPLACE_EXISTING);}catch(Exception e){throw new ErrnoException(e);}}}''',
@@ -24,7 +25,7 @@ STUBS = {
 }
 HARNESS = r'''
 package io.entisgls.launcher.sdl;
-import android.content.*;import android.database.Cursor;import android.net.Uri;import android.os.ParcelFileDescriptor;import java.io.*;import java.nio.file.*;import java.util.*;
+import android.content.*;import android.database.Cursor;import android.net.Uri;import android.os.ParcelFileDescriptor;import android.os.SystemClock;import java.io.*;import java.nio.file.*;import java.util.*;
 public class DocumentTreeTest {
  static int count;interface Checked{void run()throws Exception;}
  static void check(boolean p,String m){if(!p)throw new AssertionError(m);++count;}
@@ -32,22 +33,24 @@ public class DocumentTreeTest {
  static final Uri TREE=new Uri("content:tree:root");
  static class Node {String id,name,parent;boolean dir,seek=true;long size=73,flags=10;Node(String i,String n,String p,boolean d){id=i;name=n;parent=p;dir=d;}}
  static class Provider extends ContentResolver {
-  final Map<String,Node> nodes=new LinkedHashMap<>();List<UriPermission> grants=new ArrayList<>();int sequence,renameCalls,failRename,crashRename;boolean createPipe,deny;
+  final Map<String,Node> nodes=new LinkedHashMap<>();List<UriPermission> grants=new ArrayList<>();int sequence,renameCalls,failRename,crashRename;
+  int resolverCalls,permissionCalls,queryCalls,childQueries,queriedRows,openCalls;String lastMode;boolean createPipe,deny;
   Provider(){nodes.put("root",new Node("root","Game",null,true));grants.add(new UriPermission(TREE,true,true));}
   Node add(String name,String parent,boolean dir){Node n=new Node("opaque:"+(++sequence),name,parent,dir);nodes.put(n.id,n);return n;}
   Node named(String name){for(Node n:nodes.values())if(n.name.equals(name))return n;return null;}
-  public List<UriPermission> getPersistedUriPermissions(){return grants;}
+  public List<UriPermission> getPersistedUriPermissions(){++resolverCalls;++permissionCalls;return grants;}
   public Cursor query(Uri u,String[] p,String a,String[] b,String c){
-   if(deny)throw new SecurityException("revoked");List<Node> rows=new ArrayList<>();
-   if(u.value.startsWith("children:")){String id=u.value.substring(9);for(Node n:nodes.values())if(id.equals(n.parent))rows.add(n);}
+   ++resolverCalls;++queryCalls;if(deny||grants.isEmpty())throw new SecurityException("revoked");List<Node> rows=new ArrayList<>();
+   if(u.value.startsWith("children:")){++childQueries;String id=u.value.substring(9);for(Node n:nodes.values())if(id.equals(n.parent))rows.add(n);}
    else {Node n=nodes.get(u.value.substring(4));if(n!=null)rows.add(n);}
+   queriedRows+=rows.size();
    return new Cursor(){int i=-1;public boolean moveToFirst(){i=0;return !rows.isEmpty();}public boolean moveToNext(){return ++i<rows.size();}public String getString(int j){Node n=rows.get(i);return j==0?n.id:j==1?n.name:n.dir?"dir":"file";}public long getLong(int j){return j==3?rows.get(i).size:j==5?rows.get(i).flags:10;}public boolean isNull(int j){return false;}public void close(){}};
   }
-  public ParcelFileDescriptor openFileDescriptor(Uri u,String mode)throws IOException{Node n=nodes.get(u.value.substring(4));if(n==null)throw new FileNotFoundException();return new ParcelFileDescriptor(n.seek);}
-  public Uri create(Uri parent,String mime,String name){Node n=add(name,parent.value.substring(4),mime.equals("dir"));n.seek=!createPipe;return new Uri("doc:"+n.id);}
-  public boolean delete(Uri u){return nodes.remove(u.value.substring(4))!=null;}
+  public ParcelFileDescriptor openFileDescriptor(Uri u,String mode)throws IOException{++resolverCalls;++openCalls;lastMode=mode;if(deny)throw new SecurityException("revoked");Node n=nodes.get(u.value.substring(4));if(n==null)throw new FileNotFoundException();if(mode.equals("rwt"))n.size=0;return new ParcelFileDescriptor(n.seek);}
+  public Uri create(Uri parent,String mime,String name){++resolverCalls;Node n=add(name,parent.value.substring(4),mime.equals("dir"));n.size=0;n.seek=!createPipe;return new Uri("doc:"+n.id);}
+  public boolean delete(Uri u){++resolverCalls;return nodes.remove(u.value.substring(4))!=null;}
   public Uri rename(Uri u,String name)throws IOException{
-   ++renameCalls;if(renameCalls==failRename)throw new IOException("injected rename failure");
+   ++resolverCalls;++renameCalls;if(renameCalls==failRename)throw new IOException("injected rename failure");
    Node n=nodes.get(u.value.substring(4));if(n==null)throw new IOException("missing rename");
    for(Node other:nodes.values())if(other!=n&&Objects.equals(n.parent,other.parent)&&other.name.equals(name))throw new IOException("exists");
    n.name=name;
@@ -69,21 +72,43 @@ public class DocumentTreeTest {
    check(Arrays.asList(fs.list("字型")).contains("Font.otf"),"unicode directory");
    check(fs.stat("missing")[0]==0,"missing stat");
    check(fs.stat("")[1]==0,"directory size normalized to zero");
-   archive.size=-1;check(fs.stat("Script.noa")[1]==99,"unknown provider length measured without copying");archive.size=73;
+   fs.list("");
+   int beforeQueries=p.queryCalls,beforeChildren=p.childQueries,beforeRows=p.queriedRows,beforeCalls=p.resolverCalls,beforePermissions=p.permissionCalls;
+   for(int i=0;i<100;++i){check(fs.stat("script.NOA")[1]==73,"cached resource lookup");check(fs.stat("absent-"+i)[0]==0,"cached negative lookup");}
+   check(p.queryCalls-beforeQueries==200&&p.childQueries==beforeChildren,"repeated lookups query only root access, never re-enumerate siblings");
+   check(p.queriedRows-beforeRows==200&&p.resolverCalls-beforeCalls==200&&p.permissionCalls==beforePermissions,"cache does not replace directory scans with hidden permission IPC");
+   archive.size=-1;SystemClock.expire();check(fs.stat("Script.noa")[1]==99,"unknown provider length measured without copying");
+   beforeCalls=p.resolverCalls;DocumentTreeAccess.Listing mixed=fs.listEntries("");
+   int archiveIndex=Arrays.asList(mixed.names).indexOf("Script.noa"),folderIndex=Arrays.asList(mixed.names).indexOf("字型");
+   check(mixed.metadata.length==mixed.names.length*4&&mixed.metadata[archiveIndex*4]==1&&mixed.metadata[archiveIndex*4+1]==99,"batch returns measured unknown file length");
+   check(mixed.metadata[folderIndex*4]==2&&mixed.metadata[folderIndex*4+1]==0&&p.resolverCalls-beforeCalls==3,"batch distinguishes directory metadata with only one unknown-length descriptor");
+   archive.size=73;SystemClock.expire();
    for(String bad:new String[]{"/absolute","../out","a/../b","a\\b","a//b","a/",".","x\0y"})rejects(()->fs.stat(bad));
    check(fs.open("Script.noa","r")==42&&ParcelFileDescriptor.detached==1,"descriptor ownership transferred");
    int closedBefore=ParcelFileDescriptor.closed;archive.seek=false;rejects(()->fs.open("Script.noa","r"));check(ParcelFileDescriptor.closed==closedBefore+1,"pipe descriptor closed");archive.seek=true;
    rejects(()->fs.open("missing","r"));rejects(()->fs.open("missing","rw"));rejects(()->fs.open("Script.noa","bad"));
    fs.mkdir("savedata/deep");check(fs.stat("savedata/deep")[0]==2,"recursive mkdir");
    fs.open("savedata/deep/new.dat","rwt");check(fs.stat("savedata/deep/new.dat")[0]==1,"write creates document");
+   fs.open("savedata/deep/new.dat","rwt");p.named("new.dat").size=123;check(fs.stat("savedata/deep/new.dat")[1]==123,"write invalidates cached metadata before descriptor transfers");
+   check(fs.stat("external-append.dat")[0]==0,"prime append target negative lookup");Node appendTarget=p.add("external-append.dat","root",false);appendTarget.size=901;
+   fs.open("external-append.dat","rwa");check(p.named("external-append.dat")==appendTarget&&appendTarget.size==901&&p.lastMode.equals("rw"),"append update refreshes stale miss and never truncates externally created file");
+   fs.open("created-append.dat","rwa");check(p.named("created-append.dat").size==0&&p.lastMode.equals("rw"),"append update creates missing file without truncating mode");
    rejects(()->fs.remove("savedata/deep",true));rejects(()->fs.remove("",true));
    fs.remove("savedata/deep/new.dat",false);fs.remove("savedata/deep",true);check(fs.stat("savedata/deep")[0]==0,"only empty directories deleted");
    p.createPipe=true;rejects(()->fs.open("new-pipe","rwt"));check(p.named("new-pipe")==null,"failed new descriptor cleans only created file");p.createPipe=false;
    Node duplicate=p.add("SCRIPT.NOA","root",false);rejects(()->fs.list(""));p.nodes.remove(duplicate.id);
    Node latin=p.add("I.dat","root",false),dotless=p.add("ı.dat","root",false);rejects(()->fs.stat("i.dat"));p.nodes.remove(latin.id);p.nodes.remove(dotless.id);
-   p.deny=true;rejects(()->fs.stat("Script.noa"));p.deny=false;
+   fs.stat("Script.noa");
+   p.deny=true;rejects(()->fs.stat("Script.noa"));rejects(()->fs.listEntries(""));p.deny=false;
+   p.grants=Collections.emptyList();rejects(()->fs.stat("Script.noa"));p.grants=Arrays.asList(new UriPermission(TREE,true,true));
    p.grants=Arrays.asList(new UriPermission(TREE,true,false));rejects(()->access(root,p));p.grants=Arrays.asList(new UriPermission(TREE,true,true));
-   archive.name="changed.noa";check(fs.stat("Script.noa")[0]==0&&fs.stat("changed.noa")[0]==1,"no stale provider name cache");
+   fs.stat("Script.noa");archive.name="changed.noa";SystemClock.expire();check(fs.stat("Script.noa")[0]==0&&fs.stat("changed.noa")[0]==1,"external rename visible after bounded cache lifetime");
+   Node oldId=p.add("replacement.noa","root",false);fs.list("");p.nodes.remove(oldId.id);p.add("replacement.noa","root",false);
+   int beforeOpen=p.openCalls;check(fs.open("replacement.noa","r")==42&&p.openCalls-beforeOpen==2,"read open refreshes once after external opaque-ID replacement");
+   check(fs.stat("external.noa")[0]==0,"prime external negative lookup");p.add("external.noa","root",false);SystemClock.expire();check(fs.stat("external.noa")[0]==1,"external creation expires negative lookup");
+   Node removed=p.named("external.noa");p.nodes.remove(removed.id);SystemClock.expire();check(fs.stat("external.noa")[0]==0,"external removal expires positive lookup");
+   check(fs.stat("instant")[0]==0,"prime directory creation miss");fs.mkdir("instant");check(fs.stat("instant")[0]==2,"mkdir invalidates negative lookup immediately");
+   DocumentTreeAccess.Listing empty=fs.listEntries("instant");check(empty.names.length==0&&empty.metadata.length==0,"empty directory batch");
    Node source=p.add("stage.dat","root",false);Node target=p.add("save.dat","root",false);source.size=101;target.size=55;
    fs.rename("stage.dat","save.dat");check(fs.stat("save.dat")[1]==101&&p.named("stage.dat")==null,"replacement with changing opaque ids");
    check(p.nodes.values().stream().noneMatch(n->n.name.startsWith(".entis-save-backup-")),"confirmed replacement cleans predecessor");
@@ -97,6 +122,19 @@ public class DocumentTreeTest {
    p.crashRename=0;fs=access(root,p);check(fs.stat("save.dat")[1]==202,"startup preserves published replacement");
    check(p.nodes.values().stream().anyMatch(n->n.name.startsWith(".entis-save-backup-")&&n.size==101),"ambiguous interrupted completion retains predecessor");
    final DocumentTreeAccess ready=fs;rejects(()->ready.rename("save.dat","savedata/save.dat"));
+   Provider wide=new Provider();for(int i=0;i<512;++i)wide.add("resource-"+i+".noa","root",false);
+   DocumentTreeAccess indexed=access(root,wide);String[] resources=indexed.list("");
+   beforeChildren=wide.childQueries;beforeRows=wide.queriedRows;beforeCalls=wide.resolverCalls;
+   for(String resource:resources)check(indexed.stat(resource)[0]==1,"enumerated resource stat");
+   check(wide.childQueries==beforeChildren&&wide.queriedRows-beforeRows==512&&wide.resolverCalls-beforeCalls==512,"list then stat scales linearly in provider rows and calls");
+   beforeCalls=wide.resolverCalls;beforeRows=wide.queriedRows;beforeChildren=wide.childQueries;
+   DocumentTreeAccess.Listing batch=indexed.listEntries("");
+   check(Arrays.equals(batch.names,resources)&&batch.metadata.length==512*4,"batch preserves ordered filenames and corresponding metadata");
+   for(int i=0;i<batch.names.length;++i)check(batch.metadata[i*4]==1&&batch.metadata[i*4+1]==73&&batch.metadata[i*4+2]==10&&batch.metadata[i*4+3]==1,"batch metadata fields");
+   check(wide.resolverCalls-beforeCalls==2&&wide.queriedRows-beforeRows==513&&wide.childQueries-beforeChildren==1,"native batch needs two provider calls for 512 files instead of N stat calls");
+   for(int i=0;i<70;++i){Node dir=wide.add("dir-"+i,"root",true);wide.add("item",dir.id,false);}SystemClock.expire();
+   for(int i=0;i<70;++i)check(indexed.stat("dir-"+i+"/item")[0]==1,"nested directory lookup");
+   beforeChildren=wide.childQueries;check(indexed.stat("dir-0/item")[0]==1&&wide.childQueries-beforeChildren==1,"least recently used directory is evicted at cache bound");
    System.out.println("PASS "+count+" SAF filesystem/transaction checks (host fake provider; Android device testing still required)");
   } finally {try(java.util.stream.Stream<Path> paths=Files.walk(root)){paths.sorted(Comparator.reverseOrder()).forEach(p->{try{Files.delete(p);}catch(IOException e){throw new RuntimeException(e);}});}}
  }

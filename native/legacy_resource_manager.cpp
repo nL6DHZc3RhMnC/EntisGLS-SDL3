@@ -2,6 +2,7 @@
 #include "legacy_resource_manager.h"
 #include "../tools/legacy_serialization.h"
 #include "platform/log.h"
+#include <chrono>
 #include <cwchar>
 
 IMPLEMENT_CLASS_INFO(ECSResourceManager, ECSGlobal)
@@ -17,6 +18,7 @@ void ECSResourceManager::Release() {
     filename_ = L"";
 }
 ESLError ECSResourceManager::ReadSkinFile(ESLFileObject& file) {
+    const auto started = std::chrono::steady_clock::now();
     Release();
     auto* copy = file.Duplicate();
     if (!copy) return eslErrGeneral;
@@ -35,8 +37,10 @@ ESLError ECSResourceManager::ReadSkinFile(ESLFileObject& file) {
         AddVariable(*resources.GetTagAt(i), resource.release());
     }
     skin_ = std::move(skin);
-    study::platform::LogPrint(study::platform::LogPriority::Info, "StudySteady", "Legacy skin loaded: resources=%zu forms=%zu",
-        resources.GetLength(), skin_->GetFormDefinitions().GetLength());
+    study::platform::LogPrint(study::platform::LogPriority::Info, "StudySteady",
+        "Legacy skin loaded: resources=%zu forms=%zu decode_attach_ms=%.1f",
+        resources.GetLength(), skin_->GetFormDefinitions().GetLength(),
+        std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - started).count());
     return eslErrSuccess;
 }
 ESLError ECSResourceManager::LoadSkinFile(const wchar_t* path, ECSContext& context) {

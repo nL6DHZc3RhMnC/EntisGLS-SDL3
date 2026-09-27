@@ -127,8 +127,11 @@ else()
                 XCODE_ATTRIBUTE_SUPPORTS_MACCATALYST NO
                 XCODE_ATTRIBUTE_ENABLE_BITCODE NO)
             target_sources(studysteady_sdl PRIVATE native/platform/sdl/ios_launcher.mm
+                native/platform/sdl/ios_gl_context.mm
+                native/platform/sdl/ios_presentation_smoke.cpp
                 native/platform/sdl/ios/LaunchScreen.storyboard)
-            set_source_files_properties(native/platform/sdl/ios_launcher.mm PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
+            set_source_files_properties(native/platform/sdl/ios_launcher.mm
+                native/platform/sdl/ios_gl_context.mm PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
             set_source_files_properties(native/platform/sdl/ios/LaunchScreen.storyboard PROPERTIES
                 MACOSX_PACKAGE_LOCATION Resources)
             find_library(STUDY_UIKIT_FRAMEWORK UIKit REQUIRED)

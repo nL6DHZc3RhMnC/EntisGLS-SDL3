@@ -4,6 +4,7 @@
 #include "platform/sdl/main_thread.h"
 #include "platform/sdl/gl_window_lease.h"
 #include "platform/sdl/presentation.h"
+#include "platform/sdl/gl_drawable.h"
 #include "platform/sdl/system.h"
 #include <algorithm>
 #include <cmath>
@@ -531,7 +532,7 @@ void SGLGenericWindow::DrawSDLFrame() {
         if (drawn && StateFor(this) && m_flagCreated && !state->closing &&
                 study::platform::sdl::IsWindowPresentable(state->window)) {
             if (frameObserver) frameObserver(state->window, frameObserverUser);
-            if (!SDL_GL_SwapWindow(state->window)) Trace("SDL frame present: %s\n", SDL_GetError());
+            if (!study::platform::sdl::PresentWindow(state->window)) Trace("SDL frame present: %s\n", SDL_GetError());
         }
     }
 }

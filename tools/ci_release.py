@@ -75,7 +75,7 @@ def prepare(directory, environment):
         '- macOS apps have ad-hoc signatures; they are not Developer ID signed or notarized.',
         f"- iOS: experimental ARM64 iPhone/iPad IPA, iOS {ios_info.get('MinimumOSVersion', ios.get('minimum_os', '13.0'))} or newer.",
         '- The iOS IPA is unsigned. Sign it locally with your own Apple development identity and device provisioning profile before installation.',
-        '- iOS checks cover the device build, package contents, and Mach-O platform; simulator startup and physical-device gameplay are not tested by this workflow.',
+        '- iOS checks cover the device build, package contents, Mach-O platform, Simulator game-library startup and GLES presentation screenshots. Physical-device gameplay is not tested by this workflow.',
         '- No Apple account, signing certificate, or provisioning profile is used by the iOS build.',
         '- Game scripts and resource archives are not included. Supported games must be supplied separately.',
         '- Native checks use synthetic fixtures; they do not certify compatibility with every game.',
