@@ -61,7 +61,8 @@ jobs:
           print(json.dumps(identity, indent=2))
           PYTOOLCHAIN
       - name: Restore compiler cache
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        id: compiler-cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: ${{ env.CCACHE_DIR }}
           key: ccache-v1-ios-simulator-arm64-${{ steps.compiler.outputs.identity }}-${{ github.sha }}-${{ github.run_attempt }}
@@ -83,11 +84,18 @@ jobs:
       - name: Build simulator app
         run: |
           python3 tools/build/build_sdl_ios.py --sdk iphonesimulator --jobs 3 2>&1 | tee build/ci/ios-simulator.log
+      - name: Verify compiler cache handled compilation
+        run: python3 tools/ci/ci_compiler_cache_stats.py --output build/ci/ccache.json --require-compilations
+      # A runtime failure should not discard a successful native compilation.
+      - name: Save compiler cache before Simulator checks
+        if: steps.compiler-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ${{ steps.compiler-cache.outputs.cache-primary-key }}
       - name: Verify library and GLES presentation on iPhone Simulator
         run: |
           python3 tools/ci/ci_ios_simulator_smoke.py --app artifacts/entisgls-launcher/ios-simulator-arm64/EntisGLSLauncher.app --output artifacts/ios-smoke
-      - name: Verify compiler cache handled compilation
-        run: python3 tools/ci/ci_compiler_cache_stats.py --output build/ci/ccache.json --require-compilations
       - name: Report compiler cache statistics
         if: always() && steps.compiler.outcome == 'success'
         run: python3 tools/ci/ci_compiler_cache_stats.py --output build/ci/ccache.json

@@ -50,6 +50,16 @@ explicit termination are used because SDL UIKit does not exit when SDL_main
 returns. Build logs, screenshots and the smoke report remain in Actions artifacts.
 These diagnostics do not establish physical-device gameplay compatibility.
 
+The harness launches the app with separate stdout/stderr files and verifies the
+returned Simulator process PID before accepting readiness or a screenshot. Its
+report records each command and stage. Failures retain the original error,
+available screenshots, app process samples and filtered system logs; termination
+or device cleanup errors are reported separately and still fail the run.
+
+The Simulator workflow saves its compiler cache after a successful build, before
+runtime checks, so a Simulator startup failure does not discard compiled objects
+needed by the next diagnostic run.
+
 ## Caches shared across workflow runs
 
 Every build job restores and saves a bounded `ccache` directory under

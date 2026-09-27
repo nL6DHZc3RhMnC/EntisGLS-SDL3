@@ -222,6 +222,10 @@ static int RunApplication(int argc, char** argv) {
     }
     InstallStdoutLogging();
 #if defined(SDL_PLATFORM_IOS)
+    if (cliMode) {
+        std::fputs("IOS_DIAGNOSTIC_SDL_READY\n", stderr);
+        std::fflush(stderr);
+    }
     iosBackground.store(false, std::memory_order_release);
     if (!SDL_AddEventWatch(IOSLifecycleEvent, nullptr)) throw std::runtime_error(SDL_GetError());
 #endif
@@ -468,6 +472,18 @@ static int RunApplication(int argc, char** argv) {
 
 int main(int argc, char** argv) {
 #if defined(SDL_PLATFORM_IOS)
+    // Identify smoke launches before SDL initialization. A startup failure must
+    // retain its exit code rather than entering the interactive library retry
+    // loop, and this marker distinguishes app startup from simctl attachment.
+    for (int i = 1; i < argc; ++i) {
+        if (SDL_strcmp(argv[i], "--library-smoke") == 0 ||
+            SDL_strcmp(argv[i], "--ios-presentation-smoke") == 0) {
+            cliMode = true;
+            std::fputs("IOS_DIAGNOSTIC_MAIN_ENTERED\n", stderr);
+            std::fflush(stderr);
+            break;
+        }
+    }
     // A failed import/configuration must leave the library usable, and an
     // ordinary game exit returns to it. Diagnostic launches retain exit codes.
     for (;;) {
