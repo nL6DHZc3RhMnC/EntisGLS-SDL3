@@ -14,6 +14,9 @@
 #include "platform/sdl/sdl_sound_player.h"
 #include "platform/sdl/sdk_image_codec.h"
 #include "platform/sdl/image_codec.h"
+#if defined(SDL_PLATFORM_IOS)
+#include "platform/sdl/ios_launcher.h"
+#endif
 #include "platform/gl.h"
 #include <algorithm>
 #include <atomic>
@@ -31,6 +34,20 @@ SakuraGL::SGLError sglStaticFinalize() { return SakuraGL::sglErrSuccess; }
 
 namespace {
 bool cliMode = false;
+#if defined(SDL_PLATFORM_IOS)
+std::atomic<bool> iosBackground{false};
+bool IOSLifecycleEvent(void*, SDL_Event* event) {
+    if (event->type == SDL_EVENT_WILL_ENTER_BACKGROUND || event->type == SDL_EVENT_DID_ENTER_BACKGROUND) {
+        iosBackground.store(true, std::memory_order_release);
+        // iOS can suspend us before the next event-poll iteration. Finish any
+        // submitted GL commands while the app is still allowed to use GLES.
+        if (event->type == SDL_EVENT_WILL_ENTER_BACKGROUND && SDL_GL_GetCurrentContext()) glFinish();
+    } else if (event->type == SDL_EVENT_DID_ENTER_FOREGROUND) {
+        iosBackground.store(false, std::memory_order_release);
+    }
+    return true;
+}
+#endif
 namespace fs = std::filesystem;
 std::string ReadAsset(const std::string& root, const char* relative) {
     const auto path = root.empty() ? std::string(relative) : (fs::path(root) / relative).string();
@@ -138,7 +155,9 @@ void CaptureFrame(SDL_Window* window, void* userdata) {
     image.pixels.resize(size_t(image.width) * image.height * 4);
     GLint framebuffer = 0;
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &framebuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    const auto drawable = SDL_GetNumberProperty(SDL_GetWindowProperties(window),
+        SDL_PROP_WINDOW_UIKIT_OPENGL_FRAMEBUFFER_NUMBER, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, GLuint(drawable));
     glReadPixels(0, 0, image.width, image.height, GL_RGBA, GL_UNSIGNED_BYTE, image.pixels.data());
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
     const auto stride = size_t(image.width) * 4;
@@ -213,6 +232,10 @@ static int RunApplication(int argc, char** argv) {
         return 1;
     }
     InstallStdoutLogging();
+#if defined(SDL_PLATFORM_IOS)
+    iosBackground.store(false, std::memory_order_release);
+    if (!SDL_AddEventWatch(IOSLifecycleEvent, nullptr)) throw std::runtime_error(SDL_GetError());
+#endif
     SystemPaths paths;
     const char* preference = SDL_GetPrefPath("EntisGLS", "Launcher");
     if (!preference) { SDL_Quit(); return 1; }
@@ -226,6 +249,11 @@ static int RunApplication(int argc, char** argv) {
 #else
     paths.assetsRoot = (std::filesystem::path(SDL_GetBasePath()) / "assets").string();
     paths.gameRoot = (std::filesystem::path(SDL_GetBasePath()) / "game").string();
+#if defined(SDL_PLATFORM_IOS)
+    const char* documents = SDL_GetUserFolder(SDL_FOLDER_DOCUMENTS);
+    if (!documents) throw std::runtime_error(SDL_GetError());
+    paths.storageRoot = documents;
+#endif
 #endif
     std::wstring runtimeArguments;
     double exitAfter = 0;
@@ -238,9 +266,15 @@ static int RunApplication(int argc, char** argv) {
     std::optional<uint32_t> commandLineKey;
     std::optional<std::string> saveKey;
     bool configureGame = false;
+#if defined(SDL_PLATFORM_IOS)
+    bool librarySmoke = false;
+#endif
     for (int i = 1; i < argc; ++i) {
         const std::string argument = argv[i];
         if (argument == "--legacy-local-data") legacyLocalData = true;
+#if defined(SDL_PLATFORM_IOS)
+        else if (argument == "--library-smoke") { librarySmoke = true; cliMode = true; }
+#endif
         else if (argument == "--inspect-game") { inspectOnly = true; cliMode = true; }
         else if (argument == "--configure-game") configureGame = true;
         else if (i + 1 < argc && argument == "--psb-key") {
@@ -289,6 +323,12 @@ static int RunApplication(int argc, char** argv) {
     const fs::path applicationData = paths.localRoot;
     fs::create_directories(applicationData);
     fs::path legacyData;
+#if defined(SDL_PLATFORM_IOS)
+    if (!explicitGameDirectory && !ChooseIOSLibraryGame(paths.storageRoot, paths.gameRoot,
+            librarySmoke ? (exitAfter > 0 ? exitAfter : 3) : 0)) {
+        SDL_Quit(); return 0;
+    }
+#endif
 #if !defined(SDL_PLATFORM_ANDROID) && !defined(SDL_PLATFORM_IOS)
     if (char* old = SDL_GetPrefPath("StudySteady", "StudySteady")) { legacyData = old; SDL_free(old); }
     const auto library = applicationData / "game-library.txt";
@@ -391,7 +431,13 @@ static int RunApplication(int argc, char** argv) {
             ProcessWindowEvent(event);
         }
         // Keep servicing GL destruction/queued calls even after closing a window.
+#if defined(SDL_PLATFORM_IOS)
+        // UIKit forbids any GLES work after entering the background, including
+        // queued uploads and deletion tasks. Resume servicing them on return.
+        if (!iosBackground.load(std::memory_order_acquire)) DrawWindows();
+#else
         DrawWindows();
+#endif
         if (!psbFailure && entis::launcher::HasGamePsbKeyError()) {
             psbFailure = true;
             AbortLegacyGame();
@@ -425,6 +471,22 @@ static int RunApplication(int argc, char** argv) {
 }
 
 int main(int argc, char** argv) {
+#if defined(SDL_PLATFORM_IOS)
+    // A failed import/configuration must leave the library usable, and an
+    // ordinary game exit returns to it. Diagnostic launches retain exit codes.
+    for (;;) {
+        try {
+            const int result = RunApplication(argc, argv);
+            if (cliMode) return result;
+        } catch (const std::exception& error) {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "EntisGLS Launcher: %s", error.what());
+            if (SDL_WasInit(SDL_INIT_VIDEO) && !cliMode)
+                SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "EntisGLS Launcher", error.what(), nullptr);
+            SDL_Quit();
+            if (cliMode) return 1;
+        }
+    }
+#else
     try { return RunApplication(argc, argv); }
     catch (const std::exception& error) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "EntisGLS Launcher: %s", error.what());
@@ -433,4 +495,5 @@ int main(int argc, char** argv) {
         SDL_Quit();
         return 1;
     }
+#endif
 }

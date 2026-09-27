@@ -122,6 +122,21 @@ SDL_free(variables);
     # them under one Android API guard, duplicating GLES3 core declarations.
     ext_header = out/'Include/opengl/sakuragl/sgl_opengl_extension.h'
     text = generated[ext_header]
+    # The same GLES 3.0 API is shipped in OpenGLES.framework on iOS. Keep the
+    # Khronos include layout unchanged for Android and other GLES platforms.
+    es_start = text.index('#define\tGL_GLEXT_PROTOTYPES')
+    es_end = text.index('\n#else\n', es_start)
+    es_headers = text[es_start:es_end]
+    if '#include <GLES3/gl3.h>' not in es_headers:
+        raise ValueError('SDK GLES header block changed')
+    text = text[:es_start] + '''#if defined(__APPLE__)
+#include <OpenGLES/ES1/gl.h>
+#include <OpenGLES/ES1/glext.h>
+#include <OpenGLES/ES3/gl.h>
+#include <OpenGLES/ES3/glext.h>
+#include <OpenGLES/ES2/glext.h>
+#else
+''' + es_headers + '\n#endif\n' + text[es_end:]
     old_pointer_types = '''\t#if\tdefined(__PROCESSOR_INTEL_X86_64__)
 //\t\ttypedef int64_t\t\tptrdiff_t ;
 \t#else
@@ -135,7 +150,46 @@ SDL_free(variables);
     for name in ('glTexStorage2D', 'glTexStorage3D'):
         line = next(line for line in text.splitlines() if 'extern' in line and line.rstrip().endswith(name+' ;'))
         text = text.replace(line, '#if !defined(STUDYSTEADY_GL_ES) || (STUDYSTEADY_GL_API_LEVEL < 18)\n'+line+'\n#endif')
+    old_3d_framebuffer = '\t#define\tglFramebufferTexture3D\t\tglFramebufferTexture3DOES'
+    if text.count(old_3d_framebuffer) != 1: raise ValueError('SDK GLES 3D attachment alias changed')
+    text = text.replace(old_3d_framebuffer, '''#if defined(__APPLE__)
+    // iOS provides 3D texture attachment through GLES 3.0 core, not OES_texture_3D.
+    #define glFramebufferTexture3D(target, attachment, textarget, texture, level, layer) \\
+        glFramebufferTextureLayer(target, attachment, texture, level, layer)
+#else
+''' + old_3d_framebuffer + '\n#endif')
     generated[ext_header] = text
+
+    # SDK framebuffer zero means the window drawable. UIKit's drawable is an
+    # SDL-owned EAGL FBO; retain the meaning when attaching and blitting it.
+    for filename in ('sgl_opengl_context.cpp', 'sgl_opengl_render_context.cpp'):
+        target = out/'Source/opengl/sakuragl'/filename
+        text = generated[target]
+        text = '#include "platform/sdl/gl_drawable.h"\n' + text
+        import re
+        calls = list(re.finditer(r'^\s*glBindFramebuffer\s*\(', text, re.MULTILINE))
+        expected = 7 if filename == 'sgl_opengl_context.cpp' else 6
+        if len(calls) != expected: raise ValueError(f'SDK framebuffer calls changed: {filename}')
+        for call in reversed(calls):
+            start = call.end()
+            depth = 1
+            comma = None
+            end = start
+            while depth:
+                character = text[end]
+                if character == '(': depth += 1
+                elif character == ')': depth -= 1
+                elif character == ',' and depth == 1: comma = end
+                end += 1
+            if comma is None: raise ValueError('SDK framebuffer argument list changed')
+            argument = text[comma + 1:end - 1].strip()
+            text = text[:comma + 1] + ' study::platform::sdl::ResolveWindowFramebuffer(' + argument + ') ' + text[end - 1:]
+        if filename == 'sgl_opengl_render_context.cpp':
+            if text.count('glDrawBuffer( GL_BACK )') != 3:
+                raise ValueError('SDK window draw-buffer calls changed')
+            text = text.replace('glDrawBuffer( GL_BACK )',
+                'glDrawBuffer( study::platform::sdl::WindowBackBuffer() )')
+        generated[target] = text
 
     original_header = (COTOPHA/'Include/opengl/sakuragl/sgl_opengl_extension.h').read_text(encoding='utf-8-sig')
     import re

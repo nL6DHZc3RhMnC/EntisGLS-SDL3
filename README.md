@@ -56,6 +56,10 @@ GitHub Actions 自动构建 Android ARM64、macOS Intel 和 Apple Silicon。
 首次运行需配置持久的 Android 签名 Secrets；配置与触发规则见
 [GitHub Actions 说明](docs/github-actions.md)。构建不需要提供游戏资源。
 
+iOS 使用独立的实验构建流程，生成 ARM64 未签名 IPA，并在 iPhone 模拟器上检查启动器界面。
+通过后发布 `ios-dev-*` 预发布版本；安装到真机前需要在本地使用自己的 Apple 账号签名。
+构建、文件导入和签名限制见 [iOS 说明](docs/ios-build.md)。
+
 ```sh
 python3 tools/setup_android.py
 python3 tools/setup_sdl3.py

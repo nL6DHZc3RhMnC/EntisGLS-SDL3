@@ -105,10 +105,39 @@ if(ANDROID)
 else()
     add_executable(studysteady_sdl ${SDL_APP_SOURCES})
     set_target_properties(studysteady_sdl PROPERTIES OUTPUT_NAME entisgls-launcher)
-    if(APPLE AND NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    if(APPLE)
         set_target_properties(studysteady_sdl PROPERTIES MACOSX_BUNDLE TRUE
-            OUTPUT_NAME EntisGLSLauncher
-            MACOSX_BUNDLE_INFO_PLIST "${STUDYSTEADY_ROOT}/native/platform/sdl/macos/Info.plist")
+            OUTPUT_NAME EntisGLSLauncher)
+        if(CMAKE_SYSTEM_NAME STREQUAL "iOS")
+            enable_language(OBJCXX)
+            set(ENTISGLS_IOS_BUNDLE_IDENTIFIER "io.entisgls.launcher" CACHE STRING "iOS bundle identifier")
+            if(CMAKE_OSX_SYSROOT MATCHES "[Ss]imulator")
+                set(ENTISGLS_IOS_PLATFORM iPhoneSimulator)
+            else()
+                set(ENTISGLS_IOS_PLATFORM iPhoneOS)
+            endif()
+            set_target_properties(studysteady_sdl PROPERTIES
+                OBJCXX_STANDARD 17
+                OBJCXX_STANDARD_REQUIRED YES
+                MACOSX_BUNDLE_INFO_PLIST "${STUDYSTEADY_ROOT}/native/platform/sdl/ios/Info.plist"
+                MACOSX_BUNDLE_GUI_IDENTIFIER "${ENTISGLS_IOS_BUNDLE_IDENTIFIER}"
+                XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "${ENTISGLS_IOS_BUNDLE_IDENTIFIER}"
+                XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2"
+                XCODE_ATTRIBUTE_SUPPORTS_MACCATALYST NO
+                XCODE_ATTRIBUTE_ENABLE_BITCODE NO)
+            target_sources(studysteady_sdl PRIVATE native/platform/sdl/ios_launcher.mm
+                native/platform/sdl/ios/LaunchScreen.storyboard)
+            set_source_files_properties(native/platform/sdl/ios_launcher.mm PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
+            set_source_files_properties(native/platform/sdl/ios/LaunchScreen.storyboard PROPERTIES
+                MACOSX_PACKAGE_LOCATION Resources)
+            find_library(STUDY_UIKIT_FRAMEWORK UIKit REQUIRED)
+            find_library(STUDY_FOUNDATION_FRAMEWORK Foundation REQUIRED)
+            target_link_libraries(studysteady_sdl PRIVATE
+                "${STUDY_UIKIT_FRAMEWORK}" "${STUDY_FOUNDATION_FRAMEWORK}")
+        else()
+            set_target_properties(studysteady_sdl PROPERTIES
+                MACOSX_BUNDLE_INFO_PLIST "${STUDYSTEADY_ROOT}/native/platform/sdl/macos/Info.plist")
+        endif()
         file(GLOB_RECURSE SDL_FONT_ASSETS CONFIGURE_DEPENDS
             "${STUDYSTEADY_ROOT}/assets/fonts/*" "${STUDYSTEADY_ROOT}/assets/licenses/*"
             "${STUDYSTEADY_ROOT}/assets/compatibility/*")
@@ -126,10 +155,12 @@ else()
     endif()
 endif()
 target_link_libraries(studysteady_sdl PRIVATE legacy_objects legacy_foundation gls4_sdl motion_apk_runtime freetype z)
-add_executable(sdl_system_test EXCLUDE_FROM_ALL native/platform/sdl/tests/system_test.cpp)
-target_link_libraries(sdl_system_test PRIVATE gls4_sdl)
+if(NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    add_executable(sdl_system_test EXCLUDE_FROM_ALL native/platform/sdl/tests/system_test.cpp)
+    target_link_libraries(sdl_system_test PRIVATE gls4_sdl)
+endif()
 
-if(NOT ANDROID)
+if(NOT ANDROID AND NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
     add_executable(psb_key_resolver_test EXCLUDE_FROM_ALL native/launcher/tests/psb_key_resolver_test.cpp)
     target_link_libraries(psb_key_resolver_test PRIVATE entis_psb_keys)
     add_executable(psb_key_settings_test EXCLUDE_FROM_ALL native/launcher/tests/psb_key_settings_test.cpp)

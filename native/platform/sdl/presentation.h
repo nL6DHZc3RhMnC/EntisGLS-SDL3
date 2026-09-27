@@ -7,6 +7,11 @@
 namespace study::platform::sdl {
 
 inline bool ConfigureImmediatePresentation() {
+#if defined(SDL_PLATFORM_IOS)
+    // SDL's UIKit driver presents EAGL directly and implements neither swap
+    // interval callback. Our WindowFramePacer still limits frames to 60 Hz.
+    return SDL_GL_GetCurrentContext() != nullptr;
+#else
     // The SDL event thread also services synchronous script/decoder requests.
     // It must not wait for a display-link callback inside SwapWindow (which
     // can stop arriving while Cocoa windows are hidden or occluded).
@@ -15,6 +20,7 @@ inline bool ConfigureImmediatePresentation() {
     if (!SDL_GL_GetSwapInterval(&interval)) return false;
     if (interval != 0) return SDL_SetError("GL driver retained blocking swap interval %d", interval);
     return true;
+#endif
 }
 
 inline bool IsWindowPresentable(SDL_Window* window) {

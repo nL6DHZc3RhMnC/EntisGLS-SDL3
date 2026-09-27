@@ -5,8 +5,12 @@
 #define GL_GLEXT_PROTOTYPES 1
 #endif
 #include <SDL3/SDL_video.h>
+#if defined(SDL_PLATFORM_IOS)
+#include <OpenGLES/ES3/gl.h>
+#else
 #include <SDL3/SDL_opengl.h>
 #include <SDL3/SDL_opengl_glext.h>
+#endif
 #include <stdexcept>
 #include <string>
 
