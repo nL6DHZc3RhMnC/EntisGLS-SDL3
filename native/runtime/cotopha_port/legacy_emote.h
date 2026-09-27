@@ -66,7 +66,11 @@ private:
     float scale_ = 1, coordX_ = 0, coordY_ = 0;
     bool restorePlayer_ = false;
     std::string timeline_;
+    std::string defaultTimeline_;
     std::deque<std::string> timelineQueue_;
+    double physicsWeight_ = 1;
+    bool physicsAnimation_ = true;
+    bool pendingPhysicsDraw_ = false;
     std::vector<uint8_t> framePixels_;
     ECSReference device_, voice_;
     std::string voiceVariable_;

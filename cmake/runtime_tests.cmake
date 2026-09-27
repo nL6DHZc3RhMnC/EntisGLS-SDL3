@@ -6,6 +6,8 @@ if(NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
 endif()
 
 if(NOT ANDROID AND NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    add_executable(motion_atlas_projection_test EXCLUDE_FROM_ALL tests/unit/launcher/atlas_projection_test.cpp)
+    target_include_directories(motion_atlas_projection_test PRIVATE "${STUDYSTEADY_ROOT}/native")
     add_executable(mobile_orientation_test EXCLUDE_FROM_ALL tests/unit/platform/mobile_orientation_test.cpp
         native/platform/sdl/mobile_orientation.cpp)
     target_link_libraries(mobile_orientation_test PRIVATE study_sdl_platform)
@@ -24,7 +26,17 @@ if(NOT ANDROID AND NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
     add_executable(make_csx_fixture EXCLUDE_FROM_ALL tests/fixtures/make_csx_fixture.cpp "${LEGACY_HEAP_SDK}"
         native/compatibility/games/compatibility_profiles.cpp native/platform/sdl/game_font_aliases.cpp native/platform/sdl/opentype_font.cpp)
     target_link_libraries(make_csx_fixture PRIVATE legacy_objects legacy_foundation gls4_sdl motion_apk_runtime freetype)
-    add_executable(launcher_config_test EXCLUDE_FROM_ALL tests/integration/launcher/game_config_test.cpp native/launcher/game_config.cpp)
+    add_executable(legacy_speech_test EXCLUDE_FROM_ALL tests/integration/cotopha/legacy_speech_test.cpp "${LEGACY_HEAP_SDK}"
+        native/compatibility/games/compatibility_profiles.cpp native/platform/sdl/game_font_aliases.cpp native/platform/sdl/opentype_font.cpp)
+    target_link_libraries(legacy_speech_test PRIVATE legacy_objects legacy_foundation gls4_sdl motion_apk_runtime freetype)
+    add_executable(legacy_setup_fonts_test EXCLUDE_FROM_ALL tests/integration/cotopha/legacy_setup_fonts_test.cpp "${LEGACY_HEAP_SDK}"
+        native/compatibility/games/compatibility_profiles.cpp native/platform/sdl/game_font_aliases.cpp native/platform/sdl/opentype_font.cpp)
+    target_link_libraries(legacy_setup_fonts_test PRIVATE legacy_objects legacy_foundation gls4_sdl motion_apk_runtime freetype)
+    add_executable(legacy_emote_api_test EXCLUDE_FROM_ALL tests/integration/cotopha/legacy_emote_api_test.cpp "${LEGACY_HEAP_SDK}"
+        native/compatibility/games/compatibility_profiles.cpp native/platform/sdl/game_font_aliases.cpp native/platform/sdl/opentype_font.cpp)
+    target_link_libraries(legacy_emote_api_test PRIVATE legacy_objects legacy_foundation gls4_sdl motion_apk_runtime freetype)
+    add_executable(launcher_config_test EXCLUDE_FROM_ALL tests/integration/launcher/game_config_test.cpp
+        native/launcher/game_config.cpp native/launcher/archive_launch_fallback.cpp)
     target_link_libraries(launcher_config_test PRIVATE gls4_sdl)
     add_executable(launcher_fonts_test EXCLUDE_FROM_ALL tests/integration/launcher/generic_fonts_test.cpp
         native/platform/sdl/game_font_aliases.cpp native/platform/sdl/opentype_font.cpp native/compatibility/games/compatibility_profiles.cpp)

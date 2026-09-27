@@ -44,7 +44,8 @@ public:
 };
 
 // Reads configuration, never executes the game's Windows executable. Selection:
-// explicitConfig, entis-launcher.xml, cotopha.xml, then one EXE IDR_COTOMI.
+// explicitConfig, entis-launcher.xml, cotopha.xml, then one EXE IDR_COTOMI
+// (including intact PEs in its overlay), then verified script.noa/script.csx.
 // explicitConfig may name XML or an EXE inside gameDir. This discovers legacy
 // Cotopha .csx applications; other VM formats are reported as unsupported.
 // Safe before SDK/SDL initialization; uses the SDK's standalone ERISAN decoder

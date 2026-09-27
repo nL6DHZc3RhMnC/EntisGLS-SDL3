@@ -1,4 +1,5 @@
 #include "launcher/game_config.h"
+#include "launcher/archive_launch_fallback.h"
 #include "io/game_files.h"
 
 #include <sakuraglx/sakuraglx.h>
@@ -370,14 +371,16 @@ std::string DecodeConfig(const std::vector<uint8_t>& bytes) {
 
 // PE32 and PE32+ resource reader. All offsets are checked against file-backed
 // section bytes; virtual section tails are not readable file data.
-std::vector<std::vector<uint8_t>> Resources(const std::vector<uint8_t>& bytes) {
+std::vector<std::vector<uint8_t>> Resources(const std::vector<uint8_t>& bytes,
+                                           std::size_t start, std::size_t& imageEnd) {
+    const auto available = bytes.size() - start;
     auto check = [&](std::size_t p, std::size_t n) {
-        if (p > bytes.size() || n > bytes.size() - p) throw ConfigError("Truncated PE resource data");
+        if (p > available || n > available - p) throw ConfigError("Truncated PE resource data");
     };
-    auto u16 = [&](std::size_t p) { check(p, 2); return unsigned(bytes[p]) | unsigned(bytes[p+1]) << 8; };
-    auto u32 = [&](std::size_t p) { check(p, 4); return uint32_t(bytes[p]) | uint32_t(bytes[p+1]) << 8 | uint32_t(bytes[p+2]) << 16 | uint32_t(bytes[p+3]) << 24; };
+    auto u16 = [&](std::size_t p) { check(p, 2); p += start; return unsigned(bytes[p]) | unsigned(bytes[p+1]) << 8; };
+    auto u32 = [&](std::size_t p) { check(p, 4); p += start; return uint32_t(bytes[p]) | uint32_t(bytes[p+1]) << 8 | uint32_t(bytes[p+2]) << 16 | uint32_t(bytes[p+3]) << 24; };
     check(0, 64);
-    if (bytes[0] != 'M' || bytes[1] != 'Z') throw ConfigError("Not a Windows PE executable");
+    if (bytes[start] != 'M' || bytes[start+1] != 'Z') throw ConfigError("Not a Windows PE executable");
     const std::size_t pe = u32(60);
     check(pe, 24);
     if (u32(pe) != 0x00004550) throw ConfigError("Invalid Windows PE signature");
@@ -387,10 +390,22 @@ std::vector<std::vector<uint8_t>> Resources(const std::vector<uint8_t>& bytes) {
     const auto magic = u16(optional);
     const std::size_t directories = magic == 0x10b ? 96 : magic == 0x20b ? 112 : 0;
     if (!directories || optionalSize < directories + 24) throw ConfigError("Unsupported PE optional header");
-    if (u32(optional + directories - 4) < 3) return {};
     if (sections == 0 || sections > 96) throw ConfigError("Invalid PE section count");
     const std::size_t sectionTable = optional + optionalSize;
     check(sectionTable, std::size_t(sections) * 40);
+    auto end = std::max<std::size_t>(sectionTable + std::size_t(sections) * 40, u32(optional + 60));
+    check(0, end);
+    for (unsigned i = 0; i < sections; ++i) {
+        const auto section = sectionTable + i * 40;
+        const auto size = u32(section + 16), offset = u32(section + 20);
+        if (!size) continue;
+        check(offset, size);
+        if (offset < sectionTable + std::size_t(sections) * 40)
+            throw ConfigError("PE section overlaps executable headers");
+        end = std::max(end, std::size_t(offset) + size);
+    }
+    imageEnd = start + end;
+    if (u32(optional + directories - 4) < 3) return {};
     auto rva = [&](uint32_t address, std::size_t length) -> std::size_t {
         for (unsigned i = 0; i < sections; ++i) {
             const auto section = sectionTable + i * 40;
@@ -414,6 +429,7 @@ std::vector<std::vector<uint8_t>> Resources(const std::vector<uint8_t>& bytes) {
         check(base + offset, length); return base + offset;
     };
     std::vector<std::vector<uint8_t>> results;
+    std::size_t payloadBytes = 0;
     std::set<uint32_t> visited;
     std::function<void(uint32_t, unsigned, bool)> walk = [&](uint32_t offset, unsigned depth, bool selected) {
         if (depth > 3 || !visited.insert(offset).second) throw ConfigError("Cyclic or over-nested PE resource directory");
@@ -422,6 +438,7 @@ std::vector<std::vector<uint8_t>> Resources(const std::vector<uint8_t>& bytes) {
         if (count > 4096) throw ConfigError("Too many PE resource entries");
         relative(offset + 16, std::size_t(count) * 8);
         for (unsigned i = 0; i < count; ++i) {
+            if (results.size() >= 2) return; // Already ambiguous; no need to retain more payloads.
             const auto name = u32(directory + 16 + i * 8), entry = u32(directory + 20 + i * 8);
             bool match = selected;
             if (depth == 0) match = name == 10; // RT_RCDATA.
@@ -446,14 +463,55 @@ std::vector<std::vector<uint8_t>> Resources(const std::vector<uint8_t>& bytes) {
                 const auto leaf = relative(entry, 16);
                 const auto address = u32(leaf), length = u32(leaf + 4);
                 if (length == 0 || length > maxXml * 4) throw ConfigError("Invalid IDR_COTOMI resource size");
+                if (length > maxXml * 16 - payloadBytes) throw ConfigError("IDR_COTOMI resources exceed discovery limits");
+                payloadBytes += length;
                 const auto data = rva(address, length);
-                std::vector<uint8_t> value(bytes.begin() + data, bytes.begin() + data + length);
+                std::vector<uint8_t> value(bytes.begin() + start + data, bytes.begin() + start + data + length);
                 if (std::find(results.begin(), results.end(), value) == results.end()) results.push_back(std::move(value));
             }
         }
     };
     walk(0, 0, false);
     return results;
+}
+
+struct ExecutableConfig {
+    std::vector<uint8_t> bytes;
+    std::size_t offset;
+};
+std::vector<ExecutableConfig> ExecutableConfigs(const std::vector<uint8_t>& bytes) {
+    std::size_t overlay = 0;
+    auto direct = Resources(bytes, 0, overlay);
+    std::vector<ExecutableConfig> result;
+    for (auto& resource : direct) result.push_back({std::move(resource), 0});
+    if (!result.empty()) return result;
+
+    // Some distributors prepend a launcher to an intact game PE. Only search
+    // outside the outer image's headers/sections, never execute the wrapper.
+    // Candidate count and the containing file size bound malformed input work.
+    unsigned candidates = 0;
+    for (std::size_t p = overlay; p < bytes.size() && bytes.size() - p >= 64; ++p) {
+        if (bytes[p] != 'M' || bytes[p+1] != 'Z') continue;
+        const std::size_t pe = uint32_t(bytes[p+60]) | uint32_t(bytes[p+61]) << 8 |
+            uint32_t(bytes[p+62]) << 16 | uint32_t(bytes[p+63]) << 24;
+        if (pe > bytes.size() - p - 4 || std::memcmp(bytes.data() + p + pe, "PE\0\0", 4)) continue;
+        if (++candidates > 64) throw ConfigError("Too many embedded PE candidates; provide entis-launcher.xml");
+        std::size_t next = p;
+        try {
+            auto resources = Resources(bytes, p, next);
+            for (auto& resource : resources) {
+                if (std::none_of(result.begin(), result.end(), [&](const auto& existing) { return existing.bytes == resource; }))
+                    result.push_back({std::move(resource), p});
+            }
+            if (result.size() >= 2) return result;
+            // A validated image can itself carry an overlay. Skip its mapped
+            // sections, then continue so conflicting appended configs are seen.
+            if (next > p) p = next - 1;
+        } catch (const ConfigError&) {
+            // A coincidental or truncated MZ/PE marker is not a launch config.
+        }
+    }
+    return result;
 }
 } // namespace
 
@@ -475,7 +533,16 @@ GameLaunchConfig NormalizeGameConfig(const fs::path& gameDir, const std::string&
     GameLaunchConfig result;
     result.configSource = source;
     if(repairedUtf8) result.warnings.push_back("Invalid UTF-8 in launch configuration was replaced with U+FFFD");
-    result.entryScript = Path(root, Attr(*script, "src"), false);
+    const auto declaredEntry = Attr(*script, "src");
+    // Native EntisGLS applications also use IDR_COTOMI environment documents,
+    // legitimately without a script entry. A readable config is not proof that
+    // the application can run in our traditional Cotopha interpreter.
+    if (declaredEntry.empty())
+        throw ConfigError("No Cotopha .csx entry script is declared in " + source +
+            " (missing or empty <" + script->GetTag() + " src>). "
+            "This launcher requires a CSX script entry; native Windows applications "
+            "and other script runtimes are not supported by this entry point.");
+    result.entryScript = Path(root, declaredEntry, false);
     if (Lower(fs::u8path(result.entryScript).extension().u8string()) != ".csx")
         throw ConfigError("Unsupported entry format '" + result.entryScript + "': this runtime currently supports traditional Cotopha .csx only");
     result.compatibilityProfile = Attr(*script, "profile");
@@ -631,13 +698,18 @@ GameLaunchConfig NormalizeGameConfig(const fs::path& gameDir, const std::string&
 
 GameLaunchConfig DiscoverGame(const fs::path& gameDir, const fs::path& explicitConfig) {
     const auto root = Root(gameDir);
+    auto fromExecutable = [&](const fs::path& path, const std::vector<ExecutableConfig>& resources) {
+        if (resources.empty()) throw ConfigError("Executable has no RCDATA/IDR_COTOMI launch configuration: " + path.u8string());
+        if (resources.size() != 1) throw ConfigError("Executable contains multiple different IDR_COTOMI configurations; provide entis-launcher.xml");
+        const auto& resource = resources.front();
+        auto source = path.filename().u8string();
+        if (resource.offset) source += ":embedded@" + std::to_string(resource.offset);
+        return NormalizeGameConfig(root, DecodeConfig(resource.bytes), source + ":IDR_COTOMI");
+    };
     auto read = [&](const fs::path& path) {
         CheckContained(root, path);
         if (Lower(path.extension().u8string()) == ".exe") {
-            const auto resources = Resources(ReadFile(path, maxExecutable));
-            if (resources.empty()) throw ConfigError("Executable has no RCDATA/IDR_COTOMI launch configuration: " + path.u8string());
-            if (resources.size() != 1) throw ConfigError("Executable contains multiple different IDR_COTOMI configurations; provide entis-launcher.xml");
-            return NormalizeGameConfig(root, DecodeConfig(resources.front()), path.filename().u8string() + ":IDR_COTOMI");
+            return fromExecutable(path, ExecutableConfigs(ReadFile(path, maxExecutable)));
         }
         const auto bytes = ReadFile(path, maxXml);
         return NormalizeGameConfig(root, std::string(bytes.begin(), bytes.end()), path.filename().u8string());
@@ -647,7 +719,7 @@ GameLaunchConfig DiscoverGame(const fs::path& gameDir, const fs::path& explicitC
         const auto candidate = root / name;
         if (io::Stat(candidate).kind != io::FileInfo::Kind::Missing) return read(candidate);
     }
-    std::vector<fs::path> candidates;
+    std::vector<std::pair<fs::path, std::vector<ExecutableConfig>>> candidates;
     std::vector<std::string> scanErrors;
     unsigned count = 0;
     for (const auto& entry : io::List(root)) {
@@ -656,21 +728,27 @@ GameLaunchConfig DiscoverGame(const fs::path& gameDir, const fs::path& explicitC
         if (++count > 128) throw ConfigError("Too many executables to discover automatically; provide entis-launcher.xml");
         try {
             CheckContained(root, path);
-            if (!Resources(ReadFile(path, maxExecutable)).empty()) candidates.push_back(path);
+            auto resources = ExecutableConfigs(ReadFile(path, maxExecutable));
+            if (resources.size() == 1) DecodeConfig(resources.front().bytes);
+            if (!resources.empty()) candidates.emplace_back(path, std::move(resources));
         } catch (const ConfigError& error) { scanErrors.push_back(error.what()); }
     }
-    std::sort(candidates.begin(), candidates.end());
+    std::sort(candidates.begin(), candidates.end(), [](const auto& a, const auto& b) { return a.first < b.first; });
     if (candidates.empty()) {
+        if (auto fallback = DiscoverArchiveFallback(root)) {
+            fallback->warnings.insert(fallback->warnings.end(), scanErrors.begin(), scanErrors.end());
+            return *fallback;
+        }
         std::string message = "No launch configuration found. Supply entis-launcher.xml, cotopha.xml, or the original Windows EXE containing IDR_COTOMI alongside game resources.";
         if (!scanErrors.empty()) message += " First EXE read error: " + scanErrors.front();
         throw ConfigError(message);
     }
     if (candidates.size() != 1) {
         std::string message = "Multiple game executables contain launch configurations; select one explicitly or supply entis-launcher.xml:";
-        for (const auto& path : candidates) message += " " + path.filename().u8string();
+        for (const auto& candidate : candidates) message += " " + candidate.first.filename().u8string();
         throw ConfigError(message);
     }
-    auto result = read(candidates.front());
+    auto result = fromExecutable(candidates.front().first, candidates.front().second);
     result.warnings.insert(result.warnings.end(), scanErrors.begin(), scanErrors.end());
     return result;
 }

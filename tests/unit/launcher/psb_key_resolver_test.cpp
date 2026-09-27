@@ -54,6 +54,42 @@ std::vector<std::uint8_t> Pe(const std::vector<std::string>& keys,bool pe64=fals
     }
     return b;
 }
+struct InitializerPe {
+    std::vector<std::uint8_t> bytes;
+    std::size_t push, call, x, y, z, w, field;
+};
+InitializerPe PeInitializer(std::uint32_t key,const std::vector<std::string>& markers={},bool longDisplacement=false) {
+    InitializerPe fixture{Pe(markers),1536,0,0,0,0,0,800};
+    auto& b=fixture.bytes;b.resize(3072);
+    constexpr std::uint32_t imageBase=0x20000000,codeRva=8192,dataRva=4096;
+    U16(b,134,2);U32(b,152+28,imageBase);
+    constexpr std::size_t section=376+40;
+    std::memcpy(b.data()+section,".text",5);U32(b,section+8,1024);U32(b,section+12,codeRva);
+    U32(b,section+16,1024);U32(b,section+20,1536);U32(b,section+36,0x60000020);
+    const auto decimal=std::to_string(key);std::memcpy(b.data()+fixture.field,decimal.data(),decimal.size());
+    std::size_t at=fixture.push;
+    b[at++]=0x68;U32(b,at,imageBase+dataRva+fixture.field-512);at+=4;
+    const auto store=[&](bool immediate,int displacement,std::uint32_t value=0) {
+        const auto start=at;
+        b[at++]=immediate?0xc7:0x89;b[at++]=longDisplacement?0x85:0x45;
+        if (longDisplacement) { U32(b,at,static_cast<std::uint32_t>(displacement));at+=4; }
+        else b[at++]=static_cast<std::uint8_t>(displacement);
+        if (immediate) { U32(b,at,value);at+=4; }
+        return start;
+    };
+    if (longDisplacement) store(false,48); // independent EAX spill before conversion
+    fixture.call=at;b[at++]=0xe8;U32(b,at,static_cast<std::uint32_t>((1536+512)-(at+4)));at+=4;
+    if (longDisplacement) { b[at++]=0x83;b[at++]=0xc4;b[at++]=4; }
+    const int object=longDisplacement?-1024:-64;
+    store(true,object,imageBase+dataRva+128); // bounded vtable address
+    fixture.x=store(true,object+4,123456789u);
+    fixture.y=store(true,object+8,362436069u);
+    fixture.z=store(true,object+12,521288629u);
+    fixture.w=store(false,object+16);
+    store(true,object+20,0);store(true,object+24,0);
+    b[1536+512]=0xc3; // local conversion-call target; fixture code is never executed
+    return fixture;
+}
 void Write(const fs::path& p,const std::vector<std::uint8_t>& b) {
     std::ofstream out(p,std::ios::binary);out.write(reinterpret_cast<const char*>(b.data()),b.size());
     if (!out) throw std::runtime_error("test could not write fixture");
@@ -150,6 +186,49 @@ int main(int argc,char** argv) {
         Fails([&]{automatic.Resolve(encrypted.data(),encrypted.size());},"No supported E-mote key marker");
         invalid=Pe({std::to_string(key)});std::memcpy(invalid.data()+376,".text\0\0\0",8);Write(dll,invalid);
         Fails([&]{automatic.Resolve(encrypted.data(),encrypted.size());},"No supported E-mote key marker");
+        // Markerless discovery requires an actual x86 initializer reference,
+        // then the same checksum/range proof as every other candidate source.
+        auto initializer=PeInitializer(key);Write(dll,initializer.bytes);
+        Require(automatic.Resolve(encrypted.data(),encrypted.size())==key,"markerless xorshift initializer not discovered");
+        Write(dll,PeInitializer(key,{},true).bytes);
+        Require(automatic.Resolve(encrypted.data(),encrypted.size())==key,"disp32 initializer/spill/stack cleanup not discovered");
+        Write(dll,PeInitializer(other).bytes);
+        Fails([&]{automatic.Resolve(encrypted.data(),encrypted.size());},"candidates failed");
+        Write(dll,PeInitializer(other,{std::to_string(key)}).bytes);
+        Require(automatic.Resolve(encrypted.data(),encrypted.size())==key,"valid marker lost to unrelated initializer");
+        Write(dll,PeInitializer(key,{std::to_string(other)}).bytes);
+        Require(automatic.Resolve(encrypted.data(),encrypted.size())==key,"invalid marker prevented validated initializer fallback");
+        Write(dll,PeInitializer(0).bytes);
+        Require(automatic.Resolve(z.data(),z.size())==0,"markerless zero key rejected");
+        Write(dll,PeInitializer(std::numeric_limits<std::uint32_t>::max()).bytes);
+        Require(automatic.Resolve(max.data(),max.size())==std::numeric_limits<std::uint32_t>::max(),"markerless max uint32 rejected");
+        const auto rejectInitializer=[&](const std::function<void(InitializerPe&)>& change) {
+            auto f=PeInitializer(key);change(f);Write(dll,f.bytes);
+            Fails([&]{automatic.Resolve(encrypted.data(),encrypted.size());},"No supported E-mote key marker");
+        };
+        rejectInitializer([](InitializerPe& f){f.bytes[f.push]=0x90;}); // unreferenced numeric field
+        rejectInitializer([](InitializerPe& f){f.bytes[f.call]=0x90;}); // missing conversion call
+        rejectInitializer([](InitializerPe& f){U32(f.bytes,f.call+1,0x7fffffff);}); // target outside PE
+        rejectInitializer([](InitializerPe& f){U32(f.bytes,f.y+3,362436068u);}); // wrong xorshift state
+        rejectInitializer([](InitializerPe& f){f.bytes[f.w+1]=0x4d;}); // ECX result instead of EAX
+        rejectInitializer([](InitializerPe& f){f.bytes[f.w+2]+=4;}); // non-contiguous state
+        rejectInitializer([](InitializerPe& f){U32(f.bytes,f.push+1,0x20002000);}); // decimal pointer into code
+        rejectInitializer([](InitializerPe& f){U32(f.bytes,f.push+1,0x200013ff);f.bytes[1535]='9';}); // no terminator inside data
+        rejectInitializer([](InitializerPe& f){f.bytes[f.field-1]='-';}); // numeric suffix of signed field
+        rejectInitializer([](InitializerPe& f){std::memcpy(f.bytes.data()+f.field,"4294967296",11);});
+        rejectInitializer([](InitializerPe& f){U32(f.bytes,416+36,0x40000040);}); // non-executable initializer
+        rejectInitializer([](InitializerPe& f){U32(f.bytes,416+36,0xe0000020);}); // writable executable section
+        rejectInitializer([](InitializerPe& f){U32(f.bytes,416+16,20);}); // initializer crosses code section
+        rejectInitializer([](InitializerPe& f){U32(f.bytes,416+12,4096);}); // overlapping virtual sections
+        rejectInitializer([](InitializerPe& f){U16(f.bytes,132,0x8664);}); // x86 pattern in another ISA
+        initializer=PeInitializer(key);Write(dll,initializer.bytes);
+        {
+            const auto virtualRoot=root/"provider-initializer";
+            auto backend=std::make_shared<MappedGameTestBackend>(game);
+            GameTestMount mount(virtualRoot,backend);PsbKeyResolver linked(virtualRoot,{});
+            Require(linked.Resolve(encrypted.data(),encrypted.size())==key && backend->opens==1,
+                    "provider-backed markerless DLL discovery failed");
+        }
         WriteText(dll,std::to_string(key)+std::string("\0#c#r#y#p#t#k#e#y#\0",18));
         Fails([&]{automatic.Resolve(encrypted.data(),encrypted.size());},"No supported E-mote key marker");
         auto corrupt=plain;corrupt[40]^=1;
@@ -179,7 +258,7 @@ int main(int argc,char** argv) {
             std::puts("Optional original DLL/PSB fixture: PASS (key not printed)");
         } else if (argc!=1) throw std::runtime_error("Usage: psb_key_resolver_test [game-dir raw-psb-file]");
         fs::remove_all(root);
-        std::puts("PSB key resolver PASS: PE32/PE32+, multiple/invalid candidates, explicit override/zero, header validation, full-content cache invalidation, cache tampering, missing DLL, cache write failure");
+        std::puts("PSB key resolver PASS: PE32/PE32+, markers and bounded x86 xorshift initializers, multiple/invalid candidates, explicit override/zero, header validation, full-content cache invalidation, cache tampering, missing DLL, cache write failure");
         return 0;
     } catch (const std::exception& e) {
         std::fprintf(stderr,"PSB key resolver FAIL: %s\nFixtures retained at %s\n",e.what(),root.string().c_str());return 1;

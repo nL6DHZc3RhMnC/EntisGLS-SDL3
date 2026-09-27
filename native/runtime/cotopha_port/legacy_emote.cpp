@@ -45,7 +45,18 @@ std::wstring MotionWide(const std::string& text) {
     return static_cast<const wchar_t*>(wide);
 }
 const wchar_t* motionMethods[] = {L"LoadPlayer", L"ReleasePlayer", L"SetScreenSize", L"SetScale",
-    L"SetCoord", L"PlayTimeline", L"PostTimeline", L"IsPlayingTimeline", L"AttachVoiceSync"};
+    L"SetCoord", L"PlayTimeline", L"PostTimeline", L"IsPlayingTimeline", L"AttachVoiceSync",
+    L"SetPhysWeight", L"EnablePhysAnimation", L"DefaultTimeline", L"SkipTimeline"};
+constexpr int motionMethodCount = sizeof(motionMethods) / sizeof(*motionMethods);
+bool ExtendedEmoteWire(ECSContext& context) {
+    const auto* cls = context.GetClassInfoAs(L"EmoteSprite");
+    if (!cls) return false;
+    for (unsigned i = 0; i < cls->GetFunctionCount(); ++i) {
+        const auto* method = cls->GetFunctionAt(i);
+        if (method && !EWideString::Compare(method->GetName(), L"DefaultTimeline")) return true;
+    }
+    return false;
+}
 #if defined(STUDYSTEADY_PLATFORM_SDL3)
 template<class Function> auto RunMotionOnMain(Function&& function) -> std::invoke_result_t<Function> {
     if (SDL_IsMainThread()) return std::forward<Function>(function)();
@@ -382,10 +393,19 @@ ECSObject* ECSEmoteSprite::Duplicate() {
     copy->width_ = width_; copy->height_ = height_;
     copy->playerPath_ = playerPath_;
     copy->scale_ = scale_; copy->coordX_ = coordX_; copy->coordY_ = coordY_;
+    copy->timeline_ = timeline_; copy->defaultTimeline_ = defaultTimeline_; copy->timelineQueue_ = timelineQueue_;
+    copy->physicsWeight_ = physicsWeight_; copy->physicsAnimation_ = physicsAnimation_;
+    copy->pendingPhysicsDraw_ = pendingPhysicsDraw_;
     if (copy->CopySprite(*this)) { delete copy; return nullptr; }
     if (player_) {
         const auto actor = service_->Call([this](StudyMotionRuntime* r) {
-            return study_motion_clone_player(r, player_);
+            const auto cloned = study_motion_clone_player(r, player_);
+            // The engine's snapshot omits this native driver property.
+            if (cloned && !study_motion_set_physics_weight(r, cloned, physicsWeight_)) {
+                study_motion_destroy_player(r, cloned);
+                return uint64_t(0);
+            }
+            return cloned;
         });
         if (!actor) { delete copy; return nullptr; }
         if (!service_->Retain(project_)) {
@@ -398,7 +418,6 @@ ECSObject* ECSEmoteSprite::Duplicate() {
         copy->voiceVariable_ = voiceVariable_; copy->voiceCurve_ = voiceCurve_;
         copy->voiceSamplesPerFrame_ = voiceSamplesPerFrame_; copy->voiceGain_ = voiceGain_;
         copy->voiceWasPlaying_ = voiceWasPlaying_;
-        copy->timeline_ = timeline_; copy->timelineQueue_ = timelineQueue_;
     }
     return copy;
 }
@@ -423,11 +442,14 @@ ESLError ECSEmoteSprite::Move(ECSContext& context, ECSObject* object) {
     voiceSamplesPerFrame_ = copy->voiceSamplesPerFrame_; voiceGain_ = copy->voiceGain_;
     voiceWasPlaying_ = copy->voiceWasPlaying_;
     timeline_ = std::move(copy->timeline_); timelineQueue_ = std::move(copy->timelineQueue_);
+    defaultTimeline_ = std::move(copy->defaultTimeline_);
+    physicsWeight_ = copy->physicsWeight_; physicsAnimation_ = copy->physicsAnimation_;
+    pendingPhysicsDraw_ = copy->pendingPhysicsDraw_;
     context.delete_CSObject(object);
     return eslErrSuccess;
 }
 ESLError ECSEmoteSprite::GetFunction(ECSContext& context, int& index, const wchar_t* name) {
-    for (int i = 0; i < 9; ++i) if (!EWideString::Compare(name, motionMethods[i])) {
+    for (int i = 0; i < motionMethodCount; ++i) if (!EWideString::Compare(name, motionMethods[i])) {
         index = 4096 + i; return eslErrSuccess;
     }
     return ECSSprite::GetFunction(context, index, name);
@@ -437,7 +459,8 @@ ESLError ECSEmoteSprite::Release() {
     ReleaseMotionPlayer();
     restorePlayer_ = false;
     scale_ = 1; coordX_ = coordY_ = 0;
-    timeline_.clear(); timelineQueue_.clear();
+    timeline_.clear(); defaultTimeline_.clear(); timelineQueue_.clear();
+    physicsWeight_ = 1; physicsAnimation_ = true; pendingPhysicsDraw_ = false;
     voice_.SetReference(nullptr, nullptr);
     voiceCurve_.clear(); voiceVariable_.clear(); voiceWasPlaying_ = false;
     return ECSSprite::Release();
@@ -477,6 +500,9 @@ ESLError ECSEmoteSprite::OpenPlayer(ECSContext& context, ECSEmoteDevice& device,
     service_ = std::move(service); project_ = project; player_ = player;
     playerPath_ = path;
     scale_ = 1; coordX_ = coordY_ = 0;
+    // Native LoadPlayer preserves the cached timeline/physics settings without
+    // replaying them, but always requests one update even when animation is off.
+    pendingPhysicsDraw_ = true;
     device_.SetReference(&device, &context);
     NativeSprite().NotifyUpdate();
     // Total includes archive reads, PSB key resolution, decoding and Player creation.
@@ -489,7 +515,7 @@ ESLError ECSEmoteSprite::OpenPlayer(ECSContext& context, ECSEmoteDevice& device,
 ESLError ECSEmoteSprite::CallFunction(ECSContext& context, int index, ECSObjArray<ECSObject>& args) {
     if (index < 4096) return ECSSprite::CallFunction(context, index, args);
     const int method = index - 4096;
-    if (method < 0 || method >= 9) return ESLErrorMsg("Invalid EmoteSprite method index");
+    if (method < 0 || method >= motionMethodCount) return ESLErrorMsg("Invalid EmoteSprite method index");
     auto result = [&](INT64 value = 0) { return context.PushObject(context.new_CSInteger(value)); };
     ESLError error = eslErrSuccess;
     auto count = [&](int low, int high = 0) { return context.VerifyArgumentCount(args, low, high); };
@@ -535,11 +561,66 @@ ESLError ECSEmoteSprite::CallFunction(ECSContext& context, int index, ECSObjArra
         TraceMotion(method==3?"set-scale":"set-coord");
         return result(success ? 0 : eslErrGeneral);
     }
-    if (!player_ || !service_) return ESLErrorMsg("EmoteSprite has no loaded Player");
-    if (method >= 5 && method <= 7) {
+    if (method == 9) {
+        if ((error = count(2))) return error;
+        double weight = 1;
+        if ((error = context.GetArgumentAsReal(weight, args, 1, 1))) return error;
+        if (!std::isfinite(weight) || !std::isfinite(float(weight))) return eslErrInvalidParam;
+        physicsWeight_ = float(weight);
+        if (!player_ || !service_) return result();
+        return result(service_->Call([&](StudyMotionRuntime* r) {
+            return study_motion_set_physics_weight(r, player_, physicsWeight_);
+        }) ? 0 : eslErrGeneral);
+    }
+    if (method == 10) {
+        if ((error = count(2))) return error;
+        int value = 0;
+        if ((error = context.GetArgumentAsInt(value, args, 1, 0))) return error;
+        const bool enabled = value != 0;
+        bool success = true;
+        if (player_ && service_) success = service_->Call([&](StudyMotionRuntime* r) {
+            if (!enabled) return study_motion_skip(r, player_) != 0;
+            return physicsAnimation_ || defaultTimeline_.empty() ||
+                study_motion_play_timeline(r, player_, defaultTimeline_.c_str(), 2);
+        });
+        physicsAnimation_ = enabled;
+        if (success && !enabled && player_) pendingPhysicsDraw_ = true;
+        return result(success ? 0 : eslErrGeneral);
+    }
+    if (method == 11) {
         if ((error = count(2))) return error;
         ECSWideString value;
         if ((error = context.GetArgumentAsStr(value, args, 1, nullptr))) return error;
+        defaultTimeline_ = MotionUTF8(value);
+        if (!player_ || !service_) return result();
+        // The newer native wrapper starts this differential timeline immediately;
+        // it does not consume or replace the ordinary timeline queue.
+        const bool success = service_->Call([&](StudyMotionRuntime* r) {
+            if (!study_motion_play_timeline(r, player_, defaultTimeline_.c_str(), 2)) return false;
+            if (!physicsAnimation_) return study_motion_skip(r, player_) != 0;
+            return study_motion_set_timeline_blend(r, player_, defaultTimeline_.c_str(), 0, 0, 0, 0) &&
+                study_motion_set_timeline_blend(r, player_, defaultTimeline_.c_str(), 1, 60, 1, 0);
+        });
+        if (success) { renderFailed_ = false; if (!physicsAnimation_) pendingPhysicsDraw_ = true; }
+        return result(success ? 0 : eslErrGeneral);
+    }
+    if (method == 12) {
+        if ((error = count(1))) return error;
+        if (!player_ || !service_) return result();
+        return result(service_->Call([&](StudyMotionRuntime* r) { return study_motion_skip(r, player_); }) ? 0 : eslErrGeneral);
+    }
+    if (!player_ || !service_) return ESLErrorMsg("EmoteSprite has no loaded Player");
+    if (method >= 5 && method <= 7) {
+        if ((error = count(2, method == 5 ? 3 : 2))) return error;
+        ECSWideString value;
+        if ((error = context.GetArgumentAsStr(value, args, 1, nullptr))) return error;
+        if (method == 5) {
+            // The Windows Cotopha wrapper accepts/converts this optional
+            // integer but does not forward it. Playback still replaces the
+            // current timeline and uses Player flags=1, including older calls.
+            int compatibilityFlags = 0;
+            if ((error = context.GetArgumentAsInt(compatibilityFlags, args, 2, 0))) return error;
+        }
         const auto name = MotionUTF8(value);
         if (method == 6) { timelineQueue_.push_back(name); return result(); }
         if (method == 7) {
@@ -549,9 +630,10 @@ ESLError ECSEmoteSprite::CallFunction(ECSContext& context, int index, ECSObjArra
             return result(playing ? -1 : 0);
         }
         const bool success = service_->Call([&](StudyMotionRuntime* r) {
-            return study_motion_stop_timeline(r, player_, "") && study_motion_play_timeline(r, player_, name.c_str(), 1);
+            return study_motion_stop_timeline(r, player_, "") && study_motion_play_timeline(r, player_, name.c_str(), 1) &&
+                (physicsAnimation_ || study_motion_skip(r, player_));
         });
-        if (success) { timeline_ = name; timelineQueue_.clear(); renderFailed_ = false; }
+        if (success) { timeline_ = name; timelineQueue_.clear(); renderFailed_ = false; if (!physicsAnimation_) pendingPhysicsDraw_ = true; }
         return result(success ? 0 : eslErrGeneral);
     }
     if ((error = count(4))) return error;
@@ -638,12 +720,16 @@ ESLError ECSEmoteSprite::CommitAllReference(ECSContext& context) {
         // its named timeline again. It does not contain an Engine snapshot.
         return study_motion_set_scale(r, player_, scale, 0, 0) &&
             study_motion_set_coord(r, player_, x, y, 0, 0) &&
+            study_motion_set_physics_weight(r, player_, physicsWeight_) &&
             (timeline_.empty() || study_motion_play_timeline(r, player_, timeline_.c_str(), 1)) &&
+            (defaultTimeline_.empty() || study_motion_play_timeline(r, player_, defaultTimeline_.c_str(), 2)) &&
+            (physicsAnimation_ || study_motion_skip(r, player_)) &&
             study_motion_progress_player(r, player_, 0);
     });
     if (!success) return ESLErrorMsg("Saved EmoteSprite transform or timeline cannot be reconstructed");
     TraceMotion("committed");
     restorePlayer_ = false;
+    pendingPhysicsDraw_ = !physicsAnimation_;
     return eslErrSuccess;
 }
 
@@ -667,7 +753,11 @@ ESLError ECSEmoteSprite::Save(ESLFileObject& file, ECSContext& context) {
     out.Reference(device_, context);
     out.U32(width_); out.U32(height_);
     out.F32(scale_); out.F32(coordX_); out.F32(coordY_);
-    out.String(playerPath_.c_str()); out.String(MotionWide(timeline_).c_str());
+    const bool extended = ExtendedEmoteWire(context);
+    if (extended) { out.U32(0); out.U32(physicsAnimation_ ? 1 : 0); out.F64(physicsWeight_); }
+    out.String(playerPath_.c_str());
+    if (extended) out.String(MotionWide(defaultTimeline_).c_str());
+    out.String(MotionWide(timeline_).c_str());
     out.U32(static_cast<uint32_t>(timelineQueue_.size()));
     for (const auto& name : timelineQueue_) out.String(MotionWide(name).c_str());
     return out.error;
@@ -680,7 +770,20 @@ ESLError ECSEmoteSprite::Load(ESLFileObject& file, ECSContext& context) {
     in.Reference(device_, context);
     const auto width = in.U32(), height = in.U32();
     const auto scale = in.F32(), x = in.F32(), y = in.F32();
-    const auto path = in.String(), timeline = in.String();
+    const bool extended = ExtendedEmoteWire(context);
+    bool physicsAnimation = true;
+    double physicsWeight = 1;
+    if (extended) {
+        in.Reserved();
+        const auto flags = in.U32();
+        if (flags & ~1u) in.error = eslErrInvalidParam;
+        physicsAnimation = (flags & 1) != 0;
+        physicsWeight = in.F64();
+        if (!std::isfinite(float(physicsWeight))) in.error = eslErrInvalidParam;
+    }
+    const auto path = in.String();
+    const auto defaultTimeline = extended ? in.String() : EWideString();
+    const auto timeline = in.String();
     const auto count = in.Count();
     std::deque<std::string> queue;
     for (uint32_t i = 0; i < count && !in.error; ++i) queue.push_back(MotionUTF8(in.String()));
@@ -691,6 +794,9 @@ ESLError ECSEmoteSprite::Load(ESLFileObject& file, ECSContext& context) {
     scale_ = scale; coordX_ = x; coordY_ = y;
     playerPath_ = path.CharPtr() ? path.CharPtr() : L"";
     timeline_ = MotionUTF8(timeline); timelineQueue_ = std::move(queue);
+    defaultTimeline_ = MotionUTF8(defaultTimeline);
+    physicsWeight_ = physicsWeight; physicsAnimation_ = physicsAnimation;
+    pendingPhysicsDraw_ = !physicsAnimation_;
     restorePlayer_ = true;
     return eslErrSuccess;
 }
@@ -708,7 +814,10 @@ void ECSEmoteSprite::AdvanceMotion(uint32_t milliseconds) {
     } else if (voiceWasPlaying_) { voiceWasPlaying_ = false; updateVoice = true; }
     const bool success = service_->Call([&](StudyMotionRuntime* r) {
         if (updateVoice && !study_motion_set_variable(r, player_, voiceVariable_.c_str(), voiceValue, 0, 0)) return false;
-        if (!study_motion_progress_player(r, player_, double(milliseconds) * .06)) return false;
+        // The native "physics animation" switch gates the complete engine
+        // progression. A skip requests one final update before the pause.
+        if ((physicsAnimation_ || pendingPhysicsDraw_) &&
+            !study_motion_progress_player(r, player_, double(milliseconds) * .06)) return false;
         if (!timeline_.empty()) {
             int playing = 0;
             if (!study_motion_is_timeline_playing(r, player_, timeline_.c_str(), &playing)) return false;
@@ -723,6 +832,7 @@ void ECSEmoteSprite::AdvanceMotion(uint32_t milliseconds) {
         }
         return true;
     });
+    pendingPhysicsDraw_ = false;
     if (!success) {
         renderFailed_ = true;
         study::platform::LogWrite(study::platform::LogPriority::Error, "StudySteady", "EmoteSprite frame progression failed");

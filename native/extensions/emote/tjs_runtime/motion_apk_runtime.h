@@ -104,6 +104,14 @@ int study_motion_get_variable(StudyMotionRuntime *runtime,uint64_t player_id,con
 int study_motion_play_timeline(StudyMotionRuntime *runtime,uint64_t player_id,const char *name,uint32_t flags);
 int study_motion_stop_timeline(StudyMotionRuntime *runtime,uint64_t player_id,const char *name);
 int study_motion_is_timeline_playing(StudyMotionRuntime *runtime,uint64_t player_id,const char *name,int *playing);
+// Duration uses 60-Hz frames; ease is passed through unchanged. Any nonzero
+// auto_stop enables the engine's automatic timeline stop after blending.
+int study_motion_set_timeline_blend(StudyMotionRuntime *runtime,uint64_t player_id,const char *name,double value,double duration_frames,double ease,int auto_stop);
+// Uses the engine's native controller reset/skip behavior.
+int study_motion_skip(StudyMotionRuntime *runtime,uint64_t player_id);
+// Legacy Cotopha's unified physics weight controls the simple springs only;
+// hair and parts scales are unchanged. Values retain native float precision.
+int study_motion_set_physics_weight(StudyMotionRuntime *runtime,uint64_t player_id,double weight);
 // Enumerates actual metadata timeline labels (diff=0 main, diff=1 differential).
 // A missing index fails explicitly. Duration is the original frame domain.
 int study_motion_timeline_info(StudyMotionRuntime *runtime,uint64_t player_id,int diff,uint32_t index,char *name,size_t capacity,double *duration,int *looping);

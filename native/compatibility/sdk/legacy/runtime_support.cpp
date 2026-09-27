@@ -1,5 +1,6 @@
 #include <gls.h>
 #include "compatibility/sdk/legacy/runtime_support.h"
+#include "runtime/cotopha_port/legacy_speech.h"
 #include <atomic>
 #include <stdexcept>
 #include "platform/log.h"
@@ -32,6 +33,8 @@ ECSObject *LegacyCreatePlatformObject(ECSContext &context, const wchar_t *name) 
     if (name && !EWideString::Compare(name, L"ToneFilter")) return new ECSToneFilter;
     if (name && !EWideString::Compare(name, L"AudioPlayer")) return new ECSAudioPlayer;
     if (name && !EWideString::Compare(name, L"MovieSprite")) return new ECSMovieSprite;
+    if (name && !EWideString::Compare(name, L"SpeachVoiceGenerator")) return new ECSSpeachVoiceGenerator;
+    if (name && !EWideString::Compare(name, L"SpeachVoicePlayer")) return new ECSSpeachVoicePlayer;
     if (name && !EWideString::Compare(name, L"EmoteDevice")) {
         try {
             if (auto* environment = context.GetEnvironment()) return new ECSEmoteDevice(*environment);

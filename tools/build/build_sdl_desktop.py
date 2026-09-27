@@ -121,7 +121,7 @@ def package_app(source, destination, architectures, deployment_target):
             'bundled_font': {'family': font['family'], 'file': font['file'],
                              'sha256': archived_font_hash, 'bytes': font['size_bytes'],
                              'verified_in_archive': True} if font else None,
-            'first_launch': 'Choose a game directory containing cotopha.xml, entis-launcher.xml, or the original EXE with embedded IDR_COTOMI configuration.',
+            'first_launch': 'Choose a game directory containing cotopha.xml, entis-launcher.xml, an original EXE with IDR_COTOMI (including an appended PE), or script.noa containing a traditional Cotopha script.csx for inferred configuration.',
         }
         if bundle_check.returncode:
             report['bundle_verification_error'] = (bundle_check.stderr or bundle_check.stdout).strip()

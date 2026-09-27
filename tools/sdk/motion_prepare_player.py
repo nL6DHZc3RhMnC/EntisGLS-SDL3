@@ -71,6 +71,13 @@ def main():
             marker = 'tTJSVariant frameListVariant;'
             assert text.count(marker) == 1
             text = text.replace(marker, marker + '\n        std::shared_ptr<studysteady::motion::MeshCombinator> meshCombinator;')
+            assert text.count('std::array<int, 4> textureRect;') == 1
+            text = text.replace('std::array<int, 4> textureRect;', 'std::array<double, 4> textureRect;')
+        if src.name == 'MotionRenderBackend.h':
+            text = '#include "atlas_projection.h"\n' + text
+            assert text.count('const tTVPRect &sourceRect') == 1
+            text = text.replace('const tTVPRect &sourceRect',
+                                'const studysteady::motion::AtlasSampleRect &sourceRect')
         if src.name == 'NodeTree.cpp':
             text = '#include "player_mesh_bridge.h"\n' + text
             body = extract(text, 'void initializeNodeFromLayer_guess(')
@@ -188,6 +195,30 @@ bool evaluateTimeline_guess(detail::MotionNode &node, double time, bool dirty) {
     # Pair that acquisition without changing any source selection/texture math.
     acquisition = '_findSourceResourceManager.AsObject();'
     find_source = find_source.replace(acquisition, acquisition + '\n        RetainedDispatch_guess resourceManagerOwner(resourceManagerDispatch);')
+    # Win PSB icons can be packed at a lower pixel resolution while retaining
+    # their original logical dimensions and origins for geometry/animation.
+    # Native drivers read an optional float resolution (default 1.0); the
+    # imported Kirikiri projection previously discarded that field entirely.
+    old_rect = '''                        dst.textureRect = {
+                            left, top,
+                            static_cast<int>(
+                                dst.width + static_cast<double>(left)),
+                            static_cast<int>(
+                                dst.height + static_cast<double>(top))
+                        };'''
+    assert find_source.count(old_rect) == 1
+    find_source = find_source.replace(old_rect, '''                        PSB::PSBRawNode resolutionNode;
+                        const double resolution = iconNode.GetDictionaryValue("resolution", resolutionNode)
+                            ? resolutionNode.GetDouble() : 1.0;
+                        dst.textureRect = studysteady::motion::winAtlasSampleRect(
+                            left, top, dst.width, dst.height, resolution,
+                            dst.texture->GetWidth(), dst.texture->GetHeight());''')
+    for component in ('width', 'height'):
+        # The unrelated Layer route retains its existing integer conversion,
+        # then explicitly widens into the shared floating-point UV container.
+        find_source = find_source.replace('static_cast<int>(dst.' + component + ')',
+            'static_cast<double>(static_cast<int>(dst.' + component + '))')
+    win = '#include "atlas_projection.h"\n' + win
     win += find_source + '\n'
     win += '\n'.join(extract(source,name) for name in [
         'bool Player::isExistMotion(',
@@ -220,6 +251,12 @@ bool Player::loadKrkrAtlasSource_guess(detail::MotionNode::SourceState &, Resour
             sourceTexture->Release();
             throw std::runtime_error("Repeated/out-of-atlas source rectangle unsupported by GLES bridge");
         }''')
+    assert backend.count('const tTVPRect &sourceRect') == 1
+    backend = backend.replace('const tTVPRect &sourceRect',
+                              'const studysteady::motion::AtlasSampleRect &sourceRect')
+    for declaration in ['const int sourceWidth', 'const int sourceHeight', 'int sourceLeft', 'int sourceTop']:
+        assert backend.count(declaration) == 1, declaration
+        backend = backend.replace(declaration, declaration.replace('int ', 'double '))
     backend = '#include "tjs.h"\n#include <stdexcept>\n' + backend
     # Managers now belong to opaque device owners, not a process-lifetime
     # singleton. Resolve method instances afresh; retain all math/batch logic.
@@ -248,6 +285,12 @@ bool Player::loadKrkrAtlasSource_guess(detail::MotionNode::SourceState &, Resour
     # In this adapter's enclosing namespace, explicitly qualify original
     # motion::detail/render_backend names rather than changing their types.
     render = render.replace('motion::render_backend_guess', '::motion::render_backend_guess').replace('::::motion','::motion')
+    # Both affine and mesh paths must preserve the fractional UV endpoints.
+    render = render.replace('const std::array<int, 4> &', 'const std::array<double, 4> &')
+    mesh_rect = 'tTVPRect(sourceRect[0], sourceRect[1],\n                         sourceRect[2], sourceRect[3])'
+    assert render.count(mesh_rect) == 1
+    render = render.replace(mesh_rect,
+        'studysteady::motion::AtlasSampleRect{sourceRect[0], sourceRect[1],\n                         sourceRect[2], sourceRect[3]}')
     write_changed(OUT / 'GlesSceneItems.cpp', render)
     transform = extract((SOURCE / 'PlayerDrawDispatch.cpp').read_text(), 'bool Player::setDrawAffineTranslateMatrix(')
     write_changed(OUT / 'PlayerDrawTransform.cpp', '#include "PlayerInternal.h"\nnamespace motion {\n' + transform + '\n}\n')

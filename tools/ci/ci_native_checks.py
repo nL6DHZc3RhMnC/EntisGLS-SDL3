@@ -28,6 +28,10 @@ import tempfile
 TARGETS = (
     "studysteady_sdl",
     "launcher_config_test",
+    "legacy_speech_test",
+    "legacy_setup_fonts_test",
+    "legacy_emote_api_test",
+    "motion_atlas_projection_test",
     "psb_key_resolver_test",
     "psb_key_settings_test",
     "game_save_directory_test",
@@ -93,6 +97,14 @@ def main() -> None:
             fixtures = Path(temp)
             run("launcher configuration", [build / "launcher_config_test", fixtures],
                 "Launcher configuration PASS:")
+            run("optional speech backend capability", [build / "legacy_speech_test"],
+                "Legacy speech API PASS:")
+            run("portable Setup font enumeration", [build / "legacy_setup_fonts_test"],
+                "Legacy Setup font list PASS:")
+            run("Emote interface and save ABI compatibility", [build / "legacy_emote_api_test"],
+                "Legacy Emote API PASS:")
+            run("Win PSB atlas resolution", [build / "motion_atlas_projection_test"],
+                "Win atlas projection PASS:")
             run("PSB discovery and cache", [build / "psb_key_resolver_test"],
                 "PSB key resolver PASS:")
             run("per-game PSB settings", [build / "psb_key_settings_test", fixtures],

@@ -23,7 +23,7 @@ SDK 输入为 `EntisGLS/`，其中 `Cotopha/` 和 `EntisGLS3/` 提供引擎源�
   解压打开 `EntisGLSLauncher.app`，在游戏列表中选择或添加目录。直接读取资源，不复制游戏。
   ZIP 使用本地 ad-hoc 签名，未进行 Developer ID 公证；最低 macOS 11.0。
 
-识别顺序为显式配置、`entis-launcher.xml`、`cotopha.xml`、原游戏 EXE 的 `IDR_COTOMI` 资源。
+识别顺序为显式配置、`entis-launcher.xml`、`cotopha.xml`、原游戏 EXE（含附带的内嵌 EXE）的 `IDR_COTOMI` 资源。没有可提取配置时，会验证 `script.noa` 中的 `script.csx`，尝试使用通用配置启动；归档顺序、字体及显示设置的推断范围见[启动配置说明](docs/launcher-configuration.md)。
 EXE 只用于提取配置，不执行其中的 Windows 代码。多个候选不自动猜测。
 只有命中已知完整脚本包指纹时，旧版 StudySteady 的 NOA-only 导入可使用独立启动模板；
 加密 E-mote 资源仍需补充原版驱动 DLL 或在游戏设置中提供参数。

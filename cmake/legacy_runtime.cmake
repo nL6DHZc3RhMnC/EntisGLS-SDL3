@@ -68,6 +68,7 @@ if(LEGACY_COMPILE_OBJECTS)
         "${LEGACY_RUNTIME_ROOT}/legacy_emote.cpp"
         "${LEGACY_RUNTIME_ROOT}/legacy_audio_player.cpp"
         "${LEGACY_RUNTIME_ROOT}/legacy_movie.cpp"
+        "${LEGACY_RUNTIME_ROOT}/legacy_speech.cpp"
         "${LEGACY_RUNTIME_ROOT}/legacy_compiler.cpp"
         "${LEGACY_RUNTIME_ROOT}/legacy_sprite.cpp"
         "${LEGACY_RUNTIME_ROOT}/legacy_sprite_dynamic.cpp"

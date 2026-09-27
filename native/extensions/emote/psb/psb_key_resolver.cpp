@@ -126,7 +126,91 @@ std::vector<std::uint8_t> ReadDll(const fs::path& path, std::size_t& total) {
     }
 }
 
-void CandidatesFromPE(const std::vector<std::uint8_t>& bytes, std::set<std::uint32_t>& candidates) {
+struct PeSection {
+    std::size_t start, length;
+    std::uint32_t rva;
+    bool data, code;
+};
+
+// This deliberately recognizes one compiler layout, not arbitrary numbers in
+// executable bytes. A decimal argument is passed to a local conversion routine;
+// its EAX result becomes w in a contiguous x/y/z/w xorshift object. The vtable
+// and decimal field must both reference bounded PE data sections.
+void InitializerCandidates(const std::vector<std::uint8_t>& bytes,
+                           const std::vector<PeSection>& sections,
+                           std::uint32_t imageBase, std::set<std::uint32_t>& candidates) {
+    const auto pointer = [&](std::uint32_t va, bool code) -> std::optional<std::size_t> {
+        if (va < imageBase) return {};
+        const auto rva = va - imageBase;
+        for (const auto& s : sections)
+            if ((code ? s.code : s.data) && rva >= s.rva && rva - s.rva < s.length)
+                return s.start + (rva - s.rva);
+        return {};
+    };
+    struct Store { std::int64_t displacement; std::uint32_t value; };
+    std::size_t matches = 0;
+    for (const auto& section : sections) {
+        if (!section.code) continue;
+        const auto end = section.start + section.length;
+        for (auto at = section.start; Span(at, 10, end); ++at) {
+            if (bytes[at] != 0x68) continue; // push imm32: address of decimal field
+            const auto field = pointer(U32(bytes.data() + at + 1), false);
+            if (!field) continue;
+            auto pos = at + 5;
+            const auto store = [&](std::size_t& p, bool immediate, Store& result) {
+                if (!Span(p, 3, end) || bytes[p] != (immediate ? 0xc7 : 0x89)) return false;
+                // mov [ebp+disp8/disp32], imm32/EAX. No SIB, other register,
+                // instruction prefix, control flow, or guessed instruction length.
+                const auto modrm = bytes[p + 1];
+                const std::size_t head = modrm == 0x45 ? 3 : modrm == 0x85 ? 6 : 0;
+                if (!head || !Span(p, head + (immediate ? 4 : 0), end)) return false;
+                result.displacement = head == 3 ? static_cast<std::int8_t>(bytes[p + 2])
+                    : static_cast<std::int32_t>(U32(bytes.data() + p + 2));
+                result.value = immediate ? U32(bytes.data() + p + head) : 0;
+                p += head + (immediate ? 4 : 0);
+                return true;
+            };
+            // MSVC can spill the previous EAX value between push and call.
+            if (bytes[pos] == 0x89) { Store spill{}; if (!store(pos, false, spill)) continue; }
+            if (!Span(pos, 5, end) || bytes[pos] != 0xe8) continue;
+            const auto nextRva = std::uint64_t(section.rva) + (pos - section.start) + 5;
+            const auto target = std::int64_t(imageBase) + static_cast<std::int64_t>(nextRva) +
+                static_cast<std::int32_t>(U32(bytes.data() + pos + 1));
+            if (target < 0 || target > std::numeric_limits<std::uint32_t>::max() ||
+                !pointer(static_cast<std::uint32_t>(target), true)) continue;
+            pos += 5;
+            if (Span(pos, 3, end) && bytes[pos] == 0x83 && bytes[pos + 1] == 0xc4 && bytes[pos + 2] == 4)
+                pos += 3; // add esp, 4 does not alter the conversion result
+            Store vtable{}, x{}, y{}, z{}, w{}, pending{}, remaining{};
+            if (!store(pos, true, vtable) || !pointer(vtable.value, false) ||
+                !store(pos, true, x) || !store(pos, true, y) || !store(pos, true, z) ||
+                !store(pos, false, w) || !store(pos, true, pending) || !store(pos, true, remaining)) continue;
+            if (x.value != 123456789u || y.value != 362436069u || z.value != 521288629u ||
+                pending.value != 0 || remaining.value != 0 ||
+                x.displacement != vtable.displacement + 4 || y.displacement != x.displacement + 4 ||
+                z.displacement != x.displacement + 8 || w.displacement != x.displacement + 12 ||
+                pending.displacement != x.displacement + 16 || remaining.displacement != x.displacement + 20) continue;
+            if (++matches > kMaxCandidates)
+                throw PsbKeyError("Too many E-mote key initializers in a game DLL." + std::string(kHelp));
+            const auto data = std::find_if(sections.begin(), sections.end(), [&](const PeSection& s) {
+                return s.data && *field >= s.start && *field - s.start < s.length;
+            });
+            if (data == sections.end() || (*field > data->start && bytes[*field - 1] >= 0x20 && bytes[*field - 1] <= 0x7e)) continue;
+            auto finish = *field;
+            while (finish < data->start + data->length && finish - *field <= 10 &&
+                   bytes[finish] >= '0' && bytes[finish] <= '9') ++finish;
+            if (finish == data->start + data->length || bytes[finish] != 0) continue;
+            std::uint32_t key = 0;
+            if (Decimal(std::string(reinterpret_cast<const char*>(bytes.data() + *field), finish - *field), key))
+                candidates.insert(key);
+            if (candidates.size() > kMaxCandidates)
+                throw PsbKeyError("Too many E-mote key candidates." + std::string(kHelp));
+        }
+    }
+}
+
+void CandidatesFromPE(const std::vector<std::uint8_t>& bytes, std::set<std::uint32_t>& candidates,
+                      std::set<std::uint32_t>& initializerCandidates) {
     const auto size = bytes.size();
     if (size < 64 || bytes[0] != 'M' || bytes[1] != 'Z') return;
     const auto pe = U32(bytes.data() + 60);
@@ -140,17 +224,20 @@ void CandidatesFromPE(const std::vector<std::uint8_t>& bytes, std::set<std::uint
     const auto table = optional + optionalSize;
     if (!Span(table, static_cast<std::size_t>(sections)*40, size)) return;
     const auto headersEnd = table + static_cast<std::size_t>(sections)*40;
-    struct Section { std::size_t start, length; bool data; };
-    std::vector<Section> ranges;
+    std::vector<PeSection> ranges;
     for (unsigned i=0; i<sections; ++i) {
         const auto* s=bytes.data()+table+i*40;
-        const auto length=U32(s+16), start=U32(s+20), flags=U32(s+36);
+        const auto length=U32(s+16), start=U32(s+20), flags=U32(s+36), rva=U32(s+12);
         if (length == 0) continue;
         if (start < headersEnd || !Span(start,length,size)) return;
-        for (const auto& prior : ranges)
+        if (std::uint64_t(rva) + length > std::uint64_t(std::numeric_limits<std::uint32_t>::max()) + 1) return;
+        for (const auto& prior : ranges) {
             if (start < prior.start+prior.length && prior.start < static_cast<std::size_t>(start)+length) return;
+            if (rva < std::uint64_t(prior.rva)+prior.length && prior.rva < std::uint64_t(rva)+length) return;
+        }
         const bool name = std::memcmp(s,".data\0\0\0",8)==0 || std::memcmp(s,".rdata\0\0",8)==0;
-        ranges.push_back({start,length,name && (flags&0x40000040u)==0x40000040u && !(flags&0x20000000u)});
+        const bool code = std::memcmp(s,".text\0\0\0",8)==0 && (flags&0x60000020u)==0x60000020u && !(flags&0x80000000u);
+        ranges.push_back({start,length,rva,name && (flags&0x40000040u)==0x40000040u && !(flags&0x20000000u),code});
     }
     std::size_t markers = 0;
     for (const auto& section : ranges) {
@@ -173,6 +260,10 @@ void CandidatesFromPE(const std::vector<std::uint8_t>& bytes, std::set<std::uint
             if (candidates.size()>kMaxCandidates) throw PsbKeyError("Too many E-mote key candidates." + std::string(kHelp));
         }
     }
+    // Absolute push-immediate pointers in this layout belong to x86 PE32 only.
+    // PE32+ continues to use marker discovery; never reinterpret its code as x86.
+    if (magic == 0x10b && U16(bytes.data()+pe+4) == 0x14c)
+        InitializerCandidates(bytes, ranges, U32(bytes.data()+optional+28), initializerCandidates);
 }
 
 // Same byte stream and v4 invariants as native/extensions/emote/psb/psb_header.h, but only a 56-byte
@@ -194,7 +285,7 @@ bool ValidHeader(const std::uint8_t* raw, std::size_t size, std::uint32_t seed, 
     return U32(data.data()+8)==56 && U32(data.data()+36)<size;
 }
 
-struct Discovery { std::set<std::uint32_t> candidates; std::string fingerprint; std::size_t dlls = 0; };
+struct Discovery { std::set<std::uint32_t> candidates, initializerCandidates; std::string fingerprint; std::size_t dlls = 0; };
 Discovery Discover(const fs::path& directory) {
     std::vector<fs::path> paths;
     try {
@@ -222,7 +313,7 @@ Discovery Discover(const fs::path& directory) {
         const auto name=path.filename().u8string();
         const auto length=std::to_string(name.size())+":";
         snapshot.Add(length.data(),length.size());snapshot.Add(name.data(),name.size());snapshot.Add(digest.data(),digest.size());
-        CandidatesFromPE(bytes,result.candidates);
+        CandidatesFromPE(bytes,result.candidates,result.initializerCandidates);
     }
     result.fingerprint=snapshot.Finish();
     return result;
@@ -280,9 +371,16 @@ std::uint32_t PsbKeyResolver::Resolve(const std::uint8_t* rawPsb,std::size_t siz
         if (selected && *selected!=candidate) throw PsbKeyError("Multiple E-mote keys validate this PSB; select psb_key explicitly.");
         selected=candidate;
     }
+    // Existing marker candidates keep priority. A recognized initializer is
+    // only an alternative source of candidates, never authority for a key.
+    if (!selected) for (auto candidate : discovered.initializerCandidates) if (ValidHeader(rawPsb,size,candidate,true)) {
+        if (selected && *selected!=candidate) throw PsbKeyError("Multiple E-mote keys validate this PSB; select psb_key explicitly.");
+        selected=candidate;
+    }
     if (!selected) {
         if (!discovered.dlls) throw PsbKeyError("Encrypted PSB needs a key; no game DLL is present."+std::string(kHelp));
-        if (discovered.candidates.empty()) throw PsbKeyError("No supported E-mote key marker was found in the game's PE DLL data sections."+std::string(kHelp));
+        if (discovered.candidates.empty() && discovered.initializerCandidates.empty())
+            throw PsbKeyError("No supported E-mote key marker or xorshift initializer was found in the game's PE DLL sections."+std::string(kHelp));
         throw PsbKeyError("E-mote DLL key candidates failed PSB checksum/range validation; the DLL may not match these resources, or the PSB is damaged."+std::string(kHelp));
     }
     // Cache records never authorize a key. DLL candidates AND the current PSB

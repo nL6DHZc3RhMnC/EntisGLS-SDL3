@@ -4,6 +4,7 @@
 #include <sakura/ssys_std_ui.h>
 #include <sakuracl/erisa/sgl_erisa_md5_context.h>
 #include <sakuracl/erisa/sgl_erisa_crc32_context.h>
+#include <sakuragl/sgl2d/sgl_font.h>
 #include "platform/log.h"
 #include "platform/environment.h"
 #include <array>
@@ -13,6 +14,7 @@
 #include <cerrno>
 #include <cwctype>
 #include <string>
+#include <set>
 #include <vector>
 
 IMPLEMENT_CLASS_INFO(ECSSetup,ECSObject)
@@ -128,6 +130,36 @@ ESLError ECSSetup::CallFunction(ECSContext &context,int index,ECSObjArray<ECSObj
     const auto named=[&](const wchar_t *name){return !EWideString::Compare(name,m_pwszFuncName[index]);};
     const auto push=[&](int64_t value)->ESLError{return context.PushObject(new ECSInteger(value));};
     ESLError error;
+    if(named(L"GetFontList")) {
+        if((error=context.VerifyArgumentCount(args,2,3)))return error;
+        auto* output=ESLTypeCast<ECSArray>(context.GetArgumentObjectAs(args,1,L"Array"));
+        if(!output)return ESLErrorMsg("Setup.GetFontList requires an Array");
+        int flags=0;
+        if((error=context.GetArgumentAsInt(flags,args,2,0)))return error;
+        SSystem::SObjectArray<SSystem::SString> fonts;
+        SakuraGL::SGLFont::EnumerateFonts(fonts);
+        std::set<std::wstring> seen;
+        for(size_t i=0;i<fonts.GetLength();++i) {
+            const auto* name=fonts.GetAt(i);
+            if(!name || name->IsEmpty() || !seen.insert(static_cast<const wchar_t*>(*name)).second)continue;
+            bool matches=flags==0 || (flags&1);
+            // Portable registered fonts have Unicode coverage, not Windows
+            // charset IDs. Use representative Latin/Japanese glyphs for the
+            // ANSI/SHIFTJIS filters. No Windows symbol charset is fabricated.
+            if(!matches && (flags&6)) {
+                SakuraGL::SGLFont font;
+                SakuraGL::SGLFontStyle style;
+                style.pszFace=static_cast<const wchar_t*>(*name);style.nSize=16;
+                if(!font.SetStyle(style)) {
+                    SakuraGL::SGLFontMetrics metrics{};
+                    matches=((flags&2) && !font.GetMetrics(nullptr,0,metrics,L'A')) ||
+                        ((flags&4) && !font.GetMetrics(nullptr,0,metrics,L'\u3042'));
+                }
+            }
+            if(matches)output->m_varArray.Add(new ECSString(EWideString(*name)));
+        }
+        return push(output->m_varArray.GetSize());
+    }
     if(named(L"InstallationMessageBox")) {
         if((error=context.VerifyArgumentCount(args,3,5)))return error;
         EWideString message,caption;int style;

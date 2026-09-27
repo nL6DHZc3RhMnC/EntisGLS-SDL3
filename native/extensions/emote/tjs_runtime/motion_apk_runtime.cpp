@@ -19,6 +19,7 @@
 #include "platform/gl.h"
 #endif
 #include <cstring>
+#include <limits>
 #include <memory>
 #include <mutex>
 #include <thread>
@@ -293,6 +294,23 @@ extern "C" int study_motion_stop_timeline(StudyMotionRuntime *r,uint64_t id,cons
 });}
 extern "C" int study_motion_is_timeline_playing(StudyMotionRuntime *r,uint64_t id,const char *name,int *playing){return invoke(r,[&]{
     if(!name||!playing)throw std::runtime_error("invalid motion timeline query");*playing=r->actor(id).engine->isTimelinePlaying_guess(ttstr(name))?1:0;
+});}
+extern "C" int study_motion_set_timeline_blend(StudyMotionRuntime *r,uint64_t id,const char *name,double value,double duration,double ease,int autoStop){return invoke(r,[&]{
+    constexpr auto floatMax=std::numeric_limits<float>::max();
+    if(!name||!std::isfinite(value)||std::fabs(value)>floatMax||
+       !std::isfinite(duration)||duration<0||duration>floatMax||
+       !std::isfinite(ease)||std::fabs(ease)>floatMax)
+        throw std::runtime_error("invalid motion timeline blend arguments");
+    r->actor(id).engine->setTimelineBlendController_guess(ttstr(name),
+        static_cast<float>(value),static_cast<float>(duration),static_cast<float>(ease),autoStop!=0);
+});}
+extern "C" int study_motion_skip(StudyMotionRuntime *r,uint64_t id){return invoke(r,[&]{
+    r->actor(id).engine->resetControllers_guess();
+});}
+extern "C" int study_motion_set_physics_weight(StudyMotionRuntime *r,uint64_t id,double weight){return invoke(r,[&]{
+    if(!std::isfinite(weight)||std::fabs(weight)>std::numeric_limits<float>::max())
+        throw std::runtime_error("invalid motion physics weight");
+    r->actor(id).engine->_bustScale=static_cast<double>(static_cast<float>(weight));
 });}
 extern "C" int study_motion_timeline_info(StudyMotionRuntime *r,uint64_t id,int diff,uint32_t index,char *name,size_t capacity,double *duration,int *looping){return invoke(r,[&]{
     if((diff!=0&&diff!=1)||!duration||!looping)throw std::runtime_error("invalid timeline info output");
