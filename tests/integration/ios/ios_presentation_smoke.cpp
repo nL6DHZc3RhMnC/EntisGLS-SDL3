@@ -2,6 +2,7 @@
 #include "platform/sdl/gl_drawable.h"
 #include "platform/sdl/mobile_orientation.h"
 #include "platform/ios/ios_gl_context.h"
+#include "platform/ios/window_orientation.h"
 #include "extensions/emote/tjs_runtime/runtime_gl.h"
 #include <SDL3/SDL.h>
 #include <array>
@@ -57,7 +58,8 @@ int RunIOSPresentationSmoke() {
             while (SDL_PollEvent(&event)) Require(event.type != SDL_EVENT_QUIT, "Presentation check closed during orientation setup");
             int width = 0, height = 0;
             Require(SDL_GetWindowSizeInPixels(window, &width, &height), "Cannot read initial drawable size");
-            if (height > width && width > 2) break;
+            if (height > width && width > 2 &&
+                SDL_strcmp(GetIOSWindowInterfaceOrientation(window), "portrait") == 0) break;
             Require(SDL_GetTicks() - portraitStarted < 10000, "The simulator did not enter the initial portrait orientation");
             SDL_Delay(10);
         }
@@ -135,7 +137,10 @@ int RunIOSPresentationSmoke() {
             int width = 0, height = 0;
             Require(SDL_GetWindowSizeInPixels(window, &width, &height) && width > 2 && height > 2,
                 "Invalid presentation drawable size");
-            landscapeFrames = width > height ? landscapeFrames + 1 : 0;
+            const char* interfaceOrientation = GetIOSWindowInterfaceOrientation(window);
+            const bool sceneIsLandscape = SDL_strcmp(interfaceOrientation, "landscape-left") == 0 ||
+                SDL_strcmp(interfaceOrientation, "landscape-right") == 0;
+            landscapeFrames = width > height && sceneIsLandscape ? landscapeFrames + 1 : 0;
             Require(ready || SDL_GetTicks() - started < 10000,
                 "The resizable game window did not present in landscape after the orientation request");
             glBindFramebuffer(GL_FRAMEBUFFER, ResolveWindowFramebuffer(0));
@@ -167,8 +172,8 @@ int RunIOSPresentationSmoke() {
             ++frames;
             if (!ready && frames >= 4 && landscapeFrames >= 4) {
                 ready = true;
-                SDL_Log("IOS_PRESENTATION_READY framebuffer=%u zero_and_offscreen_bindings=verified shared_motion_context=verified orientation=landscape initial_portrait=verified pattern=green-left-red-right",
-                    ResolveWindowFramebuffer(0));
+                SDL_Log("IOS_PRESENTATION_READY framebuffer=%u zero_and_offscreen_bindings=verified shared_motion_context=verified orientation=landscape initial_portrait=verified pattern=green-left-red-right interface_orientation=%s drawable_width=%d drawable_height=%d",
+                    ResolveWindowFramebuffer(0), interfaceOrientation, width, height);
             }
             SDL_Delay(16);
         }

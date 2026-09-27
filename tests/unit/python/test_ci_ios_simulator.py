@@ -59,15 +59,27 @@ class SimulatorSelectionTest(unittest.TestCase):
 
 
 class PresentationScreenshotTest(unittest.TestCase):
-    def fixture(self, path, *, black=False, reversed_colors=False, alpha=True, portrait=False):
-        width, height = (80, 100) if portrait else (100, 80)
+    def native(self, orientation='landscape-right', width=100, height=80):
+        return dict(interface_orientation=orientation, drawable_width=width, drawable_height=height)
+
+    def fixture(self, path, *, black=False, reversed_colors=False, alpha=True, portrait=False,
+                panel_orientation=None):
+        width, height = (80, 100) if portrait or panel_orientation else (100, 80)
         channels = 4 if alpha else 3
         pixels = bytearray()
         previous = bytearray(width * channels)
         for y in range(height):
             row = bytearray()
             for x in range(width):
-                green = (x < width // 2) != reversed_colors
+                # Independent panel-coordinate fixtures: right has green above
+                # red, left has green below red. No production mapping is used.
+                if panel_orientation == 'landscape-right':
+                    green = y < height // 2
+                elif panel_orientation == 'landscape-left':
+                    green = y >= height // 2
+                else:
+                    green = x < width // 2
+                green = green != reversed_colors
                 rgb = (0, 0, 0) if black else (0, 255, 0) if green else (255, 0, 0)
                 row.extend((*rgb, 255) if alpha else rgb)
             method = y % 5
@@ -102,28 +114,33 @@ class PresentationScreenshotTest(unittest.TestCase):
             path = Path(directory) / 'frame.png'
             for alpha in (True, False):
                 self.fixture(path, alpha=alpha)
-                self.assertEqual(verify_presented_pattern(path)['green_left_ratio'], 1)
+                for orientation in ('landscape-right', 'landscape-left'):
+                    result = verify_presented_pattern(path, self.native(orientation))
+                    self.assertEqual(result['green_left_ratio'], 1)
+                    self.assertEqual(result['mapping'], 'identity')
 
     def test_rejects_black_screen(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'frame.png'
             self.fixture(path, black=True)
             with self.assertRaisesRegex(RuntimeError, 'did not present'):
-                verify_presented_pattern(path)
+                verify_presented_pattern(path, self.native())
 
     def test_rejects_landscape_content_presented_in_portrait(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'frame.png'
             self.fixture(path, portrait=True)
-            with self.assertRaisesRegex(RuntimeError, 'did not rotate'):
-                verify_presented_pattern(path)
+            with self.assertRaisesRegex(RuntimeError, 'Native drawable is not landscape'):
+                verify_presented_pattern(path, self.native(width=80, height=100))
+            with self.assertRaisesRegex(RuntimeError, 'did not present'):
+                verify_presented_pattern(path, self.native())
 
     def test_rejects_reversed_frame(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'frame.png'
             self.fixture(path, reversed_colors=True)
             with self.assertRaisesRegex(RuntimeError, 'did not present'):
-                verify_presented_pattern(path)
+                verify_presented_pattern(path, self.native())
 
     def test_rejects_corrupted_screenshot(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -133,7 +150,54 @@ class PresentationScreenshotTest(unittest.TestCase):
             damaged[-1] ^= 1
             path.write_bytes(damaged)
             with self.assertRaisesRegex(RuntimeError, 'checksum'):
-                verify_presented_pattern(path)
+                verify_presented_pattern(path, self.native())
+
+    def test_accepts_native_panel_coordinates_only_for_matching_uikit_orientation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'panel.png'
+            for orientation, mapping in [('landscape-right', 'logical(x,y)->raw(1-y,x)'),
+                                         ('landscape-left', 'logical(x,y)->raw(y,1-x)')]:
+                for alpha in (True, False):
+                    self.fixture(path, panel_orientation=orientation, alpha=alpha)
+                    result = verify_presented_pattern(path, self.native(orientation))
+                    self.assertEqual((result['raw_width'], result['raw_height']), (80, 100))
+                    self.assertEqual((result['drawable_width'], result['drawable_height']), (100, 80))
+                    self.assertEqual(result['mapping'], mapping)
+                    self.assertEqual((result['green_left_ratio'], result['red_right_ratio']), (1, 1))
+                    wrong = 'landscape-left' if orientation == 'landscape-right' else 'landscape-right'
+                    with self.assertRaisesRegex(RuntimeError, 'did not present'):
+                        verify_presented_pattern(path, self.native(wrong))
+
+    def test_panel_black_or_reversed_colors_are_not_fixed_by_rotation_search(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'panel.png'
+            for orientation in ('landscape-right', 'landscape-left'):
+                for options in ({'black': True}, {'reversed_colors': True}):
+                    self.fixture(path, panel_orientation=orientation, **options)
+                    with self.assertRaisesRegex(RuntimeError, 'did not present'):
+                        verify_presented_pattern(path, self.native(orientation))
+
+    def test_rejects_wrong_native_scene_and_nonmatching_dimensions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'frame.png'
+            self.fixture(path)
+            for orientation in ('portrait', 'portrait-upside-down', 'unknown', None):
+                with self.assertRaisesRegex(RuntimeError, 'Native UIKit interface orientation'):
+                    verify_presented_pattern(path, self.native(orientation))
+            with self.assertRaisesRegex(RuntimeError, 'exact transpose'):
+                verify_presented_pattern(path, self.native(width=102))
+
+    def test_ready_metadata_requires_native_scene_and_drawable_dimensions(self):
+        line = ('IOS_PRESENTATION_READY framebuffer=1 interface_orientation=landscape-right '
+                'drawable_width=100 drawable_height=80 pattern=green-left-red-right')
+        self.assertEqual(smoke.presentation_metadata('prefix\n' + line + '\n'), self.native())
+        for text in ('IOS_PRESENTATION_READY orientation=landscape',
+                     line.replace('landscape-right', 'portrait'),
+                     line.replace('drawable_width=100', 'drawable_width=no'),
+                     line.replace('drawable_width=100', 'drawable_width=80'),
+                     line + ' drawable_width=100'):
+            with self.assertRaises(RuntimeError):
+                smoke.presentation_metadata(text)
 
 
 class SimulatorDiagnosticsTest(unittest.TestCase):
@@ -238,6 +302,38 @@ class SimulatorDiagnosticsTest(unittest.TestCase):
             self.assertTrue(diagnostics.result['library']['alive_after_capture'])
             self.assertFalse(diagnostics.result['library']['passed'])
 
+    def test_pixel_failure_is_diagnosed_with_pid_before_app_termination(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            diagnostics = smoke.Diagnostics(root / 'out')
+            container = root / 'container'; container.mkdir()
+            order = []
+
+            def commands(label, *arguments, **options):
+                order.append(arguments[0])
+                return subprocess.CompletedProcess(arguments, 0,
+                    self.bundle + ': 1234\n' if arguments[0] == 'launch' else '', '')
+
+            def verify(path, text):
+                order.append('verify')
+                raise RuntimeError('invalid screenshot pixels')
+
+            def collect(diagnostics, device, executable, name, pid):
+                self.assertEqual(pid, 1234)
+                self.assertNotIn('terminate', order)
+                order.append('diagnose')
+
+            with mock.patch.object(diagnostics, 'simctl', side_effect=commands), \
+                    mock.patch.object(smoke, 'wait_for_marker'), \
+                    mock.patch.object(smoke, 'pid_alive', return_value=True), \
+                    mock.patch.object(smoke.time, 'sleep'), \
+                    mock.patch.object(smoke, 'collect_failure', side_effect=collect):
+                with self.assertRaisesRegex(RuntimeError, 'invalid screenshot pixels'):
+                    smoke.capture_phase(diagnostics, 'device', self.bundle, 'EntisGLSLauncher',
+                        container, 'presentation', [], 'IOS_PRESENTATION_READY', verifier=verify)
+            self.assertEqual(order, ['launch', 'io', 'verify', 'diagnose', 'terminate'])
+            self.assertFalse(diagnostics.result['presentation']['passed'])
+
     def test_early_input_failure_still_writes_report(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -269,7 +365,7 @@ class SimulatorDiagnosticsTest(unittest.TestCase):
                           'create': 'owned-device', 'get_app_container': str(container)}.get(arguments[0], '')
                 return subprocess.CompletedProcess(arguments, 0, output, '')
 
-            def capture(diagnostics, device, bundle, executable, data, name, arguments, marker):
+            def capture(diagnostics, device, bundle, executable, data, name, arguments, marker, verifier=None):
                 diagnostics.result[name] = {'passed': True}
 
             with mock.patch.object(smoke.Diagnostics, 'simctl', autospec=True, side_effect=simctl), \

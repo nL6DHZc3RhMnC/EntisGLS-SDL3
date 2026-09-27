@@ -221,10 +221,50 @@ def png_rgb(path):
     return width, height, channels, rows
 
 
-def verify_presented_pattern(path):
-    width, height, channels, rows = png_rgb(path)
-    if width <= height:
-        raise RuntimeError(f'UIKit did not rotate the landscape game window: {width}x{height}')
+def presentation_metadata(text):
+    lines = [line for line in text.splitlines() if 'IOS_PRESENTATION_READY ' in line]
+    if not lines:
+        raise RuntimeError('Missing native IOS_PRESENTATION_READY metadata')
+    fields = {}
+    for key, value in re.findall(r'([a-z_]+)=([^\s]+)', lines[-1]):
+        if key in fields:
+            raise RuntimeError(f'Duplicate presentation metadata field: {key}')
+        fields[key] = value
+    orientation = fields.get('interface_orientation')
+    if orientation not in ('landscape-right', 'landscape-left'):
+        raise RuntimeError(f'Native UIKit interface orientation is not landscape: {orientation}')
+    try:
+        width, height = int(fields['drawable_width']), int(fields['drawable_height'])
+    except (KeyError, ValueError) as error:
+        raise RuntimeError('Missing or invalid native drawable dimensions') from error
+    if not width > height > 2:
+        raise RuntimeError(f'Native drawable is not landscape: {width}x{height}')
+    return {'interface_orientation': orientation, 'drawable_width': width, 'drawable_height': height}
+
+
+def verify_presented_pattern(path, native):
+    raw_width, raw_height, channels, rows = png_rgb(path)
+    orientation = native.get('interface_orientation')
+    width, height = native.get('drawable_width'), native.get('drawable_height')
+    if orientation not in ('landscape-right', 'landscape-left'):
+        raise RuntimeError(f'Native UIKit interface orientation is not landscape: {orientation}')
+    if not isinstance(width, int) or not isinstance(height, int) or not width > height > 2:
+        raise RuntimeError(f'Native drawable is not landscape: {width}x{height}')
+    if (raw_width, raw_height) == (width, height):
+        mapping = 'identity'
+        raw_pixel = lambda x, y: (x, y)
+    elif (raw_width, raw_height) == (height, width):
+        # simctl can return the fixed portrait panel coordinates. Choose the
+        # transform only from independent UIKit scene metadata, never colors.
+        if orientation == 'landscape-right':
+            mapping = 'logical(x,y)->raw(1-y,x)'
+            raw_pixel = lambda x, y: (height - 1 - y, x)
+        else:
+            mapping = 'logical(x,y)->raw(y,1-x)'
+            raw_pixel = lambda x, y: (y, width - 1 - x)
+    else:
+        raise RuntimeError(f'Screenshot dimensions {raw_width}x{raw_height} do not match native '
+                           f'drawable {width}x{height} or its exact transpose')
     matched = [0, 0]
     total = [0, 0]
     # Sample well inside each half, clear of the status bar, home indicator,
@@ -232,7 +272,8 @@ def verify_presented_pattern(path):
     for side, center in enumerate((0.25, 0.75)):
         for y in range(int(height * 0.35), int(height * 0.65), max(1, height // 100)):
             for x in range(int(width * (center - 0.1)), int(width * (center + 0.1)), max(1, width // 100)):
-                red, green, blue = rows[y][x * channels:x * channels + 3]
+                raw_x, raw_y = raw_pixel(x, y)
+                red, green, blue = rows[raw_y][raw_x * channels:raw_x * channels + 3]
                 total[side] += 1
                 correct = ((green > 200 and red < 50 and blue < 50) if side == 0
                            else (red > 200 and green < 50 and blue < 50))
@@ -240,9 +281,17 @@ def verify_presented_pattern(path):
                     matched[side] += 1
     ratios = [hits / count if count else 0 for hits, count in zip(matched, total)]
     if min(ratios) < 0.95:
-        raise RuntimeError(f'UIKit did not present the expected green/red frame: ratios={ratios}')
+        raise RuntimeError(f'UIKit did not present the expected green/red frame: ratios={ratios}; '
+                           f'raw={raw_width}x{raw_height}, drawable={width}x{height}, '
+                           f'interface_orientation={orientation}, mapping={mapping}')
     return {'width': width, 'height': height, 'orientation': 'landscape',
+            'raw_width': raw_width, 'raw_height': raw_height, 'mapping': mapping,
+            'interface_orientation': orientation, 'drawable_width': width, 'drawable_height': height,
             'green_left_ratio': ratios[0], 'red_right_ratio': ratios[1]}
+
+
+def verify_presentation_capture(path, text):
+    return verify_presented_pattern(path, presentation_metadata(text))
 
 
 def pid_alive(pid):
@@ -337,7 +386,7 @@ def collect_failure(diagnostics, device, executable, name, pid=None):
     diagnostics.save()
 
 
-def capture_phase(diagnostics, device, bundle, executable, container, name, arguments, marker):
+def capture_phase(diagnostics, device, bundle, executable, container, name, arguments, marker, verifier=None):
     result = {'ready_marker': marker, 'log': name + '.log', 'stdout': name + '.stdout.log',
               'stderr': name + '.stderr.log', 'screenshot': name + '.png', 'pid': None, 'passed': False}
     diagnostics.result[name] = result
@@ -368,6 +417,9 @@ def capture_phase(diagnostics, device, bundle, executable, container, name, argu
             if not pid_alive(result['pid']):
                 raise RuntimeError('The simulator app exited during the screenshot')
             result['alive_after_capture'] = True
+        if verifier is not None:
+            with diagnostics.stage(name + '-verify'):
+                result['pixels'] = verifier(diagnostics.output / result['screenshot'], app_text(paths))
         result['passed'] = True
     except Exception as error:
         primary = error
@@ -438,9 +490,7 @@ def run_smoke(app, output):
             ['--library-smoke', '--exit-after', '120'], 'IOS_LIBRARY_READY')
         result['library_ready'] = True
         capture_phase(diagnostics, device, bundle, executable, container, 'presentation',
-            ['--ios-presentation-smoke'], 'IOS_PRESENTATION_READY')
-        with diagnostics.stage('verify-presentation-pixels'):
-            result['presentation']['pixels'] = verify_presented_pattern(diagnostics.output / 'presentation.png')
+            ['--ios-presentation-smoke'], 'IOS_PRESENTATION_READY', verifier=verify_presentation_capture)
         result['presentation_verified'] = True
         result['checks_completed'] = True
     except Exception as error:

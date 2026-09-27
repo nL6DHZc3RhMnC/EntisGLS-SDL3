@@ -37,6 +37,21 @@ bool RefreshIOSWindowOrientation(SDL_Window* window) {
     Refresh(native, false);
     return true;
 }
+const char* GetIOSWindowInterfaceOrientation(SDL_Window* window) {
+    if (!window || !SDL_IsMainThread()) return "unknown";
+    auto* native = (__bridge UIWindow*)SDL_GetPointerProperty(SDL_GetWindowProperties(window),
+        SDL_PROP_WINDOW_UIKIT_WINDOW_POINTER, nullptr);
+    if (!native) return "unknown";
+    const auto orientation = native.windowScene ? native.windowScene.interfaceOrientation :
+        UIApplication.sharedApplication.statusBarOrientation;
+    switch (orientation) {
+        case UIInterfaceOrientationPortrait: return "portrait";
+        case UIInterfaceOrientationPortraitUpsideDown: return "portrait-upside-down";
+        case UIInterfaceOrientationLandscapeLeft: return "landscape-left";
+        case UIInterfaceOrientationLandscapeRight: return "landscape-right";
+        default: return "unknown";
+    }
+}
 void RefreshIOSLibraryOrientation(void* nativeWindow) {
     if (SDL_IsMainThread()) Refresh((__bridge UIWindow*)nativeWindow, true);
 }

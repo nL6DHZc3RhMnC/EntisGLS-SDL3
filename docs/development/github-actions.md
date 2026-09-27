@@ -45,6 +45,10 @@ The manual workflow builds an ARM64 Simulator app and checks the game library
 and GLES presentation without commercial resources. The rendering check creates
 a shared motion context and changes renderbuffer bindings, then verifies the
 displayed green/red pattern and landscape orientation in a Simulator screenshot.
+UIKit scene orientation and drawable dimensions determine how screenshot pixels
+are sampled: simctl can return portrait panel coordinates for a landscape app.
+The check does not infer orientation from PNG width alone or choose a rotation
+just because it produces the expected colors.
 The resizable game window uses the production orientation helper. Readiness markers and
 explicit termination are used because SDL UIKit does not exit when SDL_main
 returns. Build logs, screenshots and the smoke report remain in Actions artifacts.
