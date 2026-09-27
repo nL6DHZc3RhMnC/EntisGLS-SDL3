@@ -5,7 +5,7 @@
 StudySteady 是兼容性样例，所需补丁独立放在 `native/launcher/compatibility_profiles.cpp` 与
 `assets/compatibility/`，普通游戏不会继承它的脚本入口、资源包清单、字体或 PSB 解密参数。
 
-SDK 输入为 `EntisGLS/EntisGLS4.07.03/`，适配在项目代码或构建时生成的副本中完成。
+SDK 输入为 `EntisGLS/`，其中 `Cotopha/` 和 `EntisGLS3/` 提供引擎源码；适配在项目代码或构建时生成的副本中完成。
 **构建不需要 `StudySteadyR18/`，安装包不包含商业游戏脚本或资源包。**
 构建过程不修改原 SDK、游戏目录；已单独获取并附许可的 Noto 字体是可选兼容资源。
 
@@ -46,19 +46,23 @@ Sakura2/Loquaty 脚本入口、Windows DLL 插件及其他未适配接口不能�
 配置不受支持时会报告原因；请提供其他游戏样本逐一验证。
 
 macOS Intel 可执行本地运行验证；Apple Silicon 当前做交叉构建和包验证。
-Android 的新多游戏导入流程需要真机复测。iOS、Linux、Windows 尚未完成平台构建验证。
+Android 的直接目录访问仍需真机复测。iOS 已通过设备包编译和包结构检查；游戏运行仍待验证。
+Linux、Windows 尚未完成平台构建验证。
 SDL 负责窗口、输入、音频、路径与同步；渲染继续使用 SDK 的 OpenGL/GLES。
 
 ## 构建
 
-GitHub Actions 自动构建 Android ARM64、macOS Intel 和 Apple Silicon。
+GitHub Actions 的 `Build and release` 统一构建 Android ARM64、macOS Intel、Apple Silicon 和 iOS ARM64 未签名 IPA。
 推送 `main` 后全部构建和检查通过，会自动发布开发版 GitHub Release；
-推送 `v*` 标签会发布对应版本。下载文件包含 APK、两种架构的 Mac ZIP、校验值和测试报告。
+推送 `v*` 标签会发布对应版本。下载文件包含 APK、两种架构的 Mac ZIP、未签名 IPA、校验值和测试报告。
 首次运行需配置持久的 Android 签名 Secrets；配置与触发规则见
 [GitHub Actions 说明](docs/github-actions.md)。构建不需要提供游戏资源。
 
-iOS 使用独立的实验构建流程，生成 ARM64 未签名 IPA，并在 iPhone 模拟器上检查启动器界面。
-通过后发布 `ios-dev-*` 预发布版本；安装到真机前需要在本地使用自己的 Apple 账号签名。
+Actions 跨运行保留编译缓存和依赖下载缓存。编译缓存按平台、架构、Clang/Xcode/SDK 区分，
+每次仍执行依赖校验、测试与打包；命中统计随 Actions 诊断报告提供。
+
+iOS 为实验支持，设备包与其他平台一起构建和发布；当前工作流验证编译与未签名包结构，不将模拟器启动检查作为发布条件。
+安装到真机前需要在本地使用自己的 Apple 账号签名。
 构建、文件导入和签名限制见 [iOS 说明](docs/ios-build.md)。
 
 ```sh

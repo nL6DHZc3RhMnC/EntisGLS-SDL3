@@ -1,5 +1,5 @@
 # Build the official SDK sources; no binary libraries from the retired SDK tree.
-# Source groups mirror EntisGLS4.07.03/Makes/Android/jni/jni/Android.mk.
+# Source groups mirror EntisGLS/Makes/Android/jni/jni/Android.mk.
 if(NOT ANDROID_ABI STREQUAL "arm64-v8a")
     message(FATAL_ERROR "The official EntisGLS source build currently supports arm64-v8a")
 endif()

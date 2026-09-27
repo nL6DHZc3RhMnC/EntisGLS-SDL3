@@ -1,7 +1,7 @@
 # Traditional Cotopha on Android
 
 `cmake/legacy_runtime.cmake` builds the actual GLS3 interpreter and object
-sources from `EntisGLS/EntisGLS4.07.03/EntisGLS3`. `prepare.py` writes
+sources from `EntisGLS/EntisGLS3`. `prepare.py` writes
 UTF-8/Clang-compatible copies into the build directory; vendor originals stay
 unchanged. The generated code links to Android `libgls4.a`, now built from the
 official SDK sources via `cmake/official_entis.cmake`, for

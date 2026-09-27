@@ -8,17 +8,21 @@ Commercial game files are never bundled by the build.
 
 ## GitHub Actions
 
-The independent **Build iOS unsigned** workflow runs on relevant pushes to
-`main` and through manual dispatch. It builds both the ARM64 device IPA and an
-ARM64 Simulator app on macOS runners with Xcode. The Simulator check opens the
-native game library, captures a screenshot, and verifies a clean diagnostic
-exit. It does not test game scripts, rendering, audio, or physical devices.
+**Build and release** builds the ARM64 device IPA on a macOS runner with Xcode,
+alongside Android and both macOS architectures. It runs on pushes to `main`,
+`v*` tags, and manual dispatch. There is no separate iOS workflow.
 
-After both jobs pass, the workflow validates the device IPA's Mach-O platform,
-absence of code signatures/provisioning, and hashes before automatically
-publishing an `ios-dev-*` prerelease. The release includes the unsigned IPA,
-its build report and SHA-256 checksums. Simulator screenshots/logs remain in
-the Actions artifacts. No Apple account or signing secrets are configured in CI.
+After all builds pass, the shared release job validates the device IPA's Mach-O
+platform, absence of code signatures/provisioning, and hashes. It publishes the
+unsigned IPA and build report with the Android/macOS packages and shared
+SHA-256 checksums in the same `dev-*` prerelease or version-tag release.
+No Apple account or signing secrets are configured in CI.
+
+iOS CI validation covers the device build and package. Simulator startup is not
+part of this release workflow: the earlier independent Simulator check timed out.
+The Simulator build and diagnostic smoke tools remain available for separate
+investigation. A successful release does not certify iOS launcher startup or
+gameplay on a physical device.
 
 ## Build an unsigned device IPA
 
@@ -72,6 +76,15 @@ The Simulator build uses an ARM64 Simulator binary, stored in a separate output
 directory with `EntisGLSLauncher-simulator.zip`. It receives a local ad-hoc
 signature required by ARM64 execution; this does not use a development identity.
 A Simulator build cannot be installed on an iPhone.
+
+The separate diagnostic helper can create a compatible disposable Simulator,
+capture the game-library screen, and check its diagnostic exit:
+
+```sh
+python3 tools/ci_ios_simulator_smoke.py --app artifacts/entisgls-launcher/ios-simulator-arm64/EntisGLSLauncher.app --output artifacts/ios-smoke
+```
+
+This exercises the launcher library only, not game scripts, rendering or audio.
 
 ## Sign and install locally
 

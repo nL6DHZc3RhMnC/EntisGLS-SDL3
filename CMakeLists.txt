@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 project(EntisGLSLauncher LANGUAGES C CXX)
+include(cmake/compiler_cache.cmake)
 set(CMAKE_CXX_STANDARD 17)
 option(ENTISGLS_LAUNCHER "Build the generic SDL3 EntisGLS launcher" ON)
 option(STUDYSTEADY_SDL3 "Legacy alias for the SDL3 launcher backend" OFF)

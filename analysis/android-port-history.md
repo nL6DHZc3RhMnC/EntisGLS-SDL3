@@ -1,5 +1,7 @@
 # StudySteady Android 移植
 
+> 目录整理更新：文中历史路径 `EntisGLS/EntisGLS4.07.03/` 现已上移为 `EntisGLS/`；源码内容保持不变。`Primrose2` 与 `loquaty_lib_1.02` 发行目录已移除，构建仍使用 `vendor/official-loquaty` 源码。
+
 目标设备：小米 10 Pro / Android 13 / arm64-v8a。
 
 2026-09-27 起，SDK 构建输入改为 `EntisGLS/EntisGLS4.07.03/`，不再使用

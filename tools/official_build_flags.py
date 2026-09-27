@@ -34,7 +34,9 @@ def read_flags(build, targets=('legacy_objects', 'legacy_resource_compile_probe'
         if line.startswith(('CXX_DEFINES =', 'CXX_INCLUDES =', 'CXX_FLAGS =')):
             flags.extend(shlex.split(line.split('=', 1)[1]))
     # A corrected cache is insufficient if flags.make was copied or not regenerated.
-    retired = ((ROOT / 'EntisGLS4.07.03').resolve(), (ROOT / 'build/legacy').resolve())
+    retired = ((ROOT / 'EntisGLS4.07.03').resolve(),
+               (ROOT / 'EntisGLS/EntisGLS4.07.03').resolve(),
+               (ROOT / 'build/legacy').resolve())
     for flag in flags:
         if not flag.startswith('-I') or len(flag) == 2:
             continue

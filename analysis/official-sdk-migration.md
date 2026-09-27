@@ -1,5 +1,7 @@
 # EntisGLS 依赖迁移（2026-09-27）
 
+> 目录整理更新：文中历史路径 `EntisGLS/EntisGLS4.07.03/` 现已上移为 `EntisGLS/`；源码内容保持不变。`Primrose2` 与 `loquaty_lib_1.02` 发行目录已移除，构建仍使用 `vendor/official-loquaty` 源码。
+
 当前构建已改用 `EntisGLS/EntisGLS4.07.03/`，完整 ARM64 编译、链接和 APK 签名校验通过。
 新 APK：`artifacts/studysteady-arm64-dev.apk`，50,442,858 字节。
 SHA-256：`2b7bc4b48d9f7453120c06cbde35d4cc1ba2688c9a66e39895dd6c2ee647bffe`。

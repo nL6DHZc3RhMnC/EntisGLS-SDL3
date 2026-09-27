@@ -1,8 +1,9 @@
 # GitHub Actions builds and releases
 
 `.github/workflows/build-release.yml` builds Android ARM64 on Ubuntu, macOS Intel
-on `macos-15-intel`, and macOS Apple Silicon on `macos-15`. Each architecture has
-its own checkout. No game directory or local `.android-tools` directory is used.
+on `macos-15-intel`, and macOS Apple Silicon plus an unsigned iOS ARM64 device IPA
+in separate jobs on `macos-15`. Each build has its own checkout. No game directory
+or local `.android-tools` directory is used.
 Pinned inputs and clean-checkout preparation are described in [CI build inputs](ci-build-inputs.md).
 
 ## Triggers and artifacts
@@ -11,15 +12,21 @@ Pinned inputs and clean-checkout preparation are described in [CI build inputs](
   prerelease named `dev-<run>.<attempt>-<commit>`.
 - Push a `v*` tag: publish that version. Tags containing a hyphen remain
   prereleases (for example `v0.4.0-rc1`). Update the app manifests/version first.
-- Publication happens only after all three packages and their checks pass.
+- Publication happens only after all four packages and their checks pass.
   A failed build leaves diagnostics in Actions and does not publish a release.
 
-Releases contain the signed APK, two app ZIPs, build/native-test reports and
-`SHA256SUMS.txt`. macOS signing is ad-hoc, with archive extraction and signature
+Releases contain the signed APK, two app ZIPs, the unsigned device IPA,
+build/native-test reports and `SHA256SUMS.txt`. macOS signing is ad-hoc, with archive extraction and signature
 verification; this workflow does not perform Developer ID signing or notarization.
 The native tests run the actual Cotopha interpreter with generated fixtures and
 SDL dummy drivers. They do not require commercial game resources or a display.
 Android packaging verifies the APK signature, ZIP alignment and ELF 16 KB alignment.
+iOS packaging checks the IPA checksum, archive contents and ARM64 device Mach-O,
+and rejects code signatures or provisioning data. The IPA must be signed locally
+before installation; no Apple credentials are used by CI. See [iOS builds](ios-build.md).
+The release workflow does not run an iOS Simulator startup check. The earlier
+independent workflow's Simulator check timed out; its diagnostic tools remain
+available, but device IPA publication now depends on build/package checks only.
 Device gameplay still needs separate testing.
 
 Build jobs have read-only repository access. Only the final release job receives
@@ -27,6 +34,37 @@ Build jobs have read-only repository access. Only the final release job receives
 are uploaded as drafts, then published after every asset upload succeeds.
 Existing releases are never overwritten. If a version-tag run leaves a draft
 after an upload failure, review/remove that draft before rerunning it.
+
+## Caches shared across workflow runs
+
+Every build job restores and saves a bounded `ccache` directory under
+`build/compiler-cache`. The cache is separated by platform, architecture and a
+fingerprint of the runner image, ccache and actual Clang toolchain. Apple keys
+also include the active Xcode and SDK versions. The write key contains the source
+commit and run attempt; the restore prefix omits them so later commits can reuse
+unchanged compilations. Compiler contents and compilation inputs still determine
+individual ccache entries. Changing the SDK or compiler creates a separate cache.
+
+Each cache is limited to 1 GB. Build steps clear the statistics before compiling,
+then require at least one cache hit or miss to prove that compilation reached
+ccache. Actions diagnostics include `build/ci/ccache.json` with hit/miss counts;
+the first run normally has misses, and subsequent runs can reuse its objects.
+Native tests, archive verification and signing still run on every build.
+
+Download caches are independent of compiled objects:
+
+- `build/downloads` stores pinned dependency verification archives. Its key
+  includes the dependency setup scripts and manifest. Every run verifies archive
+  hashes and committed source contents even when the cache is restored.
+- Android caches the configured NDK, API 35 platform, build-tools 35.0.0 and
+  platform-tools under the runner SDK directory. `sdkmanager` still checks that
+  the required packages are installed after restoration.
+- macOS/iOS cache only Homebrew's `~/Library/Caches/Homebrew/downloads` directory;
+  Bison and ccache are installed normally from those downloads when available.
+
+Caches never contain signing keys, profiles, Apple credentials, game resources
+or whole build directories. A cache miss only makes the normal build/download
+steps run again. The workflow pins `actions/cache` to a specific commit.
 
 ## Persistent Android signing
 

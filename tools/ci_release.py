@@ -9,10 +9,12 @@ from pathlib import Path
 import re
 import subprocess
 
+from ci_ios_release import IPA_NAME, REPORT_NAME, verify_ipa
+
 
 def prepare(directory, environment):
     required = ['EntisGLSLauncher-android-arm64.apk',
-                'EntisGLSLauncher-android-arm64.build.json']
+                'EntisGLSLauncher-android-arm64.build.json', IPA_NAME, REPORT_NAME]
     for arch in ('x86_64', 'arm64'):
         required += [f'EntisGLSLauncher-macos-{arch}{suffix}'
                      for suffix in ('.zip', '.build.json', '.tests.json')]
@@ -41,6 +43,19 @@ def prepare(directory, environment):
     if android['apk_sha256'] != hashlib.sha256((directory / required[0]).read_bytes()).hexdigest():
         raise RuntimeError('Android APK hash mismatch')
 
+    ios = json.loads((directory / REPORT_NAME).read_text())
+    if (ios['platform'] != 'iOS' or ios['sdk'] != 'iphoneos'
+            or ios['architectures'] != ['arm64'] or ios['unsigned'] is not True
+            or ios['archive_crc_verified'] is not True
+            or ios['archive_binary_verified'] is not True
+            or ios['macho_platform_verified'] is not True
+            or ios['game_resources_included'] is not False
+            or ios['bundle_id'] != 'io.entisgls.launcher'):
+        raise RuntimeError('iOS package validation failed')
+    if ios['archive_sha256'] != hashlib.sha256((directory / IPA_NAME).read_bytes()).hexdigest():
+        raise RuntimeError('iOS IPA hash mismatch')
+    ios_info = verify_ipa(directory / IPA_NAME)
+
     sha = environment['GITHUB_SHA']
     if not re.fullmatch(r'[0-9a-f]{40}', sha):
         raise RuntimeError('Invalid source commit')
@@ -58,6 +73,10 @@ def prepare(directory, environment):
         '- Saves use savedata inside the selected game directory on every platform. Missing directories are created; old app-private saves are not migrated.',
         '- macOS: separate Intel (x86_64) and Apple Silicon (arm64) ZIPs, macOS 11 or newer.',
         '- macOS apps have ad-hoc signatures; they are not Developer ID signed or notarized.',
+        f"- iOS: experimental ARM64 iPhone/iPad IPA, iOS {ios_info.get('MinimumOSVersion', ios.get('minimum_os', '13.0'))} or newer.",
+        '- The iOS IPA is unsigned. Sign it locally with your own Apple development identity and device provisioning profile before installation.',
+        '- iOS checks cover the device build, package contents, and Mach-O platform; simulator startup and physical-device gameplay are not tested by this workflow.',
+        '- No Apple account, signing certificate, or provisioning profile is used by the iOS build.',
         '- Game scripts and resource archives are not included. Supported games must be supplied separately.',
         '- Native checks use synthetic fixtures; they do not certify compatibility with every game.',
         '', 'Package verification, native test reports and SHA-256 checksums are attached.', '',

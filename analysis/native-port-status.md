@@ -1,5 +1,7 @@
 # 原生移植取证与当前边界
 
+> 目录整理更新：文中历史路径 `EntisGLS/EntisGLS4.07.03/` 现已上移为 `EntisGLS/`；源码内容保持不变。`Primrose2` 与 `loquaty_lib_1.02` 发行目录已移除，构建仍使用 `vendor/official-loquaty` 源码。
+
 历史真机记录日期：2026-09-23。设备：Mi 10 Pro，Android 13，支持 arm64-v8a。
 
 ## SDK 换源（2026-09-27）

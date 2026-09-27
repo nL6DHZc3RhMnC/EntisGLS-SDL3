@@ -1,5 +1,7 @@
 # SDK source comparison — 2026-09-27
 
+> 目录整理更新：文中历史路径 `EntisGLS/EntisGLS4.07.03/` 现已上移为 `EntisGLS/`；源码内容保持不变。`Primrose2` 与 `loquaty_lib_1.02` 发行目录已移除，构建仍使用 `vendor/official-loquaty` 源码。
+
 Compared the former input `EntisGLS4.07.03/Cotopha` with the replacement supplied by the user, `EntisGLS/EntisGLS4.07.03/Cotopha`. “Official” below identifies the replacement selected by the user; this local comparison does not independently authenticate its upstream provenance.
 
 ## Byte comparison

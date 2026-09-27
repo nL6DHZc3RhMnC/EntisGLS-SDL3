@@ -4,12 +4,16 @@
 import hashlib
 import json
 from pathlib import Path
+import plistlib
+import struct
 import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
+import zipfile
 
 import ci_release as release
+from ci_ios_release import BUNDLE, IPA_NAME, REPORT_NAME
 
 
 class ReleaseTest(unittest.TestCase):
@@ -43,6 +47,27 @@ class ReleaseTest(unittest.TestCase):
             }, "archive_sha256")
             (self.assets / f"EntisGLSLauncher-macos-{arch}.tests.json").write_text(
                 json.dumps({"passed": True}))
+        self.write_ios_package()
+
+    def write_ios_package(self, platform=2, signed=False, extra=None):
+        commands = struct.pack('<6I', 0x32, 24, platform, 13 << 16, 18 << 16, 0)
+        if signed:
+            commands += struct.pack('<4I', 0x1d, 16, 0, 0)
+        binary = struct.pack('<8I', 0xfeedfacf, 0x100000c, 0, 2, 2 if signed else 1,
+                             len(commands), 0, 0) + commands
+        ipa = self.assets / IPA_NAME
+        with zipfile.ZipFile(ipa, 'w') as archive:
+            archive.writestr(BUNDLE + 'Info.plist', plistlib.dumps({
+                'CFBundleIdentifier': 'io.entisgls.launcher',
+                'CFBundleExecutable': 'EntisGLSLauncher', 'MinimumOSVersion': '13.0'}))
+            archive.writestr(BUNDLE + 'EntisGLSLauncher', binary)
+            if extra:
+                archive.writestr(extra, b'fixture')
+        (self.assets / REPORT_NAME).write_text(json.dumps(dict(
+            platform='iOS', sdk='iphoneos', architectures=['arm64'], unsigned=True,
+            archive_crc_verified=True, archive_binary_verified=True, macho_platform_verified=True,
+            game_resources_included=False, bundle_id='io.entisgls.launcher', minimum_os='13.0',
+            archive_sha256=hashlib.sha256(ipa.read_bytes()).hexdigest())))
 
     def write_package(self, name, content, report, hash_field):
         package = self.assets / name
@@ -65,9 +90,11 @@ class ReleaseTest(unittest.TestCase):
         self.assertIs(prerelease, True)
         self.assertIn("https://github.com/example/launcher/actions/runs/123456", notes)
         self.assertIn("ad-hoc signatures", notes)
-        self.assertEqual(len(assets), 9)
+        self.assertIn("The iOS IPA is unsigned", notes)
+        self.assertIn("not tested by this workflow", notes)
+        self.assertEqual(len(assets), 11)
         lines = (self.assets / "SHA256SUMS.txt").read_text().splitlines()
-        self.assertEqual(len(lines), 8)
+        self.assertEqual(len(lines), 10)
         for line in lines:
             checksum, filename = line.split("  ")
             self.assertEqual(checksum, hashlib.sha256((self.assets / filename).read_bytes()).hexdigest())
@@ -118,7 +145,7 @@ class ReleaseTest(unittest.TestCase):
             self.prepare()
 
     def test_rejects_package_content_hash_mismatch(self):
-        for filename in ("EntisGLSLauncher-android-arm64.apk", "EntisGLSLauncher-macos-arm64.zip"):
+        for filename in ("EntisGLSLauncher-android-arm64.apk", "EntisGLSLauncher-macos-arm64.zip", IPA_NAME):
             with self.subTest(filename=filename):
                 path = self.assets / filename
                 original = path.read_bytes()
@@ -140,6 +167,44 @@ class ReleaseTest(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, "macOS package validation failed"):
                     self.prepare()
                 self.change_report(filename, key, valid)
+
+    def test_requires_ios_package_and_report(self):
+        for filename in (IPA_NAME, REPORT_NAME):
+            with self.subTest(filename=filename):
+                self.write_ios_package()
+                (self.assets / filename).unlink()
+                with self.assertRaisesRegex(RuntimeError, "Unexpected release asset set"):
+                    self.prepare()
+
+    def test_rejects_failed_ios_build_validation(self):
+        for key, value in (
+            ('platform', 'iOS Simulator'), ('sdk', 'iphonesimulator'),
+            ('architectures', ['x86_64']), ('unsigned', False), ('unsigned', 'true'),
+            ('archive_crc_verified', False), ('archive_binary_verified', False),
+            ('macho_platform_verified', False), ('game_resources_included', True),
+            ('bundle_id', 'unexpected.bundle'),
+        ):
+            with self.subTest(field=key, value=value):
+                self.write_ios_package()
+                self.change_report(REPORT_NAME, key, value)
+                with self.assertRaisesRegex(RuntimeError, "iOS package validation failed"):
+                    self.prepare()
+
+    def test_rejects_ios_simulator_or_signed_executable_despite_success_report(self):
+        for options in ({'platform': 7}, {'signed': True}):
+            with self.subTest(options=options):
+                self.write_ios_package(**options)
+                with self.assertRaises(RuntimeError):
+                    self.prepare()
+
+    def test_rejects_ios_provisioning_and_unsafe_archive_entries(self):
+        for extra in (BUNDLE + 'embedded.mobileprovision',
+                      BUNDLE + '_CodeSignature/CodeResources',
+                      BUNDLE + '../unexpected', '/outside'):
+            with self.subTest(entry=extra):
+                self.write_ios_package(extra=extra)
+                with self.assertRaises(RuntimeError):
+                    self.prepare()
 
     def test_rejects_non_boolean_success_and_failed_native_checks(self):
         for invalid in (False, "true", 1, None):

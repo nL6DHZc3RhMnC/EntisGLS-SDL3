@@ -2,7 +2,7 @@
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PACKAGE = ROOT / 'EntisGLS' / 'EntisGLS4.07.03'
+PACKAGE = ROOT / 'EntisGLS'
 COTOPHA = PACKAGE / 'Cotopha'
 LEGACY = PACKAGE / 'EntisGLS3'
 

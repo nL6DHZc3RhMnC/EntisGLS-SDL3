@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate and publish the unsigned iOS device IPA, without signing secrets."""
+"""iOS package validation reused by the unified release; legacy standalone CLI."""
 
 import argparse
 import hashlib
@@ -94,7 +94,7 @@ def prepare(directory, environment):
         f'Experimental unsigned iOS build from `{sha}`, built by [GitHub Actions]({run_url}).', '',
         f"- ARM64 iPhone/iPad, minimum iOS {info.get('MinimumOSVersion', report.get('minimum_os', '13.0'))}.",
         '- This IPA is unsigned. Sign it locally with your own Apple development identity and device provisioning profile before installation.',
-        '- The iPhone simulator launcher startup check passed; this does not certify gameplay on physical devices.',
+        '- This packaging helper does not verify simulator startup or gameplay on physical devices.',
         '- Import a supported game folder through Files, or copy it into the app Documents/Games folder. Commercial game resources are not included.',
         '- No Apple account, signing certificate, or provisioning profile is used by this workflow.', '',
     ])

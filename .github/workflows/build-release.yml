@@ -13,6 +13,13 @@ concurrency:
   group: build-release-${{ github.ref }}
   cancel-in-progress: false
 
+env:
+  CCACHE_DIR: ${{ github.workspace }}/build/compiler-cache
+  CCACHE_BASEDIR: ${{ github.workspace }}
+  CCACHE_COMPILERCHECK: content
+  CCACHE_MAXSIZE: 1G
+  ENTISGLS_COMPILER_CACHE: ccache
+
 defaults:
   run:
     shell: bash
@@ -50,12 +57,57 @@ jobs:
               key.chmod(0o600)
               output.write(base64.b64decode(os.environ['KEYSTORE_BASE64'], validate=True))
           PY
+      - name: Locate Android SDK cache
+        id: android_sdk
+        run: |
+          printf 'root=%s\n' "$ANDROID_HOME" >> "$GITHUB_OUTPUT"
+          printf 'image=%s\n' "$ImageVersion" >> "$GITHUB_OUTPUT"
+      - name: Restore Android SDK and NDK packages
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ${{ steps.android_sdk.outputs.root }}/ndk/27.2.12479018
+            ${{ steps.android_sdk.outputs.root }}/platforms/android-35
+            ${{ steps.android_sdk.outputs.root }}/build-tools/35.0.0
+            ${{ steps.android_sdk.outputs.root }}/platform-tools
+          key: android-sdk-v1-${{ runner.os }}-${{ runner.arch }}-api35-bt35.0.0-ndk27.2.12479018-${{ steps.android_sdk.outputs.image }}
+          restore-keys: |
+            android-sdk-v1-${{ runner.os }}-${{ runner.arch }}-api35-bt35.0.0-ndk27.2.12479018-
       - name: Install host tools and pinned Android packages
         run: |
           sudo apt-get update
-          sudo apt-get install -y bison cmake make
+          sudo apt-get install -y bison ccache cmake make
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platform-tools' 'platforms;android-35' 'build-tools;35.0.0' 'ndk;27.2.12479018'
           echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.2.12479018" >> "$GITHUB_ENV"
+      - name: Identify compiler cache toolchain
+        id: compiler
+        run: |
+          python3 - <<'PYTOOLCHAIN'
+          import hashlib, json, os, subprocess
+          commands = [['ccache', '--version'], [os.path.join(os.environ['ANDROID_NDK_HOME'], 'toolchains/llvm/prebuilt/linux-x86_64/bin/clang'), '--version']]
+          identity = {'image': os.environ.get('ImageVersion', ''),
+                      'toolchain': [subprocess.check_output(command, text=True).strip() for command in commands]}
+          digest = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('identity=' + digest + '\n')
+          print(json.dumps(identity, indent=2))
+          PYTOOLCHAIN
+      - name: Restore compiler cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ccache-v1-android-arm64-${{ steps.compiler.outputs.identity }}-${{ github.sha }}-${{ github.run_attempt }}
+          restore-keys: |
+            ccache-v1-android-arm64-${{ steps.compiler.outputs.identity }}-
+      - name: Reset compiler cache statistics
+        run: ccache --zero-stats
+      - name: Restore verified dependency downloads
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: build/downloads
+          key: downloads-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('tools/setup_sdl3.py', 'tools/setup_sdl_fonts.py', 'tools/ci_prepare_dependencies.py', 'vendor/official-entis-dependencies.json') }}
+          restore-keys: |
+            downloads-v1-${{ runner.os }}-${{ runner.arch }}-
       - name: Verify committed dependencies
         run: python3 tools/ci_prepare_dependencies.py
       - name: Test build tools
@@ -73,6 +125,11 @@ jobs:
           ENTISGLS_ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           python3 tools/build_sdl_android.py --jobs 4 --output artifacts/EntisGLSLauncher-android-arm64.apk
+      - name: Verify compiler cache handled compilation
+        run: python3 tools/ci_compiler_cache_stats.py --output build/ci/ccache.json --require-compilations
+      - name: Report compiler cache statistics
+        if: always() && steps.compiler.outcome == 'success'
+        run: python3 tools/ci_compiler_cache_stats.py --output build/ci/ccache.json
       - name: Remove temporary signing key
         if: always()
         run: rm -f "$RUNNER_TEMP/entisgls-signing.keystore"
@@ -95,6 +152,7 @@ jobs:
           path: |
             build/android-sdl3/logs/*.log
             build/ci/dependencies.json
+            build/ci/ccache*.json
 
   macos:
     name: macOS ${{ matrix.arch }}
@@ -117,11 +175,47 @@ jobs:
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.12'
-      - name: Install host Bison
+      - name: Restore Homebrew downloads
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ~/Library/Caches/Homebrew/downloads
+          key: brew-downloads-v1-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
+          restore-keys: |
+            brew-downloads-v1-${{ runner.os }}-${{ runner.arch }}-
+      - name: Install host Bison and ccache
         run: |
-          brew install bison
+          brew install bison ccache
           echo "$(brew --prefix bison)/bin" >> "$GITHUB_PATH"
           echo "TJS_BISON=$(brew --prefix bison)/bin/bison" >> "$GITHUB_ENV"
+      - name: Identify compiler cache toolchain
+        id: compiler
+        run: |
+          python3 - <<'PYTOOLCHAIN'
+          import hashlib, json, os, subprocess
+          commands = [['ccache', '--version'], ['xcodebuild', '-version'], ['xcrun', '--sdk', 'macosx', 'clang', '--version'], ['xcrun', '--sdk', 'macosx', '--show-sdk-version']]
+          identity = {'image': os.environ.get('ImageVersion', ''),
+                      'toolchain': [subprocess.check_output(command, text=True).strip() for command in commands]}
+          digest = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('identity=' + digest + '\n')
+          print(json.dumps(identity, indent=2))
+          PYTOOLCHAIN
+      - name: Restore compiler cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ccache-v1-macos-${{ matrix.arch }}-${{ steps.compiler.outputs.identity }}-${{ github.sha }}-${{ github.run_attempt }}
+          restore-keys: |
+            ccache-v1-macos-${{ matrix.arch }}-${{ steps.compiler.outputs.identity }}-
+      - name: Reset compiler cache statistics
+        run: ccache --zero-stats
+      - name: Restore verified dependency downloads
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: build/downloads
+          key: downloads-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('tools/setup_sdl3.py', 'tools/setup_sdl_fonts.py', 'tools/ci_prepare_dependencies.py', 'vendor/official-entis-dependencies.json') }}
+          restore-keys: |
+            downloads-v1-${{ runner.os }}-${{ runner.arch }}-
       - name: Verify committed dependencies
         run: python3 tools/ci_prepare_dependencies.py
       - name: Test build tools
@@ -131,6 +225,11 @@ jobs:
       - name: Run native tests and launcher smoke test
         run: |
           python3 tools/ci_native_checks.py --build-dir 'build/macos-sdl3-${{ matrix.arch }}' --jobs '${{ matrix.jobs }}' --report 'artifacts/release/EntisGLSLauncher-macos-${{ matrix.arch }}.tests.json'
+      - name: Verify compiler cache handled compilation
+        run: python3 tools/ci_compiler_cache_stats.py --output build/ci/ccache.json --require-compilations
+      - name: Report compiler cache statistics
+        if: always() && steps.compiler.outcome == 'success'
+        run: python3 tools/ci_compiler_cache_stats.py --output build/ci/ccache.json
       - name: Collect release files
         run: |
           cp 'artifacts/entisgls-launcher/macos-${{ matrix.arch }}/EntisGLSLauncher.zip' 'artifacts/release/EntisGLSLauncher-macos-${{ matrix.arch }}.zip'
@@ -151,11 +250,103 @@ jobs:
           retention-days: 7
           path: |
             build/ci/dependencies.json
+            build/ci/ccache*.json
             artifacts/release/*.tests.json
+
+  ios:
+    name: Unsigned iOS ARM64
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Restore Homebrew downloads
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ~/Library/Caches/Homebrew/downloads
+          key: brew-downloads-v1-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
+          restore-keys: |
+            brew-downloads-v1-${{ runner.os }}-${{ runner.arch }}-
+      - name: Prepare host tools
+        run: |
+          brew install bison ccache
+          echo "TJS_BISON=$(brew --prefix bison)/bin/bison" >> "$GITHUB_ENV"
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+      - name: Identify compiler cache toolchain
+        id: compiler
+        run: |
+          python3 - <<'PYTOOLCHAIN'
+          import hashlib, json, os, subprocess
+          commands = [['ccache', '--version'], ['xcodebuild', '-version'], ['xcrun', '--sdk', 'iphoneos', 'clang', '--version'], ['xcrun', '--sdk', 'iphoneos', '--show-sdk-version']]
+          identity = {'image': os.environ.get('ImageVersion', ''),
+                      'toolchain': [subprocess.check_output(command, text=True).strip() for command in commands]}
+          digest = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('identity=' + digest + '\n')
+          print(json.dumps(identity, indent=2))
+          PYTOOLCHAIN
+      - name: Restore compiler cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ccache-v1-ios-arm64-${{ steps.compiler.outputs.identity }}-${{ github.sha }}-${{ github.run_attempt }}
+          restore-keys: |
+            ccache-v1-ios-arm64-${{ steps.compiler.outputs.identity }}-
+      - name: Reset compiler cache statistics
+        run: ccache --zero-stats
+      - name: Restore verified dependency downloads
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: build/downloads
+          key: downloads-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('tools/setup_sdl3.py', 'tools/setup_sdl_fonts.py', 'tools/ci_prepare_dependencies.py', 'vendor/official-entis-dependencies.json') }}
+          restore-keys: |
+            downloads-v1-${{ runner.os }}-${{ runner.arch }}-
+      - name: Verify dependencies and build tools
+        run: |
+          python3 tools/ci_prepare_dependencies.py
+          python3 -m unittest discover -s tools -p 'test_*.py' -v
+      - name: Build unsigned device app and IPA
+        run: |
+          python3 tools/build_sdl_ios.py --sdk iphoneos --jobs 3 2>&1 | tee build/ci/ios-device.log
+      - name: Verify compiler cache handled compilation
+        run: python3 tools/ci_compiler_cache_stats.py --output build/ci/ccache.json --require-compilations
+      - name: Report compiler cache statistics
+        if: always() && steps.compiler.outcome == 'success'
+        run: python3 tools/ci_compiler_cache_stats.py --output build/ci/ccache.json
+      - name: Collect release files
+        run: |
+          mkdir -p artifacts/release
+          cp artifacts/entisgls-launcher/ios-arm64/EntisGLSLauncher-unsigned.ipa artifacts/release/EntisGLSLauncher-ios-arm64-unsigned.ipa
+          cp artifacts/entisgls-launcher/ios-arm64/build.json artifacts/release/EntisGLSLauncher-ios-arm64-unsigned.build.json
+      - name: Upload unsigned iOS release files
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-ios-arm64
+          if-no-files-found: error
+          compression-level: 0
+          path: artifacts/release/*
+      - name: Upload build diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: diagnostics-ios-arm64
+          if-no-files-found: ignore
+          retention-days: 7
+          path: |
+            build/ci/ios-device.log
+            build/ios-arm64/logs/*.log
+            build/ci/dependencies.json
+            build/ci/ccache*.json
+            artifacts/entisgls-launcher/ios-arm64/build.json
 
   release:
     name: Publish GitHub Release
-    needs: [android, macos]
+    needs: [android, macos, ios]
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
@@ -164,7 +355,9 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
-          sparse-checkout: tools/ci_release.py
+          sparse-checkout: |
+            tools/ci_release.py
+            tools/ci_ios_release.py
           sparse-checkout-cone-mode: false
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:

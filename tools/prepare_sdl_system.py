@@ -12,7 +12,7 @@ import json
 from pathlib import Path
 import re
 
-ROOT = Path(__file__).resolve().parents[1]
+from entis_sdk import COTOPHA
 
 
 def function_body(source, name):
@@ -182,7 +182,7 @@ def prepare(sdk, output):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--sdk", type=Path, default=ROOT / "EntisGLS/EntisGLS4.07.03/Cotopha")
+    parser.add_argument("--sdk", type=Path, default=COTOPHA)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     for path in prepare(args.sdk, args.output):
