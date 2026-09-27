@@ -1,5 +1,5 @@
-#include "psb_key_dialog.h"
-#include "psb_key_settings.h"
+#include "launcher/psb_key_dialog.h"
+#include "launcher/psb_key_settings.h"
 #include <SDL3/SDL.h>
 #include <memory>
 #include <stdexcept>

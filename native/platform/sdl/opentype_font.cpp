@@ -1,5 +1,5 @@
-#include "opentype_font.h"
-#include "game_font_aliases.h"
+#include "platform/sdl/opentype_font.h"
+#include "platform/sdl/game_font_aliases.h"
 #include "platform/log.h"
 #include <sakuragl/sakuragl.h>
 #include <sakuragl/sgl2d/sgl_font.h>

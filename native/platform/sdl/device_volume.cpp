@@ -1,5 +1,5 @@
-#include "../../legacy_device_volume.h"
-#include "sdl_pcm_stream.h"
+#include "runtime/cotopha_port/legacy_device_volume.h"
+#include "platform/sdl/sdl_pcm_stream.h"
 
 #include <algorithm>
 #include <cmath>

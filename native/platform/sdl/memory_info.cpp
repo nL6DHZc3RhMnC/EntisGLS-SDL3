@@ -1,4 +1,4 @@
-#include "memory_info.h"
+#include "platform/sdl/memory_info.h"
 
 #include <SDL3/SDL_cpuinfo.h>
 #include <algorithm>

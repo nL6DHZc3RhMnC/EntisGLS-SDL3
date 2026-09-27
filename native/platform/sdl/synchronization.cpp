@@ -1,4 +1,4 @@
-#include "synchronization.h"
+#include "platform/sdl/synchronization.h"
 
 #include <atomic>
 #include <cerrno>

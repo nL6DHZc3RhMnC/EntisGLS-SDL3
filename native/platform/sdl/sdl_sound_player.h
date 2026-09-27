@@ -2,7 +2,7 @@
 
 #include <sakuragl/sakuragl.h>
 #include <sakuragl/media/sgl_sound_player.h>
-#include "sdl_pcm_stream.h"
+#include "platform/sdl/sdl_pcm_stream.h"
 
 namespace SakuraGL {
 

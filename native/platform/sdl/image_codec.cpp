@@ -1,4 +1,4 @@
-#include "image_codec.h"
+#include "platform/sdl/image_codec.h"
 
 #include <SDL3/SDL.h>
 #include <algorithm>

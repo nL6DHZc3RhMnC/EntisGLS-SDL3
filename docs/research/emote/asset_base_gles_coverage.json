@@ -1,0 +1,2807 @@
+{
+  "date": "2026-09-23",
+  "device": "Xiaomi 10 Pro Android 13",
+  "runtime": "actual TJS/NCB/EmoteEngine/Player and GLES; standalone shell process; original NOA storage callback",
+  "scope": "metadata.base initialization, two 512x512 fitted GPU frames at base time 0 and +1, nonzero alpha and safe explicit release for every PSB; no named-timeline or gameplay claim",
+  "prior_evidence": "86/86 container parsing did not establish whole-library Player/GLES coverage. Earlier actual GPU probes focused on haz_a and a limited set of game-scene actors.",
+  "original_asset_validation": "NOA raw bytes are never rewritten. Host manifest records each SHA256 and CRC32; the Android read callback requires its bytes to match that CRC32.",
+  "counts": {
+    "assets": 86,
+    "frames": 172,
+    "by_archive": {
+      "stst_patch_R18.noa": 18,
+      "psb.noa": 68
+    },
+    "failed": 0
+  },
+  "elapsed_probe_ms": 36620,
+  "original_psb_bytes": 5971501184,
+  "gles": [
+    {
+      "status": "DEVICE",
+      "gles": "OpenGL ES 3.2 V@0502.0 (GIT@db3d445dbc, Ia06b22fa1a, 1633355031) (Date:10/04/21)",
+      "renderer": "Adreno (TM) 650"
+    },
+    {
+      "status": "DEVICE",
+      "gles": "OpenGL ES 3.2 V@0502.0 (GIT@db3d445dbc, Ia06b22fa1a, 1633355031) (Date:10/04/21)",
+      "renderer": "Adreno (TM) 650"
+    }
+  ],
+  "logs": [
+    {
+      "path": "artifacts/motion-assets-patch18-gles-arm64.txt",
+      "sha256": "41156b12d48653c90b46fc9b9d2873725e3935bffaf039f949547d90d58bf72d"
+    },
+    {
+      "path": "artifacts/motion-assets-base68-gles-arm64.txt",
+      "sha256": "734bdef0cca197cff8ef09829e14e10cddb5ef27095d53e92082b04f682161c1"
+    }
+  ],
+  "probe_source": {
+    "path": "tests/probes/emote/motion_asset_batch_probe.cpp",
+    "sha256": "585c1c534bb2bbb901f7f25b9c58080cbaf689a8d529cf8b5dbae2abe04e2df2"
+  },
+  "probe_binary": {
+    "path": "build/analysis/motion-assets/motion_asset_batch_probe",
+    "sha256": "cf764ec815ee3e1d49d9b4424039800cb35bba0ff550f170408e12c0183ab56d"
+  },
+  "manifest": {
+    "path": "build/analysis/motion-assets/manifest.tsv",
+    "sha256": "4f9ee0a60dd212747ac579fb92b0f381c422c60d7c7b8caeca67243a4890e86d"
+  },
+  "assets": [
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "haz_g.psb",
+      "bytes": 67663136,
+      "sha256": "2548c544208c940e55162663c6e6c26ccf2e719bff39b32db59343b70eeed992",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -557,
+        -1414,
+        711,
+        2130
+      ],
+      "alpha_pixels": [
+        29938,
+        29938
+      ],
+      "frame_crc32": [
+        598179383,
+        598179383
+      ],
+      "draws": 26,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 566
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "haz_q.psb",
+      "bytes": 67655648,
+      "sha256": "a7c0456eace319ac8053bd49e7a13f6331f79f483cb0b53e85e62b62b96e389b",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -557,
+        -1431,
+        711,
+        2130
+      ],
+      "alpha_pixels": [
+        30746,
+        30746
+      ],
+      "frame_crc32": [
+        2879175246,
+        2879175246
+      ],
+      "draws": 30,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 460
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "mai_g.psb",
+      "bytes": 67746336,
+      "sha256": "4626d0519a347fe3f87c488a3581e3b4eea164e3fe534c2ca7582bfc119e301b",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -533,
+        -1479,
+        483,
+        2243
+      ],
+      "alpha_pixels": [
+        30087,
+        30087
+      ],
+      "frame_crc32": [
+        2487540708,
+        2487540708
+      ],
+      "draws": 56,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 405
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "mai_l.psb",
+      "bytes": 67769952,
+      "sha256": "640578490999efc949f7655c5771e1df362a9164b217e195e2063d127e237594",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -533,
+        -1479,
+        483,
+        2243
+      ],
+      "alpha_pixels": [
+        30644,
+        30644
+      ],
+      "frame_crc32": [
+        2495406792,
+        2495406792
+      ],
+      "draws": 56,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 444
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "mai_s.psb",
+      "bytes": 67741856,
+      "sha256": "d6b0471796ffadae75d38f8a11680f090ca095f7cd9db17bc9e38c445c62bb8b",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -533,
+        -1480,
+        483,
+        2243
+      ],
+      "alpha_pixels": [
+        29001,
+        29001
+      ],
+      "frame_crc32": [
+        1653461889,
+        1653461889
+      ],
+      "draws": 56,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 450
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "mai_x.psb",
+      "bytes": 67765344,
+      "sha256": "40b911044520c4e3f0f7635783172032fd50904ded5252533be2b3d68277e47d",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -533,
+        -1480,
+        483,
+        2243
+      ],
+      "alpha_pixels": [
+        29558,
+        29558
+      ],
+      "frame_crc32": [
+        84893312,
+        84893312
+      ],
+      "draws": 56,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 399
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "nak_g.psb",
+      "bytes": 67675488,
+      "sha256": "f4ca69e72ef0602dfccfa1d1495bd269a71cc43de5c90dea2cdcd81767da9d34",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -602,
+        -1492,
+        690,
+        2232
+      ],
+      "alpha_pixels": [
+        34360,
+        34360
+      ],
+      "frame_crc32": [
+        3399184283,
+        3399184283
+      ],
+      "draws": 38,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 411
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "nak_h.psb",
+      "bytes": 67681312,
+      "sha256": "d6041dbf559b52f0f3674f75d3714984d977ca46f9b11f2464cfc99f7226cb62",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -602,
+        -1492,
+        690,
+        2232
+      ],
+      "alpha_pixels": [
+        34363,
+        34363
+      ],
+      "frame_crc32": [
+        2203214677,
+        2203214677
+      ],
+      "draws": 38,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 442
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "nak_i.psb",
+      "bytes": 67671712,
+      "sha256": "04e29d8027c0d3ffac947d9758bb75108816d3c0a5ed4760f748552d9f9dd533",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -602,
+        -1492,
+        690,
+        2232
+      ],
+      "alpha_pixels": [
+        34380,
+        34380
+      ],
+      "frame_crc32": [
+        2866912140,
+        2866912140
+      ],
+      "draws": 38,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 388
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "nak_q.psb",
+      "bytes": 67682336,
+      "sha256": "f5f8934bad4d14277ab6ee76995003317da1596c0eccc7859e2d66cb75a47acc",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -673,
+        -1492,
+        690,
+        2232
+      ],
+      "alpha_pixels": [
+        35729,
+        35729
+      ],
+      "frame_crc32": [
+        4273442636,
+        4273442636
+      ],
+      "draws": 38,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 453
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "nak_r.psb",
+      "bytes": 67680288,
+      "sha256": "bc545fba8182bbfc447814a2b327796fce84ed8de0bd3605e030ad4ecf1fc9f9",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -673,
+        -1492,
+        690,
+        2232
+      ],
+      "alpha_pixels": [
+        35731,
+        35731
+      ],
+      "frame_crc32": [
+        1031974624,
+        1031974624
+      ],
+      "draws": 38,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 404
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "nak_s.psb",
+      "bytes": 67677216,
+      "sha256": "b91dd6541a137bf1eed12206390ddee69f3e15de396157236e62808be31bc30d",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -673,
+        -1492,
+        690,
+        2232
+      ],
+      "alpha_pixels": [
+        35744,
+        35744
+      ],
+      "frame_crc32": [
+        1666433753,
+        1666433753
+      ],
+      "draws": 38,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 385
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "yuu_g.psb",
+      "bytes": 67710816,
+      "sha256": "72c3252700ae6236d5df1f372b57c2e2e56d1954500b4cb90b6b809399413975",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -684,
+        -1494,
+        714,
+        2479
+      ],
+      "alpha_pixels": [
+        33700,
+        33700
+      ],
+      "frame_crc32": [
+        1569210077,
+        1569210077
+      ],
+      "draws": 40,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 383
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "yuu_h.psb",
+      "bytes": 67725728,
+      "sha256": "c1ff2001d3cdab62bd61420bdec84c1105f91270020343ec45b517b000a78077",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -684,
+        -1494,
+        714,
+        2513
+      ],
+      "alpha_pixels": [
+        33396,
+        33396
+      ],
+      "frame_crc32": [
+        1036291350,
+        1036291350
+      ],
+      "draws": 40,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 412
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "yuu_i.psb",
+      "bytes": 67707040,
+      "sha256": "c7e9495f7d82b0078803e7c32238c086db6629eb137a932b3948499d837197de",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -684,
+        -1494,
+        714,
+        2479
+      ],
+      "alpha_pixels": [
+        33708,
+        33708
+      ],
+      "frame_crc32": [
+        3796692501,
+        3796692501
+      ],
+      "draws": 36,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 409
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "yuu_r.psb",
+      "bytes": 67712480,
+      "sha256": "f9432fcb4e8a3760cbe51ba2bc7a13bb33fbd021d3f658cc5a931ab687e85ebd",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -625,
+        -1569,
+        598,
+        2479
+      ],
+      "alpha_pixels": [
+        31232,
+        31232
+      ],
+      "frame_crc32": [
+        240863473,
+        240863473
+      ],
+      "draws": 40,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 418
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "yuu_s.psb",
+      "bytes": 67737568,
+      "sha256": "e4c37254931b9b12a2c08b6283fed30673bbdec412e27f6492f32faf04d5e7f7",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -625,
+        -1569,
+        598,
+        2513
+      ],
+      "alpha_pixels": [
+        30928,
+        30928
+      ],
+      "frame_crc32": [
+        3041839059,
+        3041839059
+      ],
+      "draws": 40,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 402
+    },
+    {
+      "status": "PASS",
+      "archive": "stst_patch_R18.noa",
+      "asset": "yuu_t.psb",
+      "bytes": 67725536,
+      "sha256": "72590f4a66a4e14e796847cfd5806d72dd7d3ffa5141e9db0443036e5f86a127",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -625,
+        -1569,
+        598,
+        2479
+      ],
+      "alpha_pixels": [
+        31246,
+        31246
+      ],
+      "frame_crc32": [
+        2032446541,
+        2032446541
+      ],
+      "draws": 36,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 374
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_a.psb",
+      "bytes": 67904032,
+      "sha256": "d55308943fd1a5d60a30e19ad5c106aa478110b16f0b8164d4c7adf3bd03ff07",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -551,
+        -1414,
+        711,
+        2163
+      ],
+      "alpha_pixels": [
+        31205,
+        31205
+      ],
+      "frame_crc32": [
+        2049167074,
+        2049167074
+      ],
+      "draws": 34,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 400
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_b.psb",
+      "bytes": 67696032,
+      "sha256": "7bfd71652258e00fabdb829a076ef5fe28dd91750d73d44e5c30a5c67b228d7a",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -551,
+        -1414,
+        711,
+        2179
+      ],
+      "alpha_pixels": [
+        31929,
+        31929
+      ],
+      "frame_crc32": [
+        76657201,
+        76657201
+      ],
+      "draws": 30,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 445
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_c.psb",
+      "bytes": 67701472,
+      "sha256": "3e3902d57b5f3590a2e21c87be842561f91c41248cabaa4472cac4a2ab788e2a",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -551,
+        -1414,
+        711,
+        2160
+      ],
+      "alpha_pixels": [
+        31199,
+        31199
+      ],
+      "frame_crc32": [
+        528517270,
+        528517270
+      ],
+      "draws": 38,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 444
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_d.psb",
+      "bytes": 67716000,
+      "sha256": "f8055a98f9045443f22d845295fefa1334a737c0f663b3e204d01fb78866acc7",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -563,
+        -1414,
+        711,
+        2163
+      ],
+      "alpha_pixels": [
+        33544,
+        33544
+      ],
+      "frame_crc32": [
+        2272341483,
+        2272341483
+      ],
+      "draws": 38,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 393
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_e.psb",
+      "bytes": 67690784,
+      "sha256": "11ff889cb38410df9ee61d94b71843986a5bc804cdb41f55e688ecf8ed471be3",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -563,
+        -1414,
+        711,
+        2179
+      ],
+      "alpha_pixels": [
+        33329,
+        33329
+      ],
+      "frame_crc32": [
+        3977952703,
+        3977952703
+      ],
+      "draws": 34,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 406
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_f.psb",
+      "bytes": 67730912,
+      "sha256": "6bcad69785694ac114debfa9719abc76c4288925521cef063fd0da4cdbb81e4f",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -563,
+        -1414,
+        711,
+        2160
+      ],
+      "alpha_pixels": [
+        33679,
+        33679
+      ],
+      "frame_crc32": [
+        2453381755,
+        2453381755
+      ],
+      "draws": 42,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 471
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_h.psb",
+      "bytes": 67683552,
+      "sha256": "c93c140ec94a3522616a95b3917e91ab021ed3818f5efc90ef45954e542b2a0a",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -551,
+        -1414,
+        711,
+        2169
+      ],
+      "alpha_pixels": [
+        31435,
+        31435
+      ],
+      "frame_crc32": [
+        1780584738,
+        1780584738
+      ],
+      "draws": 30,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 417
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_i.psb",
+      "bytes": 67699296,
+      "sha256": "73d8faabb1ab520d0c8e8aa0e7dfe95f9656e8e8c374384742bc69bc7ac93829",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -555,
+        -1470,
+        711,
+        2182
+      ],
+      "alpha_pixels": [
+        32757,
+        32757
+      ],
+      "frame_crc32": [
+        3609147374,
+        3609147374
+      ],
+      "draws": 26,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 396
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_j.psb",
+      "bytes": 67660192,
+      "sha256": "834b6a30dcad098e4b258bb40010681b7abba63957295e5cec24db2574a70298",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -551,
+        -1414,
+        711,
+        2163
+      ],
+      "alpha_pixels": [
+        30169,
+        30169
+      ],
+      "frame_crc32": [
+        628587230,
+        628587230
+      ],
+      "draws": 30,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 398
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_k.psb",
+      "bytes": 67675424,
+      "sha256": "1108d43713016991f974152cbb1f70225e8e2549bc3965776828694d84111a33",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -551,
+        -1431,
+        711,
+        2163
+      ],
+      "alpha_pixels": [
+        31859,
+        31859
+      ],
+      "frame_crc32": [
+        3309559598,
+        3309559598
+      ],
+      "draws": 38,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 393
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_l.psb",
+      "bytes": 67690592,
+      "sha256": "d4895f907b565202a4cecf44505bdfa808de09cf2571b2fca4e91f65ee853763",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -551,
+        -1431,
+        711,
+        2179
+      ],
+      "alpha_pixels": [
+        32494,
+        32494
+      ],
+      "frame_crc32": [
+        1716859921,
+        1716859921
+      ],
+      "draws": 34,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 403
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_m.psb",
+      "bytes": 67696096,
+      "sha256": "55b644e6e93f37f2bc531dcfea6cb42b79ded69fb07881165d21cece56db266f",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -551,
+        -1431,
+        711,
+        2160
+      ],
+      "alpha_pixels": [
+        31942,
+        31942
+      ],
+      "frame_crc32": [
+        2582764514,
+        2582764514
+      ],
+      "draws": 42,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 399
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_n.psb",
+      "bytes": 67710624,
+      "sha256": "e8e49787cb1c322bc68a615352cd18b39efbd7856d26c4020d7942e443192ae1",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -563,
+        -1431,
+        711,
+        2163
+      ],
+      "alpha_pixels": [
+        33860,
+        33860
+      ],
+      "frame_crc32": [
+        1936050333,
+        1936050333
+      ],
+      "draws": 42,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 402
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_o.psb",
+      "bytes": 67685152,
+      "sha256": "f6b2027579b0017aa2a7de172b99b0fc64272ffaff4eac0643a074e4590d1ba9",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -563,
+        -1431,
+        711,
+        2179
+      ],
+      "alpha_pixels": [
+        33645,
+        33645
+      ],
+      "frame_crc32": [
+        3226517090,
+        3226517090
+      ],
+      "draws": 34,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 440
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_p.psb",
+      "bytes": 67725408,
+      "sha256": "1f11f854e006e9b672e4b64fe151244469c9ca2c85f320a81f5c646d909e3a0b",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -563,
+        -1431,
+        711,
+        2160
+      ],
+      "alpha_pixels": [
+        33987,
+        33987
+      ],
+      "frame_crc32": [
+        1226906815,
+        1226906815
+      ],
+      "draws": 42,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 467
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_r.psb",
+      "bytes": 67678048,
+      "sha256": "d93fcd9aa6520a789f42887cd10f724efa31eebdfd896c91eca435a6ccb46480",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -551,
+        -1431,
+        711,
+        2169
+      ],
+      "alpha_pixels": [
+        32077,
+        32077
+      ],
+      "frame_crc32": [
+        2909692219,
+        2909692219
+      ],
+      "draws": 34,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 404
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_s.psb",
+      "bytes": 67693024,
+      "sha256": "05e9e0a0bf539b008d3554e9b142dc9e67f8a0ca17518dedadc368ea3739ba21",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -555,
+        -1470,
+        711,
+        2182
+      ],
+      "alpha_pixels": [
+        33681,
+        33681
+      ],
+      "frame_crc32": [
+        3623840027,
+        3623840027
+      ],
+      "draws": 30,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 402
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "haz_t.psb",
+      "bytes": 67654752,
+      "sha256": "1139b630423ba98fe85c061fe1d9bcff67850cefa7bb73bf7041c25dfaca5b56",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -551,
+        -1431,
+        711,
+        2163
+      ],
+      "alpha_pixels": [
+        30914,
+        30914
+      ],
+      "frame_crc32": [
+        3091996485,
+        3091996485
+      ],
+      "draws": 34,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 410
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_a.psb",
+      "bytes": 67823520,
+      "sha256": "10c299e66cc8da8474dd508364f033b49e5479b36d48be6bcd218388c36f1b7f",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -534,
+        -1479,
+        508,
+        2287
+      ],
+      "alpha_pixels": [
+        32063,
+        32063
+      ],
+      "frame_crc32": [
+        2634638273,
+        2634638273
+      ],
+      "draws": 48,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 383
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_b.psb",
+      "bytes": 67902112,
+      "sha256": "c88cf6a0b8b23bc0e55e9df0e3e2d2b579bb6e7fb93dd00ce7a5dec57688e830",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -574,
+        -1479,
+        524,
+        2317
+      ],
+      "alpha_pixels": [
+        32163,
+        32163
+      ],
+      "frame_crc32": [
+        397549398,
+        397549398
+      ],
+      "draws": 52,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 466
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_c.psb",
+      "bytes": 67822240,
+      "sha256": "d8f2c1c0f95a7deab0e00f0ac63133d08faa3d2e15798c104cb61ce0728647bd",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -568,
+        -1479,
+        488,
+        2295
+      ],
+      "alpha_pixels": [
+        31439,
+        31439
+      ],
+      "frame_crc32": [
+        3743883517,
+        3743883517
+      ],
+      "draws": 56,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 407
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_d.psb",
+      "bytes": 67805920,
+      "sha256": "cbbaa1ce1e6f596d136e83bf28e4f382eac4cf381c33b95b6fa17f74b4c44d80",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -602,
+        -1479,
+        553,
+        2287
+      ],
+      "alpha_pixels": [
+        34709,
+        34709
+      ],
+      "frame_crc32": [
+        1561676441,
+        1561676441
+      ],
+      "draws": 52,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 378
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_e.psb",
+      "bytes": 67805280,
+      "sha256": "5680182c007d54a80e937b484892d2162cebe4ce51becc13d78cef2582a53df5",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -602,
+        -1479,
+        553,
+        2317
+      ],
+      "alpha_pixels": [
+        34376,
+        34376
+      ],
+      "frame_crc32": [
+        1209463166,
+        1209463166
+      ],
+      "draws": 52,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 440
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_f.psb",
+      "bytes": 67805664,
+      "sha256": "d277d0dc72e0bc6e1f1c95faf1b9caa3288896a00bf0a49ca243e53526c5887e",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -602,
+        -1479,
+        553,
+        2295
+      ],
+      "alpha_pixels": [
+        34624,
+        34624
+      ],
+      "frame_crc32": [
+        1987117345,
+        1987117345
+      ],
+      "draws": 52,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 412
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_h.psb",
+      "bytes": 67794464,
+      "sha256": "04565d3ff0d8a571e0c646c68745fa79a6d55f89e1f1aadc4a406c09570a1f98",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -533,
+        -1479,
+        478,
+        2273
+      ],
+      "alpha_pixels": [
+        31623,
+        31623
+      ],
+      "frame_crc32": [
+        66234893,
+        66234893
+      ],
+      "draws": 56,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 433
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_i.psb",
+      "bytes": 67815904,
+      "sha256": "4f256f54f56600072885cf1543f02a70712568a6422338fb2e61cd620903d6e8",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -575,
+        -1479,
+        525,
+        2358
+      ],
+      "alpha_pixels": [
+        36561,
+        36561
+      ],
+      "frame_crc32": [
+        165266360,
+        165266360
+      ],
+      "draws": 52,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 465
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_j.psb",
+      "bytes": 67731296,
+      "sha256": "7ce43e131d9be5715bfb22b9200978d704d3c19f0bcebb1602944dafd29c52ff",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -529,
+        -1479,
+        503,
+        2287
+      ],
+      "alpha_pixels": [
+        32077,
+        32077
+      ],
+      "frame_crc32": [
+        214472990,
+        214472990
+      ],
+      "draws": 48,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 392
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_k.psb",
+      "bytes": 67842400,
+      "sha256": "1bd58fec4c4e785a6863175860bb3ade8da9d0b8fd597364eb333dc513df2d63",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -568,
+        -1479,
+        488,
+        2295
+      ],
+      "alpha_pixels": [
+        31493,
+        31493
+      ],
+      "frame_crc32": [
+        854046822,
+        854046822
+      ],
+      "draws": 60,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 430
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_m.psb",
+      "bytes": 67819360,
+      "sha256": "02fa9e85111c3aa30c9d88ba914e2f0635a78dc56da120aa1fae76ac84a284d5",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -534,
+        -1480,
+        508,
+        2287
+      ],
+      "alpha_pixels": [
+        31036,
+        31036
+      ],
+      "frame_crc32": [
+        3786732398,
+        3786732398
+      ],
+      "draws": 48,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 418
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_n.psb",
+      "bytes": 67897632,
+      "sha256": "a36860a008a970a60089e70822179b7f3eaeb60ba3a93eefa7b9ac4fdac94352",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -574,
+        -1480,
+        524,
+        2317
+      ],
+      "alpha_pixels": [
+        31167,
+        31167
+      ],
+      "frame_crc32": [
+        311558963,
+        311558963
+      ],
+      "draws": 52,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 427
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_o.psb",
+      "bytes": 67802272,
+      "sha256": "376857680096149f3d1431412d478d4ea978a43a8b89c2937efdc83e12dedbf2",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -568,
+        -1480,
+        488,
+        2295
+      ],
+      "alpha_pixels": [
+        30493,
+        30493
+      ],
+      "frame_crc32": [
+        1683722747,
+        1683722747
+      ],
+      "draws": 56,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 412
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_p.psb",
+      "bytes": 67800928,
+      "sha256": "c67abee86ed4a060d93dddd6285aa3f3f97b1f90772b03d747f6872b51b6fa80",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -602,
+        -1480,
+        553,
+        2267
+      ],
+      "alpha_pixels": [
+        34093,
+        34093
+      ],
+      "frame_crc32": [
+        1444905206,
+        1444905206
+      ],
+      "draws": 52,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 415
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_q.psb",
+      "bytes": 67800672,
+      "sha256": "3aa713cdf81fc631ccd9d8281e94880a77e2af07f7981e9ea7f74937267c2d25",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -602,
+        -1480,
+        553,
+        2317
+      ],
+      "alpha_pixels": [
+        33440,
+        33440
+      ],
+      "frame_crc32": [
+        1391313210,
+        1391313210
+      ],
+      "draws": 52,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 434
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_r.psb",
+      "bytes": 67801120,
+      "sha256": "04faa31aae3aab80684899b3d8dec61c28af5ed116b55e1ce1d1ecbc5c124855",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -602,
+        -1480,
+        553,
+        2295
+      ],
+      "alpha_pixels": [
+        33701,
+        33701
+      ],
+      "frame_crc32": [
+        3917828236,
+        3917828236
+      ],
+      "draws": 52,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 431
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_t.psb",
+      "bytes": 67789920,
+      "sha256": "3e8ae9b8664c788a3238f7c73acf2ea9ed50f3c4add4060ecb646d82971f5945",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -533,
+        -1480,
+        478,
+        2273
+      ],
+      "alpha_pixels": [
+        30572,
+        30572
+      ],
+      "frame_crc32": [
+        318655622,
+        318655622
+      ],
+      "draws": 56,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 395
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_u.psb",
+      "bytes": 67811424,
+      "sha256": "17794652a8f92fcd1d23c403261850bb937a9262dd56479f18865e8ba6f337b1",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -575,
+        -1480,
+        525,
+        2358
+      ],
+      "alpha_pixels": [
+        35913,
+        35913
+      ],
+      "frame_crc32": [
+        2597901394,
+        2597901394
+      ],
+      "draws": 52,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 406
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_v.psb",
+      "bytes": 67727264,
+      "sha256": "0e1973f348c5d0c38dae6bd0177f57dd60e8618dc0b5375e79d28994c5dad6e3",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -529,
+        -1480,
+        503,
+        2287
+      ],
+      "alpha_pixels": [
+        31054,
+        31054
+      ],
+      "frame_crc32": [
+        3937989942,
+        3937989942
+      ],
+      "draws": 48,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 387
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "mai_w.psb",
+      "bytes": 67837920,
+      "sha256": "179192aef7dc6580b842491b17ecaa3bd99ff158824a68af4cbe6b5fa44095d3",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -568,
+        -1480,
+        488,
+        2295
+      ],
+      "alpha_pixels": [
+        30549,
+        30549
+      ],
+      "frame_crc32": [
+        1157668155,
+        1157668155
+      ],
+      "draws": 60,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 394
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "nak_a.psb",
+      "bytes": 68025184,
+      "sha256": "adec5bfb9823f8b1f26de8f34052efb599732916d6fcea131e9659106dd946a4",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -602,
+        -1492,
+        690,
+        2264
+      ],
+      "alpha_pixels": [
+        36161,
+        36161
+      ],
+      "frame_crc32": [
+        2778079733,
+        2778079733
+      ],
+      "draws": 32,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 378
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "nak_b.psb",
+      "bytes": 67757600,
+      "sha256": "b7432dcebba05488b776a4081fd803c76ee5f07ae4395a6d429fa957bb48a4d1",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -602,
+        -1492,
+        690,
+        2252
+      ],
+      "alpha_pixels": [
+        36133,
+        36133
+      ],
+      "frame_crc32": [
+        1471932302,
+        1471932302
+      ],
+      "draws": 38,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 414
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "nak_c.psb",
+      "bytes": 67717984,
+      "sha256": "56d43dd1defa7019a414756c15a54a3b5f7ec5b250729478af5542ae577b2704",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -612,
+        -1492,
+        677,
+        2264
+      ],
+      "alpha_pixels": [
+        35638,
+        35638
+      ],
+      "frame_crc32": [
+        2691303786,
+        2691303786
+      ],
+      "draws": 46,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 393
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "nak_d.psb",
+      "bytes": 67716704,
+      "sha256": "685f39a3975b95d3b9d7f48531cb4c076c776a5895af9070d4fa945bc999bfe8",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -614,
+        -1492,
+        730,
+        2264
+      ],
+      "alpha_pixels": [
+        40112,
+        40112
+      ],
+      "frame_crc32": [
+        3009130433,
+        3009130433
+      ],
+      "draws": 44,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 429
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "nak_e.psb",
+      "bytes": 67716704,
+      "sha256": "2fa136f3db6b81e577671237b2c5b3379625d9fc5c86416d3575c25f3dc7003c",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -614,
+        -1492,
+        730,
+        2252
+      ],
+      "alpha_pixels": [
+        40370,
+        40370
+      ],
+      "frame_crc32": [
+        4231424221,
+        4231424221
+      ],
+      "draws": 44,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 391
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "nak_f.psb",
+      "bytes": 67716704,
+      "sha256": "ade929a0ba1ab8dc5d18abc37e209fecb3c1aeaee694b45cabf8a57cd4befe66",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -614,
+        -1492,
+        730,
+        2264
+      ],
+      "alpha_pixels": [
+        39985,
+        39985
+      ],
+      "frame_crc32": [
+        3424521737,
+        3424521737
+      ],
+      "draws": 44,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 396
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "nak_j.psb",
+      "bytes": 67735840,
+      "sha256": "1b684d9105889aa132fa1b770adfa37bff6055a43eeeef3102b751666e76ca6c",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -602,
+        -1492,
+        690,
+        2264
+      ],
+      "alpha_pixels": [
+        34806,
+        34806
+      ],
+      "frame_crc32": [
+        2359786755,
+        2359786755
+      ],
+      "draws": 38,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 399
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "nak_k.psb",
+      "bytes": 68029856,
+      "sha256": "53bb64159d95a328d47321969e2529a99f869f6013ccf1f375ffc55a1cf33395",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -673,
+        -1492,
+        690,
+        2264
+      ],
+      "alpha_pixels": [
+        37546,
+        37546
+      ],
+      "frame_crc32": [
+        3689930839,
+        3689930839
+      ],
+      "draws": 32,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 409
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "nak_l.psb",
+      "bytes": 67763296,
+      "sha256": "ad0a159d4f9f4af087d0012deee7ac648c5976a3eb8a985afc5ab1923a20b071",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -673,
+        -1492,
+        690,
+        2252
+      ],
+      "alpha_pixels": [
+        37573,
+        37573
+      ],
+      "frame_crc32": [
+        600132625,
+        600132625
+      ],
+      "draws": 38,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 405
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "nak_m.psb",
+      "bytes": 67722720,
+      "sha256": "fe062f6d7513fed872093885eba7546f5c8254aadb154c9d26894c54d63f9f80",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -673,
+        -1492,
+        677,
+        2264
+      ],
+      "alpha_pixels": [
+        37077,
+        37077
+      ],
+      "frame_crc32": [
+        1076119452,
+        1076119452
+      ],
+      "draws": 46,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 398
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "nak_n.psb",
+      "bytes": 67722464,
+      "sha256": "46e6b2a057f6117e2cb29cf75b8f6fc779c05d8337ddb1872db241a19d22d9f1",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -673,
+        -1492,
+        730,
+        2264
+      ],
+      "alpha_pixels": [
+        41611,
+        41611
+      ],
+      "frame_crc32": [
+        3805258689,
+        3805258689
+      ],
+      "draws": 44,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 400
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "nak_o.psb",
+      "bytes": 67722464,
+      "sha256": "0f5ce94bd2d9d2774a1e41e0507c9f48a069c72e1b4b4db12bdfd37ade25b8a8",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -673,
+        -1492,
+        730,
+        2252
+      ],
+      "alpha_pixels": [
+        41868,
+        41868
+      ],
+      "frame_crc32": [
+        1882216637,
+        1882216637
+      ],
+      "draws": 44,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 406
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "nak_p.psb",
+      "bytes": 67722464,
+      "sha256": "a61814d85aaa10a643c00e239f59a0f7ee1811214686e49e52f4a2337a665c3e",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -673,
+        -1492,
+        730,
+        2264
+      ],
+      "alpha_pixels": [
+        41495,
+        41495
+      ],
+      "frame_crc32": [
+        651219475,
+        651219475
+      ],
+      "draws": 44,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 401
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "nak_t.psb",
+      "bytes": 67740384,
+      "sha256": "98de885a5d713005e41a5f8b12687a5a74f50646a75a54ccd2a85903a4ce110e",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -673,
+        -1492,
+        690,
+        2264
+      ],
+      "alpha_pixels": [
+        36257,
+        36257
+      ],
+      "frame_crc32": [
+        1396203897,
+        1396203897
+      ],
+      "draws": 38,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 395
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_a.psb",
+      "bytes": 67860640,
+      "sha256": "93d2c182946fe52d7755cd887c2615a6df2f97d9210a73a170dbdeba90aa1bda",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -684,
+        -1494,
+        714,
+        2507
+      ],
+      "alpha_pixels": [
+        35512,
+        35512
+      ],
+      "frame_crc32": [
+        1600498722,
+        1600498722
+      ],
+      "draws": 48,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 379
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_b.psb",
+      "bytes": 67797472,
+      "sha256": "68b6253863e51e89d580033a5429d3e07468e581a8ceaca4cf243a4bef927c6f",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -684,
+        -1494,
+        714,
+        2540
+      ],
+      "alpha_pixels": [
+        34473,
+        34473
+      ],
+      "frame_crc32": [
+        3884061211,
+        3884061211
+      ],
+      "draws": 42,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 472
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_c.psb",
+      "bytes": 67724640,
+      "sha256": "4af8b325423925faa8986014411751dbb91cb5b5732660c9264cfef5dc97faee",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -684,
+        -1494,
+        714,
+        2522
+      ],
+      "alpha_pixels": [
+        34489,
+        34489
+      ],
+      "frame_crc32": [
+        2103194142,
+        2103194142
+      ],
+      "draws": 44,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 391
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_d.psb",
+      "bytes": 69824864,
+      "sha256": "4888925614301411aaae85cf0838890168eb9c06bdf9d528ef8e32f90e826011",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -684,
+        -1494,
+        714,
+        2507
+      ],
+      "alpha_pixels": [
+        35571,
+        35571
+      ],
+      "frame_crc32": [
+        1840126815,
+        1840126815
+      ],
+      "draws": 54,
+      "texture_bytes": 70254592,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 421
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_e.psb",
+      "bytes": 101376416,
+      "sha256": "d6960e4ccefc541dfd29d66b850e256c23a6cf6c6685e0779ddb06196b63c16c",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -684,
+        -1494,
+        714,
+        2540
+      ],
+      "alpha_pixels": [
+        34571,
+        34571
+      ],
+      "frame_crc32": [
+        3839156515,
+        3839156515
+      ],
+      "draws": 50,
+      "texture_bytes": 101711872,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 595
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_f.psb",
+      "bytes": 101298720,
+      "sha256": "6b9dbcdaabd00d47c97a65fd0e0860c6dddae010be9774e9135fbcefbe11c777",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -684,
+        -1494,
+        714,
+        2522
+      ],
+      "alpha_pixels": [
+        34591,
+        34591
+      ],
+      "frame_crc32": [
+        838944247,
+        838944247
+      ],
+      "draws": 52,
+      "texture_bytes": 101711872,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 596
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_j.psb",
+      "bytes": 67761312,
+      "sha256": "14abd426a70b730253d6ef44c3514d524b9d962ea755fefe836754d229cf8a9f",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -684,
+        -1494,
+        714,
+        2531
+      ],
+      "alpha_pixels": [
+        33614,
+        33614
+      ],
+      "frame_crc32": [
+        605885491,
+        605885491
+      ],
+      "draws": 50,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 406
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_k.psb",
+      "bytes": 84527712,
+      "sha256": "f71ec30ec23ca4f49910df782ca78fe3721cf9ff8877008feb3485254e425afe",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -684,
+        -1494,
+        735,
+        2507
+      ],
+      "alpha_pixels": [
+        48775,
+        48775
+      ],
+      "frame_crc32": [
+        333248385,
+        333248385
+      ],
+      "draws": 46,
+      "texture_bytes": 84934656,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 498
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_l.psb",
+      "bytes": 67720160,
+      "sha256": "8b4027b7d087528ab45b5d2c7fa1a9f8571264669f5b32001aabe90b46343cfa",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -625,
+        -1569,
+        598,
+        2507
+      ],
+      "alpha_pixels": [
+        33153,
+        33153
+      ],
+      "frame_crc32": [
+        3982526293,
+        3982526293
+      ],
+      "draws": 48,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 450
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_m.psb",
+      "bytes": 72003680,
+      "sha256": "385024945d642d91d17c33aa1b13c3f2d9eb598f18234730d8b2786bf6ceb1ea",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -625,
+        -1569,
+        598,
+        2540
+      ],
+      "alpha_pixels": [
+        32265,
+        32265
+      ],
+      "frame_crc32": [
+        1378120295,
+        1378120295
+      ],
+      "draws": 44,
+      "texture_bytes": 72351744,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 423
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_n.psb",
+      "bytes": 71930848,
+      "sha256": "82945a61297c09ada0aff1e202a39da60ecb0848d3586f6b12972c1633de0c86",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -625,
+        -1569,
+        598,
+        2522
+      ],
+      "alpha_pixels": [
+        32158,
+        32158
+      ],
+      "frame_crc32": [
+        1633468950,
+        1633468950
+      ],
+      "draws": 46,
+      "texture_bytes": 72351744,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 502
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_o.psb",
+      "bytes": 76128608,
+      "sha256": "b8a8cb23e855fb1f6cd1f28525fd39218709ff964ebc8525daac59805ca5a120",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -625,
+        -1569,
+        598,
+        2507
+      ],
+      "alpha_pixels": [
+        33444,
+        33444
+      ],
+      "frame_crc32": [
+        1744547138,
+        1744547138
+      ],
+      "draws": 52,
+      "texture_bytes": 76546048,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 456
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_p.psb",
+      "bytes": 76217440,
+      "sha256": "ea5b40b9c700c4eed82943fac413c2e1c30b0cc305a0149947889cf6ce60e3db",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -625,
+        -1569,
+        598,
+        2540
+      ],
+      "alpha_pixels": [
+        32560,
+        32560
+      ],
+      "frame_crc32": [
+        3129126979,
+        3129126979
+      ],
+      "draws": 46,
+      "texture_bytes": 76546048,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 454
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_q.psb",
+      "bytes": 84533408,
+      "sha256": "e11b065e2b9cee9a5ed16bb5a6988cbe53cb5678a446988a75735257ecaafa84",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -625,
+        -1569,
+        598,
+        2522
+      ],
+      "alpha_pixels": [
+        32518,
+        32518
+      ],
+      "frame_crc32": [
+        3458124818,
+        3458124818
+      ],
+      "draws": 48,
+      "texture_bytes": 84934656,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 543
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_u.psb",
+      "bytes": 67780256,
+      "sha256": "ff955b2df7595898f47c00a7c13e7d9a8695366cdea451227ab9a3a56b7b2bab",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -625,
+        -1569,
+        598,
+        2531
+      ],
+      "alpha_pixels": [
+        31320,
+        31320
+      ],
+      "frame_crc32": [
+        3360329005,
+        3360329005
+      ],
+      "draws": 50,
+      "texture_bytes": 68157440,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 436
+    },
+    {
+      "status": "PASS",
+      "archive": "psb.noa",
+      "asset": "yuu_v.psb",
+      "bytes": 84546144,
+      "sha256": "b85a021cc8527f5361bf62061895e2de8e147c8f0ab937874275c9db8abd1cb2",
+      "chara": "all_parts",
+      "motion": "タイムライン構造",
+      "bounds": [
+        -625,
+        -1569,
+        735,
+        2507
+      ],
+      "alpha_pixels": [
+        46100,
+        46100
+      ],
+      "frame_crc32": [
+        1275254565,
+        1275254565
+      ],
+      "draws": 48,
+      "texture_bytes": 84934656,
+      "remaining_texture_bytes": 0,
+      "remaining_projects": 0,
+      "remaining_players": 0,
+      "storage_reads": 1,
+      "storage_releases": 1,
+      "owner_destroyed": true,
+      "elapsed_ms": 564
+    }
+  ]
+}

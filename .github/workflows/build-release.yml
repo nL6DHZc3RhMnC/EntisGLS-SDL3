@@ -51,7 +51,7 @@ jobs:
           from pathlib import Path
           for name in ('KEYSTORE_BASE64', 'KEY_ALIAS', 'STORE_PASSWORD'):
               if not os.environ.get(name):
-                  raise SystemExit(f'Missing Android signing secret: {name}; see docs/github-actions.md')
+                  raise SystemExit(f'Missing Android signing secret: {name}; see docs/development/github-actions.md')
           key = Path(os.environ['RUNNER_TEMP']) / 'entisgls-signing.keystore'
           with key.open('xb') as output:
               key.chmod(0o600)
@@ -105,18 +105,18 @@ jobs:
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: build/downloads
-          key: downloads-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('tools/setup_sdl3.py', 'tools/setup_sdl_fonts.py', 'tools/ci_prepare_dependencies.py', 'vendor/official-entis-dependencies.json') }}
+          key: downloads-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('tools/sdk/setup_sdl3.py', 'tools/sdk/setup_sdl_fonts.py', 'tools/ci/ci_prepare_dependencies.py', 'vendor/official-entis-dependencies.json') }}
           restore-keys: |
             downloads-v1-${{ runner.os }}-${{ runner.arch }}-
       - name: Verify committed dependencies
-        run: python3 tools/ci_prepare_dependencies.py
+        run: python3 tools/ci/ci_prepare_dependencies.py
       - name: Test build tools
-        run: python3 -m unittest discover -s tools -p 'test_*.py' -v
+        run: python3 -m unittest discover -s tests/unit/python -p 'test_*.py' -v
       - name: Test Android directory access and save recovery
         run: |
-          python3 android/sdl/tests/test_import_discovery.py
-          python3 android/sdl/tests/test_psb_settings.py
-          python3 android/sdl/tests/test_document_tree.py
+          python3 tests/integration/android/test_import_discovery.py
+          python3 tests/integration/android/test_psb_settings.py
+          python3 tests/integration/android/test_document_tree.py
       - name: Build, sign and verify APK
         env:
           ENTISGLS_ANDROID_KEYSTORE: ${{ runner.temp }}/entisgls-signing.keystore
@@ -124,12 +124,12 @@ jobs:
           ENTISGLS_ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
           ENTISGLS_ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
-          python3 tools/build_sdl_android.py --jobs 4 --output artifacts/EntisGLSLauncher-android-arm64.apk
+          python3 tools/build/build_sdl_android.py --jobs 4 --output artifacts/EntisGLSLauncher-android-arm64.apk
       - name: Verify compiler cache handled compilation
-        run: python3 tools/ci_compiler_cache_stats.py --output build/ci/ccache.json --require-compilations
+        run: python3 tools/ci/ci_compiler_cache_stats.py --output build/ci/ccache.json --require-compilations
       - name: Report compiler cache statistics
         if: always() && steps.compiler.outcome == 'success'
-        run: python3 tools/ci_compiler_cache_stats.py --output build/ci/ccache.json
+        run: python3 tools/ci/ci_compiler_cache_stats.py --output build/ci/ccache.json
       - name: Remove temporary signing key
         if: always()
         run: rm -f "$RUNNER_TEMP/entisgls-signing.keystore"
@@ -213,23 +213,28 @@ jobs:
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: build/downloads
-          key: downloads-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('tools/setup_sdl3.py', 'tools/setup_sdl_fonts.py', 'tools/ci_prepare_dependencies.py', 'vendor/official-entis-dependencies.json') }}
+          key: downloads-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('tools/sdk/setup_sdl3.py', 'tools/sdk/setup_sdl_fonts.py', 'tools/ci/ci_prepare_dependencies.py', 'vendor/official-entis-dependencies.json') }}
           restore-keys: |
             downloads-v1-${{ runner.os }}-${{ runner.arch }}-
       - name: Verify committed dependencies
-        run: python3 tools/ci_prepare_dependencies.py
+        run: python3 tools/ci/ci_prepare_dependencies.py
       - name: Test build tools
-        run: python3 -m unittest discover -s tools -p 'test_*.py' -v
+        run: python3 -m unittest discover -s tests/unit/python -p 'test_*.py' -v
       - name: Build and verify app archive
-        run: python3 tools/build_sdl_desktop.py --arch '${{ matrix.arch }}' --jobs '${{ matrix.jobs }}'
+        run: python3 tools/build/build_sdl_desktop.py --arch '${{ matrix.arch }}' --jobs '${{ matrix.jobs }}'
       - name: Run native tests and launcher smoke test
         run: |
-          python3 tools/ci_native_checks.py --build-dir 'build/macos-sdl3-${{ matrix.arch }}' --jobs '${{ matrix.jobs }}' --report 'artifacts/release/EntisGLSLauncher-macos-${{ matrix.arch }}.tests.json'
+          python3 tools/ci/ci_native_checks.py --build-dir 'build/macos-sdl3-${{ matrix.arch }}' --jobs '${{ matrix.jobs }}' --report 'artifacts/release/EntisGLSLauncher-macos-${{ matrix.arch }}.tests.json'
+      - name: Compile optional runtime diagnostics
+        if: matrix.arch == 'arm64'
+        run: |
+          cmake -S . -B 'build/macos-sdl3-${{ matrix.arch }}' -DENTISGLS_BUILD_DIAGNOSTICS=ON
+          cmake --build 'build/macos-sdl3-${{ matrix.arch }}' --target studysteady_sdl --parallel '${{ matrix.jobs }}'
       - name: Verify compiler cache handled compilation
-        run: python3 tools/ci_compiler_cache_stats.py --output build/ci/ccache.json --require-compilations
+        run: python3 tools/ci/ci_compiler_cache_stats.py --output build/ci/ccache.json --require-compilations
       - name: Report compiler cache statistics
         if: always() && steps.compiler.outcome == 'success'
-        run: python3 tools/ci_compiler_cache_stats.py --output build/ci/ccache.json
+        run: python3 tools/ci/ci_compiler_cache_stats.py --output build/ci/ccache.json
       - name: Collect release files
         run: |
           cp 'artifacts/entisgls-launcher/macos-${{ matrix.arch }}/EntisGLSLauncher.zip' 'artifacts/release/EntisGLSLauncher-macos-${{ matrix.arch }}.zip'
@@ -303,27 +308,27 @@ jobs:
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: build/downloads
-          key: downloads-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('tools/setup_sdl3.py', 'tools/setup_sdl_fonts.py', 'tools/ci_prepare_dependencies.py', 'vendor/official-entis-dependencies.json') }}
+          key: downloads-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('tools/sdk/setup_sdl3.py', 'tools/sdk/setup_sdl_fonts.py', 'tools/ci/ci_prepare_dependencies.py', 'vendor/official-entis-dependencies.json') }}
           restore-keys: |
             downloads-v1-${{ runner.os }}-${{ runner.arch }}-
       - name: Verify dependencies and build tools
         run: |
-          python3 tools/ci_prepare_dependencies.py
-          python3 -m unittest discover -s tools -p 'test_*.py' -v
+          python3 tools/ci/ci_prepare_dependencies.py
+          python3 -m unittest discover -s tests/unit/python -p 'test_*.py' -v
       - name: Build unsigned device app and IPA
         run: |
-          python3 tools/build_sdl_ios.py --sdk iphoneos --jobs 3 2>&1 | tee build/ci/ios-device.log
+          python3 tools/build/build_sdl_ios.py --sdk iphoneos --jobs 3 2>&1 | tee build/ci/ios-device.log
       - name: Build simulator app
         run: |
-          python3 tools/build_sdl_ios.py --sdk iphonesimulator --jobs 3 2>&1 | tee build/ci/ios-simulator.log
+          python3 tools/build/build_sdl_ios.py --sdk iphonesimulator --jobs 3 2>&1 | tee build/ci/ios-simulator.log
       - name: Verify library and GLES presentation on iPhone Simulator
         run: |
-          python3 tools/ci_ios_simulator_smoke.py --app artifacts/entisgls-launcher/ios-simulator-arm64/EntisGLSLauncher.app --output artifacts/ios-smoke
+          python3 tools/ci/ci_ios_simulator_smoke.py --app artifacts/entisgls-launcher/ios-simulator-arm64/EntisGLSLauncher.app --output artifacts/ios-smoke
       - name: Verify compiler cache handled compilation
-        run: python3 tools/ci_compiler_cache_stats.py --output build/ci/ccache.json --require-compilations
+        run: python3 tools/ci/ci_compiler_cache_stats.py --output build/ci/ccache.json --require-compilations
       - name: Report compiler cache statistics
         if: always() && steps.compiler.outcome == 'success'
-        run: python3 tools/ci_compiler_cache_stats.py --output build/ci/ccache.json
+        run: python3 tools/ci/ci_compiler_cache_stats.py --output build/ci/ccache.json
       - name: Collect release files
         run: |
           mkdir -p artifacts/release
@@ -365,8 +370,9 @@ jobs:
         with:
           persist-credentials: false
           sparse-checkout: |
-            tools/ci_release.py
-            tools/ci_ios_release.py
+            tools/_bootstrap.py
+            tools/ci/ci_release.py
+            tools/ci/ci_ios_release.py
           sparse-checkout-cone-mode: false
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
@@ -376,4 +382,4 @@ jobs:
       - name: Verify assets and publish
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python3 tools/ci_release.py --artifacts release-files
+        run: python3 tools/ci/ci_release.py --artifacts release-files

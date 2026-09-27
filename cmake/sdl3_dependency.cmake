@@ -4,7 +4,7 @@ include_guard(GLOBAL)
 
 get_filename_component(STUDYSTEADY_SDL3_ROOT "${CMAKE_CURRENT_LIST_DIR}/../vendor/sdl3" ABSOLUTE)
 if(NOT EXISTS "${STUDYSTEADY_SDL3_ROOT}/CMakeLists.txt")
-    message(FATAL_ERROR "SDL3 sources are missing. Run: python3 tools/setup_sdl3.py")
+    message(FATAL_ERROR "SDL3 sources are missing. Run: python3 tools/sdk/setup_sdl3.py")
 endif()
 
 # SDL's Android Java bootstrap loads libSDL3.so. Other platforms can link the

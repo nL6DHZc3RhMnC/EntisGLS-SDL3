@@ -1,7 +1,7 @@
-#include "system.h"
-#include "memory_info.h"
-#include "game_file_opener.h"
-#include "platform/game_files.h"
+#include "platform/sdl/system.h"
+#include "platform/sdl/memory_info.h"
+#include "platform/sdl/game_file_opener.h"
+#include "io/game_files.h"
 
 #include <sakura/sakura.h>
 #include <sakura/ssys_fragment_file.h>

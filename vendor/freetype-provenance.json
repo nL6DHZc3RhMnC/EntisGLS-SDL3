@@ -762,5 +762,5 @@
     "tests/scripts/download-test-fonts.py": "0ce56eda71152d1f4fcde643ecb5dd767523a88a3d51be794673fe193b740791",
     "vms_make.com": "f543b3e09aa84a1104db716ea9d73495e1c20d709a128560eaf1e700c01d9cd4"
   },
-  "verification": "python3 tools/setup_sdl_fonts.py --verify"
+  "verification": "python3 tools/sdk/setup_sdl_fonts.py --verify"
 }

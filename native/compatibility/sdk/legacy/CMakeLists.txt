@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.20)
+project(LegacyCotophaPort LANGUAGES C CXX)
+set(CMAKE_CXX_STANDARD 17)
+get_filename_component(STUDYSTEADY_ROOT "${CMAKE_CURRENT_LIST_DIR}/../../../.." ABSOLUTE)
+include("${STUDYSTEADY_ROOT}/cmake/entis_sdk.cmake")
+include("${STUDYSTEADY_ROOT}/cmake/legacy_runtime.cmake")
+add_library(legacy_resource_compile_probe OBJECT ${CMAKE_CURRENT_LIST_DIR}/../../../runtime/cotopha_port/legacy_resource.cpp ${CMAKE_CURRENT_LIST_DIR}/../../../runtime/cotopha_port/legacy_sprite.cpp)
+target_link_libraries(legacy_resource_compile_probe PRIVATE legacy_foundation)

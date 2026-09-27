@@ -12,5 +12,5 @@
   "license": "Zlib",
   "license_file": "vendor/sdl3/LICENSE.txt",
   "upstream_modifications": [],
-  "verification": "python3 tools/setup_sdl3.py --verify"
+  "verification": "python3 tools/sdk/setup_sdl3.py --verify"
 }

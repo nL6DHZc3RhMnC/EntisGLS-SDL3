@@ -1,16 +1,18 @@
+include("${CMAKE_CURRENT_LIST_DIR}/sdk_generation.cmake")
+entis_track_sdk_generation()
 # SDL owns platform services. The supplied SDK remains a read-only input.
 include("${CMAKE_CURRENT_LIST_DIR}/sdl3_dependency.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/sdl3_fonts.cmake")
 set(STUDYSTEADY_ROOT "${CMAKE_CURRENT_SOURCE_DIR}")
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
-    "${STUDYSTEADY_ROOT}/tools/prepare_sdl_sdk.py"
-    "${STUDYSTEADY_ROOT}/tools/prepare_sdl_window.py"
-    "${STUDYSTEADY_ROOT}/tools/prepare_sdl_system.py"
-    "${STUDYSTEADY_ROOT}/tools/prepare_sdl_sync.py")
+    "${STUDYSTEADY_ROOT}/tools/sdk/prepare_sdl_sdk.py"
+    "${STUDYSTEADY_ROOT}/tools/sdk/prepare_sdl_window.py"
+    "${STUDYSTEADY_ROOT}/tools/sdk/prepare_sdl_system.py"
+    "${STUDYSTEADY_ROOT}/tools/sdk/prepare_sdl_sync.py")
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
-    "${STUDYSTEADY_ROOT}/tools/prepare_sdl_graphics.py")
+    "${STUDYSTEADY_ROOT}/tools/sdk/prepare_sdl_graphics.py")
 set(SDL_SDK_OVERLAY "${CMAKE_CURRENT_BINARY_DIR}/sdk-sdl")
-execute_process(COMMAND "${Python3_EXECUTABLE}" "${STUDYSTEADY_ROOT}/tools/prepare_sdl_sdk.py"
+execute_process(COMMAND "${Python3_EXECUTABLE}" "${STUDYSTEADY_ROOT}/tools/sdk/prepare_sdl_sdk.py"
     --output "${SDL_SDK_OVERLAY}" COMMAND_ERROR_IS_FATAL ANY)
 set(SDL_SDK_INCLUDES
     "${SDL_SDK_OVERLAY}/include" "${SDL_SDK_OVERLAY}/Include/common"
@@ -87,100 +89,10 @@ target_include_directories(loquaty PUBLIC "${STUDYSTEADY_ROOT}/vendor/official-l
 target_link_libraries(gls4_sdl PUBLIC loquaty)
 set_target_properties(gls4_sdl loquaty PROPERTIES POSITION_INDEPENDENT_CODE ON)
 include("${CMAKE_CURRENT_LIST_DIR}/legacy_runtime.cmake")
-add_subdirectory(native/motion_bridge/tjs_runtime motion-tjs EXCLUDE_FROM_ALL)
+add_subdirectory(native/extensions/emote/tjs_runtime motion-tjs EXCLUDE_FROM_ALL)
 target_link_libraries(legacy_objects PUBLIC motion_apk_runtime)
 set(LEGACY_HEAP_SDK "${CMAKE_CURRENT_BINARY_DIR}/legacy_heap_sdk/glscs_sakura2_obj_heap.cpp")
-execute_process(COMMAND "${Python3_EXECUTABLE}" "${STUDYSTEADY_ROOT}/tools/motion_prepare_heap_sdk.py"
+execute_process(COMMAND "${Python3_EXECUTABLE}" "${STUDYSTEADY_ROOT}/tools/sdk/motion_prepare_heap_sdk.py"
     --output "${LEGACY_HEAP_SDK}" COMMAND_ERROR_IS_FATAL ANY)
-set(SDL_APP_SOURCES native/launcher/psb_key_dialog.cpp native/launcher/game_config.cpp native/launcher/known_game.cpp
-    native/launcher/save_directory.cpp
-    native/launcher/compatibility_profiles.cpp native/sdl_main.cpp "${LEGACY_HEAP_SDK}"
-    native/platform/sdl/game_font_aliases.cpp
-    native/platform/sdl/opentype_font.cpp
-    native/legacy_file_probe.cpp native/legacy_core_probe.cpp native/legacy_media_probe.cpp
-    native/legacy_runner.cpp native/legacy_input_probe.cpp native/legacy_window_probe.cpp
-    native/legacy_movie_window_probe.cpp native/legacy_setup_probe.cpp)
-if(ANDROID)
-    add_library(studysteady_sdl SHARED ${SDL_APP_SOURCES} native/platform/sdl/android_game_files.cpp)
-    set_target_properties(studysteady_sdl PROPERTIES OUTPUT_NAME main)
-else()
-    add_executable(studysteady_sdl ${SDL_APP_SOURCES})
-    set_target_properties(studysteady_sdl PROPERTIES OUTPUT_NAME entisgls-launcher)
-    if(APPLE)
-        set_target_properties(studysteady_sdl PROPERTIES MACOSX_BUNDLE TRUE
-            OUTPUT_NAME EntisGLSLauncher)
-        if(CMAKE_SYSTEM_NAME STREQUAL "iOS")
-            enable_language(OBJCXX)
-            set(ENTISGLS_IOS_BUNDLE_IDENTIFIER "io.entisgls.launcher" CACHE STRING "iOS bundle identifier")
-            if(CMAKE_OSX_SYSROOT MATCHES "[Ss]imulator")
-                set(ENTISGLS_IOS_PLATFORM iPhoneSimulator)
-            else()
-                set(ENTISGLS_IOS_PLATFORM iPhoneOS)
-            endif()
-            set_target_properties(studysteady_sdl PROPERTIES
-                OBJCXX_STANDARD 17
-                OBJCXX_STANDARD_REQUIRED YES
-                MACOSX_BUNDLE_INFO_PLIST "${STUDYSTEADY_ROOT}/native/platform/sdl/ios/Info.plist"
-                MACOSX_BUNDLE_GUI_IDENTIFIER "${ENTISGLS_IOS_BUNDLE_IDENTIFIER}"
-                XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "${ENTISGLS_IOS_BUNDLE_IDENTIFIER}"
-                XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2"
-                XCODE_ATTRIBUTE_SUPPORTS_MACCATALYST NO
-                XCODE_ATTRIBUTE_ENABLE_BITCODE NO)
-            target_sources(studysteady_sdl PRIVATE native/platform/sdl/ios_launcher.mm
-                native/platform/sdl/ios_gl_context.mm
-                native/platform/sdl/ios_presentation_smoke.cpp
-                native/platform/sdl/ios/LaunchScreen.storyboard)
-            set_source_files_properties(native/platform/sdl/ios_launcher.mm
-                native/platform/sdl/ios_gl_context.mm PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
-            set_source_files_properties(native/platform/sdl/ios/LaunchScreen.storyboard PROPERTIES
-                MACOSX_PACKAGE_LOCATION Resources)
-            find_library(STUDY_UIKIT_FRAMEWORK UIKit REQUIRED)
-            find_library(STUDY_FOUNDATION_FRAMEWORK Foundation REQUIRED)
-            target_link_libraries(studysteady_sdl PRIVATE
-                "${STUDY_UIKIT_FRAMEWORK}" "${STUDY_FOUNDATION_FRAMEWORK}")
-        else()
-            set_target_properties(studysteady_sdl PROPERTIES
-                MACOSX_BUNDLE_INFO_PLIST "${STUDYSTEADY_ROOT}/native/platform/sdl/macos/Info.plist")
-        endif()
-        file(GLOB_RECURSE SDL_FONT_ASSETS CONFIGURE_DEPENDS
-            "${STUDYSTEADY_ROOT}/assets/fonts/*" "${STUDYSTEADY_ROOT}/assets/licenses/*"
-            "${STUDYSTEADY_ROOT}/assets/compatibility/*")
-        foreach(asset IN LISTS SDL_FONT_ASSETS)
-            file(RELATIVE_PATH relative "${STUDYSTEADY_ROOT}/assets" "${asset}")
-            get_filename_component(directory "${relative}" DIRECTORY)
-            target_sources(studysteady_sdl PRIVATE "${asset}")
-            set_source_files_properties("${asset}" PROPERTIES
-                HEADER_FILE_ONLY TRUE MACOSX_PACKAGE_LOCATION "Resources/assets/${directory}")
-        endforeach()
-    else()
-        add_custom_command(TARGET studysteady_sdl POST_BUILD
-            COMMAND "${CMAKE_COMMAND}" -E copy_directory
-            "${STUDYSTEADY_ROOT}/assets" "$<TARGET_FILE_DIR:studysteady_sdl>/assets")
-    endif()
-endif()
-target_link_libraries(studysteady_sdl PRIVATE legacy_objects legacy_foundation gls4_sdl motion_apk_runtime freetype z)
-if(NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
-    add_executable(sdl_system_test EXCLUDE_FROM_ALL native/platform/sdl/tests/system_test.cpp)
-    target_link_libraries(sdl_system_test PRIVATE gls4_sdl)
-endif()
-
-if(NOT ANDROID AND NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
-    add_executable(game_save_directory_test EXCLUDE_FROM_ALL native/launcher/tests/save_directory_test.cpp
-        native/launcher/save_directory.cpp native/legacy_atomic_path.cpp)
-    target_compile_definitions(game_save_directory_test PRIVATE STUDYSTEADY_PLATFORM_SDL3=1)
-    target_link_libraries(game_save_directory_test PRIVATE entis_game_files)
-    add_executable(psb_key_resolver_test EXCLUDE_FROM_ALL native/launcher/tests/psb_key_resolver_test.cpp)
-    target_link_libraries(psb_key_resolver_test PRIVATE entis_psb_keys)
-    add_executable(psb_key_settings_test EXCLUDE_FROM_ALL native/launcher/tests/psb_key_settings_test.cpp)
-    target_link_libraries(psb_key_settings_test PRIVATE entis_psb_keys)
-    add_executable(motion_psb_key_callback_test EXCLUDE_FROM_ALL native/motion_bridge/tjs_runtime/psb_key_resolver_probe.cpp)
-    target_link_libraries(motion_psb_key_callback_test PRIVATE motion_apk_runtime)
-    add_executable(make_csx_fixture EXCLUDE_FROM_ALL native/launcher/tests/make_csx_fixture.cpp "${LEGACY_HEAP_SDK}"
-        native/launcher/compatibility_profiles.cpp native/platform/sdl/game_font_aliases.cpp native/platform/sdl/opentype_font.cpp)
-    target_link_libraries(make_csx_fixture PRIVATE legacy_objects legacy_foundation gls4_sdl motion_apk_runtime freetype)
-    add_executable(launcher_config_test EXCLUDE_FROM_ALL native/launcher/tests/game_config_test.cpp native/launcher/game_config.cpp)
-    target_link_libraries(launcher_config_test PRIVATE gls4_sdl)
-    add_executable(launcher_fonts_test EXCLUDE_FROM_ALL native/launcher/generic_fonts_test.cpp
-        native/platform/sdl/game_font_aliases.cpp native/platform/sdl/opentype_font.cpp native/launcher/compatibility_profiles.cpp)
-    target_link_libraries(launcher_fonts_test PRIVATE gls4_sdl freetype)
-endif()
+include("${CMAKE_CURRENT_LIST_DIR}/launcher_app.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/runtime_tests.cmake")

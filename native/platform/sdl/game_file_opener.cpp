@@ -1,5 +1,5 @@
-#include "game_file_opener.h"
-#include "platform/game_files.h"
+#include "platform/sdl/game_file_opener.h"
+#include "io/game_files.h"
 #include <SDL3/SDL.h>
 #include <cstdio>
 #include <cstring>

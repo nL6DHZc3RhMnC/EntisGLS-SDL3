@@ -1,4 +1,4 @@
-#include "sdl_pcm_stream.h"
+#include "platform/sdl/sdl_pcm_stream.h"
 
 #include <SDL3/SDL.h>
 #include <algorithm>

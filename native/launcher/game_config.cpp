@@ -1,5 +1,5 @@
-#include "game_config.h"
-#include "platform/game_files.h"
+#include "launcher/game_config.h"
+#include "io/game_files.h"
 
 #include <sakuraglx/sakuraglx.h>
 #include <sakuragl/sgl_erisa_lib.h>

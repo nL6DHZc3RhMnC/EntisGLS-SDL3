@@ -1,4 +1,4 @@
-#include "sdl_sound_player.h"
+#include "platform/sdl/sdl_sound_player.h"
 
 using namespace SakuraGL;
 using studysteady::platform::SdlPcmStream;

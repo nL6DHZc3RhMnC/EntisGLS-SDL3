@@ -2,9 +2,9 @@
 include_guard(GLOBAL)
 set(STUDY_FREETYPE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/vendor/freetype")
 if(NOT EXISTS "${STUDY_FREETYPE_ROOT}/CMakeLists.txt")
-    message(FATAL_ERROR "Font dependencies are missing. Run python3 tools/setup_sdl_fonts.py")
+    message(FATAL_ERROR "Font dependencies are missing. Run python3 tools/sdk/setup_sdl_fonts.py")
 endif()
-execute_process(COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/setup_sdl_fonts.py" --verify --freetype-only
+execute_process(COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tools/sdk/setup_sdl_fonts.py" --verify --freetype-only
     COMMAND_ERROR_IS_FATAL ANY)
 foreach(dependency ZLIB BZIP2 PNG HARFBUZZ BROTLI)
     set(FT_DISABLE_${dependency} ON CACHE BOOL "Use the self-contained game OTF rasterizer" FORCE)

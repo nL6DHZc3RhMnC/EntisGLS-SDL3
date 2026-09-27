@@ -16,5 +16,5 @@
   "license_source_commit": "f8d157532fbfaeda587e826d4cd5b21a49186f7c",
   "license_source_sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
   "packaged_license_sha256": "8d8505e12dcd7ae560ac5e7b6a500f43091cb722b80d7c0809bb2e4b2fe3cf4f",
-  "verification": "python3 tools/setup_sdl_fonts.py --verify"
+  "verification": "python3 tools/sdk/setup_sdl_fonts.py --verify"
 }
