@@ -1,4 +1,4 @@
-package io.studysteady.port.sdl;
+package io.entisgls.launcher.sdl;
 
 import android.content.Context;
 import android.content.SharedPreferences;

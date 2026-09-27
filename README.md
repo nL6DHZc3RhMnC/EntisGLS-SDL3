@@ -15,7 +15,9 @@ SDK 输入为 `EntisGLS/EntisGLS4.07.03/`，适配在项目代码或构建时生
 
 - Android：`artifacts/entisgls-launcher-arm64-dev.apk`。从系统目录选择器导入游戏目录，
   在列表选择游戏。支持多个独立资源目录，复制资源及子目录，按游戏保存进度。
-  保留旧包名 `io.studysteady.port` 和开发签名以便覆盖升级；旧导入和存档保留。
+  包名为 `io.entisgls.launcher`，沿用现有开发签名。
+  它与旧包名 `io.studysteady.port` 属于两个独立应用，可以共存；旧应用的数据仍在旧应用中，
+  不会自动迁移。新应用需重新导入游戏，旧存档需另行导出、迁移。
 - macOS：`artifacts/entisgls-launcher/macos-x86_64/EntisGLSLauncher.zip` 或
   `artifacts/entisgls-launcher/macos-arm64/EntisGLSLauncher.zip`。
   解压打开 `EntisGLSLauncher.app`，在游戏列表中选择或添加目录。直接读取资源，不复制游戏。

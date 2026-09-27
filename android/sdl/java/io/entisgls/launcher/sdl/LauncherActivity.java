@@ -1,4 +1,4 @@
-package io.studysteady.port.sdl;
+package io.entisgls.launcher.sdl;
 
 import android.app.Activity;
 import android.app.AlertDialog;

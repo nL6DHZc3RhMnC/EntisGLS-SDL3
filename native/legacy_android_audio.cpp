@@ -30,7 +30,7 @@ constexpr jint musicStream = 3;
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_io_studysteady_port_GameActivity_nativeConfigureAudio(JNIEnv* env, jclass, jobject manager) {
+Java_io_entisgls_launcher_GameActivity_nativeConfigureAudio(JNIEnv* env, jclass, jobject manager) {
     std::lock_guard<std::mutex> lock(audioMutex);
     if (audioManager) env->DeleteGlobalRef(audioManager);
     audioManager = env->NewGlobalRef(manager);

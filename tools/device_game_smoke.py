@@ -12,8 +12,9 @@ import re
 import sys
 import time
 
+from android_app import PACKAGE_ID as PACKAGE
+
 ROOT = Path(__file__).resolve().parents[1]
-PACKAGE = 'io.studysteady.port'
 
 
 def _dump_blocks(text, header_pattern):

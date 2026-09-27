@@ -29,7 +29,7 @@ STUBS = {
  'org/json/JSONArray.java': 'package org.json; public class JSONArray { public JSONArray(){throw new UnsupportedOperationException();} public JSONArray put(Object v){throw new UnsupportedOperationException();} }',
 }
 HARNESS = r'''
-package io.studysteady.port.sdl;
+package io.entisgls.launcher.sdl;
 import android.content.*;
 import android.database.Cursor;
 import android.net.Uri;
@@ -127,10 +127,10 @@ with tempfile.TemporaryDirectory(prefix='entis-import-jvm-') as temp:
     root=Path(temp)
     for name,source in STUBS.items():
         path=root/name; path.parent.mkdir(parents=True,exist_ok=True); path.write_text(source)
-    production=ROOT/'android/sdl/java/io/studysteady/port/sdl'
-    harness=root/'io/studysteady/port/sdl/ImportDiscoveryTest.java'
+    production=ROOT/'android/sdl/java/io/entisgls/launcher/sdl'
+    harness=root/'io/entisgls/launcher/sdl/ImportDiscoveryTest.java'
     harness.parent.mkdir(parents=True,exist_ok=True); harness.write_text(HARNESS)
     classes=root/'classes'; classes.mkdir()
     subprocess.run([str(JDK/'bin/javac'),'-encoding','UTF-8','-d',str(classes),
                     *map(str,root.rglob('*.java')),str(production/'ResourceStore.java'),str(production/'ResourceImporter.java')],check=True)
-    subprocess.run([str(JDK/'bin/java'),'-cp',str(classes),'io.studysteady.port.sdl.ImportDiscoveryTest'],check=True)
+    subprocess.run([str(JDK/'bin/java'),'-cp',str(classes),'io.entisgls.launcher.sdl.ImportDiscoveryTest'],check=True)

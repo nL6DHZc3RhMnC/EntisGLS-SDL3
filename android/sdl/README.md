@@ -7,8 +7,11 @@ checks engine compatibility. Importing an EXE copies its bytes for configuration
 inspection; the launcher never executes that Windows program.
 
 The visible app is **EntisGLS Launcher**, version code 5 (`0.3.1-dev`). Its
-package remains `io.studysteady.port`, with the existing Activity names and
-signing key so upgrading preserves prior application data.
+Android application ID is `io.entisgls.launcher`, and its Activities use the
+`io.entisgls.launcher.sdl` Java package. Android treats this as a separate app
+from the previous `io.studysteady.port` package. Existing installations and their
+data remain in that old app; this launcher does not automatically migrate them.
+Import game resources into the new app to populate its library.
 
 ## Library and native handoff
 

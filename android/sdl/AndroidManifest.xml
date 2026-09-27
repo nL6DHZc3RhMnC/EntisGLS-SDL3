@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.studysteady.port" android:versionCode="5" android:versionName="0.3.1-dev">
+    package="io.entisgls.launcher" android:versionCode="5" android:versionName="0.3.1-dev">
     <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="35" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -11,14 +11,14 @@
         android:allowBackup="false" android:extractNativeLibs="true"
         android:hardwareAccelerated="true" android:enableOnBackInvokedCallback="false"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
-        <activity android:name="io.studysteady.port.sdl.LauncherActivity"
+        <activity android:name="io.entisgls.launcher.sdl.LauncherActivity"
             android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="io.studysteady.port.sdl.GameActivity"
+        <activity android:name="io.entisgls.launcher.sdl.GameActivity"
             android:exported="false" android:screenOrientation="sensorLandscape"
             android:launchMode="singleTop" android:preferMinimalPostProcessing="true"
             android:configChanges="layoutDirection|locale|grammaticalGender|fontScale|fontWeightAdjustment|orientation|uiMode|screenLayout|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation" />

@@ -20,10 +20,10 @@ STUBS = {
     'android/system/ErrnoException.java': 'package android.system; public class ErrnoException extends Exception { public ErrnoException(Throwable t){super(t);} }',
     'android/system/Os.java': 'package android.system; import java.nio.file.*; public class Os { public static void rename(String a,String b) throws ErrnoException { try{ Files.move(Paths.get(a),Paths.get(b),StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE); }catch(Exception e){throw new ErrnoException(e);} } }',
     'android/util/Log.java': 'package android.util; public class Log { public static int w(String t,String m,Throwable e){return 0;} }',
-    'io/studysteady/port/sdl/ResourceStore.java': '''package io.studysteady.port.sdl; import android.content.Context; import java.io.*; final class ResourceStore { static Game fixture; static final class Game { final File directory; Game(File d){directory=d;} } static Game game(Context c,String id) throws IOException { if(!validId(id))throw new IOException("id");return fixture; } static boolean validId(String id){return id!=null&&(id.equals("legacy")||id.matches("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"));} }''',
+    'io/entisgls/launcher/sdl/ResourceStore.java': '''package io.entisgls.launcher.sdl; import android.content.Context; import java.io.*; final class ResourceStore { static Game fixture; static final class Game { final File directory; Game(File d){directory=d;} } static Game game(Context c,String id) throws IOException { if(!validId(id))throw new IOException("id");return fixture; } static boolean validId(String id){return id!=null&&(id.equals("legacy")||id.matches("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"));} }''',
 }
 HARNESS = r'''
-package io.studysteady.port.sdl;
+package io.entisgls.launcher.sdl;
 import android.content.*;
 import android.database.Cursor;
 import android.net.Uri;
@@ -106,13 +106,13 @@ with tempfile.TemporaryDirectory(prefix='entis-psb-jvm-') as temp:
         path = root / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(source)
-    harness = root / 'io/studysteady/port/sdl/PsbSettingsTest.java'
+    harness = root / 'io/entisgls/launcher/sdl/PsbSettingsTest.java'
     harness.write_text(HARNESS)
     classes = root / 'classes'
     classes.mkdir()
-    production = ROOT / 'android/sdl/java/io/studysteady/port/sdl'
+    production = ROOT / 'android/sdl/java/io/entisgls/launcher/sdl'
     subprocess.run([str(JDK / 'bin/javac'), '-encoding', 'UTF-8', '-d', str(classes),
                     *map(str, root.rglob('*.java')), str(production / 'PsbKeySettings.java'),
                     str(production / 'EmoteDriverImport.java')], check=True)
     subprocess.run([str(JDK / 'bin/java'), '-cp', str(classes),
-                    'io.studysteady.port.sdl.PsbSettingsTest'], check=True)
+                    'io.entisgls.launcher.sdl.PsbSettingsTest'], check=True)

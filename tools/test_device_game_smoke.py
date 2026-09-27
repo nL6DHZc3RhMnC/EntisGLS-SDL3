@@ -10,34 +10,34 @@ from unittest.mock import patch
 
 import device_game_smoke as smoke
 
-# Minimized from the current Android 13 Mi 10 Pro dumps, not lastanr/DropBox.
+# Based on Android 13 Mi 10 Pro live dumps, with the launcher package identity.
 PROCESS = '''ACTIVITY MANAGER RUNNING PROCESSES (dumpsys activity processes)
   All known processes:
-  *APP* UID 10391 ProcessRecord{213446b 32376:io.studysteady.port/u0a391}
+  *APP* UID 10391 ProcessRecord{213446b 32376:io.entisgls.launcher/u0a391}
     pid=32376
     foregroundActivities=true (rep=true)
      mCrashing=false null mNotResponding=true [com.android.server.am.AppNotRespondingDialog@2da5fdc] bad=false
   Process LRU list:
 '''
 WINDOW = '''WINDOW MANAGER WINDOWS (dumpsys window windows)
-  Window #14 Window{cd781d4 u0 Application Not Responding: io.studysteady.port}:
+  Window #14 Window{cd781d4 u0 Application Not Responding: io.entisgls.launcher}:
     mOwnerUid=1000 showForAllUsers=true package=android appop=SYSTEM_ALERT_WINDOW
     mAttrs={(0,0)(fillxfill) ty=SYSTEM_ALERT}
     mHasSurface=true isReadyForDisplay()=true mWindowRemovalAllowed=false
-    WindowStateAnimator{70b47b4 Application Not Responding: io.studysteady.port}:
+    WindowStateAnimator{70b47b4 Application Not Responding: io.entisgls.launcher}:
       Surface: shown=true layer=0 alpha=1.0
     isOnScreen=true
     isVisible=true
     mRemoveOnExit=false
-  Window #17 Window{b6687b8 u0 io.studysteady.port/io.studysteady.port.GameActivity}:
+  Window #17 Window{b6687b8 u0 io.entisgls.launcher/io.entisgls.launcher.GameActivity}:
     isVisible=true
 '''
 HEALTHY = PROCESS.replace('mNotResponding=true', 'mNotResponding=false')
 HISTORY = '''ACTIVITY MANAGER LAST ANR
-Process: io.studysteady.port
+Process: io.entisgls.launcher
 PID: 32376
 Subject: Input dispatching timed out
-Application Not Responding: io.studysteady.port
+Application Not Responding: io.entisgls.launcher
 mNotResponding=true
 '''
 

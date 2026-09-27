@@ -4,7 +4,7 @@
 Default input: build/android-sdl3/{libmain.so,sdl3/libSDL3.so}.
 This command does not configure or compile native code. For an end-to-end build,
 run tools/build_sdl_android.py instead.
-The package ID is retained for upgrades. Release builds use an external persistent
+The launcher uses its own package ID. Release builds use an external persistent
 keystore; local development defaults to the existing project-local key.
 Use --check-shell to compile Java/DEX/manifest without claiming a runnable APK.
 """
@@ -22,6 +22,7 @@ import xml.etree.ElementTree as ET
 import zipfile
 
 from entis_sdk import COTOPHA, LEGACY, validate as validate_sdk
+from android_app import PACKAGE_ID
 from android_toolchain import (add_toolchain_arguments, resolve_java, resolve_sdk_tools,
                                resolve_signing, sdk_root, validate_ndk)
 
@@ -98,8 +99,8 @@ def main():
     manifest = ET.parse(SHELL / "AndroidManifest.xml").getroot()
     android = "{http://schemas.android.com/apk/res/android}"
     application = manifest.find("application")
-    if manifest.attrib["package"] != "io.studysteady.port":
-        raise RuntimeError("Keep the installed package ID to preserve existing app data during upgrades")
+    if manifest.attrib["package"] != PACKAGE_ID:
+        raise RuntimeError(f"The Android launcher manifest must use package ID {PACKAGE_ID}")
     java_source = SDL / "android-project/app/src/main/java"
     if not (java_source / "org/libsdl/app/SDLActivity.java").is_file():
         raise RuntimeError("Pinned SDL3 source is missing; run tools/setup_sdl3.py first")

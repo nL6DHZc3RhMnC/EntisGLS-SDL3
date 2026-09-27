@@ -15,8 +15,10 @@ import shlex
 import subprocess
 import uuid
 
+from android_app import PACKAGE_ID
+
 ROOT = Path(__file__).resolve().parents[1]
-REMOTE = '/sdcard/Android/data/io.studysteady.port/files/game'
+REMOTE = f'/sdcard/Android/data/{PACKAGE_ID}/files/game'
 
 
 def sha256(path):

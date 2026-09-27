@@ -1,4 +1,4 @@
-package io.studysteady.port;
+package io.entisgls.launcher;
 
 import android.os.Bundle;
 import com.entis.android.entisgls4.EntisGLActivity;

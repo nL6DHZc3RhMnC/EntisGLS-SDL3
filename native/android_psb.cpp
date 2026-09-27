@@ -11,7 +11,7 @@
 #include <iterator>
 
 extern "C" JNIEXPORT jstring JNICALL
-Java_io_studysteady_port_GameActivity_nativeCheckPsb(JNIEnv *env, jclass, jstring path) {
+Java_io_entisgls_launcher_GameActivity_nativeCheckPsb(JNIEnv *env, jclass, jstring path) {
     const char *utf = env->GetStringUTFChars(path, nullptr);
     if (!utf) return nullptr;
     const std::string filename(utf);

@@ -40,8 +40,10 @@ Configure these **repository Actions secrets** before the first run:
 | `ANDROID_KEY_PASSWORD` | Optional separate key password; defaults to the store password |
 
 Reuse the existing local `.android-tools/development.keystore` if Actions APKs
-must upgrade installations signed by this checkout. Switching the signing key
-prevents direct updates of those installations. Keep a separate backup of the
+must upgrade installations with the same application ID signed by this checkout.
+The current ID is `io.entisgls.launcher`; it installs separately from the old
+`io.studysteady.port` app and does not automatically migrate its data.
+Switching the signing key prevents direct updates of same-ID installations. Keep a separate backup of the
 keystore; GitHub Secrets are not a retrievable key backup.
 
 An authenticated repository maintainer can upload the existing keystore without

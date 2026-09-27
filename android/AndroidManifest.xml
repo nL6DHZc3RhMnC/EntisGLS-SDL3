@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.studysteady.port" android:versionCode="1" android:versionName="0.1-dev">
+    package="io.entisgls.launcher" android:versionCode="1" android:versionName="0.1-dev">
     <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="33"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <uses-feature android:glEsVersion="0x00030000" android:required="true"/>
     <application android:label="StudySteady 开发版" android:debuggable="true"
         android:allowBackup="false" android:theme="@android:style/Theme.Material.Light.NoActionBar"
         android:extractNativeLibs="true">
-        <activity android:name=".GameActivity" android:exported="true"
+        <activity android:name="io.entisgls.launcher.GameActivity" android:exported="true"
             android:screenOrientation="sensorLandscape"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
