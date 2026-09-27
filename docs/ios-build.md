@@ -100,3 +100,9 @@ folder from Files, or copy it into the app's `Documents/Games` directory through
 Finder file sharing. Each game must retain its original resource files and
 configuration (`cotopha.xml`, `entis-launcher.xml`, or the supported embedded
 configuration in its original executable).
+
+The shared launcher writes saves to `savedata` inside the active game folder.
+On iOS this is the imported folder under `Documents/Games`, so it remains
+accessible through Files/Finder. It creates the directory on first launch;
+existing saves there are retained. Changing this save policy does not change
+the iOS folder import mechanism.

@@ -8,12 +8,17 @@
 #include "launcher/psb_key_runtime.h"
 #include "launcher/psb_key_settings.h"
 #include "launcher/psb_key_dialog.h"
+#include "launcher/save_directory.h"
+#include "platform/game_files.h"
 #include "legacy_window_draw.h"
 #include "platform/sdl/system.h"
 #include "platform/sdl/window.h"
 #include "platform/sdl/sdl_sound_player.h"
 #include "platform/sdl/sdk_image_codec.h"
 #include "platform/sdl/image_codec.h"
+#if defined(SDL_PLATFORM_ANDROID)
+#include "platform/sdl/android_game_files.h"
+#endif
 #if defined(SDL_PLATFORM_IOS)
 #include "platform/sdl/ios_launcher.h"
 #endif
@@ -58,25 +63,7 @@ std::string ReadAsset(const std::string& root, const char* relative) {
     SDL_free(data);
     return text;
 }
-void CopyLegacySaves(const fs::path& source, const fs::path& destination) {
-    // Migrate only positively identified old installations, without following
-    // symlinks, overwriting newer saves, or deleting the original files.
-    if (fs::is_symlink(source) || !fs::is_directory(source) || fs::exists(destination)) return;
-    const auto temporary = destination.parent_path() / ("savedata-migration-" + std::to_string(SDL_GetPerformanceCounter()));
-    if (!fs::create_directory(temporary)) throw std::runtime_error("Cannot create isolated save migration staging directory");
-    for (const auto& item : fs::recursive_directory_iterator(source)) {
-        const auto relative = item.path().lexically_relative(source);
-        const auto target = temporary / relative;
-        if (item.is_symlink()) continue;
-        if (item.is_directory()) fs::create_directories(target);
-        else if (item.is_regular_file()) {
-            fs::create_directories(target.parent_path());
-            fs::copy_file(item.path(), target, fs::copy_options::overwrite_existing);
-        }
-    }
-    fs::rename(temporary, destination);
-    SDL_Log("Copied legacy save data to %s (original retained)", destination.string().c_str());
-}
+
 struct FrameCapture {
     std::string path;
     Uint64 notBefore = 0;
@@ -261,7 +248,7 @@ static int RunApplication(int argc, char** argv) {
     std::vector<ScheduledInput> scheduledInputs;
     double captureAfter = 10;
     bool explicitGameDirectory = false, explicitLocalDirectory = false;
-    bool legacyLocalData = false, inspectOnly = false;
+    bool inspectOnly = false;
     std::string explicitConfig;
     std::optional<uint32_t> commandLineKey;
     std::optional<std::string> saveKey;
@@ -271,7 +258,7 @@ static int RunApplication(int argc, char** argv) {
 #endif
     for (int i = 1; i < argc; ++i) {
         const std::string argument = argv[i];
-        if (argument == "--legacy-local-data") legacyLocalData = true;
+        if (argument == "--legacy-local-data") { /* Accepted for older launch scripts; save location is always game/savedata. */ }
 #if defined(SDL_PLATFORM_IOS)
         else if (argument == "--library-smoke") { librarySmoke = true; cliMode = true; }
 #endif
@@ -336,16 +323,20 @@ static int RunApplication(int argc, char** argv) {
         SDL_Quit(); return 0;
     }
 #endif
+#if defined(SDL_PLATFORM_ANDROID)
+    ConfigureAndroidGameFiles(paths.gameRoot);
+    struct GameFilesSession { ~GameFilesSession() { entis::io::SetBackend({}, {}); } } gameFilesSession;
+#endif
     const bool knownStudySteady = study::launcher::IsKnownStudySteady(paths.gameRoot);
     entis::launcher::GameLaunchConfig game;
     try { game = entis::launcher::DiscoverGame(paths.gameRoot, explicitConfig); }
     catch (const entis::launcher::ConfigError&) {
         // NOA-only imports made by old APKs have no Windows executable/config.
         // Never replace a user's invalid XML or explicit selection with a template.
-        bool hasConfiguration = !explicitConfig.empty() || fs::exists(fs::path(paths.gameRoot) / "entis-launcher.xml") ||
-            fs::exists(fs::path(paths.gameRoot) / "cotopha.xml");
-        if (fs::is_directory(paths.gameRoot)) for (const auto& entry : fs::directory_iterator(paths.gameRoot)) {
-            auto extension = entry.path().extension().string();
+        bool hasConfiguration = !explicitConfig.empty() || entis::io::Stat(fs::path(paths.gameRoot) / "entis-launcher.xml").kind != entis::io::FileInfo::Kind::Missing ||
+            entis::io::Stat(fs::path(paths.gameRoot) / "cotopha.xml").kind != entis::io::FileInfo::Kind::Missing;
+        if (entis::io::Stat(paths.gameRoot).kind == entis::io::FileInfo::Kind::Directory) for (const auto& entry : entis::io::List(paths.gameRoot)) {
+            auto extension = fs::u8path(entry.name).extension().string();
             std::transform(extension.begin(), extension.end(), extension.begin(), [](unsigned char c) { return char(std::tolower(c)); });
             if (extension == ".exe") hasConfiguration = true;
         }
@@ -358,7 +349,7 @@ static int RunApplication(int argc, char** argv) {
     paths.localRoot = (applicationData / "games" / game.gameId).string();
     SDL_Log("Game: %s; id=%s; entry=%s; profile=%s; source=%s; saves=%s/savedata",
         game.title.c_str(), game.gameId.c_str(), game.entryScript.c_str(), game.compatibilityProfile.c_str(),
-        game.configSource.c_str(), paths.localRoot.c_str());
+        game.configSource.c_str(), paths.gameRoot.c_str());
     for (const auto& warning : game.warnings) SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "%s", warning.c_str());
 #if !defined(SDL_PLATFORM_ANDROID) && !defined(SDL_PLATFORM_IOS)
     if (!explicitGameDirectory) RememberGame(library, paths.gameRoot);
@@ -391,13 +382,7 @@ static int RunApplication(int argc, char** argv) {
     entis::launcher::SetGamePsbKeyResolver(std::make_shared<entis::launcher::PsbKeyResolver>(paths.gameRoot, paths.localRoot, selectedKey));
     SDL_Log("PSB parameter mode: %s", selectedKey ? "explicit override" : "automatic driver discovery");
     fs::create_directories(paths.localRoot);
-    if (!game.previousGameId.empty() && game.previousGameId != game.gameId)
-        CopyLegacySaves(applicationData / "games" / game.previousGameId / "savedata", fs::path(paths.localRoot) / "savedata");
-    if (knownStudySteady && game.compatibilityProfile == "study-steady-r18" && !game.explicitGameId) {
-        if (legacyLocalData) CopyLegacySaves(applicationData / "savedata", fs::path(paths.localRoot) / "savedata");
-        else if (!explicitLocalDirectory && !legacyData.empty()) CopyLegacySaves(legacyData / "savedata", fs::path(paths.localRoot) / "savedata");
-    }
-    fs::create_directories(fs::path(paths.localRoot) / "savedata");
+    entis::launcher::PrepareSaveDirectory(paths.gameRoot);
 
     if (!ConfigureSystemPaths(paths)) { SDL_Quit(); return 2; }
     SakuraGL::Initialize();

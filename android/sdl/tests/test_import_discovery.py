@@ -9,9 +9,12 @@ import subprocess
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[3]
-JDK = next((ROOT / '.android-tools/jdk').glob('*/Contents/Home'))
+from java_runtime import find_jdk
+JDK = find_jdk(ROOT)
 STUBS = {
- 'android/net/Uri.java': 'package android.net; public final class Uri { public final String id; public Uri(String id){this.id=id;} }',
+ 'android/net/Uri.java': 'package android.net; public final class Uri { public final String id; public Uri(String id){this.id=id;} public static Uri parse(String s){return new Uri(s);} }',
+ 'android/os/ParcelFileDescriptor.java': 'package android.os; public class ParcelFileDescriptor implements AutoCloseable { public static ParcelFileDescriptor adoptFd(int fd){return new ParcelFileDescriptor();} public void close(){} }',
+ 'io/entisgls/launcher/sdl/DocumentTreeAccess.java': 'package io.entisgls.launcher.sdl; import android.content.Context; import android.net.Uri; import java.io.IOException; public class DocumentTreeAccess { public DocumentTreeAccess(Context c,Uri u) throws IOException {} public String[] list(String p) throws IOException {throw new IOException("stub");} public long[] stat(String p) throws IOException {throw new IOException("stub");} public int open(String p,String m) throws IOException {throw new IOException("stub");} public String displayName(){return "Fixture";} }',
  'android/database/Cursor.java': 'package android.database; public interface Cursor extends AutoCloseable { boolean moveToNext(); boolean moveToFirst(); String getString(int i); long getLong(int i); boolean isNull(int i); void close(); }',
  'android/content/ContentResolver.java': '''package android.content; import android.database.Cursor; import android.net.Uri; import java.io.*; public abstract class ContentResolver { public abstract Cursor query(Uri u,String[] p,String a,String[] b,String c); public InputStream openInputStream(Uri u) throws IOException { throw new IOException("not implemented in discovery fixture"); } }''',
  'android/content/Context.java': '''package android.content; import java.io.File; public abstract class Context { public abstract File getExternalFilesDir(String s); public abstract File getFilesDir(); public Context getApplicationContext(){return this;} public abstract ContentResolver getContentResolver(); }''',

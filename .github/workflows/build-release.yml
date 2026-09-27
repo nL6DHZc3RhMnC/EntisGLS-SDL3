@@ -60,6 +60,11 @@ jobs:
         run: python3 tools/ci_prepare_dependencies.py
       - name: Test build tools
         run: python3 -m unittest discover -s tools -p 'test_*.py' -v
+      - name: Test Android directory access and save recovery
+        run: |
+          python3 android/sdl/tests/test_import_discovery.py
+          python3 android/sdl/tests/test_psb_settings.py
+          python3 android/sdl/tests/test_document_tree.py
       - name: Build, sign and verify APK
         env:
           ENTISGLS_ANDROID_KEYSTORE: ${{ runner.temp }}/entisgls-signing.keystore

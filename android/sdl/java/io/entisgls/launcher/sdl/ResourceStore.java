@@ -1,6 +1,7 @@
 package io.entisgls.launcher.sdl;
 
 import android.content.Context;
+import android.net.Uri;
 import android.system.ErrnoException;
 import android.system.Os;
 import java.io.File;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import org.json.JSONObject;
 
 /** App-owned game library. Only native code decides whether a game is supported. */
@@ -22,8 +24,12 @@ final class ResourceStore {
         final String name;
         final File directory;
         final boolean legacy;
+        final Uri tree;
         Game(String id, String name, File directory, boolean legacy) {
-            this.id = id; this.name = name; this.directory = directory; this.legacy = legacy;
+            this(id, name, directory, legacy, null);
+        }
+        Game(String id, String name, File directory, boolean legacy, Uri tree) {
+            this.id = id; this.name = name; this.directory = directory; this.legacy = legacy; this.tree = tree;
         }
         @Override public String toString() { return name; }
     }
@@ -60,32 +66,55 @@ final class ResourceStore {
         ArrayList<Game> games = new ArrayList<>();
         File previous = new File(root, "game");
         if (previous.isDirectory()) games.add(new Game(LEGACY_ID, "已有游戏（旧版资源）", previous, true));
-        File library = new File(root, "library");
-        if (!library.exists()) return games;
+        readLibrary(new File(root, "library"), games);
+        readLibrary(new File(localRoot(context), "library"), games);
+        Collections.sort(games, (left, right) -> left.name.compareToIgnoreCase(right.name));
+        return games;
+    }
+
+    private static void readLibrary(File library, List<Game> games) throws IOException {
+        if (!library.exists()) return;
         File[] directories = library.listFiles();
         if (directories == null) throw new IOException("无法读取游戏库。");
         for (File directory : directories) {
             if (!directory.isDirectory() || !validId(directory.getName()) || LEGACY_ID.equals(directory.getName())) continue;
-            File game = new File(directory, "game");
             File metadata = new File(directory, ENTRY);
-            if (!game.isDirectory() || !metadata.isFile()) continue;
+            if (!metadata.isFile()) continue;
             try {
                 JSONObject entry = new JSONObject(ResourceImporter.readSmallText(metadata));
                 if (!directory.getName().equals(entry.getString("id"))) continue;
                 String name = entry.optString("name", directory.getName());
-                games.add(new Game(directory.getName(), name, game, false));
+                String source = entry.optString("source_tree", "");
+                if (!source.isEmpty()) {
+                    Uri tree = Uri.parse(source);
+                    games.add(new Game(directory.getName(), name, new File("/__entis_saf__/" + directory.getName()), false, tree));
+                } else {
+                    File game = new File(directory, "game");
+                    if (game.isDirectory()) games.add(new Game(directory.getName(), name, game, false));
+                }
             } catch (Exception error) {
                 android.util.Log.w("EntisGLS", "Cannot read game entry " + directory.getName(), error);
             }
         }
-        Collections.sort(games, (left, right) -> left.name.compareToIgnoreCase(right.name));
-        return games;
+    }
+
+    static Game registerTree(Context context, Uri tree, String name) throws IOException {
+        for (Game game : games(context)) if (tree.equals(game.tree)) return game;
+        String id = UUID.randomUUID().toString();
+        File directory = new File(new File(localRoot(context), "library"), id);
+        privateDirectory(directory);
+        try {
+            ResourceImporter.writeAtomically(new File(directory, ENTRY), new JSONObject().put("schema", 2).put("id", id)
+                .put("name", name).put("source_tree", tree.toString()).put("added_at_ms", System.currentTimeMillis()).toString(2));
+        } catch (IOException error) { throw error; }
+        catch (Exception error) { throw new IOException("无法保存所选游戏文件夹。", error); }
+        return new Game(id, name, new File("/__entis_saf__/" + id), false, tree);
     }
 
     static Game game(Context context, String id) throws IOException {
         if (!validId(id)) throw new IOException("请选择要启动的游戏。");
         for (Game game : games(context)) if (game.id.equals(id)) return game;
-        throw new IOException("所选游戏已不可用，请重新选择或导入。");
+        throw new IOException("所选游戏已不可用，请重新选择文件夹。");
     }
 
     static boolean configurationCandidate(String name) {
@@ -95,8 +124,23 @@ final class ResourceStore {
 
     /** Check permissions as the app, without claiming to recognize an engine. */
     static String readiness(Context context, Game game) {
-        if (game == null) return "请选择一个游戏，或导入游戏文件夹。";
+        if (game == null) return "请选择一个游戏，或添加游戏文件夹。";
         try {
+            if (game.tree != null) {
+                DocumentTreeAccess access = new DocumentTreeAccess(context, game.tree);
+                boolean candidate = false;
+                for (String name : access.list("")) {
+                    if (!configurationCandidate(name)) continue;
+                    long[] info = access.stat(name);
+                    if (info[0] == 1 && info[1] != 0) {
+                        int fd = access.open(name, "r");
+                        try (android.os.ParcelFileDescriptor descriptor = android.os.ParcelFileDescriptor.adoptFd(fd)) {}
+                        candidate = true;
+                    }
+                }
+                if (!candidate) return "未找到启动配置候选，请重新选择直接包含游戏 EXE、XML、.csx 或 .noa 的目录。";
+                return null;
+            }
             int files = checkReadable(game.directory, 0);
             if (files == 0) return "游戏文件夹为空，请重新导入完整游戏目录。";
             if (!game.legacy) {
@@ -109,7 +153,9 @@ final class ResourceStore {
             }
             localRoot(context);
             return null;
-        } catch (IOException error) { return error.getMessage(); }
+        } catch (IOException | RuntimeException error) {
+            return error.getMessage() == null ? "无法访问游戏文件夹，请重新选择并确认读写授权。" : error.getMessage();
+        }
     }
 
     private static int checkReadable(File directory, int depth) throws IOException {

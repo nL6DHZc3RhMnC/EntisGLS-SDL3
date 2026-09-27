@@ -1,5 +1,7 @@
 #include "system.h"
 #include "memory_info.h"
+#include "game_file_opener.h"
+#include "platform/game_files.h"
 
 #include <sakura/sakura.h>
 #include <sakura/ssys_fragment_file.h>
@@ -168,7 +170,7 @@ class StorageOpener final : public SFileOpener {
 public:
     StorageOpener(const std::string& storage, const std::string& game)
         : storage_(Wide(storage), L'/', new SStandardFileOpener, true),
-          game_(Wide(game.empty() ? Join(storage, "game") : game), L'/', new SStandardFileOpener, true),
+          game_(Wide(game.empty() ? Join(storage, "game") : game), L'/', NewGameFileOpener(), true),
           hasOverride_(!game.empty()) {}
     SFileInterface* NewOpenFile(const wchar_t* path, long flags) override {
         const auto resolved = Resolve(path);
@@ -230,6 +232,8 @@ public:
         auto error = oldResolved.opener->DirectPathOf(oldDirect, oldResolved.path);
         if (error != errSuccess) return error;
         error = newResolved.opener->DirectPathOf(newDirect, newResolved.path);
+        if (error == errSuccess && (entis::io::IsVirtual(UTF8(oldDirect)) || entis::io::IsVirtual(UTF8(newDirect))))
+            return errNotSupported;
         return error == errSuccess ? SFile::RenameFile(oldDirect, newDirect) : error;
     }
     SError DirectPathOf(SString& direct, const wchar_t* path) override {
@@ -290,7 +294,7 @@ void RequireSystemPaths() {
 
 void RegisterSystemSchemes() {
     SFileOpener::SetDefaultOpener(&g_defURLOpener);
-    g_defURLOpener.RegisterScheme(L"file://", new SStandardFileOpener);
+    g_defURLOpener.RegisterScheme(L"file://", NewGameFileOpener());
     g_defURLOpener.RegisterScheme(L"http://",
         new SOffsetFileOpener(L"http://", L'/', new SHttpFileOpener, true), SVirtualURLOpener::schemeOverNetwork);
     g_defURLOpener.RegisterScheme(L"https://",
@@ -347,7 +351,8 @@ int ResolveDefaultDirectory(SString& directory, const wchar_t* placement, const 
         const std::lock_guard<std::mutex> lock(configurationMutex);
         if (!configured) return errFailed;
         if (is(SFile::DefaultDirectory::CurrentDirectory))
-            directory = Wide(systemPaths.gameRoot.empty() ? Join(systemPaths.storageRoot, "game") : systemPaths.gameRoot);
+            directory = entis::io::IsVirtual(systemPaths.gameRoot) ? SString(L"storage://game") :
+                Wide(systemPaths.gameRoot.empty() ? Join(systemPaths.storageRoot, "game") : systemPaths.gameRoot);
         else if (is(SFile::DefaultDirectory::ApplicationData) || is(SFile::DefaultDirectory::AndroidLocalFiles))
             directory = Wide(systemPaths.localRoot);
         else if (is(SFile::DefaultDirectory::AndroidExternalStoragePrivate))

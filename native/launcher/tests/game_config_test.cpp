@@ -1,5 +1,6 @@
 // The discovery API deliberately runs before SDL/SakuraGL initialization.
 #include "launcher/game_config.h"
+#include "game_file_backend_fixture.h"
 #include <chrono>
 #include <filesystem>
 #include <fstream>
@@ -66,6 +67,8 @@ int main(int argc, char** argv) {
         const auto game = root / u8"game 日本語";
         fs::create_directories(game);
         Reject([&] { DiscoverGame(game); }, "No launch configuration found");
+        const auto unchangedIdentity = NormalizeGameConfig(game, "<script src='main.csx'/>", "save-policy-regression");
+        Require(unchangedIdentity.gameId == "game-6d019a001cd781cf", "changing save placement preserves pre-provider game identity");
         const std::string xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
             "<script src='story/start.csx' psb_key='0x12345678'>"
             "<save_dir path='C:\\old\\save' accept_other_dir='true'/>"
@@ -80,6 +83,37 @@ int main(int argc, char** argv) {
         Write(game / "patch.noa","archive-patch");
         Write(game / "data/main.noa","archive-main");
         auto config=DiscoverGame(game);
+        {
+            const auto virtualRoot = root / "provider-game";
+            auto backend = std::make_shared<MappedGameTestBackend>(game);
+            GameTestMount mount(virtualRoot, backend);
+            Require(!fs::exists(virtualRoot), "virtual game requires no copied resource directory");
+            const auto linked = DiscoverGame(virtualRoot);
+            Require(linked.gameId == config.gameId && linked.previousGameId == config.previousGameId,
+                    "provider-backed game preserves existing settings and save identity");
+            Require(linked.normalizedXml == config.normalizedXml, "provider-backed configuration is unchanged");
+            Require(backend->opens >= 4 && backend->stats > 0, "discovery reads configuration and resource identity through provider");
+            Reject([&] { DiscoverGame(virtualRoot, "../outside.xml"); }, "escapes");
+            bool escaped = false;
+            try { entis::io::Open(virtualRoot / "../outside.xml", "rb"); }
+            catch (const std::exception&) { escaped = true; }
+            Require(escaped, "provider traversal cannot fall back to host IO");
+            entis::io::CreateDirectory(virtualRoot / "writable");
+            auto* stream = entis::io::Open(virtualRoot / "writable/from.txt", "wb");
+            const auto writtenCount = std::fwrite("direct", 1, 6, stream);
+            const auto closed = std::fclose(stream);
+            Require(writtenCount == 6 && closed == 0, "provider writes directly to selected directory");
+            entis::io::Rename(virtualRoot / "writable/from.txt", virtualRoot / "writable/to.txt");
+            const auto written = entis::io::ReadFile(virtualRoot / "writable/to.txt", 6);
+            Require(std::string(written.begin(), written.end()) == "direct" && fs::exists(game / "writable/to.txt"), "provider rename and bounded read use original directory");
+            bool limited = false;
+            try { entis::io::ReadFile(virtualRoot / "writable/to.txt", 5); }
+            catch (const std::exception&) { limited = true; }
+            Require(limited, "provider read respects resource limit");
+            entis::io::Remove(virtualRoot / "writable/to.txt", false);
+            entis::io::Remove(virtualRoot / "writable", true);
+            Require(!fs::exists(game / "writable"), "provider removal updates selected directory");
+        }
         Require(config.entryScript=="story/start.csx","custom entry script preserved");
         Require(config.compatibilityProfile.empty(),"generic is the default");
         Require(!config.explicitGameId,"auto game identity is marked as generated");
@@ -96,7 +130,7 @@ int main(int argc, char** argv) {
         auto automatic=NormalizeGameConfig(game,noKey,"automatic.xml");
         Require(!automatic.psbKey && automatic.gameId==config.gameId && automatic.previousGameId.empty(),"removing key preserves identity");
         Require(config.title==u8"試験 & Test","Unicode caption and XML entities preserved");
-        Require(config.normalizedXml.find("local://savedata")!=std::string::npos && config.normalizedXml.find("C:")==std::string::npos,"save path isolated");
+        Require(config.normalizedXml.find("storage://game/savedata")!=std::string::npos && config.normalizedXml.find("C:")==std::string::npos,"save path is the selected game directory");
         const auto first=config.normalizedXml.find("storage://game/patch.noa");
         const auto middle=config.normalizedXml.find("path=\"storage://game\"");
         const auto last=config.normalizedXml.find("storage://game/data/main.noa");

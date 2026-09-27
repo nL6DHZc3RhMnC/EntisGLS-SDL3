@@ -5,8 +5,8 @@
 #include <mutex>
 #include <string>
 
-// POSIX implementation deliberately independent of ECS/JNI for host filesystem
-// tests. Only OpenWithinRoot can construct it; NOA and virtual streams do not fit.
+// Independent of ECS/JNI. Native paths use POSIX atomic rename; selected document
+// trees use the game backend's recoverable replacement and seekable descriptors.
 class LegacyAtomicPath {
 public:
     static bool IsWithinRoot(const std::string &root, const std::string &path);

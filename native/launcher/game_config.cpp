@@ -1,4 +1,5 @@
 #include "game_config.h"
+#include "platform/game_files.h"
 
 #include <sakuraglx/sakuraglx.h>
 #include <sakuragl/sgl_erisa_lib.h>
@@ -139,28 +140,29 @@ void Serialize(const XmlNode& node, std::string& out) {
     out+="</"+node.tag+">\n";
 }
 std::vector<uint8_t> ReadFile(const fs::path& path, std::size_t limit) {
-    std::ifstream file(path, std::ios::binary | std::ios::ate);
-    if (!file) throw ConfigError("Cannot read configuration source: " + path.u8string());
-    const auto length = file.tellg();
-    if (length <= 0 || static_cast<uint64_t>(length) > limit)
-        throw ConfigError("Configuration source is empty or too large: " + path.u8string());
-    std::vector<uint8_t> bytes(static_cast<std::size_t>(length));
-    file.seekg(0);
-    if (!file.read(reinterpret_cast<char*>(bytes.data()), bytes.size()))
-        throw ConfigError("Incomplete configuration source: " + path.u8string());
-    return bytes;
+    try {
+        auto bytes = io::ReadFile(path, limit);
+        if (bytes.empty()) throw ConfigError("Configuration source is empty or too large: " + path.u8string());
+        return bytes;
+    } catch (const ConfigError&) { throw; }
+    catch (const std::exception& error) {
+        throw ConfigError("Cannot read configuration source: " + path.u8string() + ": " + error.what());
+    }
 }
 fs::path Root(const fs::path& path) {
-    std::error_code error;
-    const auto root = fs::canonical(path, error);
-    if (error || !fs::is_directory(root))
-        throw ConfigError("Game directory does not exist: " + path.u8string());
-    return root;
+    try {
+        const auto root = io::Canonical(path);
+        if (io::Stat(root).kind != io::FileInfo::Kind::Directory)
+            throw ConfigError("Game directory does not exist: " + path.u8string());
+        return root;
+    } catch (const std::exception& error) {
+        throw ConfigError("Game directory does not exist: " + path.u8string() + ": " + error.what());
+    }
 }
 void CheckContained(const fs::path& root, const fs::path& path) {
-    std::error_code error;
-    const auto full = fs::weakly_canonical(path, error);
-    if (error) throw ConfigError("Cannot resolve game path: " + path.u8string());
+    fs::path full;
+    try { full = io::Canonical(path, false); }
+    catch (const std::exception& error) { throw ConfigError("Cannot resolve game path: " + path.u8string() + ": " + error.what()); }
     auto r = root.begin(), p = full.begin();
     for (; r != root.end(); ++r, ++p)
         if (p == full.end() || *r != *p)
@@ -314,19 +316,17 @@ std::string Fingerprint(const std::string& xml) {
     return out.str();
 }
 void AddFileIdentity(std::string& identity, const fs::path& path) {
-    std::error_code error;
-    if (!fs::is_regular_file(path, error)) return;
-    const auto size = fs::file_size(path, error);
-    if (error) throw ConfigError("Cannot determine resource identity: " + path.u8string());
-    std::ifstream input(path, std::ios::binary);
-    if (!input) throw ConfigError("Cannot read resource identity: " + path.u8string());
-    const auto count = static_cast<std::size_t>(std::min<uintmax_t>(size, 64 * 1024));
-    std::string prefix(count, '\0');
-    if (count && !input.read(prefix.data(), count))
-        throw ConfigError("Incomplete resource identity: " + path.u8string());
-    // NOA headers/index prefixes and direct modules distinguish applications
-    // whose minimal XML is otherwise identical. No host path enters this ID.
-    identity += "\nresource-size:" + std::to_string(size) + "\nprefix:" + Fingerprint(prefix);
+    try {
+        const auto info = io::Stat(path);
+        if (info.kind != io::FileInfo::Kind::File) return;
+        const auto bytes = io::ReadPrefix(path, static_cast<std::size_t>(std::min<std::uint64_t>(info.size, 64 * 1024)));
+        const std::string prefix(bytes.begin(), bytes.end());
+        // NOA headers/index prefixes and direct modules distinguish applications
+        // whose minimal XML is otherwise identical. No host path enters this ID.
+        identity += "\nresource-size:" + std::to_string(info.size) + "\nprefix:" + Fingerprint(prefix);
+    } catch (const std::exception& error) {
+        throw ConfigError("Cannot read resource identity: " + path.u8string() + ": " + error.what());
+    }
 }
 
 class MemoryInput final : public SSystem::SInputStream {
@@ -503,6 +503,9 @@ GameLaunchConfig NormalizeGameConfig(const fs::path& gameDir, const std::string&
     // identity. Changing or removing a key must not select a different save.
     output->attributes.erase("psb_key");
     Set(*output, "src", result.entryScript);
+    // Keep the historic path while computing identity below. The emitted
+    // runtime path changes to the selected game directory after hashing so a
+    // storage-policy change cannot select a different game's settings/saves.
     auto* save = new XmlNode;
     save->SetTag("save_dir"); save->SetAttributeAs("path", "local://savedata"); output->AddElement(save);
     unsigned displayCount = 0;
@@ -527,7 +530,7 @@ GameLaunchConfig NormalizeGameConfig(const fs::path& gameDir, const std::string&
             Set(out, "path", path);
             if (node->GetAttributeAs("default_dir")) Set(out, "default_dir", Path(root, Attr(*node, "default_dir"), false, true));
             const auto relative = path == "storage://game" ? "" : path.substr(15);
-            if (!fs::exists(root / fs::u8path(relative))) result.warnings.push_back("Configured " + tag + " does not exist: " + relative);
+            if (io::Stat(root / fs::u8path(relative)).kind == io::FileInfo::Kind::Missing) result.warnings.push_back("Configured " + tag + " does not exist: " + relative);
             if (tag == "archive") archiveFiles.push_back(root / fs::u8path(relative));
             else fileDirectories.push_back(root / fs::u8path(relative));
         } else if (tag == "fonts") {
@@ -618,6 +621,10 @@ GameLaunchConfig NormalizeGameConfig(const fs::path& gameDir, const std::string&
         const auto previous = Fingerprint(previousXml + identity.substr(result.normalizedXml.size()));
         if (previous != result.gameId) result.previousGameId = previous;
     }
+    save->SetAttributeAs("path", "storage://game/savedata");
+    result.normalizedXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+    output->attributes.erase("psb_key");
+    Serialize(normalized, result.normalizedXml);
     if (result.title.empty()) result.title = root.filename().u8string();
     return result;
 }
@@ -638,17 +645,18 @@ GameLaunchConfig DiscoverGame(const fs::path& gameDir, const fs::path& explicitC
     if (!explicitConfig.empty()) return read(explicitConfig.is_absolute() ? explicitConfig : root / explicitConfig);
     for (const char* name : {"entis-launcher.xml", "cotopha.xml"}) {
         const auto candidate = root / name;
-        if (fs::exists(candidate)) return read(candidate);
+        if (io::Stat(candidate).kind != io::FileInfo::Kind::Missing) return read(candidate);
     }
     std::vector<fs::path> candidates;
     std::vector<std::string> scanErrors;
     unsigned count = 0;
-    for (const auto& entry : fs::directory_iterator(root)) {
-        if (!entry.is_regular_file() || Lower(entry.path().extension().u8string()) != ".exe") continue;
+    for (const auto& entry : io::List(root)) {
+        const auto path = root / fs::u8path(entry.name);
+        if (entry.info.kind != io::FileInfo::Kind::File || Lower(path.extension().u8string()) != ".exe") continue;
         if (++count > 128) throw ConfigError("Too many executables to discover automatically; provide entis-launcher.xml");
         try {
-            CheckContained(root, entry.path());
-            if (!Resources(ReadFile(entry.path(), maxExecutable)).empty()) candidates.push_back(entry.path());
+            CheckContained(root, path);
+            if (!Resources(ReadFile(path, maxExecutable)).empty()) candidates.push_back(path);
         } catch (const ConfigError& error) { scanErrors.push_back(error.what()); }
     }
     std::sort(candidates.begin(), candidates.end());

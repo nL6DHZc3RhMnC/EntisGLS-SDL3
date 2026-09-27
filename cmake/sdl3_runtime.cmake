@@ -61,12 +61,12 @@ add_library(gls4_sdl STATIC ${SDL_SDK_SOURCES}
     "${SDL_SDK_OVERLAY}/system/ssys_std_ui.cpp"
     "${SDL_SDK_OVERLAY}/system/ssys_file.cpp"
     native/platform/sdl/synchronization.cpp native/platform/sdl/memory_info.cpp
-    native/platform/sdl/system.cpp native/platform/sdl/sdl_pcm_stream.cpp
+    native/platform/sdl/system.cpp native/platform/sdl/game_file_opener.cpp native/platform/sdl/sdl_pcm_stream.cpp
     native/platform/sdl/device_volume.cpp
     native/platform/sdl/sdl_sound_player.cpp native/platform/sdl/image_codec.cpp
     native/platform/sdl/sdk_image_codec.cpp)
 target_include_directories(gls4_sdl PRIVATE "${STUDYSTEADY_ROOT}/vendor/official-tinygltf")
-target_link_libraries(gls4_sdl PUBLIC study_sdl_platform)
+target_link_libraries(gls4_sdl PUBLIC study_sdl_platform entis_game_files)
 if(ANDROID)
     target_link_libraries(gls4_sdl PUBLIC GLESv1_CM GLESv2 GLESv3 log)
 elseif(CMAKE_SYSTEM_NAME STREQUAL "iOS")
@@ -93,6 +93,7 @@ set(LEGACY_HEAP_SDK "${CMAKE_CURRENT_BINARY_DIR}/legacy_heap_sdk/glscs_sakura2_o
 execute_process(COMMAND "${Python3_EXECUTABLE}" "${STUDYSTEADY_ROOT}/tools/motion_prepare_heap_sdk.py"
     --output "${LEGACY_HEAP_SDK}" COMMAND_ERROR_IS_FATAL ANY)
 set(SDL_APP_SOURCES native/launcher/psb_key_dialog.cpp native/launcher/game_config.cpp native/launcher/known_game.cpp
+    native/launcher/save_directory.cpp
     native/launcher/compatibility_profiles.cpp native/sdl_main.cpp "${LEGACY_HEAP_SDK}"
     native/platform/sdl/game_font_aliases.cpp
     native/platform/sdl/opentype_font.cpp
@@ -100,7 +101,7 @@ set(SDL_APP_SOURCES native/launcher/psb_key_dialog.cpp native/launcher/game_conf
     native/legacy_runner.cpp native/legacy_input_probe.cpp native/legacy_window_probe.cpp
     native/legacy_movie_window_probe.cpp native/legacy_setup_probe.cpp)
 if(ANDROID)
-    add_library(studysteady_sdl SHARED ${SDL_APP_SOURCES})
+    add_library(studysteady_sdl SHARED ${SDL_APP_SOURCES} native/platform/sdl/android_game_files.cpp)
     set_target_properties(studysteady_sdl PROPERTIES OUTPUT_NAME main)
 else()
     add_executable(studysteady_sdl ${SDL_APP_SOURCES})
@@ -161,6 +162,10 @@ if(NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
 endif()
 
 if(NOT ANDROID AND NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    add_executable(game_save_directory_test EXCLUDE_FROM_ALL native/launcher/tests/save_directory_test.cpp
+        native/launcher/save_directory.cpp native/legacy_atomic_path.cpp)
+    target_compile_definitions(game_save_directory_test PRIVATE STUDYSTEADY_PLATFORM_SDL3=1)
+    target_link_libraries(game_save_directory_test PRIVATE entis_game_files)
     add_executable(psb_key_resolver_test EXCLUDE_FROM_ALL native/launcher/tests/psb_key_resolver_test.cpp)
     target_link_libraries(psb_key_resolver_test PRIVATE entis_psb_keys)
     add_executable(psb_key_settings_test EXCLUDE_FROM_ALL native/launcher/tests/psb_key_settings_test.cpp)

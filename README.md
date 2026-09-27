@@ -7,17 +7,17 @@ StudySteady 是兼容性样例，所需补丁独立放在 `native/launcher/compa
 
 SDK 输入为 `EntisGLS/EntisGLS4.07.03/`，适配在项目代码或构建时生成的副本中完成。
 **构建不需要 `StudySteadyR18/`，安装包不包含商业游戏脚本或资源包。**
-原 SDK、游戏目录均不修改；已单独获取并附许可的 Noto 字体是可选兼容资源。
+构建过程不修改原 SDK、游戏目录；已单独获取并附许可的 Noto 字体是可选兼容资源。
 
 ## 使用
 
 开发版 **0.3.1（构建号 5）**：
 
-- Android：`artifacts/entisgls-launcher-arm64-dev.apk`。从系统目录选择器导入游戏目录，
-  在列表选择游戏。支持多个独立资源目录，复制资源及子目录，按游戏保存进度。
+- Android：`artifacts/entisgls-launcher-arm64-dev.apk`。从系统目录选择器添加游戏目录，
+  持久保留该目录的读写授权，直接访问原目录，不复制整份资源。支持多个游戏目录。
   包名为 `io.entisgls.launcher`，沿用现有开发签名。
   它与旧包名 `io.studysteady.port` 属于两个独立应用，可以共存；旧应用的数据仍在旧应用中，
-  不会自动迁移。新应用需重新导入游戏，旧存档需另行导出、迁移。
+  不会自动迁移。新应用需重新选择游戏目录，旧包名应用中的存档需另行导出、迁移。
 - macOS：`artifacts/entisgls-launcher/macos-x86_64/EntisGLSLauncher.zip` 或
   `artifacts/entisgls-launcher/macos-arm64/EntisGLSLauncher.zip`。
   解压打开 `EntisGLSLauncher.app`，在游戏列表中选择或添加目录。直接读取资源，不复制游戏。
@@ -33,9 +33,10 @@ PSB 解密参数不按游戏内置：从用户设置、XML 或原版 E-mote DLL 
 Android 可在游戏列表补充驱动文件；Mac 提供 PSB settings。自动缓存与手动设置均在应用数据目录，
 不会写入原游戏文件。详情见 [PSB 参数发现与验证](analysis/psb-key-discovery.md)。
 
-存档使用应用数据目录中的 `games/<game-id>/savedata`；普通游戏身份从配置和资源指纹生成，
-可用配置中的 `id` 固定。更新游戏资源可能改变自动身份，长期使用建议显式指定稳定的 `id`。
-迁移旧 StudySteady 数据时复制旧存档，不删除原文件、不覆盖新存档。
+存档统一使用当前游戏目录中的 `savedata`，即 `$(CURRENT)\savedata`，目录不存在时自动创建。
+游戏目录必须可写；Android 通过所选目录的授权完成读写。已有 `savedata` 直接沿用，
+不查找或迁移老版本应用内部的存档。
+PSB 参数、缓存等启动器设置仍在应用数据目录，游戏 ID 不会因这次存档路径调整而改变。
 
 ## 兼容范围
 

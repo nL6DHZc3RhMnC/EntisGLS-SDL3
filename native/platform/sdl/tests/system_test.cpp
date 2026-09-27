@@ -7,6 +7,7 @@
 #include <string>
 #include <cstdio>
 #include "platform/sdl/system.h"
+#include "launcher/tests/game_file_backend_fixture.h"
 #include <sakura/sakura.h>
 #include <SDL3/SDL.h>
 
@@ -138,6 +139,57 @@ int main(int argc, char** argv) {
         SSystem::Finalize();
         initialized = false;
         Require(ConfigureSystemPaths(paths), "configuration can change after finalization");
+        {
+            const auto virtualRoot = root / "selected-document-tree";
+            auto backend = std::make_shared<MappedGameTestBackend>(game);
+            GameTestMount mount(virtualRoot, backend);
+            paths.gameRoot = virtualRoot.string();
+            Require(ConfigureSystemPaths(paths), "configure selected document tree");
+            SSystem::Initialize();
+            initialized = true;
+            {
+                SString currentDirectory;
+                Require(SFile::GetDefaultDirectory(currentDirectory, SFile::DefaultDirectory::CurrentDirectory) == errSuccess &&
+                        currentDirectory == L"storage://game", "virtual CURRENT remains on the SDK game router");
+                std::unique_ptr<SFileOpener> current(g_defURLOpener.NewOffsetOpener(currentDirectory, L'/'));
+                Require(Read(*current, L"script.noa") == "game-fixture", "CURRENT reads selected tree without copied resources");
+                Require(!fs::exists(virtualRoot), "SDK accesses do not create a synthetic resource directory");
+                SFileOpener::State state{};
+                Require(g_defURLOpener.QueryState(L"storage://game/script.noa", state) == errSuccess && state.nFileSize == 12,
+                        "document file attributes reach selected provider");
+                Require((state.bitFields & SFileOpener::fieldModifiedTime) && state.dtModified.nYear >= 2020,
+                        "provider modification dates remain available to save and load screens");
+                SObjectArray<SString> files;
+                current->ListSubFiles(files, L"");
+                Require(files.GetLength() == 1 && *files.GetAt(0) == L"script.noa", "selected-tree file enumeration");
+                files.FreeArray();
+                Require(current->CreateSubDirectory(L"savedata", 0) == errSuccess, "savedata directory created in selected tree");
+                Write(*current, L"savedata/slot.dat", "saved-game");
+                Require(fs::is_regular_file(game / "savedata/slot.dat") && Read(*current, L"savedata/slot.dat") == "saved-game",
+                        "SDK saves directly into selected folder");
+                SString direct;
+                Require(current->DirectPathOf(direct, L"savedata/slot.dat") == errSuccess &&
+                        direct == Wide((virtualRoot / "savedata/slot.dat").string()), "atomic save path retains virtual provider identity");
+                std::unique_ptr<SFileInterface> source(current->NewOpenFile(L"savedata/slot.dat", SFile::shareRead));
+                Require(source && source->Seek(2) == 2, "provider stream supports seeking");
+                std::unique_ptr<SFileInterface> duplicate(source->Duplicate());
+                Require(duplicate && duplicate->GetPosition() == 2 && duplicate->GetLength() == 10,
+                        "provider duplicate preserves stream position and length");
+                source.reset(); duplicate.reset();
+                Require(current->RenameSubFile(L"savedata/slot.dat", L"savedata/renamed.dat") == errSuccess,
+                        "provider rename stays inside selected tree");
+                Require(g_defURLOpener.RenameSubFile(L"storage://game/savedata/renamed.dat", L"storage://outside.dat") != errSuccess &&
+                        fs::is_regular_file(game / "savedata/renamed.dat") && !fs::exists(storage / "outside.dat"),
+                        "cross-provider rename fails without changing original save");
+                std::unique_ptr<SFileInterface> escaped(current->NewOpenFile(L"../escaped.dat", SFile::modeCreate));
+                Require(!escaped && !fs::exists(root / "escaped.dat"), "provider rejects traversal outside selected directory");
+                Require(current->RemoveSubFile(L"savedata/renamed.dat") == errSuccess &&
+                        current->RemoveSubDirectory(L"savedata") == errSuccess, "provider deletion updates selected directory");
+                Require(backend->opens >= 4 && backend->lists > 0, "SDK file operations use injected provider");
+            }
+            SSystem::Finalize();
+            initialized = false;
+        }
         fs::remove_all(root);
         SDL_Quit();
         std::puts("SDL system services and unified path routing: PASS");

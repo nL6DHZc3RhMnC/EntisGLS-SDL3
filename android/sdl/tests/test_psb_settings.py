@@ -9,18 +9,21 @@ import subprocess
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[3]
-JDK = next((ROOT / '.android-tools/jdk').glob('*/Contents/Home'))
+from java_runtime import find_jdk
+JDK = find_jdk(ROOT)
 STUBS = {
     'android/net/Uri.java': 'package android.net; public final class Uri {}',
+    'android/os/ParcelFileDescriptor.java': 'package android.os; public class ParcelFileDescriptor implements AutoCloseable { public static ParcelFileDescriptor adoptFd(int fd){return new ParcelFileDescriptor();} public java.io.FileDescriptor getFileDescriptor(){throw new UnsupportedOperationException();} public void close(){} public static class AutoCloseOutputStream extends java.io.OutputStream { public AutoCloseOutputStream(ParcelFileDescriptor p){} public void write(int n){} } }',
+    'io/entisgls/launcher/sdl/DocumentTreeAccess.java': 'package io.entisgls.launcher.sdl; import android.content.Context; import android.net.Uri; import java.io.IOException; public class DocumentTreeAccess { public DocumentTreeAccess(Context c,Uri u) throws IOException {} public long[] stat(String p) throws IOException {throw new IOException("stub");} public int open(String p,String m) throws IOException {throw new IOException("stub");} public void remove(String p,boolean d) throws IOException {throw new IOException("stub");} }',
     'android/database/Cursor.java': 'package android.database; public interface Cursor extends AutoCloseable { boolean moveToFirst(); int getColumnIndex(String name); String getString(int i); long getLong(int i); boolean isNull(int i); void close(); }',
     'android/content/SharedPreferences.java': 'package android.content; import java.util.Map; public interface SharedPreferences { Map<String,?> getAll(); Editor edit(); interface Editor { Editor putString(String k,String v); Editor remove(String k); boolean commit(); } }',
-    'android/content/Context.java': 'package android.content; public abstract class Context { public static final int MODE_PRIVATE=0; public abstract SharedPreferences getSharedPreferences(String s,int mode); public abstract ContentResolver getContentResolver(); }',
+    'android/content/Context.java': 'package android.content; public abstract class Context { public static final int MODE_PRIVATE=0; public abstract SharedPreferences getSharedPreferences(String s,int mode); public abstract ContentResolver getContentResolver(); public java.io.File getCacheDir(){throw new UnsupportedOperationException();} }',
     'android/content/ContentResolver.java': 'package android.content; import android.database.Cursor; import android.net.Uri; import java.io.*; public abstract class ContentResolver { public abstract Cursor query(Uri u,String[] p,String a,String[] b,String c); public abstract InputStream openInputStream(Uri u) throws IOException; }',
     'android/provider/OpenableColumns.java': 'package android.provider; public class OpenableColumns { public static final String DISPLAY_NAME="name", SIZE="size"; }',
     'android/system/ErrnoException.java': 'package android.system; public class ErrnoException extends Exception { public ErrnoException(Throwable t){super(t);} }',
     'android/system/Os.java': 'package android.system; import java.nio.file.*; public class Os { public static void rename(String a,String b) throws ErrnoException { try{ Files.move(Paths.get(a),Paths.get(b),StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE); }catch(Exception e){throw new ErrnoException(e);} } }',
     'android/util/Log.java': 'package android.util; public class Log { public static int w(String t,String m,Throwable e){return 0;} }',
-    'io/entisgls/launcher/sdl/ResourceStore.java': '''package io.entisgls.launcher.sdl; import android.content.Context; import java.io.*; final class ResourceStore { static Game fixture; static final class Game { final File directory; Game(File d){directory=d;} } static Game game(Context c,String id) throws IOException { if(!validId(id))throw new IOException("id");return fixture; } static boolean validId(String id){return id!=null&&(id.equals("legacy")||id.matches("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"));} }''',
+    'io/entisgls/launcher/sdl/ResourceStore.java': '''package io.entisgls.launcher.sdl; import android.content.Context; import java.io.*; final class ResourceStore { static Game fixture; static final class Game { final File directory; final android.net.Uri tree=null; Game(File d){directory=d;} } static Game game(Context c,String id) throws IOException { if(!validId(id))throw new IOException("id");return fixture; } static boolean validId(String id){return id!=null&&(id.equals("legacy")||id.matches("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"));} }''',
 }
 HARNESS = r'''
 package io.entisgls.launcher.sdl;

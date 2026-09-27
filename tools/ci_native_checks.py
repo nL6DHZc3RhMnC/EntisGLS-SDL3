@@ -23,6 +23,8 @@ TARGETS = (
     "launcher_config_test",
     "psb_key_resolver_test",
     "psb_key_settings_test",
+    "game_save_directory_test",
+    "sdl_system_test",
     "make_csx_fixture",
 )
 
@@ -87,6 +89,10 @@ def main() -> None:
                 "PSB key resolver PASS:")
             run("per-game PSB settings", [build / "psb_key_settings_test", fixtures],
                 "PSB settings PASS:")
+            run("game directory saves", [build / "game_save_directory_test"],
+                "Game directory saves PASS:")
+            run("native and document-tree SDK IO", [build / "sdl_system_test", fixtures],
+                "SDL system services and unified path routing: PASS")
             game = fixtures / "original-game-fixture"
             run("real CSX serialization and execution", [build / "make_csx_fixture", game],
                 "CSX fixture PASS:")
@@ -110,8 +116,8 @@ def main() -> None:
                          "Legacy main returned without uncaught error")
             if "entry=adventure.csx; profile=;" not in output:
                 raise RuntimeError("The asset-free game did not use the generic profile/custom entry")
-            if len(list((data / "games").glob("*/savedata"))) != 1:
-                raise RuntimeError("The launcher did not create exactly one isolated savedata directory")
+            if not (game / "savedata").is_dir() or list((data / "games").glob("*/savedata")):
+                raise RuntimeError("The launcher did not use the selected game's savedata directory")
 
             (game / "cotopha.xml").write_text("<script src='unsupported.lqs'/>\n", encoding="utf-8")
             run("unsupported runtime rejection", [*arguments, "--inspect-game"],

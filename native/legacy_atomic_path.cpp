@@ -8,12 +8,50 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <cstdlib>
+#include <cstdio>
+#include <random>
+#if defined(STUDYSTEADY_PLATFORM_SDL3)
+#include "platform/game_files.h"
+#endif
 #if defined(__ANDROID__)
 #include "platform/log.h"
 #endif
 
 namespace {
 constexpr unsigned createFlag=1, readFlag=2, writeFlag=4;
+bool Virtual(const std::string &path) {
+#if defined(STUDYSTEADY_PLATFORM_SDL3)
+    return entis::io::IsVirtual(path);
+#else
+    (void)path; return false;
+#endif
+}
+int OpenPath(const std::string &path,bool write) {
+#if defined(STUDYSTEADY_PLATFORM_SDL3)
+    try {
+        if(Virtual(path)) {
+            FILE *file=entis::io::Open(path,write?"r+b":"rb");
+            const int fd=::fcntl(fileno(file),F_DUPFD_CLOEXEC,0);
+            std::fclose(file); return fd;
+        }
+    } catch(const std::exception &) {errno=EIO;return -1;}
+#endif
+    return ::open(path.c_str(),(write?O_RDWR:O_RDONLY)|O_CLOEXEC|O_NOFOLLOW);
+}
+bool RemovePath(const std::string &path) {
+#if defined(STUDYSTEADY_PLATFORM_SDL3)
+    try {if(Virtual(path)){entis::io::Remove(path,false);return true;}}
+    catch(const std::exception &){errno=EIO;return false;}
+#endif
+    return ::unlink(path.c_str())==0;
+}
+bool RenamePath(const std::string &from,const std::string &to) {
+#if defined(STUDYSTEADY_PLATFORM_SDL3)
+    try {if(Virtual(from)||Virtual(to)){entis::io::Rename(from,to);return true;}}
+    catch(const std::exception &){errno=EIO;return false;}
+#endif
+    return ::rename(from.c_str(),to.c_str())==0;
+}
 void OpenFailure(const char *stage,const std::string &path,unsigned flags,int code) {
 #if defined(__ANDROID__)
     study::platform::LogPrint(study::platform::LogPriority::Error,"StudySteady",
@@ -45,6 +83,10 @@ bool ReadAllAt(int fd,void *data,size_t bytes,uint64_t at) {
     return true;
 }
 std::string Canonical(const std::string &path) {
+#if defined(STUDYSTEADY_PLATFORM_SDL3)
+    try {if(Virtual(path))return entis::io::Canonical(path).string();}
+    catch(const std::exception &){errno=EIO;return {};}
+#endif
     char *resolved=::realpath(path.c_str(),nullptr);
     if(!resolved)return {};
     std::string result(resolved);std::free(resolved);return result;
@@ -70,21 +112,47 @@ std::shared_ptr<LegacyAtomicPath> LegacyAtomicPath::OpenWithinRoot(
     const std::string parent=Canonical(path.substr(0,slash)),leaf=path.substr(slash+1);
     auto result=std::shared_ptr<LegacyAtomicPath>(new LegacyAtomicPath);
     result->path_=parent+"/"+leaf;result->flags_=flags;
+    if(Virtual(result->path_)) {
+#if defined(STUDYSTEADY_PLATFORM_SDL3)
+        try {
+            const auto status=entis::io::Stat(result->path_);
+            if(status.kind==entis::io::FileInfo::Kind::Directory||status.symbolicLink)return {};
+        } catch(const std::exception &){return {};}
+#endif
+    } else {
     struct stat status{};
     if(::lstat(result->path_.c_str(),&status)==0) {
         // Do not follow symlinks out of savedata or replace directories/devices.
         if(!S_ISREG(status.st_mode)){OpenFailure("target not regular",result->path_,flags,EINVAL);return {};}
     } else if(errno!=ENOENT){OpenFailure("lstat target",result->path_,flags,errno);return {};}
+    }
     if(flags&createFlag) {
         if(!result->NewTemporary(result->temporary_,result->fd_))return {};
     } else {
-        result->fd_=::open(result->path_.c_str(),O_RDWR|O_CLOEXEC|O_NOFOLLOW);
+        result->fd_=OpenPath(result->path_,true);
         if(result->fd_<0){OpenFailure("open existing",result->path_,flags,errno);return {};}
     }
     return result;
 }
 LegacyAtomicPath::~LegacyAtomicPath(){Close();}
 bool LegacyAtomicPath::NewTemporary(std::string &path,int &fd) const {
+#if defined(STUDYSTEADY_PLATFORM_SDL3)
+    if(Virtual(path_)) {
+        try {
+            std::random_device random;
+            for(unsigned attempt=0;attempt<8;++attempt) {
+                const auto candidate=path_+".tmp-"+std::to_string(random())+std::to_string(random());
+                if(entis::io::Stat(candidate).kind!=entis::io::FileInfo::Kind::Missing)continue;
+                FILE *file=entis::io::Open(candidate,"w+b");
+                fd=::fcntl(fileno(file),F_DUPFD_CLOEXEC,0);
+                std::fclose(file);
+                if(fd<0){RemovePath(candidate);return false;}
+                path=candidate;return true;
+            }
+        } catch(const std::exception &){errno=EIO;}
+        return false;
+    }
+#endif
     std::vector<char> name(path_.begin(),path_.end());
     constexpr char suffix[]=".tmp-XXXXXX";
     name.insert(name.end(),suffix,suffix+sizeof(suffix));
@@ -135,7 +203,7 @@ bool LegacyAtomicPath::StagePrefix(const void *bytes,size_t length,uint64_t offs
         offset>uint64_t(std::numeric_limits<off_t>::max())-length)return false;
     std::string staging;int output=-1;
     if(!NewTemporary(staging,output))return false;
-    struct Cleanup {std::string &path;int &fd;~Cleanup(){if(fd>=0)::close(fd);if(!path.empty())::unlink(path.c_str());}} cleanup{staging,output};
+    struct Cleanup {std::string &path;int &fd;~Cleanup(){if(fd>=0)::close(fd);if(!path.empty())RemovePath(path);}} cleanup{staging,output};
     uint8_t block[0x10000];
     for(uint64_t at=0;at<uint64_t(current.st_size);) {
         const size_t count=std::min<uint64_t>(sizeof(block),uint64_t(current.st_size)-at);
@@ -147,7 +215,7 @@ bool LegacyAtomicPath::StagePrefix(const void *bytes,size_t length,uint64_t offs
     // it together with the EMC body. An ordinary Close still saves a BMP-only
     // file; any later failed save sets discard_ again and preserves the old slot.
     if(fd_>=0)::close(fd_);
-    if(!temporary_.empty())::unlink(temporary_.c_str());
+    if(!temporary_.empty())RemovePath(temporary_);
     fd_=output;output=-1;temporary_=staging;staging.clear();discard_=false;
     return true;
 }
@@ -155,11 +223,11 @@ bool LegacyAtomicPath::PublishOpen() {
     if(temporary_.empty())return true;
     if(fd_<0||::fsync(fd_))return false;
     if(::close(fd_)){fd_=-1;return false;}fd_=-1;
-    if(::rename(temporary_.c_str(),path_.c_str()))return false;
+    if(!RenamePath(temporary_,path_))return false;
     temporary_.clear();discard_=false;
     // Rename is the commit point. An external actor changing permissions after
     // it cannot turn this completed save back into a failed/rolled-back save.
-    fd_=::open(path_.c_str(),O_RDWR|O_CLOEXEC|O_NOFOLLOW);
+    fd_=OpenPath(path_,true);
     return true;
 }
 bool LegacyAtomicPath::Replace(const void *bytes,size_t length,uint64_t prefix) {
@@ -172,7 +240,7 @@ bool LegacyAtomicPath::Replace(const void *bytes,size_t length,uint64_t prefix) 
     if(!NewTemporary(staging,output))return false;
     struct Cleanup {
         std::string &path;int &fd;
-        ~Cleanup(){if(fd>=0)::close(fd);if(!path.empty())::unlink(path.c_str());}
+        ~Cleanup(){if(fd>=0)::close(fd);if(!path.empty())RemovePath(path);}
     } cleanup{staging,output};
     uint8_t block[0x10000];
     for(uint64_t at=0;at<prefix;) {
@@ -183,7 +251,7 @@ bool LegacyAtomicPath::Replace(const void *bytes,size_t length,uint64_t prefix) 
     if(!WriteAll(output,bytes,length)||::fsync(output))return false;
     if(::close(output)){output=-1;return false;}output=-1;
     // Reopen the completed file and compare every payload byte before commit.
-    output=::open(staging.c_str(),O_RDONLY|O_CLOEXEC|O_NOFOLLOW);
+    output=OpenPath(staging,false);
     if(output<0)return false;
     const auto *expected=static_cast<const uint8_t *>(bytes);
     for(size_t at=0;at<length;) {
@@ -192,12 +260,12 @@ bool LegacyAtomicPath::Replace(const void *bytes,size_t length,uint64_t prefix) 
         at+=count;
     }
     if(::close(output)){output=-1;return false;}output=-1;
-    if(::rename(staging.c_str(),path_.c_str()))return false;
+    if(!RenamePath(staging,path_))return false;
     staging.clear();
     if(fd_>=0)::close(fd_);
-    if(!temporary_.empty())::unlink(temporary_.c_str());
+    if(!temporary_.empty())RemovePath(temporary_);
     temporary_.clear();discard_=false;
-    fd_=::open(path_.c_str(),O_RDWR|O_CLOEXEC|O_NOFOLLOW);
+    fd_=OpenPath(path_,true);
     return true;
 }
 bool LegacyAtomicPath::Close() {
@@ -205,6 +273,6 @@ bool LegacyAtomicPath::Close() {
     bool success=true;
     if(!temporary_.empty()&&!discard_)success=PublishOpen();
     if(fd_>=0){if(::close(fd_))success=false;fd_=-1;}
-    if(!temporary_.empty()){::unlink(temporary_.c_str());temporary_.clear();}
+    if(!temporary_.empty()){RemovePath(temporary_);temporary_.clear();}
     return success;
 }

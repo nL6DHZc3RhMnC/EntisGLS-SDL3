@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.util.Locale;
+import java.util.UUID;
+import android.os.ParcelFileDescriptor;
 
 /** Copies a user-selected DLL as data only; native code recognizes its contents. */
 final class EmoteDriverImport {
@@ -21,8 +23,8 @@ final class EmoteDriverImport {
 
     static void copy(Context context, String gameId, Uri source) throws IOException {
         ResourceStore.Game game = ResourceStore.game(context, gameId);
-        File root = game.directory.getCanonicalFile();
-        if (!root.equals(new File(game.directory.getParentFile().getCanonicalFile(), game.directory.getName())))
+        File root = (game.tree == null ? game.directory : context.getCacheDir()).getCanonicalFile();
+        if (game.tree == null && !root.equals(new File(game.directory.getParentFile().getCanonicalFile(), game.directory.getName())))
             throw new IOException("游戏资源目录包含链接，请重新导入。");
         ContentResolver resolver = context.getContentResolver();
         long expected = -1;
@@ -55,6 +57,10 @@ final class EmoteDriverImport {
             }
             if (expected >= 0 && copied != expected) throw new IOException("文件长度与来源报告不符，请重试。");
             validatePe(temporary);
+            if (game.tree != null) {
+                copyToTree(context, game, temporary);
+                return;
+            }
             File destination = new File(root, "emotedriver.dll");
             if (!destination.getCanonicalFile().equals(destination)) throw new IOException("目标驱动是符号链接，无法覆盖。");
             if (destination.exists() && !destination.isFile()) throw new IOException("目标 emotedriver.dll 不是普通文件。");
@@ -80,6 +86,33 @@ final class EmoteDriverImport {
         } finally {
             if (temporary.exists() && !temporary.delete())
                 android.util.Log.w("EntisGLS", "Could not remove temporary driver copy", null);
+        }
+    }
+
+    private static void copyToTree(Context context, ResourceStore.Game game, File source) throws IOException {
+        DocumentTreeAccess access = new DocumentTreeAccess(context, game.tree);
+        String name = "entis-emotedriver-" + UUID.randomUUID() + ".dll";
+        boolean created = false;
+        boolean completed = false;
+        try {
+            if (access.stat(name)[0] != 0) throw new IOException("驱动文件名发生冲突，请重试。");
+            int fd = access.open(name, "rwt");
+            created = true;
+            try (ParcelFileDescriptor descriptor = ParcelFileDescriptor.adoptFd(fd);
+                 FileInputStream input = new FileInputStream(source);
+                 ParcelFileDescriptor.AutoCloseOutputStream output = new ParcelFileDescriptor.AutoCloseOutputStream(descriptor)) {
+                byte[] buffer = new byte[65536];
+                int count;
+                while ((count = input.read(buffer)) >= 0) {
+                    if (Thread.currentThread().isInterrupted()) throw new IOException("驱动导入已取消，请重试。");
+                    output.write(buffer, 0, count);
+                }
+                output.flush();
+                descriptor.getFileDescriptor().sync();
+            }
+            completed = true;
+        } finally {
+            if (created && !completed) try { access.remove(name, false); } catch (IOException ignored) {}
         }
     }
 

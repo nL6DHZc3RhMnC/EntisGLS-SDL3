@@ -1,5 +1,6 @@
 #include "launcher/psb_key_resolver.h"
 #include "psb_header.h"
+#include "game_file_backend_fixture.h"
 
 #include <chrono>
 #include <cstdio>
@@ -96,6 +97,16 @@ int main(int argc,char** argv) {
         Fails([&]{automatic.Resolve(encrypted.data(),encrypted.size());},"candidates failed");
         Require(Caches(data).empty(),"failed key wrote cache");
         Write(dll,Pe({std::to_string(other),std::to_string(key)}));
+        {
+            const auto virtualRoot = root / "provider-game";
+            auto backend = std::make_shared<MappedGameTestBackend>(game);
+            GameTestMount mount(virtualRoot, backend);
+            PsbKeyResolver linked(virtualRoot, {});
+            Require(linked.Resolve(encrypted.data(), encrypted.size()) == key && linked.LastSource() == "dll",
+                    "provider-backed original DLL must validate the actual PSB header");
+            Require(backend->lists == 1 && backend->opens == 1 && !fs::exists(virtualRoot),
+                    "DLL discovery uses selected provider without creating a copied resource tree");
+        }
         Require(automatic.Resolve(encrypted.data(),encrypted.size())==key && automatic.LastSource()=="dll","did not select actual valid candidate");
         const auto firstCache=Caches(data);Require(firstCache.size()==1,"cache not written");
         Require(automatic.Resolve(encrypted.data(),encrypted.size())==key && automatic.LastSource()=="cache","validated cache not recognized");

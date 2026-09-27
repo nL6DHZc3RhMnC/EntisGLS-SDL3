@@ -3,6 +3,7 @@ package io.entisgls.launcher.sdl;
 import android.media.AudioManager;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
+import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +12,10 @@ import org.libsdl.app.SDLActivity;
 
 /** SDL owns rendering, input, audio and lifecycle; this class only supplies paths. */
 public final class GameActivity extends SDLActivity {
+    private DocumentTreeAccess documentTreeAccess;
+    /** Called by native code after SDL has obtained getArguments(). */
+    public DocumentTreeAccess getDocumentTreeAccess() { return documentTreeAccess; }
+
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -20,15 +25,26 @@ public final class GameActivity extends SDLActivity {
         return new String[] { "c++_shared", "SDL3", "main" };
     }
 
+    @Override protected void main() {
+        try { super.main(); }
+        catch (IllegalStateException error) {
+            // A provider can disappear between the launcher's readiness check
+            // and this SDL thread. Let SDL return to the library gracefully.
+            android.util.Log.e("EntisGLS", "Cannot start selected game", error);
+            runOnUiThread(() -> Toast.makeText(getApplicationContext(),
+                "无法启动游戏：" + error.getMessage(), Toast.LENGTH_LONG).show());
+        }
+    }
+
     @Override protected String[] getArguments() {
         try {
             File local = ResourceStore.localRoot(this);
             ResourceStore.Game game = ResourceStore.game(this, getIntent().getStringExtra("game_id"));
+            documentTreeAccess = game.tree == null ? null : new DocumentTreeAccess(this, game.tree);
             ArrayList<String> arguments = new ArrayList<>(Arrays.asList(
                 "--game-dir", game.directory.getAbsolutePath(),
                 "--storage-dir", ResourceStore.storageRoot(this).getAbsolutePath(),
                 "--local-dir", local.getAbsolutePath()));
-            if (game.legacy) arguments.add("--legacy-local-data");
             String psbKey = PsbKeySettings.read(this, game.id);
             if (psbKey != null) {
                 arguments.add("--psb-key");

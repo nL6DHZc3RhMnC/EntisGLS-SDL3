@@ -70,7 +70,7 @@ public final class LauncherActivity extends Activity implements ResourceImporter
         title.setTextSize(25);
         body.addView(title);
         TextView description = new TextView(this);
-        description.setText("选择已导入的游戏，或导入单个游戏的完整目录。目录中的配置、资源包与字体会一并复制；EXE 仅用于读取引擎配置。游戏是否兼容将在启动时检查。导入时请保持此页面打开。");
+        description.setText("选择单个游戏的完整文件夹，启动器将直接读写该文件夹，无需复制资源。存档保存在游戏文件夹的 savedata 中。请保持文件夹和存储设备可用。游戏是否兼容将在启动时检查。");
         description.setPadding(0, padding / 2, 0, padding / 2);
         body.addView(description);
         selector = new Spinner(this);
@@ -105,11 +105,11 @@ public final class LauncherActivity extends Activity implements ResourceImporter
         importDriver.setOnClickListener(view -> selectEmoteDriver());
         body.addView(importDriver);
         select = new Button(this);
-        select.setText("导入另一个游戏文件夹");
+        select.setText("添加游戏文件夹");
         select.setOnClickListener(view -> selectResources());
         body.addView(select);
         cancel = new Button(this);
-        cancel.setText("取消导入");
+        cancel.setText("取消添加");
         cancel.setOnClickListener(view -> ResourceImporter.cancel());
         body.addView(cancel);
         ScrollView scroll = new ScrollView(this);
@@ -144,7 +144,7 @@ public final class LauncherActivity extends Activity implements ResourceImporter
 
     private void selectResources() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);
         startActivityForResult(intent, SELECT_RESOURCES);
     }
 
@@ -231,18 +231,20 @@ public final class LauncherActivity extends Activity implements ResourceImporter
         }
         if (request != SELECT_RESOURCES || result != RESULT_OK || data == null || data.getData() == null) return;
         Uri tree = data.getData();
-        String previous = preferences.getString("source_tree", null);
-        int readGrant = data.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION;
-        try {
-            getContentResolver().takePersistableUriPermission(tree, readGrant);
-            preferences.edit().putString("source_tree", tree.toString()).apply();
-            if (previous != null && !previous.equals(tree.toString())) {
-                try { getContentResolver().releasePersistableUriPermission(Uri.parse(previous), Intent.FLAG_GRANT_READ_URI_PERMISSION); }
-                catch (SecurityException ignored) { /* A provider may have revoked its previous grant. */ }
-            }
-        } catch (SecurityException | IllegalArgumentException ignored) {
-            preferences.edit().remove("source_tree").apply();
+        int required = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+        int granted = data.getFlags() & required;
+        if (granted != required) {
+            status.setText("所选文件夹没有读写授权，请重新选择可写的游戏文件夹。");
+            return;
         }
+        try {
+            getContentResolver().takePersistableUriPermission(tree, required);
+        } catch (SecurityException | IllegalArgumentException error) {
+            status.setText("无法保存所选文件夹的读写授权，请重新选择本地游戏文件夹。");
+            return;
+        }
+        // Every library entry keeps its own grant. Selecting another game must
+        // not revoke access to games already in the library.
         ResourceImporter.begin(getApplicationContext(), tree);
     }
 
@@ -290,6 +292,7 @@ public final class LauncherActivity extends Activity implements ResourceImporter
                 if (!resumed || generation != readinessGeneration || selected != target || ResourceImporter.isRunning() || driverImporting) return;
                 start.setEnabled(problem == null);
                 String result = problem == null ? "资源可读取。启动时将识别配置并检查兼容性。" : problem;
+                select.setText(problem != null && target != null && target.tree != null ? "重新选择游戏文件夹 / 添加游戏" : "添加游戏文件夹");
                 status.setText(message.isEmpty() ? result : message + "\n" + result);
                 if (launchRequested || autoStart) {
                     launchRequested = false;

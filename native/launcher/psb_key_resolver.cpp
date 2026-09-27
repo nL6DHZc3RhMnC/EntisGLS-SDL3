@@ -1,4 +1,5 @@
 #include "psb_key_resolver.h"
+#include "platform/game_files.h"
 
 #include <algorithm>
 #include <array>
@@ -108,18 +109,21 @@ private:
 };
 
 std::vector<std::uint8_t> ReadDll(const fs::path& path, std::size_t& total) {
-    std::error_code error;
-    const auto size = fs::file_size(path, error);
-    if (error || size > kMaxDllBytes || size > kMaxTotalDllBytes - total)
-        throw PsbKeyError("Cannot read game DLL within the 64 MiB/file and 256 MiB total limits." + std::string(kHelp));
-    std::ifstream input(path, std::ios::binary);
-    if (!input) throw PsbKeyError("Cannot read game DLL: " + path.filename().u8string() + std::string(kHelp));
-    std::vector<std::uint8_t> bytes(static_cast<std::size_t>(size));
-    if (size) input.read(reinterpret_cast<char*>(bytes.data()), static_cast<std::streamsize>(size));
-    if ((size && input.gcount() != static_cast<std::streamsize>(size)) || input.peek() != std::char_traits<char>::eof() || input.bad())
-        throw PsbKeyError("Game DLL changed or could not be read completely." + std::string(kHelp));
-    total += bytes.size();
-    return bytes;
+    try {
+        const auto size = io::Stat(path).size;
+        if (size > kMaxDllBytes || size > kMaxTotalDllBytes - total)
+            throw PsbKeyError("Cannot read game DLL within the 64 MiB/file and 256 MiB total limits." + std::string(kHelp));
+        auto bytes = io::ReadFile(path, kMaxDllBytes);
+        // Recheck the aggregate bound against actual data if provider metadata
+        // changed between the initial stat and the bounded read.
+        if (bytes.size() > kMaxTotalDllBytes - total)
+            throw PsbKeyError("Game DLL total exceeds 256 MiB." + std::string(kHelp));
+        total += bytes.size();
+        return bytes;
+    } catch (const PsbKeyError&) { throw; }
+    catch (const std::exception& error) {
+        throw PsbKeyError("Cannot read game DLL: " + path.filename().u8string() + ": " + error.what() + std::string(kHelp));
+    }
 }
 
 void CandidatesFromPE(const std::vector<std::uint8_t>& bytes, std::set<std::uint32_t>& candidates) {
@@ -193,20 +197,20 @@ bool ValidHeader(const std::uint8_t* raw, std::size_t size, std::uint32_t seed, 
 struct Discovery { std::set<std::uint32_t> candidates; std::string fingerprint; std::size_t dlls = 0; };
 Discovery Discover(const fs::path& directory) {
     std::vector<fs::path> paths;
-    std::error_code error;
-    fs::directory_iterator it(directory,error), end;
-    if (error) throw PsbKeyError("Cannot read the game directory for E-mote key discovery." + std::string(kHelp));
-    for (; it!=end; it.increment(error)) {
-        if (error) break;
-        auto extension=it->path().extension().u8string();
-        for (auto& c : extension) if (c>='A' && c<='Z') c=char(c-'A'+'a');
-        if (extension!=".dll") continue;
-        // Following a DLL symlink could read a file outside the selected game.
-        if (it->is_symlink(error) || error || !it->is_regular_file(error) || error) continue;
-        paths.push_back(it->path());
-        if (paths.size()>kMaxDlls) throw PsbKeyError("Too many DLLs in the game directory." + std::string(kHelp));
+    try {
+        for (const auto& entry : io::List(directory)) {
+            const auto path = directory / fs::u8path(entry.name);
+            auto extension = path.extension().u8string();
+            for (auto& c : extension) if (c >= 'A' && c <= 'Z') c = char(c - 'A' + 'a');
+            // Following a DLL symlink could read outside the selected game.
+            if (extension != ".dll" || entry.info.symbolicLink || entry.info.kind != io::FileInfo::Kind::File) continue;
+            paths.push_back(path);
+            if (paths.size() > kMaxDlls) throw PsbKeyError("Too many DLLs in the game directory." + std::string(kHelp));
+        }
+    } catch (const PsbKeyError&) { throw; }
+    catch (const std::exception& error) {
+        throw PsbKeyError("Cannot enumerate game DLLs: " + std::string(error.what()) + std::string(kHelp));
     }
-    if (error) throw PsbKeyError("Cannot enumerate game DLLs." + std::string(kHelp));
     std::sort(paths.begin(),paths.end());
     Discovery result;
     result.dlls=paths.size();

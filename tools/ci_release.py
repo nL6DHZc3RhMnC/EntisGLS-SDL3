@@ -54,7 +54,8 @@ def prepare(directory, environment):
                f"/actions/runs/{environment['GITHUB_RUN_ID']}")
     notes = '\n'.join([
         f'Built by [GitHub Actions]({run_url}) from commit `{sha}`.', '',
-        '- Android: ARM64, Android 10 or newer. Install the APK and import your game directory.',
+        '- Android: ARM64, Android 10 or newer. Add a game folder to access it directly with persistent read/write permission; resources are not copied.',
+        '- Saves use savedata inside the selected game directory on every platform. Missing directories are created; old app-private saves are not migrated.',
         '- macOS: separate Intel (x86_64) and Apple Silicon (arm64) ZIPs, macOS 11 or newer.',
         '- macOS apps have ad-hoc signatures; they are not Developer ID signed or notarized.',
         '- Game scripts and resource archives are not included. Supported games must be supplied separately.',
