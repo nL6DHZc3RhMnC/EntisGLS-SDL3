@@ -17,8 +17,9 @@
 #include "platform/sdl/system.h"
 #include "platform/sdl/game_file_opener.h"
 #include "../../fixtures/game_file_backend_fixture.h"
-#include <sakura/sakura.h>
-#include <sakuragl/erisa/sgl_erisa_archive_file.h>
+// The ERISA umbrella supplies the codec and CRC types required by archive files.
+#include <sakuragl/sakuragl.h>
+#include <sakuragl/sgl_erisa_lib.h>
 #include <SDL3/SDL.h>
 
 namespace fs = std::filesystem;
