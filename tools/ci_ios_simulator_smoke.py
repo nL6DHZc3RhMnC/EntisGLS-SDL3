@@ -14,6 +14,37 @@ def run(*arguments, timeout=180, check=True):
                           check=check, text=True, capture_output=True, timeout=timeout)
 
 
+def version_tuple(value):
+    parts = tuple(map(int, value.split('.')))
+    return (parts + (0, 0, 0))[:3]
+
+
+def select_device(inventory, sdk_version):
+    sdk = version_tuple(sdk_version)
+    runtimes = [item for item in inventory['runtimes']
+                if item.get('isAvailable') and '.iOS-' in item['identifier']
+                and version_tuple(item['version']) <= sdk]
+    # Match the selected Xcode SDK rather than an unrelated newer Xcode's
+    # installed runtime. A simulator model also has explicit OS version bounds.
+    runtimes.sort(key=lambda item: version_tuple(item['version']), reverse=True)
+    phones = {item['identifier']: item for item in inventory['devicetypes']
+              if item['name'].startswith('iPhone')}
+    for runtime in runtimes:
+        major, minor, patch = version_tuple(runtime['version'])
+        encoded = (major << 16) | (minor << 8) | patch
+        paired = {item.get('deviceTypeIdentifier')
+                  for item in inventory.get('devices', {}).get(runtime['identifier'], [])
+                  if item.get('isAvailable')}
+        supported = [phone for identifier, phone in phones.items()
+                     if phone.get('minRuntimeVersion', 0) <= encoded <= phone.get('maxRuntimeVersion', 0xffffffff)
+                     and (identifier in paired or ('minRuntimeVersion' in phone and 'maxRuntimeVersion' in phone))]
+        if supported:
+            phone = max(supported, key=lambda item: (
+                item['identifier'] in paired, item.get('minRuntimeVersion', 0), item['identifier']))
+            return runtime, phone
+    raise RuntimeError(f'No compatible iPhone simulator/runtime for selected SDK {sdk_version}')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--app', type=Path, required=True)
@@ -26,22 +57,15 @@ def main():
     if bundle != 'io.entisgls.launcher':
         raise RuntimeError('Unexpected simulator bundle ID')
     inventory = json.loads(run('list', '--json').stdout)
-    runtimes = [item for item in inventory['runtimes']
-                if item.get('isAvailable') and '.iOS-' in item['identifier']]
-    if not runtimes:
-        raise RuntimeError('No installed iOS Simulator runtime on this runner')
-    runtime = max(runtimes, key=lambda item: tuple(map(int, item['version'].split('.'))))
-    phones = [item for item in inventory['devicetypes']
-              if item['name'].startswith('iPhone')]
-    if not phones:
-        raise RuntimeError('No iPhone simulator device type is available')
-    # A recent iPhone device type with the newest installed iOS runtime. This
-    # creates a disposable simulator; no existing simulator is reset or removed.
-    phone = phones[-1]
+    sdk_version = subprocess.check_output(
+        ['xcrun', '--sdk', 'iphonesimulator', '--show-sdk-version'], text=True).strip()
+    runtime, phone = select_device(inventory, sdk_version)
+    # Create our own simulator with a supported model/runtime pair. Existing
+    # user/runner devices are never reset or removed.
     device = None
     process = None
     result = {'passed': False, 'bundle_id': bundle, 'runtime': runtime['name'],
-              'device_type': phone['name'], 'commercial_game_resources': False,
+              'device_type': phone['name'], 'sdk_version': sdk_version, 'commercial_game_resources': False,
               'scope': 'library UI startup only; physical-device gameplay is not tested'}
     try:
         device = run('create', 'EntisGLS CI startup', phone['identifier'], runtime['identifier']).stdout.strip()
