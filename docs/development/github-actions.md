@@ -9,7 +9,13 @@ Pinned inputs and clean-checkout preparation are described in [CI build inputs](
 ## Triggers and artifacts
 
 - Push to `main`, or run **Build and release** manually: publish a development
-  prerelease named `dev-<run>.<attempt>-<commit>`.
+  prerelease named `dev-<six-digit-run>.<two-digit-attempt>-<eight-character-commit>`,
+  for example `dev-000027.01-aaaaaaaa`. Zero padding keeps tag string order aligned
+  with workflow run/attempt order, including the transitions from run 9 to 10
+  and 99 to 100. Run numbers must be 1–999999 and attempts 1–99; publication
+  rejects larger counters rather than silently widening tags and breaking their
+  ordering. Increase the width consistently, including existing release tags,
+  before reaching either limit.
 - Push a `v*` tag: publish that version. Tags containing a hyphen remain
   prereleases (for example `v0.4.0-rc1`). Update the app manifests/version first.
 - Publication happens only after all four packages and their checks pass.

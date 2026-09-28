@@ -20,6 +20,15 @@ import subprocess
 from ci_ios_release import IPA_NAME, REPORT_NAME, verify_ipa
 
 
+def padded_run_counter(environment, name, width):
+    value = environment.get(name)
+    # Keep all tags the same width: silently widening a counter would break
+    # the ordering again when a workflow eventually reaches that boundary.
+    if not isinstance(value, str) or not re.fullmatch(rf'[1-9][0-9]{{0,{width - 1}}}', value):
+        raise RuntimeError(f'{name} must be a decimal integer from 1 to {10 ** width - 1} without leading zeros')
+    return value.zfill(width)
+
+
 def prepare(directory, environment):
     required = ['EntisGLSLauncher-android-arm64.apk',
                 'EntisGLSLauncher-android-arm64.build.json', IPA_NAME, REPORT_NAME]
@@ -69,7 +78,8 @@ def prepare(directory, environment):
         raise RuntimeError('Invalid source commit')
     tagged = environment['GITHUB_REF_TYPE'] == 'tag'
     tag = environment['GITHUB_REF_NAME'] if tagged else (
-        f"dev-{environment['GITHUB_RUN_NUMBER']}.{environment['GITHUB_RUN_ATTEMPT']}-{sha[:8]}")
+        f"dev-{padded_run_counter(environment, 'GITHUB_RUN_NUMBER', 6)}."
+        f"{padded_run_counter(environment, 'GITHUB_RUN_ATTEMPT', 2)}-{sha[:8]}")
     if tagged and not re.fullmatch(r'v[0-9][A-Za-z0-9.+-]*', tag):
         raise RuntimeError('Version tags must start with v followed by a version number')
     prerelease = not tagged or '-' in tag

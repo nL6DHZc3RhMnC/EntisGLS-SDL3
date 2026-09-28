@@ -92,9 +92,16 @@ class ReleaseTest(unittest.TestCase):
     def prepare(self):
         return release.prepare(self.assets, self.environment)
 
+    def development_tag(self, run, attempt):
+        self.environment['GITHUB_RUN_NUMBER'] = run
+        self.environment['GITHUB_RUN_ATTEMPT'] = attempt
+        tag = self.prepare()[0]
+        (self.assets / 'SHA256SUMS.txt').unlink()
+        return tag
+
     def test_development_release_has_unique_attempt_tag_and_verified_checksums(self):
         tag, prerelease, notes, assets = self.prepare()
-        self.assertEqual(tag, "dev-27.1-aaaaaaaa")
+        self.assertEqual(tag, "dev-000027.01-aaaaaaaa")
         self.assertIs(prerelease, True)
         self.assertIn("https://github.com/example/launcher/actions/runs/123456", notes)
         self.assertIn("ad-hoc signatures", notes)
@@ -108,10 +115,43 @@ class ReleaseTest(unittest.TestCase):
             self.assertEqual(checksum, hashlib.sha256((self.assets / filename).read_bytes()).hexdigest())
         (self.assets / "SHA256SUMS.txt").unlink()
         self.environment["GITHUB_RUN_ATTEMPT"] = "2"
-        self.assertEqual(self.prepare()[0], "dev-27.2-aaaaaaaa")
+        self.assertEqual(self.prepare()[0], "dev-000027.02-aaaaaaaa")
+
+    def test_development_tags_sort_across_run_digit_boundaries(self):
+        runs = (1, 9, 10, 99, 100, 999, 1000, 9999, 10000, 99999, 100000, 999999)
+        tags = [self.development_tag(str(run), '1') for run in runs]
+        self.assertEqual(tags, sorted(tags))
+        self.assertEqual(tags[1:5], ['dev-000009.01-aaaaaaaa', 'dev-000010.01-aaaaaaaa',
+                                    'dev-000099.01-aaaaaaaa', 'dev-000100.01-aaaaaaaa'])
+        self.assertEqual(tags[-1], 'dev-999999.01-aaaaaaaa')
+
+    def test_development_tags_sort_attempts_within_each_run(self):
+        tags = [self.development_tag('27', str(attempt)) for attempt in (1, 9, 10, 99)]
+        self.assertEqual(tags, sorted(tags))
+        self.assertEqual(tags[1:], ['dev-000027.09-aaaaaaaa', 'dev-000027.10-aaaaaaaa',
+                                    'dev-000027.99-aaaaaaaa'])
+        self.assertLess(tags[-1], self.development_tag('28', '1'))
+
+    def test_rejects_invalid_or_overflowing_development_counters(self):
+        for name, overflow in (('GITHUB_RUN_NUMBER', '1000000'), ('GITHUB_RUN_ATTEMPT', '100')):
+            original = self.environment[name]
+            for invalid in ('', '0', '-1', '+1', '01', '1.0', '1e2', ' 1', '1 ', '1\n',
+                            '١', '１', 'not-a-number', overflow, None, 1):
+                with self.subTest(counter=name, invalid=invalid):
+                    self.environment[name] = invalid
+                    with self.assertRaisesRegex(RuntimeError, name):
+                        self.prepare()
+            del self.environment[name]
+            with self.subTest(counter=name, missing=True):
+                with self.assertRaisesRegex(RuntimeError, name):
+                    self.prepare()
+            self.environment[name] = original
 
     def test_version_and_prerelease_tags(self):
         self.environment["GITHUB_REF_TYPE"] = "tag"
+        # Explicit version tags do not use the development numbering scheme.
+        self.environment.pop('GITHUB_RUN_NUMBER')
+        self.environment.pop('GITHUB_RUN_ATTEMPT')
         for tag, prerelease in (("v0.4.0", False), ("v0.4.0-rc1", True)):
             with self.subTest(tag=tag):
                 self.environment["GITHUB_REF_NAME"] = tag
@@ -242,7 +282,7 @@ class ReleaseTest(unittest.TestCase):
         self.assertEqual(run.call_count, 2)
         create = run.call_args_list[0].args[0]
         publish = run.call_args_list[1].args[0]
-        self.assertEqual(create[:4], ["gh", "release", "create", "dev-27.1-aaaaaaaa"])
+        self.assertEqual(create[:4], ["gh", "release", "create", "dev-000027.01-aaaaaaaa"])
         self.assertIn("--draft", create)
         self.assertIn("--prerelease", create)
         self.assertIn("--latest=false", create)
