@@ -42,9 +42,7 @@ LegacyAtomicSaveFile *LegacyAtomicSaveFile::TryOpen(ECSEnvironment *environment,
     } else if(opener->DirectPathOf(direct,logical.c_str()))return nullptr;
     if(!ResolveNativeScheme(root)||!ResolveNativeScheme(direct))return nullptr;
     const std::string rootPath=root.ToCharArray().GetConstArray(),filePath=direct.ToCharArray().GetConstArray();
-    if(!LegacyAtomicPath::IsWithinRoot(rootPath,filePath))return nullptr;
-    candidate=true; // A temp-file failure must not fall back to truncating the slot.
-    auto file=LegacyAtomicPath::OpenWithinRoot(rootPath,filePath,flags);
+    auto file=LegacyAtomicPath::OpenWithinRoot(rootPath,filePath,flags,&candidate);
     return file?new LegacyAtomicSaveFile(std::move(file),flags):nullptr;
 }
 ESLFileObject *LegacyAtomicSaveFile::Duplicate() const {

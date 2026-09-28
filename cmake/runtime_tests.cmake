@@ -15,6 +15,12 @@ if(NOT ANDROID AND NOT CMAKE_SYSTEM_NAME STREQUAL "iOS")
         native/io/save_directory.cpp native/runtime/cotopha_port/legacy_atomic_path.cpp)
     target_compile_definitions(game_save_directory_test PRIVATE STUDYSTEADY_PLATFORM_SDL3=1)
     target_link_libraries(game_save_directory_test PRIVATE entis_game_files)
+    add_executable(legacy_atomic_path_test EXCLUDE_FROM_ALL tests/unit/runtime/test_legacy_atomic_path.cpp
+        native/runtime/cotopha_port/legacy_atomic_path.cpp)
+    target_include_directories(legacy_atomic_path_test PRIVATE "${STUDYSTEADY_ROOT}/native")
+    target_link_libraries(legacy_atomic_path_test PRIVATE Threads::Threads)
+    # Assertions execute the failure injections as well as checking their results.
+    target_compile_options(legacy_atomic_path_test PRIVATE -UNDEBUG)
     add_executable(psb_key_resolver_test EXCLUDE_FROM_ALL tests/unit/launcher/psb_key_resolver_test.cpp)
     target_link_libraries(psb_key_resolver_test PRIVATE entis_psb_keys)
     add_executable(psb_key_settings_test EXCLUDE_FROM_ALL tests/unit/launcher/psb_key_settings_test.cpp)

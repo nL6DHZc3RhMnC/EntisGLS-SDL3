@@ -35,6 +35,7 @@ TARGETS = (
     "psb_key_resolver_test",
     "psb_key_settings_test",
     "game_save_directory_test",
+    "legacy_atomic_path_test",
     "sdl_system_test",
     "mobile_orientation_test",
     "make_csx_fixture",
@@ -111,6 +112,8 @@ def main() -> None:
                 "PSB settings PASS:")
             run("game directory saves", [build / "game_save_directory_test"],
                 "Game directory saves PASS:")
+            run("atomic save partial writes and retries", [build / "legacy_atomic_path_test"],
+                "PASS: failed serializer, partial write,")
             run("native and document-tree SDK IO", [build / "sdl_system_test", fixtures],
                 "SDL system services and unified path routing: PASS")
             run("game orientation policy and restoration", [build / "mobile_orientation_test"],

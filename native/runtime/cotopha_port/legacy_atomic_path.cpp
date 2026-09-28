@@ -91,25 +91,40 @@ std::string Canonical(const std::string &path) {
     if(!resolved)return {};
     std::string result(resolved);std::free(resolved);return result;
 }
-}
-
-bool LegacyAtomicPath::IsWithinRoot(const std::string &root,const std::string &path) {
+bool ResolveWithinRoot(const std::string &root,const std::string &path,
+    std::string &parent,std::string &leaf) {
     const auto slash=path.find_last_of('/');
     if(slash==std::string::npos||slash+1==path.size())return false;
-    const std::string leaf=path.substr(slash+1);
+    leaf=path.substr(slash+1);
     if(leaf=="."||leaf=="..")return false;
-    const std::string base=Canonical(root),parent=Canonical(path.substr(0,slash));
-    if(base.empty()||parent.empty()||
+    const std::string base=Canonical(root),rawParent=path.substr(0,slash);
+    if(base.empty())return false;
+    std::string sameRoot=root;
+    while(sameRoot.size()>1&&sameRoot.back()=='/')sameRoot.pop_back();
+    // Reuse only this call's canonical value for the identical directory input.
+    // Every logical Open still checks current provider access afresh.
+    parent=rawParent==sameRoot?base:Canonical(rawParent);
+    if(parent.empty()||
         (parent!=base&&(parent.size()<=base.size()||parent.compare(0,base.size(),base)||parent[base.size()]!='/')))
         return false;
     return true;
 }
+}
+
+bool LegacyAtomicPath::IsWithinRoot(const std::string &root,const std::string &path) {
+    std::string parent,leaf;
+    return ResolveWithinRoot(root,path,parent,leaf);
+}
 std::shared_ptr<LegacyAtomicPath> LegacyAtomicPath::OpenWithinRoot(
-    const std::string &root,const std::string &path,unsigned flags) {
+    const std::string &root,const std::string &path,unsigned flags,bool *candidate) {
+    if(candidate)*candidate=false;
     if(!(flags&writeFlag)){OpenFailure("not writable",path,flags,EINVAL);return {};}
-    if(!IsWithinRoot(root,path)){OpenFailure("outside savedata",path,flags,errno?errno:EINVAL);return {};}
-    const auto slash=path.find_last_of('/');
-    const std::string parent=Canonical(path.substr(0,slash)),leaf=path.substr(slash+1);
+    std::string parent,leaf;
+    if(!ResolveWithinRoot(root,path,parent,leaf)) {
+        if(!candidate)OpenFailure("outside savedata",path,flags,errno?errno:EINVAL);
+        return {};
+    }
+    if(candidate)*candidate=true;
     auto result=std::shared_ptr<LegacyAtomicPath>(new LegacyAtomicPath);
     result->path_=parent+"/"+leaf;result->flags_=flags;
     if(Virtual(result->path_)) {
@@ -135,6 +150,12 @@ std::shared_ptr<LegacyAtomicPath> LegacyAtomicPath::OpenWithinRoot(
     return result;
 }
 LegacyAtomicPath::~LegacyAtomicPath(){Close();}
+bool LegacyAtomicPath::ReopenTemporary() {
+    // A failed close/read-back/provider rename may have consumed the handle.
+    // Retrying a save can reopen only its still-private staging file.
+    if(fd_<0&&!temporary_.empty())fd_=OpenPath(temporary_,true);
+    return fd_>=0;
+}
 bool LegacyAtomicPath::NewTemporary(std::string &path,int &fd) const {
 #if defined(STUDYSTEADY_PLATFORM_SDL3)
     if(Virtual(path_)) {
@@ -174,7 +195,8 @@ size_t LegacyAtomicPath::Read(void *data,size_t length,uint64_t offset) {
 }
 size_t LegacyAtomicPath::Write(const void *data,size_t length,uint64_t offset) {
     std::lock_guard<std::mutex> lock(mutex_);
-    if(fd_<0||!(flags_&writeFlag)||offset>uint64_t(std::numeric_limits<off_t>::max()))return 0;
+    if(bodyNeedsValidation_||damagedPrefix_||fd_<0||!(flags_&writeFlag)||
+        offset>uint64_t(std::numeric_limits<off_t>::max()))return 0;
     ssize_t count;
     do {count=::pwrite(fd_,data,length,off_t(offset));}while(count<0&&errno==EINTR);
     if(count<0)return 0;
@@ -189,7 +211,8 @@ uint64_t LegacyAtomicPath::Length() const {
 }
 bool LegacyAtomicPath::Truncate(uint64_t length) {
     std::lock_guard<std::mutex> lock(mutex_);
-    if(fd_<0||length>uint64_t(std::numeric_limits<off_t>::max())||::ftruncate(fd_,off_t(length)))return false;
+    if(bodyNeedsValidation_||damagedPrefix_||fd_<0||length>uint64_t(std::numeric_limits<off_t>::max())||
+        ::ftruncate(fd_,off_t(length)))return false;
     discard_=false;
     if(!temporary_.empty()&&!PublishOpen()){discard_=true;return false;}
     return true;
@@ -199,8 +222,20 @@ bool LegacyAtomicPath::StagePrefix(const void *bytes,size_t length,uint64_t offs
     std::lock_guard<std::mutex> lock(mutex_);
     discard_=true;
     struct stat current{};
-    if(fd_<0||::fstat(fd_,&current)||current.st_size<0||
-        offset>uint64_t(std::numeric_limits<off_t>::max())-length)return false;
+    const uint64_t limit=uint64_t(std::numeric_limits<off_t>::max());
+    if(length>limit||offset>limit-length||!ReopenTemporary()||
+        ::fstat(fd_,&current)||current.st_size<0)return false;
+    if(!temporary_.empty()) {
+        // Open(Create) already supplied an unpublished file. Reuse it for the
+        // thumbnail instead of creating, opening and deleting another SAF file.
+        if(damagedPrefix_&&(offset>damagedPrefixBegin_||offset+length<damagedPrefixEnd_))return false;
+        if(::lseek(fd_,off_t(offset),SEEK_SET)<0)return false;
+        if(!WriteAll(fd_,bytes,length)) {
+            damagedPrefix_=true;damagedPrefixBegin_=offset;damagedPrefixEnd_=offset+length;
+            return false;
+        }
+        damagedPrefix_=false;discard_=bodyNeedsValidation_;return true;
+    }
     std::string staging;int output=-1;
     if(!NewTemporary(staging,output))return false;
     struct Cleanup {std::string &path;int &fd;~Cleanup(){if(fd>=0)::close(fd);if(!path.empty())RemovePath(path);}} cleanup{staging,output};
@@ -221,7 +256,7 @@ bool LegacyAtomicPath::StagePrefix(const void *bytes,size_t length,uint64_t offs
 }
 bool LegacyAtomicPath::PublishOpen() {
     if(temporary_.empty())return true;
-    if(fd_<0||::fsync(fd_))return false;
+    if(bodyNeedsValidation_||damagedPrefix_||fd_<0||::fsync(fd_))return false;
     if(::close(fd_)){fd_=-1;return false;}fd_=-1;
     if(!RenamePath(temporary_,path_))return false;
     temporary_.clear();discard_=false;
@@ -234,25 +269,43 @@ bool LegacyAtomicPath::Replace(const void *bytes,size_t length,uint64_t prefix) 
     std::lock_guard<std::mutex> lock(mutex_);
     discard_=true;
     struct stat current{};
-    if(fd_<0||::fstat(fd_,&current)||current.st_size<0||prefix>uint64_t(current.st_size)||
-        prefix>uint64_t(std::numeric_limits<off_t>::max())-length)return false;
+    const uint64_t limit=uint64_t(std::numeric_limits<off_t>::max());
+    if(damagedPrefix_||(bodyNeedsValidation_&&prefix>unvalidatedBodyBegin_)||
+        length>limit||prefix>limit-length||!ReopenTemporary()||
+        ::fstat(fd_,&current)||current.st_size<0||prefix>uint64_t(current.st_size))return false;
+    const bool reuse=!temporary_.empty();
     std::string staging;int output=-1;
-    if(!NewTemporary(staging,output))return false;
+    if(reuse) {
+        staging=temporary_;output=fd_;fd_=-1;
+        bodyNeedsValidation_=true;unvalidatedBodyBegin_=prefix;
+    }
+    else if(!NewTemporary(staging,output))return false;
     struct Cleanup {
-        std::string &path;int &fd;
-        ~Cleanup(){if(fd>=0)::close(fd);if(!path.empty())RemovePath(path);}
-    } cleanup{staging,output};
+        std::string &path;int &fd;bool reuse;int &original;
+        ~Cleanup(){
+            if(fd>=0)::close(fd);
+            if(path.empty())return;
+            // The prefix is still valid after a failed body write/validation.
+            // Keep the private file for a retry, but Close will discard it.
+            if(reuse)original=OpenPath(path,true);
+            else RemovePath(path);
+        }
+    } cleanup{staging,output,reuse,fd_};
     uint8_t block[0x10000];
-    for(uint64_t at=0;at<prefix;) {
+    for(uint64_t at=0;!reuse&&at<prefix;) {
         const size_t count=std::min<uint64_t>(sizeof(block),prefix-at);
         if(!ReadAllAt(fd_,block,count,at)||!WriteAll(output,block,count))return false;
         at+=count;
     }
-    if(!WriteAll(output,bytes,length)||::fsync(output))return false;
+    if(::lseek(output,off_t(prefix),SEEK_SET)<0||!WriteAll(output,bytes,length)||
+        (reuse&&uint64_t(current.st_size)>prefix+length&&::ftruncate(output,off_t(prefix+length)))||
+        ::fsync(output))return false;
     if(::close(output)){output=-1;return false;}output=-1;
     // Reopen the completed file and compare every payload byte before commit.
     output=OpenPath(staging,false);
     if(output<0)return false;
+    struct stat completed{};
+    if(::fstat(output,&completed)||completed.st_size<0||uint64_t(completed.st_size)!=prefix+length)return false;
     const auto *expected=static_cast<const uint8_t *>(bytes);
     for(size_t at=0;at<length;) {
         const size_t count=std::min(sizeof(block),length-at);
@@ -263,8 +316,7 @@ bool LegacyAtomicPath::Replace(const void *bytes,size_t length,uint64_t prefix) 
     if(!RenamePath(staging,path_))return false;
     staging.clear();
     if(fd_>=0)::close(fd_);
-    if(!temporary_.empty())RemovePath(temporary_);
-    temporary_.clear();discard_=false;
+    temporary_.clear();discard_=false;bodyNeedsValidation_=false;
     fd_=OpenPath(path_,true);
     return true;
 }

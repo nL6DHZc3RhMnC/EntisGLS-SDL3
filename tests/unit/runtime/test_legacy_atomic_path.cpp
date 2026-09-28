@@ -4,6 +4,7 @@
 #include <iterator>
 #include <iostream>
 #include <vector>
+#include <limits>
 #include <csignal>
 #include <sys/resource.h>
 #include <sys/stat.h>
@@ -83,6 +84,65 @@ int main() {
     }
     Write(slot,old);
     {
+        auto file=LegacyAtomicPath::OpenWithinRoot(root,slot,7);assert(file);
+        assert(file->StagePrefix("abcdef",6,0));
+        assert(file->StagePrefix("XY",2,2));
+        assert(file->StagePrefix("!",1,8)); // Preserve a sparse gap and earlier prefix bytes.
+        assert(Read(slot)==old&&file->Length()==9);
+        char prefix[9];assert(file->Read(prefix,sizeof(prefix),0)==sizeof(prefix));
+        assert(std::string(prefix,sizeof(prefix))==std::string("abXYef\0\0!",9));
+        file->BeginSave();
+        assert(file->Replace("z",1,4)); // Reused staging must discard its old tail.
+        assert(Read(slot)=="abXYz"&&file->Length()==5);
+        file->BeginSave();
+        assert(file->Replace("second",6,2)); // The next save starts from a published file: COW again.
+        assert(Read(slot)=="absecond");
+        assert(file->StagePrefix("T",1,0)&&Read(slot)=="absecond");
+        assert(file->Replace("third",5,1)&&Read(slot)=="Tthird");
+        assert(file->Close());
+    }
+    Write(slot,old);
+    {
+        auto file=LegacyAtomicPath::OpenWithinRoot(root,slot,5);assert(file);
+        assert(file->StagePrefix("BMP",3,0));file->BeginSave();
+        struct rlimit original{},limited{};assert(!getrlimit(RLIMIT_FSIZE,&original));
+        limited=original;limited.rlim_cur=32;assert(!setrlimit(RLIMIT_FSIZE,&limited));
+        const auto handler=std::signal(SIGXFSZ,SIG_IGN);
+        const std::vector<char> payload(4096,'x');
+        assert(!file->Replace(payload.data(),payload.size(),3));
+        assert(!setrlimit(RLIMIT_FSIZE,&original));std::signal(SIGXFSZ,handler);
+        assert(Read(slot)==old);
+        assert(file->Write("X",1,0)==0&&!file->Truncate(3));
+        assert(!file->Replace("new",3,4));
+        assert(file->StagePrefix("BMP",3,0));file->BeginSave();
+        assert(file->Replace("retry",5,3)&&Read(slot)=="BMPretry");
+        assert(file->Close());
+    }
+    Write(slot,old);
+    {
+        auto file=LegacyAtomicPath::OpenWithinRoot(root,slot,5);assert(file);
+        struct rlimit original{},limited{};assert(!getrlimit(RLIMIT_FSIZE,&original));
+        limited=original;limited.rlim_cur=32;assert(!setrlimit(RLIMIT_FSIZE,&limited));
+        const auto handler=std::signal(SIGXFSZ,SIG_IGN);
+        const std::string thumbnail(128,'b');
+        assert(!file->StagePrefix(thumbnail.data(),thumbnail.size(),0));
+        assert(!setrlimit(RLIMIT_FSIZE,&original));std::signal(SIGXFSZ,handler);
+        file->BeginSave();
+        assert(!file->Replace("body",4,0)&&Read(slot)==old);
+        assert(!file->StagePrefix("short",5,0)); // Cannot hide a partially written prefix.
+        assert(file->StagePrefix(thumbnail.data(),thumbnail.size(),0));
+        assert(file->Replace("body",4,thumbnail.size())&&Read(slot)==thumbnail+"body");
+        assert(file->Close());
+    }
+    Write(slot,old);
+    {
+        auto file=LegacyAtomicPath::OpenWithinRoot(root,slot,5);assert(file);
+        assert(!file->StagePrefix("x",1,std::numeric_limits<uint64_t>::max()));
+        assert(!file->Replace("x",std::numeric_limits<size_t>::max(),0));
+        assert(file->Close()&&Read(slot)==old);
+    }
+    Write(slot,old);
+    {
         auto file=LegacyAtomicPath::OpenWithinRoot(root,slot,5);assert(file);
         assert(file->StagePrefix("standalone-prefix",17,0));
         assert(file->Close()&&Read(slot)=="standalone-prefix");
@@ -95,9 +155,11 @@ int main() {
         assert(file->Replace("payload",7,4)&&Read(slot)=="old payload");
     }
     assert(!LegacyAtomicPath::IsWithinRoot(root,"/tmp/outside.dat"));
+    bool candidate=true;
+    assert(!LegacyAtomicPath::OpenWithinRoot(root,"/tmp/outside.dat",5,&candidate)&&!candidate);
     const std::string symlink=root+"/link";
     assert(!::symlink(slot.c_str(),symlink.c_str()));
-    assert(!LegacyAtomicPath::OpenWithinRoot(root,symlink,5));
+    assert(!LegacyAtomicPath::OpenWithinRoot(root,symlink,5,&candidate)&&candidate);
     ::unlink(symlink.c_str());::unlink(slot.c_str());assert(!::rmdir(root.c_str()));
     std::cout<<"PASS: failed serializer, partial write, logical truncate, validated replace, ordinary I/O, prefix, scope and temp cleanup\n";
 }
